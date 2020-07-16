@@ -156,12 +156,12 @@ function fromLineImplicit( lineImplicit )
   _.assert( this.tools.lineImplicit.is( lineImplicit ) );
 
   let lineView = this.tools.lineImplicit.adapterFrom( lineImplicit.slice() );
-  let A = lineView.eGet( 0 );
-  let B = lineView.eGet( 1 );
-  let C = lineView.eGet( 2 );
+  let w = lineView.eGet( 0 );
+  let a = lineView.eGet( 1 );
+  let b = lineView.eGet( 2 );
 
-  let m = -( A/B );
-  let b = -( C/B );
+  let m = -( a/b );
+  b = -( w/b );
 
   let points = this.make();
 
@@ -172,10 +172,10 @@ function fromLineImplicit( lineImplicit )
   points[ 3 ] = points[ 1 ];
 
   if( points[ 2 ] === 0 )
-  points[ 2 ] += ( -b * A + 1 );
+  points[ 2 ] += ( -b * a + 1 );
 
   if( points[ 3 ] === 0 )
-  points[ 3 ] += ( -b * A + 1 );
+  points[ 3 ] += ( -b * a + 1 );
 
   return points;
 }

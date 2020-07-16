@@ -9,9 +9,9 @@ let Self = _.lineImplicit = _.lineImplicit || Object.create( _.avector );
 
 /**
  * @description
- * A implicit line is a straight line defined by a linear equation whose general form is Ax + By + C = 0,
- * where A, B are not both 0.
- * For the following functions, implicit line must be represented by shape [ A,B,C ]
+ * A implicit line is a straight line defined by a linear equation whose general form is w + a * x + b * y = 0,
+ * where a, b are not both 0.
+ * For the following functions, implicit line must be represented by shape [ w,a,b ]
  * @namespace wTools.lineImplicit
   * @module Tools/math/Concepts
 */
@@ -219,9 +219,9 @@ function eqWithPoints( srcPoint1, srcPoint2 )
 
   //(𝑦𝐴−𝑦𝐵)𝑥 − (𝑥𝐴−𝑥𝐵)𝑦 + 𝑥𝐴𝑦𝐵 − 𝑥𝐵𝑦𝐴 = 0
 
-  result.eSet( 0, srcPoint1View.eGet( 1 ) - srcPoint2View.eGet( 1 ) )
-  result.eSet( 1, srcPoint2View.eGet( 0 ) - srcPoint1View.eGet( 0 ) )
-  result.eSet( 2, srcPoint2View.eGet( 1 ) * srcPoint1View.eGet( 0 ) - srcPoint2View.eGet( 0 ) * srcPoint1View.eGet( 1 ) )
+  result.eSet( 0, srcPoint2View.eGet( 1 ) * srcPoint1View.eGet( 0 ) - srcPoint2View.eGet( 0 ) * srcPoint1View.eGet( 1 ) )
+  result.eSet( 1, srcPoint1View.eGet( 1 ) - srcPoint2View.eGet( 1 ) )
+  result.eSet( 2, srcPoint2View.eGet( 0 ) - srcPoint1View.eGet( 0 ) )
 
   return result;
 }
@@ -232,9 +232,9 @@ eqWithPoints.shaderChunk =
   {
     vec3 result;
 
-    result[ 0 ] = point1[ 1 ] - point2[ 1 ];
-    result[ 1 ] = point2[ 0 ] - point1[ 0 ];
-    result[ 2 ] = point2[ 1 ] * point1[ 0 ] - point2[ 0 ] * point1[ 1 ];
+    result[ 0 ] = point2[ 1 ] * point1[ 0 ] - point2[ 0 ] * point1[ 1 ];
+    result[ 1 ] = point1[ 1 ] - point2[ 1 ];
+    result[ 2 ] = point2[ 0 ] - point1[ 0 ];
 
     return result;
   }
@@ -254,10 +254,10 @@ function eqWithPointAndTangent( srcPoint, tangent )
 
   let result = this.tools.vectorAdapter.make( 3 );
 
-  result.eSet( 0, - tangentView.eGet( 1 ) );
-  result.eSet( 1, + tangentView.eGet( 0 ) );
-  result.eSet( 2, ( srcPointView.eGet( 1 ) + tangentView.eGet( 1 ) ) * srcPointView.eGet( 0 ) );
-  result.eSet( 2, result.eGet( 2 ) - ( srcPointView.eGet( 0 ) + tangentView.eGet( 0 ) ) * srcPointView.eGet( 1 ) )
+  result.eSet( 1, - tangentView.eGet( 1 ) );
+  result.eSet( 2, + tangentView.eGet( 0 ) );
+  result.eSet( 0, ( srcPointView.eGet( 1 ) + tangentView.eGet( 1 ) ) * srcPointView.eGet( 0 ) );
+  result.eSet( 0, result.eGet( 0 ) - ( srcPointView.eGet( 0 ) + tangentView.eGet( 0 ) ) * srcPointView.eGet( 1 ) )
 
   // result[ 0 ] = - tangent[ 1 ];
   // result[ 1 ] = + tangent[ 0 ];
@@ -272,9 +272,9 @@ eqWithPointAndTangent.shaderChunk =
   {
     vec3 result;
 
-    result[ 0 ] = - tangent[ 1 ];
-    result[ 1 ] = + tangent[ 0 ];
-    result[ 2 ] = ( point[ 1 ]+tangent[ 1 ] ) * point[ 0 ] - ( point[ 0 ]+tangent[ 0 ] ) * point[ 1 ];
+    result[ 1 ] = - tangent[ 1 ];
+    result[ 2 ] = + tangent[ 0 ];
+    result[ 0 ] = ( point[ 1 ]+tangent[ 1 ] ) * point[ 0 ] - ( point[ 0 ]+tangent[ 0 ] ) * point[ 1 ];
 
     return result;
   }
@@ -296,9 +296,9 @@ function lineIntersection( lineImplicit1, lineImplicit2 )
 
   let result = this.tools.vectorAdapter.make( lineImplicit1.length - 1 );
 
-  let d = line1View.eGet( 0 )*line2View.eGet( 1 ) - line1View.eGet( 1 )*line2View.eGet( 0 );
-  let x = line1View.eGet( 1 )*line2View.eGet( 2 ) - line1View.eGet( 2 )*line2View.eGet( 1 );
-  let y = line1View.eGet( 2 )*line2View.eGet( 0 ) - line1View.eGet( 0 )*line2View.eGet( 2 );
+  let d = line1View.eGet( 1 )*line2View.eGet( 2 ) - line1View.eGet( 2 )*line2View.eGet( 1 );
+  let x = line1View.eGet( 2 )*line2View.eGet( 0 ) - line1View.eGet( 0 )*line2View.eGet( 2 );
+  let y = line1View.eGet( 0 )*line2View.eGet( 1 ) - line1View.eGet( 1 )*line2View.eGet( 0 );
 
   // let d = lineGeneralEq1[ 0 ]*lineGeneralEq2[ 1 ] - lineGeneralEq1[ 1 ]*lineGeneralEq2[ 0 ];
   // let x = lineGeneralEq1[ 1 ]*lineGeneralEq2[ 2 ] - lineGeneralEq1[ 2 ]*lineGeneralEq2[ 1 ];
@@ -317,9 +317,9 @@ lineIntersection.shaderChunk =
   {
     vec2 result;
 
-    float d = lineGeneralEq1[ 0 ]*lineGeneralEq2[ 1 ] - lineGeneralEq1[ 1 ]*lineGeneralEq2[ 0 ];
-    float x = lineGeneralEq1[ 1 ]*lineGeneralEq2[ 2 ] - lineGeneralEq1[ 2 ]*lineGeneralEq2[ 1 ];
-    float y = lineGeneralEq1[ 2 ]*lineGeneralEq2[ 0 ] - lineGeneralEq1[ 0 ]*lineGeneralEq2[ 2 ];
+    float d = lineGeneralEq1[ 1 ]*lineGeneralEq2[ 2 ] - lineGeneralEq1[ 2 ]*lineGeneralEq2[ 1 ];
+    float x = lineGeneralEq1[ 2 ]*lineGeneralEq2[ 0 ] - lineGeneralEq1[ 0 ]*lineGeneralEq2[ 2 ];
+    float y = lineGeneralEq1[ 0 ]*lineGeneralEq2[ 1 ] - lineGeneralEq1[ 1 ]*lineGeneralEq2[ 0 ];
 
     result[ 0 ] = x / d;
     result[ 1 ] = y / d;
@@ -345,10 +345,10 @@ function pointDistance( lineImplicit, point )
   let lineView = this.adapterFrom( lineImplicit.slice() );
   let pointView = this.tools.vectorAdapter.from( point );
 
-  let n = this.tools.vectorAdapter.from( [ lineView.eGet( 0 ), lineView.eGet( 1 ) ] );
-  let d = Math.sqrt( lineView.eGet( 0 )*lineView.eGet( 0 ) + lineView.eGet( 1 )*lineView.eGet( 1 ));
+  let n = this.tools.vectorAdapter.from( [ lineView.eGet( 1 ), lineView.eGet( 2 ) ] );
+  let d = Math.sqrt( lineView.eGet( 1 )*lineView.eGet( 1 ) + lineView.eGet( 2 )*lineView.eGet( 2 ));
 
-  let result = ( lineView.eGet( 2 ) + this.tools.vectorAdapter.dot( n, pointView ) ) / d;
+  let result = ( lineView.eGet( 0 ) + this.tools.vectorAdapter.dot( n, pointView ) ) / d;
 
   // let n = [ lineGeneralEq[ 0 ], lineGeneralEq[ 1 ] ];
   // let d = _sqrt( lineGeneralEq[ 0 ]*lineGeneralEq[ 0 ] + lineGeneralEq[ 1 ]*lineGeneralEq[ 1 ] );

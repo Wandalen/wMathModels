@@ -461,7 +461,7 @@ function fromPair( test )
   test.case = 'Pair stay unchanged';
 
   var pair = [ [ 0, 1 ], [ 0, 2 ] ];
-  var expected = _.lineImplicit.tools.vectorAdapter.make( [ -1, 0, 0 ] );
+  var expected = _.lineImplicit.tools.vectorAdapter.make( [ 0, -1, 0 ] );
 
   var gotLine = _.lineImplicit.fromPair( pair );
   test.identical( gotLine, expected );
@@ -474,7 +474,7 @@ function fromPair( test )
   test.case = 'Line starts in origin';
 
   var pair = [ [ 0, 0 ], [ 0, 1 ] ];
-  var expected = _.lineImplicit.tools.vectorAdapter.make( [ -1, 0, 0 ] );
+  var expected = _.lineImplicit.tools.vectorAdapter.make( [ 0, -1, 0 ] );
 
   var gotLine = _.lineImplicit.fromPair( pair );
   test.identical( gotLine, expected );
@@ -505,7 +505,7 @@ function fromPair( test )
   test.case = 'Line goes up in y and down in x';
 
   var pair = [ [ 0, 2 ], [ -2, 2 ] ];
-  var expected = _.lineImplicit.tools.vectorAdapter.make( [ 0, -2, 4 ] );
+  var expected = _.lineImplicit.tools.vectorAdapter.make( [ 4, 0, -2 ] );
 
   var gotLine = _.lineImplicit.fromPair( pair );
   test.identical( gotLine, expected );
@@ -662,25 +662,25 @@ function eqWithPoints( test )//qqq:extend
 
   var srcPoint1 = [ 0,0 ];
   var srcPoint2 = [ 1,1 ];
-  var expected = _.lineImplicit.tools.vectorAdapter.from( new F32x([ -1, 1, 0 ]) );
+  var expected = _.lineImplicit.tools.vectorAdapter.from( new F32x([ 0, -1, 1 ]) );
   var got = _.lineImplicit.eqWithPoints( srcPoint1, srcPoint2 );
   test.identical( got, expected );
 
   var srcPoint1 = [ 1,1 ];
   var srcPoint2 = [ 0,0 ];
-  var expected = _.lineImplicit.tools.vectorAdapter.from( new F32x([ 1, -1, 0 ]) );
+  var expected = _.lineImplicit.tools.vectorAdapter.from( new F32x([ 0, 1, -1 ]) );
   var got = _.lineImplicit.eqWithPoints( srcPoint1, srcPoint2 );
   test.identical( got, expected );
 
   var srcPoint1 = [ 1,1 ];
   var srcPoint2 = [ 3,3 ];
-  var expected = _.lineImplicit.tools.vectorAdapter.from( new F32x([ -2, 2, 0 ]) );
+  var expected = _.lineImplicit.tools.vectorAdapter.from( new F32x([ 0, -2, 2]) );
   var got = _.lineImplicit.eqWithPoints( srcPoint1, srcPoint2 );
   test.identical( got, expected );
 
   var srcPoint1 = [ -1,-1 ];
   var srcPoint2 = [ 1,1 ];
-  var expected = _.lineImplicit.tools.vectorAdapter.from( new F32x([ -2, 2, 0 ]) );
+  var expected = _.lineImplicit.tools.vectorAdapter.from( new F32x([ 0, -2, 2 ]) );
   var got = _.lineImplicit.eqWithPoints( srcPoint1, srcPoint2 );
   test.identical( got, expected );
 
@@ -726,8 +726,8 @@ function lineIntersection( test ) //qqq:cover with tests
 
   test.case = 'Lines are parallel ( different origin - same direction )';
 
-  var src1Line = [ 0, 1, 0 ]; //0, 0, 1, 0
-  var src2Line = [ 0, 1, -1 ];//0, 1, 1, 1
+  var src1Line = [ 0, 1, 0 ];
+  var src2Line = [ 0, 2, 0 ];
   var expected = _.lineImplicit.tools.vectorAdapter.from( new F32x([ NaN, NaN ]) );
   var got = _.lineImplicit.lineIntersection( src1Line, src2Line );
   test.identical( got, expected );
@@ -736,8 +736,8 @@ function lineIntersection( test ) //qqq:cover with tests
 
   test.case = 'Lines intersect in origin';
 
-  var src1Line = [ 7, -2, -7 ]; //3, 7, 1, 0
-  var src2Line = [ 6, -2, 2 ];//3, 7, 0, 1
+  var src1Line = [ -7, 7, -2 ]; //3, 7, 1, 0
+  var src2Line = [ 2, 6, -2 ];//3, 7, 0, 1
   var expected = _.lineImplicit.tools.vectorAdapter.from( new F32x([ 9, 28 ]) );
   var got = _.lineImplicit.lineIntersection( src1Line, src2Line );
   test.identical( got, expected );
@@ -755,25 +755,25 @@ function lineIntersection( test ) //qqq:cover with tests
 
 function pointDistance( test ) //qqq:cover with tests
 {
-  var srcLine = [ 0,0,0 ];
+  var srcLine = [ 0,1,1 ];
   var point = [ 0,0 ];
   var expected = 0;
   var got = _.lineImplicit.pointDistance( srcLine, point );
   test.identical( got, expected );
 
-  var srcLine = [ 0,0,0 ];
+  var srcLine = [ 0,1,1 ];
   var point = [ 1,1 ];
-  var expected = 1;
+  var expected = 1.414213562373095;
   var got = _.lineImplicit.pointDistance( srcLine, point );
-  test.identical( got, expected );
+  test.equivalent( got, expected );
 
-  var srcLine = [ -1,3,-3 ];//0,1, 3,2
+  var srcLine = [ -3,-1,3 ];//0,1, 3,2
   var point = [ 3,2 ];
   var expected = 0;
   var got = _.lineImplicit.pointDistance( srcLine, point );
   test.identical( got, expected );
 
-  var srcLine = [ -1,3,-3 ];//0,1, 3,2
+  var srcLine = [ -3,-1,3 ];//0,1, 3,2
   var point = [ 0,1 ];
   var expected = 0;
   var got = _.lineImplicit.pointDistance( srcLine, point );
