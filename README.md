@@ -617,7 +617,7 @@ The center of the circle from the example is at the point `( 2, 1 )` and its rad
 
 The mathematical model of the ray.
 
-The first point marks the beginning of the ray, the second sets the direction. An instance of the model is stored in vector of any form.
+The first point is the beginning of the ray, the second sets the direction. An instance of the model is stored in vector of any form.
 
 ```js
 var ray = [ 2, 1, 6, 3 ];
