@@ -27,7 +27,6 @@ if( typeof module !== 'undefined' )
   require( '../l7_concept/Frustum.s' );
   require( '../l7_concept/LinePointCentered.s' );
   require( '../l7_concept/LinePointDir.s' );
-  require( '../l7_concept/LineImplicit.s' );
   require( '../l7_concept/LinePoints.s' );
   require( '../l7_concept/Plane.s' );
   require( '../l7_concept/Ray.s' );
