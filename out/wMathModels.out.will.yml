@@ -185,7 +185,6 @@ module:
           - ../proto/wtools/amath/l7_concept/ConvexPolygon.s
           - ../proto/wtools/amath/l7_concept/Euler.s
           - ../proto/wtools/amath/l7_concept/Frustum.s
-          - ../proto/wtools/amath/l7_concept/LineImplicit.s
           - ../proto/wtools/amath/l7_concept/LinePointCentered.s
           - ../proto/wtools/amath/l7_concept/LinePointDir.s
           - ../proto/wtools/amath/l7_concept/LinePoints.s
