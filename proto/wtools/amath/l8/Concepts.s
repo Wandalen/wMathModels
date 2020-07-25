@@ -8,8 +8,7 @@
 */
 
 /**
- * @file geometric/Concepts.s.
- */
+ *  */
 
 if( typeof module !== 'undefined' )
 {
