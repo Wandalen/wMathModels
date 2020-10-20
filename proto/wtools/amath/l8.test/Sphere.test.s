@@ -756,6 +756,14 @@ function fromBox( test )
 
   /* */
 
+  test.case = 'transfrom cube to sphere';
+  var box = _.box.fromCube( null, 6 );
+  var gotSphere = _.sphere.fromBox( null, box );
+  var expected = _.sphere.tools.longMake([ 0, 0, 0, 3 ]);
+  test.identical( gotSphere, expected );
+
+  /* */
+
   test.case = 'bad arguments';
 
   if( !Config.debug )

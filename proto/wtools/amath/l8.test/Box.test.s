@@ -1246,6 +1246,21 @@ function fromSphere( test )
 
   /* */
 
+  test.case = 'cube from sphere';
+  var sphere = [ 0, 0, 0, 3 ];
+  var gotBox = _.box.fromSphere( null, sphere );
+  test.identical( gotBox, [ -3, -3, -3, 3, 3, 3 ] );
+
+  /* */
+
+  test.case = 'transfrom cube to sphere and back, with routines';
+  var box = _.box.fromCube( null, 6 );
+  var sphere = _.sphere.fromBox( null, box );
+  var gotBox = _.box.fromSphere( null, sphere );
+  test.identical( gotBox, box );
+
+  /* */
+
   if( !Config.debug )
   return;
 
