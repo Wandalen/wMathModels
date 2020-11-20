@@ -43,7 +43,7 @@ function make( test )
   var gotLine = _.plane.make( srcDim );
   var expected = _.plane.tools.longMake( [ 0, 0, 0 ] );
   test.identical( gotLine, expected );
-  test.is( gotLine !== srcDim );
+  test.true( gotLine !== srcDim );
 
   /* */
 
@@ -150,36 +150,36 @@ function is( test )
 
   test.case = 'array';
 
-  test.is( !_.plane.is( [] ) );
-  test.is( _.plane.is([ 0, 0, 0 ]) );
-  test.is( _.plane.is([ 1, 2, 3, 4 ]) );
-  test.is( _.plane.is([ 0, 0, 0, 0, 0, 0 ]) );
+  test.true( !_.plane.is( [] ) );
+  test.true( _.plane.is([ 0, 0, 0 ]) );
+  test.true( _.plane.is([ 1, 2, 3, 4 ]) );
+  test.true( _.plane.is([ 0, 0, 0, 0, 0, 0 ]) );
 
   /* */
 
   test.case = 'vector';
 
-  test.is( !_.plane.is( _.vectorAdapter.fromLong([]) ) );
-  test.is( _.plane.is( _.vectorAdapter.fromLong([ 0, 0, 0 ]) ) );
-  test.is( _.plane.is( _.vectorAdapter.fromLong([ 1, 2, 3, 4 ]) ) );
-  test.is( _.plane.is( _.vectorAdapter.fromLong([ 0, 0, 0, 0, 0, 0 ]) ) );
+  test.true( !_.plane.is( _.vectorAdapter.fromLong([]) ) );
+  test.true( _.plane.is( _.vectorAdapter.fromLong([ 0, 0, 0 ]) ) );
+  test.true( _.plane.is( _.vectorAdapter.fromLong([ 1, 2, 3, 4 ]) ) );
+  test.true( _.plane.is( _.vectorAdapter.fromLong([ 0, 0, 0, 0, 0, 0 ]) ) );
 
   /* */
 
   test.case = 'not line';
 
-  test.is( _.plane.is([ 0 ]) );
-  test.is( _.plane.is([ 0, 0 ]) );
+  test.true( _.plane.is([ 0 ]) );
+  test.true( _.plane.is([ 0, 0 ]) );
 
-  test.is( _.plane.is( _.vectorAdapter.fromLong([ 0 ]) ) );
-  test.is( _.plane.is( _.vectorAdapter.fromLong([ 0, 0 ]) ) );
+  test.true( _.plane.is( _.vectorAdapter.fromLong([ 0 ]) ) );
+  test.true( _.plane.is( _.vectorAdapter.fromLong([ 0, 0 ]) ) );
 
-  test.is( !_.plane.is( 'abc' ) );
-  test.is( !_.plane.is( { origin : [ 0, 0, 0 ], direction : [ 1, 1, 1 ] } ) );
-  test.is( !_.plane.is( function( a, b, c ){} ) );
+  test.true( !_.plane.is( 'abc' ) );
+  test.true( !_.plane.is( { origin : [ 0, 0, 0 ], direction : [ 1, 1, 1 ] } ) );
+  test.true( !_.plane.is( function( a, b, c ){} ) );
 
-  test.is( !_.plane.is( null ) );
-  test.is( !_.plane.is( undefined ) );
+  test.true( !_.plane.is( null ) );
+  test.true( !_.plane.is( undefined ) );
 
   /* */
 
@@ -202,7 +202,7 @@ function dimGet( test )
   var gotDim = _.plane.dimGet( srcLine );
   var expected = 1;
   test.identical( gotDim, expected );
-  test.is( gotDim !== srcLine );
+  test.true( gotDim !== srcLine );
 
   /* */
 
@@ -212,7 +212,7 @@ function dimGet( test )
   var gotDim = _.plane.dimGet( srcLine );
   var expected = 1;
   test.identical( gotDim, expected );
-  test.is( gotDim !== srcLine );
+  test.true( gotDim !== srcLine );
 
   /* */
 
@@ -222,7 +222,7 @@ function dimGet( test )
   var gotDim = _.plane.dimGet( srcLine );
   var expected = 2;
   test.identical( gotDim, expected );
-  test.is( gotDim !== srcLine );
+  test.true( gotDim !== srcLine );
 
   /* */
 
@@ -232,7 +232,7 @@ function dimGet( test )
   var gotDim = _.plane.dimGet( srcLine );
   var expected = 2;
   test.identical( gotDim, expected );
-  test.is( gotDim !== srcLine );
+  test.true( gotDim !== srcLine );
 
   /* */
 
@@ -242,7 +242,7 @@ function dimGet( test )
   var gotDim = _.plane.dimGet( srcLine );
   var expected = 3;
   test.identical( gotDim, expected );
-  test.is( gotDim !== srcLine );
+  test.true( gotDim !== srcLine );
 
   /* */
 
@@ -252,7 +252,7 @@ function dimGet( test )
   var gotDim = _.plane.dimGet( srcLine );
   var expected = 3;
   test.identical( gotDim, expected );
-  test.is( gotDim !== srcLine );
+  test.true( gotDim !== srcLine );
 
   /* */
 

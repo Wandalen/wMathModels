@@ -1230,7 +1230,7 @@ function boundingBoxGet( test )
 
   var gotBox = _.plane.boundingBoxGet( dstBox, srcPlane );
   test.identical( expected, gotBox );
-  test.is( dstBox === gotBox );
+  test.true( dstBox === gotBox );
 
   var oldSrcPlane = [ 4, 1, 2, 3 ];
   test.identical( srcPlane, oldSrcPlane );
@@ -1814,7 +1814,7 @@ function convexPolygonClosestPoint( test )
 
   var gotPoint = _.plane.convexPolygonClosestPoint( srcPlane, polygon, dstPoint );
   test.equivalent( expected, gotPoint );
-  test.is( dstPoint === gotPoint );
+  test.true( dstPoint === gotPoint );
 
   /* */
 
@@ -1832,7 +1832,7 @@ function convexPolygonClosestPoint( test )
 
   var gotPoint = _.plane.convexPolygonClosestPoint( srcPlane, polygon, dstPoint );
   test.equivalent( expected, gotPoint );
-  test.is( dstPoint === gotPoint );
+  test.true( dstPoint === gotPoint );
 
   /* */
 
@@ -2316,7 +2316,7 @@ function lineIntersectionPoint( test )
 
   var gotLine = _.plane.lineIntersectionPoint( srcPlane, tstLine, dstPoint );
   test.equivalent( expected, gotLine );
-  test.is( dstPoint === gotLine );
+  test.true( dstPoint === gotLine );
 
   /* */
 
@@ -2423,7 +2423,7 @@ function lineClosestPoint( test )
 
   var gotLine = _.plane.lineClosestPoint( srcPlane, tstLine, dstPoint );
   test.identical( expected, gotLine );
-  test.is( dstPoint === gotLine );
+  test.true( dstPoint === gotLine );
 
   /* */
 
@@ -2436,7 +2436,7 @@ function lineClosestPoint( test )
 
   var gotLine = _.plane.lineClosestPoint( srcPlane, tstLine, dstPoint );
   test.equivalent( expected, gotLine );
-  test.is( dstPoint === gotLine );
+  test.true( dstPoint === gotLine );
 
   /* */
 
@@ -2881,7 +2881,7 @@ function rayIntersectionPoint( test )
 
   var gotRay = _.plane.rayIntersectionPoint( srcPlane, tstRay, dstPoint );
   test.equivalent( expected, gotRay );
-  test.is( dstPoint === gotRay );
+  test.true( dstPoint === gotRay );
 
   /* */
 
@@ -2988,7 +2988,7 @@ function rayClosestPoint( test )
 
   var gotRay = _.plane.rayClosestPoint( srcPlane, tstRay, dstPoint );
   test.identical( expected, gotRay );
-  test.is( dstPoint === gotRay );
+  test.true( dstPoint === gotRay );
 
   /* */
 
@@ -3001,7 +3001,7 @@ function rayClosestPoint( test )
 
   var gotRay = _.plane.rayClosestPoint( srcPlane, tstRay, dstPoint );
   test.equivalent( expected, gotRay );
-  test.is( dstPoint === gotRay );
+  test.true( dstPoint === gotRay );
 
   /* */
 
@@ -3344,7 +3344,7 @@ function segmentIntersectionPoint( test )
 
   var gotSegment = _.plane.segmentIntersectionPoint( srcPlane, tstSegment, dstPoint );
   test.equivalent( expected, gotSegment );
-  test.is( dstPoint === gotSegment );
+  test.true( dstPoint === gotSegment );
 
   /* */
 
@@ -3484,7 +3484,7 @@ function segmentClosestPoint( test )
 
   var gotSegment = _.plane.segmentClosestPoint( srcPlane, tstSegment, dstPoint );
   test.identical( expected, gotSegment );
-  test.is( dstPoint === gotSegment );
+  test.true( dstPoint === gotSegment );
 
   /* */
 
@@ -3497,7 +3497,7 @@ function segmentClosestPoint( test )
 
   var gotSegment = _.plane.segmentClosestPoint( srcPlane, tstSegment, dstPoint );
   test.equivalent( expected, gotSegment );
-  test.is( dstPoint === gotSegment );
+  test.true( dstPoint === gotSegment );
 
   /* */
 
@@ -3899,7 +3899,7 @@ function boundingSphereGet( test )
 
   var gotSphere = _.plane.boundingSphereGet( dstSphere, srcPlane );
   test.equivalent( expected, gotSphere );
-  test.is( dstSphere === gotSphere );
+  test.true( dstSphere === gotSphere );
 
   var oldSrcPlane = [ 3, 0, 0, 3 ];
   test.identical( srcPlane, oldSrcPlane );

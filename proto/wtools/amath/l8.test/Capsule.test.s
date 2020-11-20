@@ -49,7 +49,7 @@ function make( test )
   var gotCapsule = _.capsule.make( srcDim );
   var expected = _.capsule.tools.longMake( [ 0, 0, 0, 0, 0, 0, 0 ] );
   test.identical( gotCapsule, expected );
-  test.is( gotCapsule !== srcDim );
+  test.true( gotCapsule !== srcDim );
 
   /* */
 
@@ -59,7 +59,7 @@ function make( test )
   var gotCapsule = _.capsule.make( srcDim );
   var expected = _.capsule.tools.longMake( [ 0, 0, 0, 0, 0, 0, 0 ] );
   test.identical( gotCapsule, expected );
-  test.is( gotCapsule !== srcDim );
+  test.true( gotCapsule !== srcDim );
 
   /* */
 
@@ -69,7 +69,7 @@ function make( test )
   var gotCapsule = _.capsule.make( srcDim );
   var expected = _.capsule.tools.longMake( [ 0, 0, 0, 0, 0 ] );
   test.identical( gotCapsule, expected );
-  test.is( gotCapsule !== srcDim );
+  test.true( gotCapsule !== srcDim );
 
   /* */
 
@@ -79,7 +79,7 @@ function make( test )
   var gotCapsule = _.capsule.make( srcDim );
   var expected = _.capsule.tools.longMake( [ 0, 1, 2, 3, 4 ] );
   test.identical( gotCapsule, expected );
-  test.is( gotCapsule !== srcDim );
+  test.true( gotCapsule !== srcDim );
 
   /* */
 
@@ -89,7 +89,7 @@ function make( test )
   var gotCapsule = _.capsule.make( srcDim );
   var expected = _.capsule.tools.longMake( [ 0, 1, 2, 3, 4 ] );
   test.identical( gotCapsule, expected );
-  test.is( gotCapsule !== srcDim );
+  test.true( gotCapsule !== srcDim );
 
   /* */
 
@@ -120,7 +120,7 @@ function makeZero( test )
   var gotCapsule = _.capsule.makeZero( srcDim );
   var expected = _.capsule.tools.longMake( [ 0, 0, 0, 0, 0, 0, 0 ] );
   test.identical( gotCapsule, expected );
-  test.is( gotCapsule !== srcDim );
+  test.true( gotCapsule !== srcDim );
 
   /* */
 
@@ -130,7 +130,7 @@ function makeZero( test )
   var gotCapsule = _.capsule.makeZero( srcDim );
   var expected = _.capsule.tools.longMake( [ 0, 0, 0, 0, 0, 0, 0 ] );
   test.identical( gotCapsule, expected );
-  test.is( gotCapsule !== srcDim );
+  test.true( gotCapsule !== srcDim );
 
   /* */
 
@@ -140,7 +140,7 @@ function makeZero( test )
   var gotCapsule = _.capsule.makeZero( srcDim );
   var expected = _.capsule.tools.longMake( [ 0, 0, 0, 0, 0 ] );
   test.identical( gotCapsule, expected );
-  test.is( gotCapsule !== srcDim );
+  test.true( gotCapsule !== srcDim );
 
   /* */
 
@@ -150,7 +150,7 @@ function makeZero( test )
   var gotCapsule = _.capsule.makeZero( srcDim );
   var expected = _.capsule.tools.longMake( [ 0, 0, 0, 0, 0 ] );
   test.identical( gotCapsule, expected );
-  test.is( gotCapsule !== srcDim );
+  test.true( gotCapsule !== srcDim );
 
   /* */
 
@@ -160,7 +160,7 @@ function makeZero( test )
   var gotCapsule = _.capsule.makeZero( srcDim );
   var expected = _.capsule.tools.longMake( [ 0, 0, 0, 0, 0 ] );
   test.identical( gotCapsule, expected );
-  test.is( gotCapsule !== srcDim );
+  test.true( gotCapsule !== srcDim );
 
   /* */
 
@@ -192,7 +192,7 @@ function makeSingular( test )
   var gotCapsule = _.capsule.makeSingular( srcDim );
   var expected = _.capsule.tools.longMake( [ Infinity, Infinity, Infinity, - Infinity, - Infinity, - Infinity, - Infinity ] );
   test.identical( gotCapsule, expected );
-  test.is( gotCapsule !== srcDim );
+  test.true( gotCapsule !== srcDim );
 
   /* */
 
@@ -202,7 +202,7 @@ function makeSingular( test )
   var gotCapsule = _.capsule.makeSingular( srcDim );
   var expected = _.capsule.tools.longMake( [ Infinity, Infinity, Infinity, - Infinity, - Infinity, - Infinity, - Infinity ] );
   test.identical( gotCapsule, expected );
-  test.is( gotCapsule !== srcDim );
+  test.true( gotCapsule !== srcDim );
 
   /* */
 
@@ -212,7 +212,7 @@ function makeSingular( test )
   var gotCapsule = _.capsule.makeSingular( srcDim );
   var expected = _.capsule.tools.longMake( [ Infinity, Infinity, - Infinity, - Infinity, - Infinity ] );
   test.identical( gotCapsule, expected );
-  test.is( gotCapsule !== srcDim );
+  test.true( gotCapsule !== srcDim );
 
   /* */
 
@@ -222,7 +222,7 @@ function makeSingular( test )
   var gotCapsule = _.capsule.makeSingular( srcDim );
   var expected = _.capsule.tools.longMake( [ Infinity, Infinity, - Infinity, - Infinity, - Infinity ] );
   test.identical( gotCapsule, expected );
-  test.is( gotCapsule !== srcDim );
+  test.true( gotCapsule !== srcDim );
 
   /* */
 
@@ -232,7 +232,7 @@ function makeSingular( test )
   var gotCapsule = _.capsule.makeSingular( srcDim );
   var expected = _.capsule.tools.longMake( [ Infinity, Infinity, - Infinity, - Infinity, - Infinity ] );
   test.identical( gotCapsule, expected );
-  test.is( gotCapsule !== srcDim );
+  test.true( gotCapsule !== srcDim );
 
   /* */
 
@@ -263,7 +263,7 @@ function zero( test )
   var gotCapsule = _.capsule.zero( srcCapsule );
   var expected = _.capsule.tools.longMake( [ 0, 0, 0, 0, 0, 0, 0 ] );
   test.identical( gotCapsule, expected );
-  test.is( gotCapsule !== srcCapsule );
+  test.true( gotCapsule !== srcCapsule );
 
   /* */
 
@@ -273,7 +273,7 @@ function zero( test )
   var gotCapsule = _.capsule.zero( srcCapsule );
   var expected = _.capsule.tools.longMake( [ 0, 0, 0, 0, 0, 0, 0 ] );
   test.identical( gotCapsule, expected );
-  test.is( gotCapsule !== srcCapsule );
+  test.true( gotCapsule !== srcCapsule );
 
   /* */
 
@@ -283,7 +283,7 @@ function zero( test )
   var gotCapsule = _.capsule.zero( srcCapsule );
   var expected = _.capsule.tools.longMake( [ 0, 0, 0, 0, 0 ] );
   test.identical( gotCapsule, expected );
-  test.is( gotCapsule !== srcCapsule );
+  test.true( gotCapsule !== srcCapsule );
 
   /* */
 
@@ -293,7 +293,7 @@ function zero( test )
   var gotCapsule = _.capsule.zero( srcCapsule );
   var expected = _.capsule.tools.longMake( [ 0, 0, 0, 0, 0 ] );
   test.identical( gotCapsule, expected );
-  test.is( gotCapsule === srcCapsule );
+  test.true( gotCapsule === srcCapsule );
 
   /* */
 
@@ -303,7 +303,7 @@ function zero( test )
   var gotCapsule = _.capsule.zero( srcCapsule );
   var expected =  _.capsule.tools.vectorAdapter.fromLong( [ 0, 0, 0, 0, 0 ] );
   test.identical( gotCapsule, expected );
-  test.is( gotCapsule === srcCapsule );
+  test.true( gotCapsule === srcCapsule );
 
   /* */
 
@@ -335,7 +335,7 @@ function nil( test )
   var gotCapsule = _.capsule.nil( srcCapsule );
   var expected = _.capsule.tools.longMake( [ Infinity, Infinity, Infinity, - Infinity, - Infinity, - Infinity, - Infinity ] );
   test.identical( gotCapsule, expected );
-  test.is( gotCapsule !== srcCapsule );
+  test.true( gotCapsule !== srcCapsule );
 
   /* */
 
@@ -345,7 +345,7 @@ function nil( test )
   var gotCapsule = _.capsule.nil( srcCapsule );
   var expected = _.capsule.tools.longMake( [ Infinity, Infinity, Infinity, - Infinity, - Infinity, - Infinity, - Infinity ] );
   test.identical( gotCapsule, expected );
-  test.is( gotCapsule !== srcCapsule );
+  test.true( gotCapsule !== srcCapsule );
 
   /* */
 
@@ -355,7 +355,7 @@ function nil( test )
   var gotCapsule = _.capsule.nil( srcCapsule );
   var expected = _.capsule.tools.longMake( [ Infinity, Infinity, - Infinity, - Infinity, - Infinity ] );
   test.identical( gotCapsule, expected );
-  test.is( gotCapsule !== srcCapsule );
+  test.true( gotCapsule !== srcCapsule );
 
   /* */
 
@@ -365,7 +365,7 @@ function nil( test )
   var gotCapsule = _.capsule.nil( srcCapsule );
   var expected = _.capsule.tools.longMake( [ Infinity, Infinity, - Infinity, - Infinity, - Infinity ] );
   test.identical( gotCapsule, expected );
-  test.is( gotCapsule === srcCapsule );
+  test.true( gotCapsule === srcCapsule );
 
   /* */
 
@@ -375,7 +375,7 @@ function nil( test )
   var gotCapsule = _.capsule.nil( srcCapsule );
   var expected = _.capsule.tools.vectorAdapter.fromLong( [ Infinity, Infinity, - Infinity, - Infinity, - Infinity ] );
   test.identical( gotCapsule, expected );
-  test.is( gotCapsule === srcCapsule );
+  test.true( gotCapsule === srcCapsule );
 
   /* */
 
@@ -399,7 +399,7 @@ function from( test )
 
   var gotCapsule = _.capsule.from( srcCapsule );
   test.identical( gotCapsule, expected );
-  test.is( srcCapsule === gotCapsule );
+  test.true( srcCapsule === gotCapsule );
 
   /* */
 
@@ -410,7 +410,7 @@ function from( test )
 
   var gotCapsule = _.capsule.from( srcCapsule );
   test.identical( gotCapsule, expected );
-  test.is( srcCapsule === gotCapsule );
+  test.true( srcCapsule === gotCapsule );
 
   /* */
 
@@ -439,7 +439,7 @@ function adapterFrom( test )
 
   var gotCapsule = _.capsule.adapterFrom( srcCapsule );
   test.identical( gotCapsule, expected );
-  test.is( srcCapsule !== gotCapsule );
+  test.true( srcCapsule !== gotCapsule );
 
   /* */
 
@@ -450,7 +450,7 @@ function adapterFrom( test )
 
   var gotCapsule = _.capsule.adapterFrom( srcCapsule );
   test.identical( gotCapsule, expected );
-  test.is( srcCapsule === gotCapsule );
+  test.true( srcCapsule === gotCapsule );
 
   /* */
 
@@ -476,32 +476,32 @@ function is( test )
 
   test.case = 'array';
 
-  test.is( _.capsule.is([ 0, 0, 0 ]) );
-  test.is( _.capsule.is([ 0, 1, 2, 3, 4 ]) );
-  test.is( _.capsule.is([ 0, 0, 0, 0, 0, 0, 0 ]) );
+  test.true( _.capsule.is([ 0, 0, 0 ]) );
+  test.true( _.capsule.is([ 0, 1, 2, 3, 4 ]) );
+  test.true( _.capsule.is([ 0, 0, 0, 0, 0, 0, 0 ]) );
 
   /* */
 
   test.case = 'vector';
 
-  test.is( _.capsule.is( _.capsule.tools.vectorAdapter.fromLong([ 0, 0, 0 ]) ) );
-  test.is( _.capsule.is( _.capsule.tools.vectorAdapter.fromLong([ 0, 1, 2, 3, 4 ]) ) );
-  test.is( _.capsule.is( _.capsule.tools.vectorAdapter.fromLong([ 0, 0, 0, 0, 0, 0, 0 ]) ) );
+  test.true( _.capsule.is( _.capsule.tools.vectorAdapter.fromLong([ 0, 0, 0 ]) ) );
+  test.true( _.capsule.is( _.capsule.tools.vectorAdapter.fromLong([ 0, 1, 2, 3, 4 ]) ) );
+  test.true( _.capsule.is( _.capsule.tools.vectorAdapter.fromLong([ 0, 0, 0, 0, 0, 0, 0 ]) ) );
 
   /* */
 
   test.case = 'not capsule';
 
-  test.is( !_.capsule.is( [] ) );
-  test.is( !_.capsule.is([ 0, 0 ]) );
-  test.is( !_.capsule.is([ 0, 0, 0, 0 ]) );
-  test.is( !_.capsule.is( _.capsule.tools.vectorAdapter.fromLong([]) ) );
-  test.is( !_.capsule.is( null ) );
-  test.is( !_.capsule.is( NaN ) );
-  test.is( !_.capsule.is( undefined ) );
-  test.is( !_.capsule.is( 'abc' ) );
-  test.is( !_.capsule.is( { start : [ 0, 0, 0 ], end : [ 1, 1, 1 ], radius : 1 } ) );
-  test.is( !_.capsule.is( function( a, b, c ){} ) );
+  test.true( !_.capsule.is( [] ) );
+  test.true( !_.capsule.is([ 0, 0 ]) );
+  test.true( !_.capsule.is([ 0, 0, 0, 0 ]) );
+  test.true( !_.capsule.is( _.capsule.tools.vectorAdapter.fromLong([]) ) );
+  test.true( !_.capsule.is( null ) );
+  test.true( !_.capsule.is( NaN ) );
+  test.true( !_.capsule.is( undefined ) );
+  test.true( !_.capsule.is( 'abc' ) );
+  test.true( !_.capsule.is( { start : [ 0, 0, 0 ], end : [ 1, 1, 1 ], radius : 1 } ) );
+  test.true( !_.capsule.is( function( a, b, c ){} ) );
 
   /* */
 
@@ -530,7 +530,7 @@ function dimGet( test )
   var gotDim = _.capsule.dimGet( srcCapsule );
   var expected = 1;
   test.identical( gotDim, expected );
-  test.is( gotDim !== srcCapsule );
+  test.true( gotDim !== srcCapsule );
 
   /* */
 
@@ -540,7 +540,7 @@ function dimGet( test )
   var gotDim = _.capsule.dimGet( srcCapsule );
   var expected = 1;
   test.identical( gotDim, expected );
-  test.is( gotDim !== srcCapsule );
+  test.true( gotDim !== srcCapsule );
 
   /* */
 
@@ -550,7 +550,7 @@ function dimGet( test )
   var gotDim = _.capsule.dimGet( srcCapsule );
   var expected = 2;
   test.identical( gotDim, expected );
-  test.is( gotDim !== srcCapsule );
+  test.true( gotDim !== srcCapsule );
 
   /* */
 
@@ -560,7 +560,7 @@ function dimGet( test )
   var gotDim = _.capsule.dimGet( srcCapsule );
   var expected = 2;
   test.identical( gotDim, expected );
-  test.is( gotDim !== srcCapsule );
+  test.true( gotDim !== srcCapsule );
 
   /* */
 
@@ -570,7 +570,7 @@ function dimGet( test )
   var gotDim = _.capsule.dimGet( srcCapsule );
   var expected = 3;
   test.identical( gotDim, expected );
-  test.is( gotDim !== srcCapsule );
+  test.true( gotDim !== srcCapsule );
 
   /* */
 
@@ -580,7 +580,7 @@ function dimGet( test )
   var gotDim = _.capsule.dimGet( srcCapsule );
   var expected = 3;
   test.identical( gotDim, expected );
-  test.is( gotDim !== srcCapsule );
+  test.true( gotDim !== srcCapsule );
 
   /* */
 
@@ -623,7 +623,7 @@ function originGet( test )
   var gotOrigin = _.capsule.originGet( srcCapsule );
   var expected = _.capsule.tools.vectorAdapter.from( [ 0 ] );
   test.identical( gotOrigin, expected );
-  test.is( gotOrigin !== srcCapsule );
+  test.true( gotOrigin !== srcCapsule );
 
   /* */
 
@@ -633,7 +633,7 @@ function originGet( test )
   var gotOrigin = _.capsule.originGet( srcCapsule );
   var expected = _.capsule.tools.vectorAdapter.from( [ 0 ] );
   test.identical( gotOrigin, expected );
-  test.is( gotOrigin !== srcCapsule );
+  test.true( gotOrigin !== srcCapsule );
 
   /* */
 
@@ -643,7 +643,7 @@ function originGet( test )
   var gotOrigin = _.capsule.originGet( srcCapsule );
   var expected = _.capsule.tools.vectorAdapter.from( [ 0, 1 ] );
   test.identical( gotOrigin, expected );
-  test.is( gotOrigin !== srcCapsule );
+  test.true( gotOrigin !== srcCapsule );
 
   /* */
 
@@ -653,7 +653,7 @@ function originGet( test )
   var gotOrigin = _.capsule.originGet( srcCapsule );
   var expected = _.capsule.tools.vectorAdapter.from( [ 0, 1 ] );
   test.identical( gotOrigin, expected );
-  test.is( gotOrigin !== srcCapsule );
+  test.true( gotOrigin !== srcCapsule );
 
   /* */
 
@@ -663,7 +663,7 @@ function originGet( test )
   var gotOrigin = _.capsule.originGet( srcCapsule );
   var expected = _.capsule.tools.vectorAdapter.from( [ 0, 1, 2 ] );
   test.identical( gotOrigin, expected );
-  test.is( gotOrigin !== srcCapsule );
+  test.true( gotOrigin !== srcCapsule );
 
   /* */
 
@@ -673,7 +673,7 @@ function originGet( test )
   var gotOrigin = _.capsule.originGet( srcCapsule );
   var expected = _.capsule.tools.vectorAdapter.from( [ 0, 1, 2 ] );
   test.identical( gotOrigin, expected );
-  test.is( gotOrigin !== srcCapsule );
+  test.true( gotOrigin !== srcCapsule );
 
   /* */
 
@@ -715,7 +715,7 @@ function endPointGet( test )
   var gotDirection = _.capsule.endPointGet( srcCapsule );
   var expected = _.capsule.tools.vectorAdapter.from( [ 1 ] );
   test.identical( gotDirection, expected );
-  test.is( gotDirection !== srcCapsule );
+  test.true( gotDirection !== srcCapsule );
 
   /* */
 
@@ -725,7 +725,7 @@ function endPointGet( test )
   var gotDirection = _.capsule.endPointGet( srcCapsule );
   var expected = _.capsule.tools.vectorAdapter.from( [ 1 ] );
   test.identical( gotDirection, expected );
-  test.is( gotDirection !== srcCapsule );
+  test.true( gotDirection !== srcCapsule );
 
   /* */
 
@@ -735,7 +735,7 @@ function endPointGet( test )
   var gotDirection = _.capsule.endPointGet( srcCapsule );
   var expected = _.capsule.tools.vectorAdapter.from( [ 2, 3 ] );
   test.identical( gotDirection, expected );
-  test.is( gotDirection !== srcCapsule );
+  test.true( gotDirection !== srcCapsule );
 
   /* */
 
@@ -745,7 +745,7 @@ function endPointGet( test )
   var gotDirection = _.capsule.endPointGet( srcCapsule );
   var expected = _.capsule.tools.vectorAdapter.from( [ 2, 3 ] );
   test.identical( gotDirection, expected );
-  test.is( gotDirection !== srcCapsule );
+  test.true( gotDirection !== srcCapsule );
 
   /* */
 
@@ -755,7 +755,7 @@ function endPointGet( test )
   var gotDirection = _.capsule.endPointGet( srcCapsule );
   var expected = _.capsule.tools.vectorAdapter.from( [ 3, 4, 5 ] );
   test.identical( gotDirection, expected );
-  test.is( gotDirection !== srcCapsule );
+  test.true( gotDirection !== srcCapsule );
 
   /* */
 
@@ -765,7 +765,7 @@ function endPointGet( test )
   var gotDirection = _.capsule.endPointGet( srcCapsule );
   var expected = _.capsule.tools.vectorAdapter.from( [ 3, 4, 5 ] );
   test.identical( gotDirection, expected );
-  test.is( gotDirection !== srcCapsule );
+  test.true( gotDirection !== srcCapsule );
 
   /* */
 
@@ -1088,7 +1088,7 @@ function expand( test )
   test.identical( expand, oldexpand );
 
   var oldCapsule = [ 0, 0, 1, 1, 2 ];
-  test.is( oldCapsule !== gotCapsule );
+  test.true( oldCapsule !== gotCapsule );
 
   /* */
 
@@ -1378,7 +1378,7 @@ function project( test )
   test.identical( project, oldProject );
 
   var oldCapsule = [ 0, 0, 1, 1, 1 ];
-  test.is( oldCapsule !== gotCapsule );
+  test.true( oldCapsule !== gotCapsule );
 
   /* */
 
@@ -3104,7 +3104,7 @@ function boundingBoxGet( test )
 
   var gotBox = _.capsule.boundingBoxGet( dstBox, srcCapsule );
   test.identical( expected, gotBox );
-  test.is( dstBox === gotBox );
+  test.true( dstBox === gotBox );
 
   var oldSrcCapsule = [ 0, 0, 0, 3, 3, 3, 1 ];
   test.identical( srcCapsule, oldSrcCapsule );
@@ -4216,7 +4216,7 @@ function convexPolygonClosestPoint( test )
 
   var gotPoint = _.capsule.convexPolygonClosestPoint( srcCapsule, polygon, dstPoint );
   test.equivalent( gotPoint, expected );
-  test.is( dstPoint === gotPoint );
+  test.true( dstPoint === gotPoint );
 
   /* */
 
@@ -4234,7 +4234,7 @@ function convexPolygonClosestPoint( test )
 
   var gotPoint = _.capsule.convexPolygonClosestPoint( srcCapsule, polygon, dstPoint );
   test.equivalent( gotPoint, expected );
-  test.is( dstPoint === gotPoint );
+  test.true( dstPoint === gotPoint );
 
   /* aaa vova: old test case? capsule and tstCapsule are not defined*/
 
@@ -8117,7 +8117,7 @@ function boundingSphereGet( test )
 
   var gotSphere = _.capsule.boundingSphereGet( dstSphere, srcCapsule );
   test.identical( expected, gotSphere );
-  test.is( dstSphere === gotSphere );
+  test.true( dstSphere === gotSphere );
 
   var oldSrcCapsule = [ 0, 0, 0, 3, 3, 3, 1 ];
   test.identical( srcCapsule, oldSrcCapsule );

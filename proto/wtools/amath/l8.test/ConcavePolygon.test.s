@@ -169,13 +169,13 @@ function is( test )
 
   //
 
-  test.is( !_.concavePolygon.is( ) );
-  test.is( !_.concavePolygon.is( null ) );
-  test.is( !_.concavePolygon.is( NaN ) );
-  test.is( !_.concavePolygon.is( undefined ) );
-  test.is( !_.concavePolygon.is( 'polygon' ) );
-  test.is( !_.concavePolygon.is( [ 3 ] ) );
-  test.is( !_.concavePolygon.is( 3 ) );
+  test.true( !_.concavePolygon.is( ) );
+  test.true( !_.concavePolygon.is( null ) );
+  test.true( !_.concavePolygon.is( NaN ) );
+  test.true( !_.concavePolygon.is( undefined ) );
+  test.true( !_.concavePolygon.is( 'polygon' ) );
+  test.true( !_.concavePolygon.is( [ 3 ] ) );
+  test.true( !_.concavePolygon.is( 3 ) );
 
 }
 
@@ -669,7 +669,7 @@ function isClockwise( test )
     6.84, 1.26, 2.32, 5.46,
     0.64, 1.54, 4.71, 4.93,
   ]);
-  test.is( !_.concavePolygon.isClockwise( polygon ) );
+  test.true( !_.concavePolygon.isClockwise( polygon ) );
 
   test.case = 'concave clockwise'
   var polygon = _.concavePolygon.make( 4, 2 ).copy
@@ -677,7 +677,7 @@ function isClockwise( test )
     5.46,2.32,1.26,6.84,
     4.93,4.71,1.54,0.64
   ])
-  test.is( _.concavePolygon.isClockwise( polygon ) );
+  test.true( _.concavePolygon.isClockwise( polygon ) );
 }
 
 //

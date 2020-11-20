@@ -81,14 +81,14 @@ function from( test )
 
   var gotPair = _.linePoints.from( srcPair );
   test.identical( gotPair, expected );
-  test.is( srcPair === gotPair );
+  test.true( srcPair === gotPair );
 
   var srcPair = null;
   var expected = _.linePoints.tools.longMake( [ 0, 0, 0, 0 ] );
 
   var gotPair = _.linePoints.from( srcPair );
   test.identical( gotPair, expected );
-  test.is( srcPair !== gotPair );
+  test.true( srcPair !== gotPair );
   /* */
 
   if( !Config.debug )
@@ -108,18 +108,18 @@ function from( test )
 function is( test )
 {
 
-  test.is( _.linePoints.is( [ 0, 0, 0, 0 ] ) );
-  test.is( _.linePoints.is( [ 0, 0, 1, 1, 2, 0 ] ) );
+  test.true( _.linePoints.is( [ 0, 0, 0, 0 ] ) );
+  test.true( _.linePoints.is( [ 0, 0, 1, 1, 2, 0 ] ) );
 
   //
 
-  test.is( !_.linePoints.is( [ 0, 0, 1, 1, 2, 0, 0 ] ) );
-  test.is( !_.linePoints.is( null ) );
-  test.is( !_.linePoints.is( NaN ) );
-  test.is( !_.linePoints.is( undefined ) );
-  test.is( !_.linePoints.is( 'polygon' ) );
-  test.is( !_.linePoints.is( [ 3 ] ) );
-  test.is( !_.linePoints.is( 3 ) );
+  test.true( !_.linePoints.is( [ 0, 0, 1, 1, 2, 0, 0 ] ) );
+  test.true( !_.linePoints.is( null ) );
+  test.true( !_.linePoints.is( NaN ) );
+  test.true( !_.linePoints.is( undefined ) );
+  test.true( !_.linePoints.is( 'polygon' ) );
+  test.true( !_.linePoints.is( [ 3 ] ) );
+  test.true( !_.linePoints.is( 3 ) );
 
 }
 

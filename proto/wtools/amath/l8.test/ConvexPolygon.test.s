@@ -169,13 +169,13 @@ function is( test )
 
   //
 
-  test.is( !_.convexPolygon.is( ) );
-  test.is( !_.convexPolygon.is( null ) );
-  test.is( !_.convexPolygon.is( NaN ) );
-  test.is( !_.convexPolygon.is( undefined ) );
-  test.is( !_.convexPolygon.is( 'polygon' ) );
-  test.is( !_.convexPolygon.is( [ 3 ] ) );
-  test.is( !_.convexPolygon.is( 3 ) );
+  test.true( !_.convexPolygon.is( ) );
+  test.true( !_.convexPolygon.is( null ) );
+  test.true( !_.convexPolygon.is( NaN ) );
+  test.true( !_.convexPolygon.is( undefined ) );
+  test.true( !_.convexPolygon.is( 'polygon' ) );
+  test.true( !_.convexPolygon.is( [ 3 ] ) );
+  test.true( !_.convexPolygon.is( 3 ) );
 
 }
 
@@ -667,7 +667,7 @@ function isClockwise( test )
     5, 2, 2, 5,
     5, 5, 1, 1
   ])
-  test.is( _.convexPolygon.isClockwise( polygon ) );
+  test.true( _.convexPolygon.isClockwise( polygon ) );
 
   test.case = '2d counter clockwise'
   var polygon = _.convexPolygon.make( 4, 2 ).copy
@@ -675,7 +675,7 @@ function isClockwise( test )
     5, 2, 2, 5,
     1, 1, 5, 5,
   ])
-  test.is( !_.convexPolygon.isClockwise( polygon ) );
+  test.true( !_.convexPolygon.isClockwise( polygon ) );
 }
 
 //
@@ -3143,7 +3143,7 @@ function boundingBoxGet( test )
 
   var gotBox = _.convexPolygon.boundingBoxGet( srcPolygon, dstBox );
   test.identical( expected, gotBox );
-  test.is( dstBox === gotBox );
+  test.true( dstBox === gotBox );
 
   var oldSrcPolygon = _.Matrix.Make( [ 3, 4 ] ).copy
     ([
@@ -8422,7 +8422,7 @@ function boundingSphereGet( test )
 
   var gotSphere = _.convexPolygon.boundingSphereGet( srcPolygon, dstSphere );
   test.identical( expected, gotSphere );
-  test.is( dstSphere === gotSphere );
+  test.true( dstSphere === gotSphere );
 
   var oldSrcPolygon = _.Matrix.Make( [ 3, 4 ] ).copy
     ([

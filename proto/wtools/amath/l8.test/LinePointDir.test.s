@@ -43,7 +43,7 @@ function make( test )
   var gotLine = _.linePointDir.make( srcDim );
   var expected = _.linePointDir.tools.longMake( [ 0, 0, 0, 0, 0, 0 ] );
   test.identical( gotLine, expected );
-  test.is( gotLine !== srcDim );
+  test.true( gotLine !== srcDim );
 
   /* */
 
@@ -53,7 +53,7 @@ function make( test )
   var gotLine = _.linePointDir.make( srcDim );
   var expected = _.linePointDir.tools.longMake( [ 0, 0, 0, 0, 0, 0 ] );
   test.identical( gotLine, expected );
-  test.is( gotLine !== srcDim );
+  test.true( gotLine !== srcDim );
 
   /* */
 
@@ -63,7 +63,7 @@ function make( test )
   var gotLine = _.linePointDir.make( srcDim );
   var expected = _.linePointDir.tools.longMake( [ 0, 0, 0, 0 ] );
   test.identical( gotLine, expected );
-  test.is( gotLine !== srcDim );
+  test.true( gotLine !== srcDim );
 
   /* */
 
@@ -73,7 +73,7 @@ function make( test )
   var gotLine = _.linePointDir.make( srcDim );
   var expected = _.linePointDir.tools.longMake( [ 0, 1, 2, 3 ] );
   test.identical( gotLine, expected );
-  test.is( gotLine !== srcDim );
+  test.true( gotLine !== srcDim );
 
   /* */
 
@@ -83,7 +83,7 @@ function make( test )
   var gotLine = _.linePointDir.make( srcDim );
   var expected = _.linePointDir.tools.longMake( [ 0, 1, 2, 3 ] );
   test.identical( gotLine, expected );
-  test.is( gotLine !== srcDim );
+  test.true( gotLine !== srcDim );
 
   /* */
 
@@ -105,7 +105,7 @@ function makeZero( test )
   var gotLine = _.linePointDir.makeZero( srcDim );
   var expected = _.linePointDir.tools.longMake( [ 0, 0, 0, 0, 0, 0 ] );
   test.identical( gotLine, expected );
-  test.is( gotLine !== srcDim );
+  test.true( gotLine !== srcDim );
 
   /* */
 
@@ -115,7 +115,7 @@ function makeZero( test )
   var gotLine = _.linePointDir.makeZero( srcDim );
   var expected = _.linePointDir.tools.longMake( [ 0, 0, 0, 0, 0, 0 ] );
   test.identical( gotLine, expected );
-  test.is( gotLine !== srcDim );
+  test.true( gotLine !== srcDim );
 
   /* */
 
@@ -125,7 +125,7 @@ function makeZero( test )
   var gotLine = _.linePointDir.makeZero( srcDim );
   var expected = _.linePointDir.tools.longMake( [ 0, 0, 0, 0 ] );
   test.identical( gotLine, expected );
-  test.is( gotLine !== srcDim );
+  test.true( gotLine !== srcDim );
 
   /* */
 
@@ -135,7 +135,7 @@ function makeZero( test )
   var gotLine = _.linePointDir.makeZero( srcDim );
   var expected = _.linePointDir.tools.longMake( [ 0, 0, 0, 0 ] );
   test.identical( gotLine, expected );
-  test.is( gotLine !== srcDim );
+  test.true( gotLine !== srcDim );
 
   /* */
 
@@ -145,7 +145,7 @@ function makeZero( test )
   var gotLine = _.linePointDir.makeZero( srcDim );
   var expected = _.linePointDir.tools.longMake( [ 0, 0, 0, 0 ] );
   test.identical( gotLine, expected );
-  test.is( gotLine !== srcDim );
+  test.true( gotLine !== srcDim );
 
   /* */
 
@@ -168,7 +168,7 @@ function makeSingular( test )
   var gotLine = _.linePointDir.makeSingular( srcDim );
   var expected = _.linePointDir.tools.longMake( [ Infinity, Infinity, Infinity, - Infinity, - Infinity, - Infinity ] );
   test.identical( gotLine, expected );
-  test.is( gotLine !== srcDim );
+  test.true( gotLine !== srcDim );
 
   /* */
 
@@ -178,7 +178,7 @@ function makeSingular( test )
   var gotLine = _.linePointDir.makeSingular( srcDim );
   var expected = _.linePointDir.tools.longMake( [ Infinity, Infinity, Infinity, - Infinity, - Infinity, - Infinity ] );
   test.identical( gotLine, expected );
-  test.is( gotLine !== srcDim );
+  test.true( gotLine !== srcDim );
 
   /* */
 
@@ -188,7 +188,7 @@ function makeSingular( test )
   var gotLine = _.linePointDir.makeSingular( srcDim );
   var expected = _.linePointDir.tools.longMake( [ Infinity, Infinity, - Infinity, - Infinity ] );
   test.identical( gotLine, expected );
-  test.is( gotLine !== srcDim );
+  test.true( gotLine !== srcDim );
 
   /* */
 
@@ -198,7 +198,7 @@ function makeSingular( test )
   var gotLine = _.linePointDir.makeSingular( srcDim );
   var expected = _.linePointDir.tools.longMake( [ Infinity, Infinity, - Infinity, - Infinity ] );
   test.identical( gotLine, expected );
-  test.is( gotLine !== srcDim );
+  test.true( gotLine !== srcDim );
 
   /* */
 
@@ -208,7 +208,7 @@ function makeSingular( test )
   var gotLine = _.linePointDir.makeSingular( srcDim );
   var expected = _.linePointDir.tools.longMake( [ Infinity, Infinity, - Infinity, - Infinity ] );
   test.identical( gotLine, expected );
-  test.is( gotLine !== srcDim );
+  test.true( gotLine !== srcDim );
 
   /* */
 
@@ -230,7 +230,7 @@ function zero( test )
   var gotLine = _.linePointDir.zero( srcLine );
   var expected = _.linePointDir.tools.longMake( [ 0, 0, 0, 0, 0, 0 ] );
   test.identical( gotLine, expected );
-  test.is( gotLine !== srcLine );
+  test.true( gotLine !== srcLine );
 
   /* */
 
@@ -240,7 +240,7 @@ function zero( test )
   var gotLine = _.linePointDir.zero( srcLine );
   var expected = _.linePointDir.tools.longMake( [ 0, 0, 0, 0, 0, 0 ] );
   test.identical( gotLine, expected );
-  test.is( gotLine !== srcLine );
+  test.true( gotLine !== srcLine );
 
   /* */
 
@@ -250,7 +250,7 @@ function zero( test )
   var gotLine = _.linePointDir.zero( srcLine );
   var expected = _.linePointDir.tools.longMake( [ 0, 0, 0, 0 ] );
   test.identical( gotLine, expected );
-  test.is( gotLine !== srcLine );
+  test.true( gotLine !== srcLine );
 
   /* */
 
@@ -260,7 +260,7 @@ function zero( test )
   var gotLine = _.linePointDir.zero( srcLine );
   var expected = _.linePointDir.tools.longMake( [ 0, 0, 0, 0 ] );
   test.identical( gotLine, expected );
-  test.is( gotLine === srcLine );
+  test.true( gotLine === srcLine );
 
   /* */
 
@@ -270,7 +270,7 @@ function zero( test )
   var gotLine = _.linePointDir.zero( srcLine );
   var expected = _.linePointDir.tools.vectorAdapter.fromLong( [ 0, 0, 0, 0 ] );
   test.identical( gotLine, expected );
-  test.is( gotLine === srcLine );
+  test.true( gotLine === srcLine );
 
   /* */
 
@@ -293,7 +293,7 @@ function nil( test )
   var gotLine = _.linePointDir.nil( srcLine );
   var expected = _.linePointDir.tools.longMake( [ Infinity, Infinity, Infinity, - Infinity, - Infinity, - Infinity ] );
   test.identical( gotLine, expected );
-  test.is( gotLine !== srcLine );
+  test.true( gotLine !== srcLine );
 
   /* */
 
@@ -303,7 +303,7 @@ function nil( test )
   var gotLine = _.linePointDir.nil( srcLine );
   var expected = _.linePointDir.tools.longMake( [ Infinity, Infinity, Infinity, - Infinity, - Infinity, - Infinity ] );
   test.identical( gotLine, expected );
-  test.is( gotLine !== srcLine );
+  test.true( gotLine !== srcLine );
 
   /* */
 
@@ -313,7 +313,7 @@ function nil( test )
   var gotLine = _.linePointDir.nil( srcLine );
   var expected = _.linePointDir.tools.longMake( [ Infinity, Infinity, - Infinity, - Infinity ] );
   test.identical( gotLine, expected );
-  test.is( gotLine !== srcLine );
+  test.true( gotLine !== srcLine );
 
   /* */
 
@@ -323,7 +323,7 @@ function nil( test )
   var gotLine = _.linePointDir.nil( srcLine );
   var expected = _.linePointDir.tools.longMake( [ Infinity, Infinity, - Infinity, - Infinity ] );
   test.identical( gotLine, expected );
-  test.is( gotLine === srcLine );
+  test.true( gotLine === srcLine );
 
   /* */
 
@@ -333,7 +333,7 @@ function nil( test )
   var gotLine = _.linePointDir.nil( srcLine );
   var expected = _.linePointDir.tools.vectorAdapter.fromLong( [ Infinity, Infinity, - Infinity, - Infinity ] );
   test.identical( gotLine, expected );
-  test.is( gotLine === srcLine );
+  test.true( gotLine === srcLine );
 
   /* */
 
@@ -356,7 +356,7 @@ function from( test )
 
   var gotLine = _.linePointDir.from( srcLine );
   test.identical( gotLine, expected );
-  test.is( srcLine === gotLine );
+  test.true( srcLine === gotLine );
 
   /* */
 
@@ -367,7 +367,7 @@ function from( test )
 
   var gotLine = _.linePointDir.from( srcLine );
   test.identical( gotLine, expected );
-  test.is( srcLine === gotLine );
+  test.true( srcLine === gotLine );
 
   /* */
 
@@ -378,7 +378,7 @@ function from( test )
 
   var gotLine = _.linePointDir.from( srcLine );
   test.identical( gotLine, expected );
-  test.is( srcLine === gotLine );
+  test.true( srcLine === gotLine );
 
   /* */
 
@@ -389,7 +389,7 @@ function from( test )
 
   var gotLine = _.linePointDir.from( srcLine );
   test.identical( gotLine, expected );
-  test.is( srcLine !== gotLine );
+  test.true( srcLine !== gotLine );
   /* */
 
   if( !Config.debug )
@@ -416,7 +416,7 @@ function adapterFrom( test )
 
   var gotLine = _.linePointDir.adapterFrom( srcLine );
   test.identical( gotLine, expected );
-  test.is( srcLine !== gotLine );
+  test.true( srcLine !== gotLine );
 
   /* */
 
@@ -427,7 +427,7 @@ function adapterFrom( test )
 
   var gotLine = _.linePointDir.adapterFrom( srcLine );
   test.identical( gotLine, expected );
-  test.is( srcLine === gotLine );
+  test.true( srcLine === gotLine );
 
   /* */
 
@@ -438,7 +438,7 @@ function adapterFrom( test )
 
   var gotLine = _.linePointDir.adapterFrom( srcLine );
   test.identical( gotLine, expected );
-  test.is( srcLine !== gotLine );
+  test.true( srcLine !== gotLine );
 
   /* */
 
@@ -599,36 +599,36 @@ function is( test )
 
   test.case = 'array';
 
-  test.is( _.linePointDir.is( [] ) );
-  test.is( _.linePointDir.is([ 0, 0 ]) );
-  test.is( _.linePointDir.is([ 1, 2, 3, 4 ]) );
-  test.is( _.linePointDir.is([ 0, 0, 0, 0, 0, 0 ]) );
+  test.true( _.linePointDir.is( [] ) );
+  test.true( _.linePointDir.is([ 0, 0 ]) );
+  test.true( _.linePointDir.is([ 1, 2, 3, 4 ]) );
+  test.true( _.linePointDir.is([ 0, 0, 0, 0, 0, 0 ]) );
 
   /* */
 
   test.case = 'vector';
 
-  test.is( _.linePointDir.is( _.vectorAdapter.fromLong([]) ) );
-  test.is( _.linePointDir.is( _.vectorAdapter.fromLong([ 0, 0 ]) ) );
-  test.is( _.linePointDir.is( _.vectorAdapter.fromLong([ 1, 2, 3, 4 ]) ) );
-  test.is( _.linePointDir.is( _.vectorAdapter.fromLong([ 0, 0, 0, 0, 0, 0 ]) ) );
+  test.true( _.linePointDir.is( _.vectorAdapter.fromLong([]) ) );
+  test.true( _.linePointDir.is( _.vectorAdapter.fromLong([ 0, 0 ]) ) );
+  test.true( _.linePointDir.is( _.vectorAdapter.fromLong([ 1, 2, 3, 4 ]) ) );
+  test.true( _.linePointDir.is( _.vectorAdapter.fromLong([ 0, 0, 0, 0, 0, 0 ]) ) );
 
   /* */
 
   test.case = 'not line';
 
-  test.is( !_.linePointDir.is([ 0 ]) );
-  test.is( !_.linePointDir.is([ 0, 0, 0 ]) );
+  test.true( !_.linePointDir.is([ 0 ]) );
+  test.true( !_.linePointDir.is([ 0, 0, 0 ]) );
 
-  test.is( !_.linePointDir.is( _.vectorAdapter.fromLong([ 0 ]) ) );
-  test.is( !_.linePointDir.is( _.vectorAdapter.fromLong([ 0, 0, 0 ]) ) );
+  test.true( !_.linePointDir.is( _.vectorAdapter.fromLong([ 0 ]) ) );
+  test.true( !_.linePointDir.is( _.vectorAdapter.fromLong([ 0, 0, 0 ]) ) );
 
-  test.is( !_.linePointDir.is( 'abc' ) );
-  test.is( !_.linePointDir.is( { origin : [ 0, 0, 0 ], direction : [ 1, 1, 1 ] } ) );
-  test.is( !_.linePointDir.is( function( a, b, c ){} ) );
+  test.true( !_.linePointDir.is( 'abc' ) );
+  test.true( !_.linePointDir.is( { origin : [ 0, 0, 0 ], direction : [ 1, 1, 1 ] } ) );
+  test.true( !_.linePointDir.is( function( a, b, c ){} ) );
 
-  test.is( !_.linePointDir.is( null ) );
-  test.is( !_.linePointDir.is( undefined ) );
+  test.true( !_.linePointDir.is( null ) );
+  test.true( !_.linePointDir.is( undefined ) );
 
   /* */
 
@@ -651,7 +651,7 @@ function dimGet( test )
   var gotDim = _.linePointDir.dimGet( srcLine );
   var expected = 1;
   test.identical( gotDim, expected );
-  test.is( gotDim !== srcLine );
+  test.true( gotDim !== srcLine );
 
   /* */
 
@@ -661,7 +661,7 @@ function dimGet( test )
   var gotDim = _.linePointDir.dimGet( srcLine );
   var expected = 1;
   test.identical( gotDim, expected );
-  test.is( gotDim !== srcLine );
+  test.true( gotDim !== srcLine );
 
   /* */
 
@@ -671,7 +671,7 @@ function dimGet( test )
   var gotDim = _.linePointDir.dimGet( srcLine );
   var expected = 2;
   test.identical( gotDim, expected );
-  test.is( gotDim !== srcLine );
+  test.true( gotDim !== srcLine );
 
   /* */
 
@@ -681,7 +681,7 @@ function dimGet( test )
   var gotDim = _.linePointDir.dimGet( srcLine );
   var expected = 2;
   test.identical( gotDim, expected );
-  test.is( gotDim !== srcLine );
+  test.true( gotDim !== srcLine );
 
   /* */
 
@@ -691,7 +691,7 @@ function dimGet( test )
   var gotDim = _.linePointDir.dimGet( srcLine );
   var expected = 3;
   test.identical( gotDim, expected );
-  test.is( gotDim !== srcLine );
+  test.true( gotDim !== srcLine );
 
   /* */
 
@@ -701,7 +701,7 @@ function dimGet( test )
   var gotDim = _.linePointDir.dimGet( srcLine );
   var expected = 3;
   test.identical( gotDim, expected );
-  test.is( gotDim !== srcLine );
+  test.true( gotDim !== srcLine );
 
   /* */
 
@@ -742,7 +742,7 @@ function originGet( test )
   var gotOrigin = _.linePointDir.originGet( srcLine );
   var expected = _.linePointDir.tools.vectorAdapter.from( [ 0 ] );
   test.identical( gotOrigin, expected );
-  test.is( gotOrigin !== srcLine );
+  test.true( gotOrigin !== srcLine );
 
   /* */
 
@@ -752,7 +752,7 @@ function originGet( test )
   var gotOrigin = _.linePointDir.originGet( srcLine );
   var expected = _.linePointDir.tools.vectorAdapter.from( [ 0 ] );
   test.identical( gotOrigin, expected );
-  test.is( gotOrigin !== srcLine );
+  test.true( gotOrigin !== srcLine );
 
   /* */
 
@@ -762,7 +762,7 @@ function originGet( test )
   var gotOrigin = _.linePointDir.originGet( srcLine );
   var expected = _.linePointDir.tools.vectorAdapter.from( [ 0, 1 ] );
   test.identical( gotOrigin, expected );
-  test.is( gotOrigin !== srcLine );
+  test.true( gotOrigin !== srcLine );
 
   /* */
 
@@ -772,7 +772,7 @@ function originGet( test )
   var gotOrigin = _.linePointDir.originGet( srcLine );
   var expected = _.linePointDir.tools.vectorAdapter.from( [ 0, 1 ] );
   test.identical( gotOrigin, expected );
-  test.is( gotOrigin !== srcLine );
+  test.true( gotOrigin !== srcLine );
 
   /* */
 
@@ -782,7 +782,7 @@ function originGet( test )
   var gotOrigin = _.linePointDir.originGet( srcLine );
   var expected = _.linePointDir.tools.vectorAdapter.from( [ 0, 1, 2 ] );
   test.identical( gotOrigin, expected );
-  test.is( gotOrigin !== srcLine );
+  test.true( gotOrigin !== srcLine );
 
   /* */
 
@@ -792,7 +792,7 @@ function originGet( test )
   var gotOrigin = _.linePointDir.originGet( srcLine );
   var expected = _.linePointDir.tools.vectorAdapter.from( [ 0, 1, 2 ] );
   test.identical( gotOrigin, expected );
-  test.is( gotOrigin !== srcLine );
+  test.true( gotOrigin !== srcLine );
 
   /* */
 
@@ -833,7 +833,7 @@ function directionGet( test )
   var gotDirection = _.linePointDir.directionGet( srcLine );
   var expected = _.linePointDir.tools.vectorAdapter.from( [ 1 ] );
   test.identical( gotDirection, expected );
-  test.is( gotDirection !== srcLine );
+  test.true( gotDirection !== srcLine );
 
   /* */
 
@@ -843,7 +843,7 @@ function directionGet( test )
   var gotDirection = _.linePointDir.directionGet( srcLine );
   var expected = _.linePointDir.tools.vectorAdapter.from( [ 1 ] );
   test.identical( gotDirection, expected );
-  test.is( gotDirection !== srcLine );
+  test.true( gotDirection !== srcLine );
 
   /* */
 
@@ -853,7 +853,7 @@ function directionGet( test )
   var gotDirection = _.linePointDir.directionGet( srcLine );
   var expected = _.linePointDir.tools.vectorAdapter.from( [ 2, 3 ] );
   test.identical( gotDirection, expected );
-  test.is( gotDirection !== srcLine );
+  test.true( gotDirection !== srcLine );
 
   /* */
 
@@ -863,7 +863,7 @@ function directionGet( test )
   var gotDirection = _.linePointDir.directionGet( srcLine );
   var expected = _.linePointDir.tools.vectorAdapter.from( [ 2, 3 ] );
   test.identical( gotDirection, expected );
-  test.is( gotDirection !== srcLine );
+  test.true( gotDirection !== srcLine );
 
   /* */
 
@@ -873,7 +873,7 @@ function directionGet( test )
   var gotDirection = _.linePointDir.directionGet( srcLine );
   var expected = _.linePointDir.tools.vectorAdapter.from( [ 3, 4, 5 ] );
   test.identical( gotDirection, expected );
-  test.is( gotDirection !== srcLine );
+  test.true( gotDirection !== srcLine );
 
   /* */
 
@@ -883,7 +883,7 @@ function directionGet( test )
   var gotDirection = _.linePointDir.directionGet( srcLine );
   var expected = _.linePointDir.tools.vectorAdapter.from( [ 3, 4, 5 ] );
   test.identical( gotDirection, expected );
-  test.is( gotDirection !== srcLine );
+  test.true( gotDirection !== srcLine );
 
   /* */
 
@@ -3408,7 +3408,7 @@ function boundingBoxGet( test )
 
   var gotBox = _.linePointDir.boundingBoxGet( dstBox, srcLine );
   test.identical( expected, gotBox );
-  test.is( dstBox === gotBox );
+  test.true( dstBox === gotBox );
 
   var oldSrcLine = [ 0, 0, 0, 3, 3, 3 ];
   test.identical( srcLine, oldSrcLine );
@@ -3867,7 +3867,7 @@ function convexPolygonClosestPoint( test )
 
   var gotPoint = _.linePointDir.convexPolygonClosestPoint( srcLine, polygon, dstPoint );
   test.equivalent( expected, gotPoint );
-  test.is( dstPoint === gotPoint );
+  test.true( dstPoint === gotPoint );
 
   /* */
 
@@ -3885,7 +3885,7 @@ function convexPolygonClosestPoint( test )
 
   var gotPoint = _.linePointDir.convexPolygonClosestPoint( srcLine, polygon, dstPoint );
   test.equivalent( expected, gotPoint );
-  test.is( dstPoint === gotPoint );
+  test.true( dstPoint === gotPoint );
 
   /* */
 
@@ -8092,7 +8092,7 @@ function boundingSphereGet( test )
 
   var gotSphere = _.linePointDir.boundingSphereGet( dstSphere, srcLine );
   test.identical( expected, gotSphere );
-  test.is( dstSphere === gotSphere );
+  test.true( dstSphere === gotSphere );
 
   var oldSrcLine = [ 0, 0, 0, 3, 3, 3 ];
   test.identical( srcLine, oldSrcLine );

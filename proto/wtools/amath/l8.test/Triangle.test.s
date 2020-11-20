@@ -81,7 +81,7 @@ function from( test )
 
   var gotTriangle = _.triangle.from( srcTriangle );
   test.identical( gotTriangle, expected );
-  test.is( srcTriangle === gotTriangle );
+  test.true( srcTriangle === gotTriangle );
 
   /* */
 
@@ -92,7 +92,7 @@ function from( test )
 
   var gotTriangle = _.triangle.from( srcTriangle );
   test.identical( gotTriangle, expected );
-  test.is( srcTriangle === gotTriangle );
+  test.true( srcTriangle === gotTriangle );
 
   /* */
 
@@ -103,7 +103,7 @@ function from( test )
 
   var gotTriangle = _.triangle.from( srcTriangle );
   test.identical( gotTriangle, expected );
-  test.is( srcTriangle !== gotTriangle );
+  test.true( srcTriangle !== gotTriangle );
   /* */
 
   if( !Config.debug )
@@ -124,17 +124,17 @@ function is( test )
 
   test.case = 'Triangle 2D'; //
 
-  test.is( _.triangle.is( [ 0, 0, 0, 0, 0, 0 ] ) );
-  test.is( _.triangle.is( [ 0, 0, 1, 1, 2, 0 ] ) );
+  test.true( _.triangle.is( [ 0, 0, 0, 0, 0, 0 ] ) );
+  test.true( _.triangle.is( [ 0, 0, 1, 1, 2, 0 ] ) );
 
   //
 
-  test.is( !_.triangle.is( null ) );
-  test.is( !_.triangle.is( NaN ) );
-  test.is( !_.triangle.is( undefined ) );
-  test.is( !_.triangle.is( 'polygon' ) );
-  test.is( !_.triangle.is( [ 3 ] ) );
-  test.is( !_.triangle.is( 3 ) );
+  test.true( !_.triangle.is( null ) );
+  test.true( !_.triangle.is( NaN ) );
+  test.true( !_.triangle.is( undefined ) );
+  test.true( !_.triangle.is( 'polygon' ) );
+  test.true( !_.triangle.is( [ 3 ] ) );
+  test.true( !_.triangle.is( 3 ) );
 
 }
 
@@ -144,16 +144,16 @@ function pointContains( test )
 {
   let triangle = [ 0, 0, 1, 1, 2, 0 ];
 
-  test.is( _.triangle.pointContains( triangle, [ 0, 0 ] ) )
-  test.is( _.triangle.pointContains( triangle, [ 1, 0 ] ) )
-  test.is( _.triangle.pointContains( triangle, [ 2, 0 ] ) )
-  test.is( _.triangle.pointContains( triangle, [ 1, 1 ] ) )
-  test.is( _.triangle.pointContains( triangle, [ 1, 0.5 ] ) )
+  test.true( _.triangle.pointContains( triangle, [ 0, 0 ] ) )
+  test.true( _.triangle.pointContains( triangle, [ 1, 0 ] ) )
+  test.true( _.triangle.pointContains( triangle, [ 2, 0 ] ) )
+  test.true( _.triangle.pointContains( triangle, [ 1, 1 ] ) )
+  test.true( _.triangle.pointContains( triangle, [ 1, 0.5 ] ) )
 
-  test.is( !_.triangle.pointContains( triangle, [ -1, 0 ] ) )
-  test.is( !_.triangle.pointContains( triangle, [ 3, 0 ] ) )
-  test.is( !_.triangle.pointContains( triangle, [ 1, -1 ] ) )
-  test.is( !_.triangle.pointContains( triangle, [ 1, 2 ] ) )
+  test.true( !_.triangle.pointContains( triangle, [ -1, 0 ] ) )
+  test.true( !_.triangle.pointContains( triangle, [ 3, 0 ] ) )
+  test.true( !_.triangle.pointContains( triangle, [ 1, -1 ] ) )
+  test.true( !_.triangle.pointContains( triangle, [ 1, 2 ] ) )
 
 }
 

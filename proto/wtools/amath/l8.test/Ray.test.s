@@ -43,7 +43,7 @@ function make( test )
   var gotRay = _.ray.make( srcDim );
   var expected = _.ray.tools.longMake( [ 0, 0, 0, 0, 0, 0 ] );
   test.identical( gotRay, expected );
-  test.is( gotRay !== srcDim );
+  test.true( gotRay !== srcDim );
 
   /* */
 
@@ -53,7 +53,7 @@ function make( test )
   var gotRay = _.ray.make( srcDim );
   var expected = _.ray.tools.longMake( [ 0, 0, 0, 0, 0, 0 ] );
   test.identical( gotRay, expected );
-  test.is( gotRay !== srcDim );
+  test.true( gotRay !== srcDim );
 
   /* */
 
@@ -63,7 +63,7 @@ function make( test )
   var gotRay = _.ray.make( srcDim );
   var expected = _.ray.tools.longMake( [ 0, 0, 0, 0 ] );
   test.identical( gotRay, expected );
-  test.is( gotRay !== srcDim );
+  test.true( gotRay !== srcDim );
 
   /* */
 
@@ -73,7 +73,7 @@ function make( test )
   var gotRay = _.ray.make( srcDim );
   var expected = _.ray.tools.longMake( [ 0, 1, 2, 3 ] );
   test.identical( gotRay, expected );
-  test.is( gotRay !== srcDim );
+  test.true( gotRay !== srcDim );
 
   /* */
 
@@ -83,7 +83,7 @@ function make( test )
   var gotRay = _.ray.make( srcDim );
   var expected = _.ray.tools.longMake( [ 0, 1, 2, 3 ] );
   test.identical( gotRay, expected );
-  test.is( gotRay !== srcDim );
+  test.true( gotRay !== srcDim );
 
   /* */
 
@@ -105,7 +105,7 @@ function makeZero( test )
   var gotRay = _.ray.makeZero( srcDim );
   var expected = _.ray.tools.longMake( [ 0, 0, 0, 0, 0, 0 ] );
   test.identical( gotRay, expected );
-  test.is( gotRay !== srcDim );
+  test.true( gotRay !== srcDim );
 
   /* */
 
@@ -115,7 +115,7 @@ function makeZero( test )
   var gotRay = _.ray.makeZero( srcDim );
   var expected = _.ray.tools.longMake( [ 0, 0, 0, 0, 0, 0 ] );
   test.identical( gotRay, expected );
-  test.is( gotRay !== srcDim );
+  test.true( gotRay !== srcDim );
 
   /* */
 
@@ -125,7 +125,7 @@ function makeZero( test )
   var gotRay = _.ray.makeZero( srcDim );
   var expected = _.ray.tools.longMake( [ 0, 0, 0, 0 ] );
   test.identical( gotRay, expected );
-  test.is( gotRay !== srcDim );
+  test.true( gotRay !== srcDim );
 
   /* */
 
@@ -135,7 +135,7 @@ function makeZero( test )
   var gotRay = _.ray.makeZero( srcDim );
   var expected = _.ray.tools.longMake( [ 0, 0, 0, 0 ] );
   test.identical( gotRay, expected );
-  test.is( gotRay !== srcDim );
+  test.true( gotRay !== srcDim );
 
   /* */
 
@@ -145,7 +145,7 @@ function makeZero( test )
   var gotRay = _.ray.makeZero( srcDim );
   var expected = _.ray.tools.longMake( [ 0, 0, 0, 0 ] );
   test.identical( gotRay, expected );
-  test.is( gotRay !== srcDim );
+  test.true( gotRay !== srcDim );
 
   /* */
 
@@ -168,7 +168,7 @@ function makeSingular( test )
   var gotRay = _.ray.makeSingular( srcDim );
   var expected = _.ray.tools.longMake( [ Infinity, Infinity, Infinity, - Infinity, - Infinity, - Infinity ] );
   test.identical( gotRay, expected );
-  test.is( gotRay !== srcDim );
+  test.true( gotRay !== srcDim );
 
   /* */
 
@@ -178,7 +178,7 @@ function makeSingular( test )
   var gotRay = _.ray.makeSingular( srcDim );
   var expected = _.ray.tools.longMake( [ Infinity, Infinity, Infinity, - Infinity, - Infinity, - Infinity ] );
   test.identical( gotRay, expected );
-  test.is( gotRay !== srcDim );
+  test.true( gotRay !== srcDim );
 
   /* */
 
@@ -188,7 +188,7 @@ function makeSingular( test )
   var gotRay = _.ray.makeSingular( srcDim );
   var expected = _.ray.tools.longMake( [ Infinity, Infinity, - Infinity, - Infinity ] );
   test.identical( gotRay, expected );
-  test.is( gotRay !== srcDim );
+  test.true( gotRay !== srcDim );
 
   /* */
 
@@ -198,7 +198,7 @@ function makeSingular( test )
   var gotRay = _.ray.makeSingular( srcDim );
   var expected = _.ray.tools.longMake( [ Infinity, Infinity, - Infinity, - Infinity ] );
   test.identical( gotRay, expected );
-  test.is( gotRay !== srcDim );
+  test.true( gotRay !== srcDim );
 
   /* */
 
@@ -208,7 +208,7 @@ function makeSingular( test )
   var gotRay = _.ray.makeSingular( srcDim );
   var expected = _.ray.tools.longMake( [ Infinity, Infinity, - Infinity, - Infinity ] );
   test.identical( gotRay, expected );
-  test.is( gotRay !== srcDim );
+  test.true( gotRay !== srcDim );
 
   /* */
 
@@ -230,7 +230,7 @@ function zero( test )
   var gotRay = _.ray.zero( srcRay );
   var expected = _.ray.tools.longMake( [ 0, 0, 0, 0, 0, 0 ] );
   test.identical( gotRay, expected );
-  test.is( gotRay !== srcRay );
+  test.true( gotRay !== srcRay );
 
   /* */
 
@@ -240,7 +240,7 @@ function zero( test )
   var gotRay = _.ray.zero( srcRay );
   var expected = _.ray.tools.longMake( [ 0, 0, 0, 0, 0, 0 ] );
   test.identical( gotRay, expected );
-  test.is( gotRay !== srcRay );
+  test.true( gotRay !== srcRay );
 
   /* */
 
@@ -250,7 +250,7 @@ function zero( test )
   var gotRay = _.ray.zero( srcRay );
   var expected = _.ray.tools.longMake( [ 0, 0, 0, 0 ] );
   test.identical( gotRay, expected );
-  test.is( gotRay !== srcRay );
+  test.true( gotRay !== srcRay );
 
   /* */
 
@@ -260,7 +260,7 @@ function zero( test )
   var gotRay = _.ray.zero( srcRay );
   var expected = _.ray.tools.longMake( [ 0, 0, 0, 0 ] );
   test.identical( gotRay, expected );
-  test.is( gotRay === srcRay );
+  test.true( gotRay === srcRay );
 
   /* */
 
@@ -270,7 +270,7 @@ function zero( test )
   var gotRay = _.ray.zero( srcRay );
   var expected = _.ray.tools.vectorAdapter.fromLong( [ 0, 0, 0, 0 ] );
   test.identical( gotRay, expected );
-  test.is( gotRay === srcRay );
+  test.true( gotRay === srcRay );
 
   /* */
 
@@ -293,7 +293,7 @@ function nil( test )
   var gotRay = _.ray.nil( srcRay );
   var expected = _.ray.tools.longMake( [ Infinity, Infinity, Infinity, - Infinity, - Infinity, - Infinity ] );
   test.identical( gotRay, expected );
-  test.is( gotRay !== srcRay );
+  test.true( gotRay !== srcRay );
 
   /* */
 
@@ -303,7 +303,7 @@ function nil( test )
   var gotRay = _.ray.nil( srcRay );
   var expected = _.ray.tools.longMake( [ Infinity, Infinity, Infinity, - Infinity, - Infinity, - Infinity ] );
   test.identical( gotRay, expected );
-  test.is( gotRay !== srcRay );
+  test.true( gotRay !== srcRay );
 
   /* */
 
@@ -313,7 +313,7 @@ function nil( test )
   var gotRay = _.ray.nil( srcRay );
   var expected = _.ray.tools.longMake( [ Infinity, Infinity, - Infinity, - Infinity ] );
   test.identical( gotRay, expected );
-  test.is( gotRay !== srcRay );
+  test.true( gotRay !== srcRay );
 
   /* */
 
@@ -323,7 +323,7 @@ function nil( test )
   var gotRay = _.ray.nil( srcRay );
   var expected = _.ray.tools.longMake( [ Infinity, Infinity, - Infinity, - Infinity ] );
   test.identical( gotRay, expected );
-  test.is( gotRay === srcRay );
+  test.true( gotRay === srcRay );
 
   /* */
 
@@ -333,7 +333,7 @@ function nil( test )
   var gotRay = _.ray.nil( srcRay );
   var expected = _.ray.tools.vectorAdapter.fromLong( [ Infinity, Infinity, - Infinity, - Infinity ] );
   test.identical( gotRay, expected );
-  test.is( gotRay === srcRay );
+  test.true( gotRay === srcRay );
 
   /* */
 
@@ -356,7 +356,7 @@ function from( test )
 
   var gotRay = _.ray.from( srcRay );
   test.identical( gotRay, expected );
-  test.is( srcRay === gotRay );
+  test.true( srcRay === gotRay );
 
   /* */
 
@@ -367,7 +367,7 @@ function from( test )
 
   var gotRay = _.ray.from( srcRay );
   test.identical( gotRay, expected );
-  test.is( srcRay === gotRay );
+  test.true( srcRay === gotRay );
 
   /* */
 
@@ -378,7 +378,7 @@ function from( test )
 
   var gotRay = _.ray.from( srcRay );
   test.identical( gotRay, expected );
-  test.is( srcRay === gotRay );
+  test.true( srcRay === gotRay );
 
   /* */
 
@@ -389,7 +389,7 @@ function from( test )
 
   var gotRay = _.ray.from( srcRay );
   test.identical( gotRay, expected );
-  test.is( srcRay !== gotRay );
+  test.true( srcRay !== gotRay );
   /* */
 
   if( !Config.debug )
@@ -416,7 +416,7 @@ function adapterFrom( test )
 
   var gotRay = _.ray.adapterFrom( srcRay );
   test.identical( gotRay, expected );
-  test.is( srcRay !== gotRay );
+  test.true( srcRay !== gotRay );
 
   /* */
 
@@ -427,7 +427,7 @@ function adapterFrom( test )
 
   var gotRay = _.ray.adapterFrom( srcRay );
   test.identical( gotRay, expected );
-  test.is( srcRay === gotRay );
+  test.true( srcRay === gotRay );
 
   /* */
 
@@ -438,7 +438,7 @@ function adapterFrom( test )
 
   var gotRay = _.ray.adapterFrom( srcRay );
   test.identical( gotRay, expected );
-  test.is( srcRay !== gotRay );
+  test.true( srcRay !== gotRay );
 
   /* */
 
@@ -544,36 +544,36 @@ function is( test )
 
   test.case = 'array';
 
-  test.is( _.ray.is( [] ) );
-  test.is( _.ray.is([ 0, 0 ]) );
-  test.is( _.ray.is([ 1, 2, 3, 4 ]) );
-  test.is( _.ray.is([ 0, 0, 0, 0, 0, 0 ]) );
+  test.true( _.ray.is( [] ) );
+  test.true( _.ray.is([ 0, 0 ]) );
+  test.true( _.ray.is([ 1, 2, 3, 4 ]) );
+  test.true( _.ray.is([ 0, 0, 0, 0, 0, 0 ]) );
 
   /* */
 
   test.case = 'vector';
 
-  test.is( _.ray.is( _.vectorAdapter.fromLong([]) ) );
-  test.is( _.ray.is( _.vectorAdapter.fromLong([ 0, 0 ]) ) );
-  test.is( _.ray.is( _.vectorAdapter.fromLong([ 1, 2, 3, 4 ]) ) );
-  test.is( _.ray.is( _.vectorAdapter.fromLong([ 0, 0, 0, 0, 0, 0 ]) ) );
+  test.true( _.ray.is( _.vectorAdapter.fromLong([]) ) );
+  test.true( _.ray.is( _.vectorAdapter.fromLong([ 0, 0 ]) ) );
+  test.true( _.ray.is( _.vectorAdapter.fromLong([ 1, 2, 3, 4 ]) ) );
+  test.true( _.ray.is( _.vectorAdapter.fromLong([ 0, 0, 0, 0, 0, 0 ]) ) );
 
   /* */
 
   test.case = 'not ray';
 
-  test.is( !_.ray.is([ 0 ]) );
-  test.is( !_.ray.is([ 0, 0, 0 ]) );
+  test.true( !_.ray.is([ 0 ]) );
+  test.true( !_.ray.is([ 0, 0, 0 ]) );
 
-  test.is( !_.ray.is( _.vectorAdapter.fromLong([ 0 ]) ) );
-  test.is( !_.ray.is( _.vectorAdapter.fromLong([ 0, 0, 0 ]) ) );
+  test.true( !_.ray.is( _.vectorAdapter.fromLong([ 0 ]) ) );
+  test.true( !_.ray.is( _.vectorAdapter.fromLong([ 0, 0, 0 ]) ) );
 
-  test.is( !_.ray.is( 'abc' ) );
-  test.is( !_.ray.is( { origin : [ 0, 0, 0 ], direction : [ 1, 1, 1 ] } ) );
-  test.is( !_.ray.is( function( a, b, c ){} ) );
+  test.true( !_.ray.is( 'abc' ) );
+  test.true( !_.ray.is( { origin : [ 0, 0, 0 ], direction : [ 1, 1, 1 ] } ) );
+  test.true( !_.ray.is( function( a, b, c ){} ) );
 
-  test.is( !_.ray.is( null ) );
-  test.is( !_.ray.is( undefined ) );
+  test.true( !_.ray.is( null ) );
+  test.true( !_.ray.is( undefined ) );
 
   /* */
 
@@ -596,7 +596,7 @@ function dimGet( test )
   var gotDim = _.ray.dimGet( srcRay );
   var expected = 1;
   test.identical( gotDim, expected );
-  test.is( gotDim !== srcRay );
+  test.true( gotDim !== srcRay );
 
   /* */
 
@@ -606,7 +606,7 @@ function dimGet( test )
   var gotDim = _.ray.dimGet( srcRay );
   var expected = 1;
   test.identical( gotDim, expected );
-  test.is( gotDim !== srcRay );
+  test.true( gotDim !== srcRay );
 
   /* */
 
@@ -616,7 +616,7 @@ function dimGet( test )
   var gotDim = _.ray.dimGet( srcRay );
   var expected = 2;
   test.identical( gotDim, expected );
-  test.is( gotDim !== srcRay );
+  test.true( gotDim !== srcRay );
 
   /* */
 
@@ -626,7 +626,7 @@ function dimGet( test )
   var gotDim = _.ray.dimGet( srcRay );
   var expected = 2;
   test.identical( gotDim, expected );
-  test.is( gotDim !== srcRay );
+  test.true( gotDim !== srcRay );
 
   /* */
 
@@ -636,7 +636,7 @@ function dimGet( test )
   var gotDim = _.ray.dimGet( srcRay );
   var expected = 3;
   test.identical( gotDim, expected );
-  test.is( gotDim !== srcRay );
+  test.true( gotDim !== srcRay );
 
   /* */
 
@@ -646,7 +646,7 @@ function dimGet( test )
   var gotDim = _.ray.dimGet( srcRay );
   var expected = 3;
   test.identical( gotDim, expected );
-  test.is( gotDim !== srcRay );
+  test.true( gotDim !== srcRay );
 
   /* */
 
@@ -687,7 +687,7 @@ function originGet( test )
   var gotOrigin = _.ray.originGet( srcRay );
   var expected = _.ray.tools.vectorAdapter.from( [ 0 ] );
   test.identical( gotOrigin, expected );
-  test.is( gotOrigin !== srcRay );
+  test.true( gotOrigin !== srcRay );
 
   /* */
 
@@ -697,7 +697,7 @@ function originGet( test )
   var gotOrigin = _.ray.originGet( srcRay );
   var expected = _.ray.tools.vectorAdapter.from( [ 0 ] );
   test.identical( gotOrigin, expected );
-  test.is( gotOrigin !== srcRay );
+  test.true( gotOrigin !== srcRay );
 
   /* */
 
@@ -707,7 +707,7 @@ function originGet( test )
   var gotOrigin = _.ray.originGet( srcRay );
   var expected = _.ray.tools.vectorAdapter.from( [ 0, 1 ] );
   test.identical( gotOrigin, expected );
-  test.is( gotOrigin !== srcRay );
+  test.true( gotOrigin !== srcRay );
 
   /* */
 
@@ -717,7 +717,7 @@ function originGet( test )
   var gotOrigin = _.ray.originGet( srcRay );
   var expected = _.ray.tools.vectorAdapter.from( [ 0, 1 ] );
   test.identical( gotOrigin, expected );
-  test.is( gotOrigin !== srcRay );
+  test.true( gotOrigin !== srcRay );
 
   /* */
 
@@ -727,7 +727,7 @@ function originGet( test )
   var gotOrigin = _.ray.originGet( srcRay );
   var expected = _.ray.tools.vectorAdapter.from( [ 0, 1, 2 ] );
   test.identical( gotOrigin, expected );
-  test.is( gotOrigin !== srcRay );
+  test.true( gotOrigin !== srcRay );
 
   /* */
 
@@ -737,7 +737,7 @@ function originGet( test )
   var gotOrigin = _.ray.originGet( srcRay );
   var expected = _.ray.tools.vectorAdapter.from( [ 0, 1, 2 ] );
   test.identical( gotOrigin, expected );
-  test.is( gotOrigin !== srcRay );
+  test.true( gotOrigin !== srcRay );
 
   /* */
 
@@ -778,7 +778,7 @@ function directionGet( test )
   var gotDirection = _.ray.directionGet( srcRay );
   var expected = _.ray.tools.vectorAdapter.from( [ 1 ] );
   test.identical( gotDirection, expected );
-  test.is( gotDirection !== srcRay );
+  test.true( gotDirection !== srcRay );
 
   /* */
 
@@ -788,7 +788,7 @@ function directionGet( test )
   var gotDirection = _.ray.directionGet( srcRay );
   var expected = _.ray.tools.vectorAdapter.from( [ 1 ] );
   test.identical( gotDirection, expected );
-  test.is( gotDirection !== srcRay );
+  test.true( gotDirection !== srcRay );
 
   /* */
 
@@ -798,7 +798,7 @@ function directionGet( test )
   var gotDirection = _.ray.directionGet( srcRay );
   var expected = _.ray.tools.vectorAdapter.from( [ 2, 3 ] );
   test.identical( gotDirection, expected );
-  test.is( gotDirection !== srcRay );
+  test.true( gotDirection !== srcRay );
 
   /* */
 
@@ -808,7 +808,7 @@ function directionGet( test )
   var gotDirection = _.ray.directionGet( srcRay );
   var expected = _.ray.tools.vectorAdapter.from( [ 2, 3 ] );
   test.identical( gotDirection, expected );
-  test.is( gotDirection !== srcRay );
+  test.true( gotDirection !== srcRay );
 
   /* */
 
@@ -818,7 +818,7 @@ function directionGet( test )
   var gotDirection = _.ray.directionGet( srcRay );
   var expected = _.ray.tools.vectorAdapter.from( [ 3, 4, 5 ] );
   test.identical( gotDirection, expected );
-  test.is( gotDirection !== srcRay );
+  test.true( gotDirection !== srcRay );
 
   /* */
 
@@ -828,7 +828,7 @@ function directionGet( test )
   var gotDirection = _.ray.directionGet( srcRay );
   var expected = _.ray.tools.vectorAdapter.from( [ 3, 4, 5 ] );
   test.identical( gotDirection, expected );
-  test.is( gotDirection !== srcRay );
+  test.true( gotDirection !== srcRay );
 
   /* */
 
@@ -3239,7 +3239,7 @@ function boundingBoxGet( test )
 
   var gotBox = _.ray.boundingBoxGet( dstBox, srcRay );
   test.identical( expected, gotBox );
-  test.is( dstBox === gotBox );
+  test.true( dstBox === gotBox );
 
   var oldSrcRay = [ 0, 0, 0, 3, 3, 3 ];
   test.identical( srcRay, oldSrcRay );
@@ -3715,7 +3715,7 @@ function convexPolygonClosestPoint( test )
 
   var gotPoint = _.ray.convexPolygonClosestPoint( srcRay, polygon, dstPoint );
   test.equivalent( expected, gotPoint );
-  test.is( dstPoint === gotPoint );
+  test.true( dstPoint === gotPoint );
 
   /* */
 
@@ -3733,7 +3733,7 @@ function convexPolygonClosestPoint( test )
 
   var gotPoint = _.ray.convexPolygonClosestPoint( srcRay, polygon, dstPoint );
   test.equivalent( expected, gotPoint );
-  test.is( dstPoint === gotPoint );
+  test.true( dstPoint === gotPoint );
 
   /* */
 
@@ -7377,7 +7377,7 @@ function boundingSphereGet( test )
 
   var gotSphere = _.ray.boundingSphereGet( dstSphere, srcRay );
   test.identical( expected, gotSphere );
-  test.is( dstSphere === gotSphere );
+  test.true( dstSphere === gotSphere );
 
   var oldSrcRay = [ 0, 0, 0, 3, 3, 3 ];
   test.identical( srcRay, oldSrcRay );

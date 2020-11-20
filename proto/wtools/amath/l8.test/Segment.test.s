@@ -43,7 +43,7 @@ function make( test )
   var gotSegment = _.segment.make( srcDim );
   var expected = _.segment.tools.longMake( [ 0, 0, 0, 0, 0, 0 ] );
   test.identical( gotSegment, expected );
-  test.is( gotSegment !== srcDim );
+  test.true( gotSegment !== srcDim );
 
   /* */
 
@@ -53,7 +53,7 @@ function make( test )
   var gotSegment = _.segment.make( srcDim );
   var expected = _.segment.tools.longMake( [ 0, 0, 0, 0, 0, 0 ] );
   test.identical( gotSegment, expected );
-  test.is( gotSegment !== srcDim );
+  test.true( gotSegment !== srcDim );
 
   /* */
 
@@ -63,7 +63,7 @@ function make( test )
   var gotSegment = _.segment.make( srcDim );
   var expected = _.segment.tools.longMake( [ 0, 0, 0, 0 ] );
   test.identical( gotSegment, expected );
-  test.is( gotSegment !== srcDim );
+  test.true( gotSegment !== srcDim );
 
   /* */
 
@@ -73,7 +73,7 @@ function make( test )
   var gotSegment = _.segment.make( srcDim );
   var expected = _.segment.tools.longMake( [ 0, 1, 2, 3 ] );
   test.identical( gotSegment, expected );
-  test.is( gotSegment !== srcDim );
+  test.true( gotSegment !== srcDim );
 
   /* */
 
@@ -83,7 +83,7 @@ function make( test )
   var gotSegment = _.segment.make( srcDim );
   var expected = _.segment.tools.longMake( [ 0, 1, 2, 3 ] );
   test.identical( gotSegment, expected );
-  test.is( gotSegment !== srcDim );
+  test.true( gotSegment !== srcDim );
 
   /* */
 
@@ -105,7 +105,7 @@ function makeZero( test )
   var gotSegment = _.segment.makeZero( srcDim );
   var expected = _.segment.tools.longMake( [ 0, 0, 0, 0, 0, 0 ] );
   test.identical( gotSegment, expected );
-  test.is( gotSegment !== srcDim );
+  test.true( gotSegment !== srcDim );
 
   /* */
 
@@ -115,7 +115,7 @@ function makeZero( test )
   var gotSegment = _.segment.makeZero( srcDim );
   var expected = _.segment.tools.longMake( [ 0, 0, 0, 0, 0, 0 ] );
   test.identical( gotSegment, expected );
-  test.is( gotSegment !== srcDim );
+  test.true( gotSegment !== srcDim );
 
   /* */
 
@@ -125,7 +125,7 @@ function makeZero( test )
   var gotSegment = _.segment.makeZero( srcDim );
   var expected = _.segment.tools.longMake( [ 0, 0, 0, 0 ] );
   test.identical( gotSegment, expected );
-  test.is( gotSegment !== srcDim );
+  test.true( gotSegment !== srcDim );
 
   /* */
 
@@ -135,7 +135,7 @@ function makeZero( test )
   var gotSegment = _.segment.makeZero( srcDim );
   var expected = _.segment.tools.longMake( [ 0, 0, 0, 0 ] );
   test.identical( gotSegment, expected );
-  test.is( gotSegment !== srcDim );
+  test.true( gotSegment !== srcDim );
 
   /* */
 
@@ -145,7 +145,7 @@ function makeZero( test )
   var gotSegment = _.segment.makeZero( srcDim );
   var expected = _.segment.tools.longMake( [ 0, 0, 0, 0 ] );
   test.identical( gotSegment, expected );
-  test.is( gotSegment !== srcDim );
+  test.true( gotSegment !== srcDim );
 
   /* */
 
@@ -168,7 +168,7 @@ function makeSingular( test )
   var gotSegment = _.segment.makeSingular( srcDim );
   var expected = _.segment.tools.longMake( [ Infinity, Infinity, Infinity, - Infinity, - Infinity, - Infinity ] );
   test.identical( gotSegment, expected );
-  test.is( gotSegment !== srcDim );
+  test.true( gotSegment !== srcDim );
 
   /* */
 
@@ -178,7 +178,7 @@ function makeSingular( test )
   var gotSegment = _.segment.makeSingular( srcDim );
   var expected = _.segment.tools.longMake( [ Infinity, Infinity, Infinity, - Infinity, - Infinity, - Infinity ] );
   test.identical( gotSegment, expected );
-  test.is( gotSegment !== srcDim );
+  test.true( gotSegment !== srcDim );
 
   /* */
 
@@ -188,7 +188,7 @@ function makeSingular( test )
   var gotSegment = _.segment.makeSingular( srcDim );
   var expected = _.segment.tools.longMake( [ Infinity, Infinity, - Infinity, - Infinity ] );
   test.identical( gotSegment, expected );
-  test.is( gotSegment !== srcDim );
+  test.true( gotSegment !== srcDim );
 
   /* */
 
@@ -198,7 +198,7 @@ function makeSingular( test )
   var gotSegment = _.segment.makeSingular( srcDim );
   var expected = _.segment.tools.longMake( [ Infinity, Infinity, - Infinity, - Infinity ] );
   test.identical( gotSegment, expected );
-  test.is( gotSegment !== srcDim );
+  test.true( gotSegment !== srcDim );
 
   /* */
 
@@ -208,7 +208,7 @@ function makeSingular( test )
   var gotSegment = _.segment.makeSingular( srcDim );
   var expected = _.segment.tools.longMake( [ Infinity, Infinity, - Infinity, - Infinity ] );
   test.identical( gotSegment, expected );
-  test.is( gotSegment !== srcDim );
+  test.true( gotSegment !== srcDim );
 
   /* */
 
@@ -230,7 +230,7 @@ function zero( test )
   var gotSegment = _.segment.zero( srcSegment );
   var expected = _.segment.tools.longMake( [ 0, 0, 0, 0, 0, 0 ] );
   test.identical( gotSegment, expected );
-  test.is( gotSegment !== srcSegment );
+  test.true( gotSegment !== srcSegment );
 
   /* */
 
@@ -240,7 +240,7 @@ function zero( test )
   var gotSegment = _.segment.zero( srcSegment );
   var expected = _.segment.tools.longMake( [ 0, 0, 0, 0, 0, 0 ] );
   test.identical( gotSegment, expected );
-  test.is( gotSegment !== srcSegment );
+  test.true( gotSegment !== srcSegment );
 
   /* */
 
@@ -250,7 +250,7 @@ function zero( test )
   var gotSegment = _.segment.zero( srcSegment );
   var expected = _.segment.tools.longMake( [ 0, 0, 0, 0 ] );
   test.identical( gotSegment, expected );
-  test.is( gotSegment !== srcSegment );
+  test.true( gotSegment !== srcSegment );
 
   /* */
 
@@ -260,7 +260,7 @@ function zero( test )
   var gotSegment = _.segment.zero( srcSegment );
   var expected = _.segment.tools.longMake( [ 0, 0, 0, 0 ] );
   test.identical( gotSegment, expected );
-  test.is( gotSegment === srcSegment );
+  test.true( gotSegment === srcSegment );
 
   /* */
 
@@ -270,7 +270,7 @@ function zero( test )
   var gotSegment = _.segment.zero( srcSegment );
   var expected = _.segment.tools.vectorAdapter.fromLong( [ 0, 0, 0, 0 ] );
   test.identical( gotSegment, expected );
-  test.is( gotSegment === srcSegment );
+  test.true( gotSegment === srcSegment );
 
   /* */
 
@@ -293,7 +293,7 @@ function nil( test )
   var gotSegment = _.segment.nil( srcSegment );
   var expected = _.segment.tools.longMake( [ Infinity, Infinity, Infinity, - Infinity, - Infinity, - Infinity ] );
   test.identical( gotSegment, expected );
-  test.is( gotSegment !== srcSegment );
+  test.true( gotSegment !== srcSegment );
 
   /* */
 
@@ -303,7 +303,7 @@ function nil( test )
   var gotSegment = _.segment.nil( srcSegment );
   var expected = _.segment.tools.longMake( [ Infinity, Infinity, Infinity, - Infinity, - Infinity, - Infinity ] );
   test.identical( gotSegment, expected );
-  test.is( gotSegment !== srcSegment );
+  test.true( gotSegment !== srcSegment );
 
   /* */
 
@@ -313,7 +313,7 @@ function nil( test )
   var gotSegment = _.segment.nil( srcSegment );
   var expected = _.segment.tools.longMake( [ Infinity, Infinity, - Infinity, - Infinity ] );
   test.identical( gotSegment, expected );
-  test.is( gotSegment !== srcSegment );
+  test.true( gotSegment !== srcSegment );
 
   /* */
 
@@ -323,7 +323,7 @@ function nil( test )
   var gotSegment = _.segment.nil( srcSegment );
   var expected = _.segment.tools.longMake( [ Infinity, Infinity, - Infinity, - Infinity ] );
   test.identical( gotSegment, expected );
-  test.is( gotSegment === srcSegment );
+  test.true( gotSegment === srcSegment );
 
   /* */
 
@@ -333,7 +333,7 @@ function nil( test )
   var gotSegment = _.segment.nil( srcSegment );
   var expected = _.segment.tools.vectorAdapter.fromLong( [ Infinity, Infinity, - Infinity, - Infinity ] );
   test.identical( gotSegment, expected );
-  test.is( gotSegment === srcSegment );
+  test.true( gotSegment === srcSegment );
 
   /* */
 
@@ -356,7 +356,7 @@ function from( test )
 
   var gotSegment = _.segment.from( srcSegment );
   test.identical( gotSegment, expected );
-  test.is( srcSegment === gotSegment );
+  test.true( srcSegment === gotSegment );
 
   /* */
 
@@ -367,7 +367,7 @@ function from( test )
 
   var gotSegment = _.segment.from( srcSegment );
   test.identical( gotSegment, expected );
-  test.is( srcSegment === gotSegment );
+  test.true( srcSegment === gotSegment );
 
   /* */
 
@@ -378,7 +378,7 @@ function from( test )
 
   var gotSegment = _.segment.from( srcSegment );
   test.identical( gotSegment, expected );
-  test.is( srcSegment === gotSegment );
+  test.true( srcSegment === gotSegment );
 
   /* */
 
@@ -389,7 +389,7 @@ function from( test )
 
   var gotSegment = _.segment.from( srcSegment );
   test.identical( gotSegment, expected );
-  test.is( srcSegment !== gotSegment );
+  test.true( srcSegment !== gotSegment );
   /* */
 
   if( !Config.debug )
@@ -416,7 +416,7 @@ function adapterFrom( test )
 
   var gotSegment = _.segment.adapterFrom( srcSegment );
   test.identical( gotSegment, expected );
-  test.is( srcSegment !== gotSegment );
+  test.true( srcSegment !== gotSegment );
 
   /* */
 
@@ -427,7 +427,7 @@ function adapterFrom( test )
 
   var gotSegment = _.segment.adapterFrom( srcSegment );
   test.identical( gotSegment, expected );
-  test.is( srcSegment === gotSegment );
+  test.true( srcSegment === gotSegment );
 
   /* */
 
@@ -438,7 +438,7 @@ function adapterFrom( test )
 
   var gotSegment = _.segment.adapterFrom( srcSegment );
   test.identical( gotSegment, expected );
-  test.is( srcSegment !== gotSegment );
+  test.true( srcSegment !== gotSegment );
 
   /* */
 
@@ -463,36 +463,36 @@ function is( test )
 
   test.case = 'array';
 
-  test.is( _.segment.is( [] ) );
-  test.is( _.segment.is([ 0, 0 ]) );
-  test.is( _.segment.is([ 1, 2, 3, 4 ]) );
-  test.is( _.segment.is([ 0, 0, 0, 0, 0, 0 ]) );
+  test.true( _.segment.is( [] ) );
+  test.true( _.segment.is([ 0, 0 ]) );
+  test.true( _.segment.is([ 1, 2, 3, 4 ]) );
+  test.true( _.segment.is([ 0, 0, 0, 0, 0, 0 ]) );
 
   /* */
 
   test.case = 'vector';
 
-  test.is( _.segment.is( _.vectorAdapter.fromLong([]) ) );
-  test.is( _.segment.is( _.vectorAdapter.fromLong([ 0, 0 ]) ) );
-  test.is( _.segment.is( _.vectorAdapter.fromLong([ 1, 2, 3, 4 ]) ) );
-  test.is( _.segment.is( _.vectorAdapter.fromLong([ 0, 0, 0, 0, 0, 0 ]) ) );
+  test.true( _.segment.is( _.vectorAdapter.fromLong([]) ) );
+  test.true( _.segment.is( _.vectorAdapter.fromLong([ 0, 0 ]) ) );
+  test.true( _.segment.is( _.vectorAdapter.fromLong([ 1, 2, 3, 4 ]) ) );
+  test.true( _.segment.is( _.vectorAdapter.fromLong([ 0, 0, 0, 0, 0, 0 ]) ) );
 
   /* */
 
   test.case = 'not segment';
 
-  test.is( !_.segment.is([ 0 ]) );
-  test.is( !_.segment.is([ 0, 0, 0 ]) );
+  test.true( !_.segment.is([ 0 ]) );
+  test.true( !_.segment.is([ 0, 0, 0 ]) );
 
-  test.is( !_.segment.is( _.vectorAdapter.fromLong([ 0 ]) ) );
-  test.is( !_.segment.is( _.vectorAdapter.fromLong([ 0, 0, 0 ]) ) );
+  test.true( !_.segment.is( _.vectorAdapter.fromLong([ 0 ]) ) );
+  test.true( !_.segment.is( _.vectorAdapter.fromLong([ 0, 0, 0 ]) ) );
 
-  test.is( !_.segment.is( 'abc' ) );
-  test.is( !_.segment.is( { origin : [ 0, 0, 0 ], direction : [ 1, 1, 1 ] } ) );
-  test.is( !_.segment.is( function( a, b, c ){} ) );
+  test.true( !_.segment.is( 'abc' ) );
+  test.true( !_.segment.is( { origin : [ 0, 0, 0 ], direction : [ 1, 1, 1 ] } ) );
+  test.true( !_.segment.is( function( a, b, c ){} ) );
 
-  test.is( !_.segment.is( null ) );
-  test.is( !_.segment.is( undefined ) );
+  test.true( !_.segment.is( null ) );
+  test.true( !_.segment.is( undefined ) );
 
   /* */
 
@@ -515,7 +515,7 @@ function dimGet( test )
   var gotDim = _.segment.dimGet( srcSegment );
   var expected = 1;
   test.identical( gotDim, expected );
-  test.is( gotDim !== srcSegment );
+  test.true( gotDim !== srcSegment );
 
   /* */
 
@@ -525,7 +525,7 @@ function dimGet( test )
   var gotDim = _.segment.dimGet( srcSegment );
   var expected = 1;
   test.identical( gotDim, expected );
-  test.is( gotDim !== srcSegment );
+  test.true( gotDim !== srcSegment );
 
   /* */
 
@@ -535,7 +535,7 @@ function dimGet( test )
   var gotDim = _.segment.dimGet( srcSegment );
   var expected = 2;
   test.identical( gotDim, expected );
-  test.is( gotDim !== srcSegment );
+  test.true( gotDim !== srcSegment );
 
   /* */
 
@@ -545,7 +545,7 @@ function dimGet( test )
   var gotDim = _.segment.dimGet( srcSegment );
   var expected = 2;
   test.identical( gotDim, expected );
-  test.is( gotDim !== srcSegment );
+  test.true( gotDim !== srcSegment );
 
   /* */
 
@@ -555,7 +555,7 @@ function dimGet( test )
   var gotDim = _.segment.dimGet( srcSegment );
   var expected = 3;
   test.identical( gotDim, expected );
-  test.is( gotDim !== srcSegment );
+  test.true( gotDim !== srcSegment );
 
   /* */
 
@@ -565,7 +565,7 @@ function dimGet( test )
   var gotDim = _.segment.dimGet( srcSegment );
   var expected = 3;
   test.identical( gotDim, expected );
-  test.is( gotDim !== srcSegment );
+  test.true( gotDim !== srcSegment );
 
   /* */
 
@@ -606,7 +606,7 @@ function originGet( test )
   var gotOrigin = _.segment.originGet( srcSegment );
   var expected = _.segment.tools.vectorAdapter.from( [ 0 ] );
   test.identical( gotOrigin, expected );
-  test.is( gotOrigin !== srcSegment );
+  test.true( gotOrigin !== srcSegment );
 
   /* */
 
@@ -616,7 +616,7 @@ function originGet( test )
   var gotOrigin = _.segment.originGet( srcSegment );
   var expected = _.segment.tools.vectorAdapter.from( [ 0 ] );
   test.identical( gotOrigin, expected );
-  test.is( gotOrigin !== srcSegment );
+  test.true( gotOrigin !== srcSegment );
 
   /* */
 
@@ -626,7 +626,7 @@ function originGet( test )
   var gotOrigin = _.segment.originGet( srcSegment );
   var expected = _.segment.tools.vectorAdapter.from( [ 0, 1 ] );
   test.identical( gotOrigin, expected );
-  test.is( gotOrigin !== srcSegment );
+  test.true( gotOrigin !== srcSegment );
 
   /* */
 
@@ -636,7 +636,7 @@ function originGet( test )
   var gotOrigin = _.segment.originGet( srcSegment );
   var expected = _.segment.tools.vectorAdapter.from( [ 0, 1 ] );
   test.identical( gotOrigin, expected );
-  test.is( gotOrigin !== srcSegment );
+  test.true( gotOrigin !== srcSegment );
 
   /* */
 
@@ -646,7 +646,7 @@ function originGet( test )
   var gotOrigin = _.segment.originGet( srcSegment );
   var expected = _.segment.tools.vectorAdapter.from( [ 0, 1, 2 ] );
   test.identical( gotOrigin, expected );
-  test.is( gotOrigin !== srcSegment );
+  test.true( gotOrigin !== srcSegment );
 
   /* */
 
@@ -656,7 +656,7 @@ function originGet( test )
   var gotOrigin = _.segment.originGet( srcSegment );
   var expected = _.segment.tools.vectorAdapter.from( [ 0, 1, 2 ] );
   test.identical( gotOrigin, expected );
-  test.is( gotOrigin !== srcSegment );
+  test.true( gotOrigin !== srcSegment );
 
   /* */
 
@@ -697,7 +697,7 @@ function endPointGet( test )
   var gotDirection = _.segment.endPointGet( srcSegment );
   var expected = _.segment.tools.vectorAdapter.from( [ 1 ] );
   test.identical( gotDirection, expected );
-  test.is( gotDirection !== srcSegment );
+  test.true( gotDirection !== srcSegment );
 
   /* */
 
@@ -707,7 +707,7 @@ function endPointGet( test )
   var gotDirection = _.segment.endPointGet( srcSegment );
   var expected = _.segment.tools.vectorAdapter.from( [ 1 ] );
   test.identical( gotDirection, expected );
-  test.is( gotDirection !== srcSegment );
+  test.true( gotDirection !== srcSegment );
 
   /* */
 
@@ -717,7 +717,7 @@ function endPointGet( test )
   var gotDirection = _.segment.endPointGet( srcSegment );
   var expected = _.segment.tools.vectorAdapter.from( [ 2, 3 ] );
   test.identical( gotDirection, expected );
-  test.is( gotDirection !== srcSegment );
+  test.true( gotDirection !== srcSegment );
 
   /* */
 
@@ -727,7 +727,7 @@ function endPointGet( test )
   var gotDirection = _.segment.endPointGet( srcSegment );
   var expected = _.segment.tools.vectorAdapter.from( [ 2, 3 ] );
   test.identical( gotDirection, expected );
-  test.is( gotDirection !== srcSegment );
+  test.true( gotDirection !== srcSegment );
 
   /* */
 
@@ -737,7 +737,7 @@ function endPointGet( test )
   var gotDirection = _.segment.endPointGet( srcSegment );
   var expected = _.segment.tools.vectorAdapter.from( [ 3, 4, 5 ] );
   test.identical( gotDirection, expected );
-  test.is( gotDirection !== srcSegment );
+  test.true( gotDirection !== srcSegment );
 
   /* */
 
@@ -747,7 +747,7 @@ function endPointGet( test )
   var gotDirection = _.segment.endPointGet( srcSegment );
   var expected = _.segment.tools.vectorAdapter.from( [ 3, 4, 5 ] );
   test.identical( gotDirection, expected );
-  test.is( gotDirection !== srcSegment );
+  test.true( gotDirection !== srcSegment );
 
   /* */
 
@@ -788,7 +788,7 @@ function directionGet( test )
   var gotDirection = _.segment.directionGet( srcSegment );
   var expected = _.segment.tools.vectorAdapter.from( [ 1 ] );
   test.identical( gotDirection, expected );
-  test.is( gotDirection !== srcSegment );
+  test.true( gotDirection !== srcSegment );
 
   /* */
 
@@ -798,7 +798,7 @@ function directionGet( test )
   var gotDirection = _.segment.directionGet( srcSegment );
   var expected = _.segment.tools.vectorAdapter.from( [ 1 ] );
   test.identical( gotDirection, expected );
-  test.is( gotDirection !== srcSegment );
+  test.true( gotDirection !== srcSegment );
 
   /* */
 
@@ -808,7 +808,7 @@ function directionGet( test )
   var gotDirection = _.segment.directionGet( srcSegment );
   var expected = _.segment.tools.vectorAdapter.from( [ 2, 2 ] );
   test.identical( gotDirection, expected );
-  test.is( gotDirection !== srcSegment );
+  test.true( gotDirection !== srcSegment );
 
   /* */
 
@@ -818,7 +818,7 @@ function directionGet( test )
   var gotDirection = _.segment.directionGet( srcSegment );
   var expected = _.segment.tools.vectorAdapter.from( [ 2, 2 ] );
   test.identical( gotDirection, expected );
-  test.is( gotDirection !== srcSegment );
+  test.true( gotDirection !== srcSegment );
 
   /* */
 
@@ -828,7 +828,7 @@ function directionGet( test )
   var gotDirection = _.segment.directionGet( srcSegment );
   var expected = _.segment.tools.vectorAdapter.from( [ 3, 3, 3 ] );
   test.identical( gotDirection, expected );
-  test.is( gotDirection !== srcSegment );
+  test.true( gotDirection !== srcSegment );
 
   /* */
 
@@ -838,7 +838,7 @@ function directionGet( test )
   var gotDirection = _.segment.directionGet( srcSegment );
   var expected = _.segment.tools.vectorAdapter.from( [ 3, 2, 1 ] );
   test.identical( gotDirection, expected );
-  test.is( gotDirection !== srcSegment );
+  test.true( gotDirection !== srcSegment );
 
   /* */
 
@@ -848,7 +848,7 @@ function directionGet( test )
   var gotDirection = _.segment.directionGet( srcSegment );
   var expected = _.segment.tools.vectorAdapter.from( [ - 3, - 3, - 3 ] );
   test.identical( gotDirection, expected );
-  test.is( gotDirection !== srcSegment );
+  test.true( gotDirection !== srcSegment );
 
   /* */
 
@@ -858,7 +858,7 @@ function directionGet( test )
   var gotDirection = _.segment.directionGet( srcSegment );
   var expected = _.segment.tools.vectorAdapter.from( [ 0, 0, 0 ] );
   test.identical( gotDirection, expected );
-  test.is( gotDirection !== srcSegment );
+  test.true( gotDirection !== srcSegment );
 
   /* */
 
@@ -894,7 +894,7 @@ function centerGet( test )
 
   var oldDstPoint = [ 3, 4 ];
   test.equivalent( gotCenter, dstPoint );
-  test.is( dstPoint !== oldDstPoint)
+  test.true( dstPoint !== oldDstPoint)
 
   /* */
 
@@ -904,7 +904,7 @@ function centerGet( test )
   var gotCenter = _.segment.centerGet( srcSegment );
   var expected = [ 0.5 ];
   test.identical( gotCenter, expected );
-  test.is( gotCenter !== srcSegment );
+  test.true( gotCenter !== srcSegment );
 
   /* */
 
@@ -1289,7 +1289,7 @@ function project( test )
   test.identical( project, oldProject );
 
   var oldSegment = [ 0, 0, 1, 1 ];
-  test.is( oldSegment !== gotSegment );
+  test.true( oldSegment !== gotSegment );
 
   /* */
 
@@ -4018,7 +4018,7 @@ function boundingBoxGet( test )
 
   var gotBox = _.segment.boundingBoxGet( dstBox, srcSegment );
   test.identical( expected, gotBox );
-  test.is( dstBox === gotBox );
+  test.true( dstBox === gotBox );
 
   var oldSrcSegment = [ 0, 0, 0, 3, 3, 3 ];
   test.identical( srcSegment, oldSrcSegment );
@@ -4510,7 +4510,7 @@ function convexPolygonClosestPoint( test )
 
   var gotPoint = _.segment.convexPolygonClosestPoint( srcSegment, polygon, dstPoint );
   test.equivalent( expected, gotPoint );
-  test.is( dstPoint === gotPoint );
+  test.true( dstPoint === gotPoint );
 
   /* */
 
@@ -4528,7 +4528,7 @@ function convexPolygonClosestPoint( test )
 
   var gotPoint = _.segment.convexPolygonClosestPoint( srcSegment, polygon, dstPoint );
   test.equivalent( expected, gotPoint );
-  test.is( dstPoint === gotPoint );
+  test.true( dstPoint === gotPoint );
 
   /* */
 
@@ -8946,7 +8946,7 @@ function boundingSphereGet( test )
 
   var gotSphere = _.segment.boundingSphereGet( dstSphere, srcSegment );
   test.identical( expected, gotSphere );
-  test.is( dstSphere === gotSphere );
+  test.true( dstSphere === gotSphere );
 
   var oldSrcSegment = [ 0, 0, 0, 3, 3, 3 ];
   test.identical( srcSegment, oldSrcSegment );

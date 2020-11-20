@@ -78,37 +78,37 @@ function is( test )
 
   test.case = 'array';
 
-  test.is( !_.euler.is([]) );
-  test.is( !_.euler.is([ 0 ]) );
-  test.is( !_.euler.is([ 0, 0 ]) );
-  test.is( !_.euler.is([ 0, 0, 0 ]) );
-  test.is( !_.euler.is([ 0, 0, 0, 0 ]) );
-  test.is( !_.euler.is([ 0, 0, 0, 0, 0 ]) );
-  test.is( _.euler.is([ 0, 0, 0, 0, 0, 0 ]) );
-  test.is( _.euler.is([ 1, 2, 3, 0, 1, 2 ]) );
-  test.is( !_.euler.is([ 0, 0, 0, 0, 0, 0, 0 ]) );
+  test.true( !_.euler.is([]) );
+  test.true( !_.euler.is([ 0 ]) );
+  test.true( !_.euler.is([ 0, 0 ]) );
+  test.true( !_.euler.is([ 0, 0, 0 ]) );
+  test.true( !_.euler.is([ 0, 0, 0, 0 ]) );
+  test.true( !_.euler.is([ 0, 0, 0, 0, 0 ]) );
+  test.true( _.euler.is([ 0, 0, 0, 0, 0, 0 ]) );
+  test.true( _.euler.is([ 1, 2, 3, 0, 1, 2 ]) );
+  test.true( !_.euler.is([ 0, 0, 0, 0, 0, 0, 0 ]) );
 
   /* */
 
   test.case = 'vector';
 
-  test.is( !_.euler.is( _.euler.tools.vectorAdapter.fromLong([]) ) );
-  test.is( !_.euler.is( _.euler.tools.vectorAdapter.fromLong([ 0 ]) ) );
-  test.is( !_.euler.is( _.euler.tools.vectorAdapter.fromLong([ 0, 0 ]) ) );
-  test.is( !_.euler.is( _.euler.tools.vectorAdapter.fromLong([ 0, 0, 0 ]) ) );
-  test.is( !_.euler.is( _.euler.tools.vectorAdapter.fromLong([ 0, 0, 0, 0 ]) ) );
-  test.is( !_.euler.is( _.euler.tools.vectorAdapter.fromLong([ 0, 0, 0, 0, 0 ]) ) );
-  test.is( _.euler.is( _.euler.tools.vectorAdapter.fromLong([ 0, 0, 0, 0, 0, 0 ]) ) );
-  test.is( _.euler.is( _.euler.tools.vectorAdapter.fromLong([ 1, 2, 3, 0, 1, 2 ]) ) );
-  test.is( !_.euler.is( _.euler.tools.vectorAdapter.fromLong([ 0, 0, 0, 0, 0, 0, 0 ]) ) );
+  test.true( !_.euler.is( _.euler.tools.vectorAdapter.fromLong([]) ) );
+  test.true( !_.euler.is( _.euler.tools.vectorAdapter.fromLong([ 0 ]) ) );
+  test.true( !_.euler.is( _.euler.tools.vectorAdapter.fromLong([ 0, 0 ]) ) );
+  test.true( !_.euler.is( _.euler.tools.vectorAdapter.fromLong([ 0, 0, 0 ]) ) );
+  test.true( !_.euler.is( _.euler.tools.vectorAdapter.fromLong([ 0, 0, 0, 0 ]) ) );
+  test.true( !_.euler.is( _.euler.tools.vectorAdapter.fromLong([ 0, 0, 0, 0, 0 ]) ) );
+  test.true( _.euler.is( _.euler.tools.vectorAdapter.fromLong([ 0, 0, 0, 0, 0, 0 ]) ) );
+  test.true( _.euler.is( _.euler.tools.vectorAdapter.fromLong([ 1, 2, 3, 0, 1, 2 ]) ) );
+  test.true( !_.euler.is( _.euler.tools.vectorAdapter.fromLong([ 0, 0, 0, 0, 0, 0, 0 ]) ) );
 
   /* */
 
   test.case = 'not euler';
 
-  test.is( !_.euler.is( 'abcdef' ) );
-  test.is( !_.euler.is( {} ) );
-  test.is( !_.euler.is( function( a, b, c, d, e, f ){} ) );
+  test.true( !_.euler.is( 'abcdef' ) );
+  test.true( !_.euler.is( {} ) );
+  test.true( !_.euler.is( function( a, b, c, d, e, f ){} ) );
 
 }
 
@@ -122,17 +122,17 @@ function isZero( test )
   test.case = 'zero';
 
   debugger;
-  test.is( _.euler.isZero([ 0, 0, 0, 0, 1, 2 ]) );
+  test.true( _.euler.isZero([ 0, 0, 0, 0, 1, 2 ]) );
 
   /* */
 
   test.case = 'not zero';
 
-  test.is( !_.euler.isZero([ 1, 0, 0, 0, 1, 2 ]) );
-  test.is( !_.euler.isZero([ 0, 1, 0, 0, 1, 2 ]) );
-  test.is( !_.euler.isZero([ 0, 0, 1, 0, 1, 2 ]) );
+  test.true( !_.euler.isZero([ 1, 0, 0, 0, 1, 2 ]) );
+  test.true( !_.euler.isZero([ 0, 1, 0, 0, 1, 2 ]) );
+  test.true( !_.euler.isZero([ 0, 0, 1, 0, 1, 2 ]) );
 
-  test.is( !_.euler.isZero([ 1, 1, 1, 0, 0, 0 ]) );
+  test.true( !_.euler.isZero([ 1, 1, 1, 0, 0, 0 ]) );
 
 }
 
@@ -149,7 +149,7 @@ function make( test )
   var got = _.euler.make( src );
   var expected = _.euler.tools.longMake( [ 0, 0, 0, 0, 1, 2 ] );
   test.identical( got, expected );
-  test.is( got !== src );
+  test.true( got !== src );
 
   /* */
 
@@ -159,7 +159,7 @@ function make( test )
   var got = _.euler.make( src );
   var expected = _.euler.tools.longMake( [ 0, 0, 0, 0, 1, 2 ] );
   test.identical( got, expected );
-  test.is( got !== src );
+  test.true( got !== src );
 
   /* */
 
@@ -169,7 +169,7 @@ function make( test )
   var got = _.euler.make( src );
   var expected = _.euler.tools.longMake( [ 0, 1, 2, 5, 5, 5 ] );
   test.identical( got, expected );
-  test.is( got !== src );
+  test.true( got !== src );
 
   /* */
 
@@ -179,7 +179,7 @@ function make( test )
   var got = _.euler.make( src );
   var expected = _.euler.tools.longMake( [ 0, 1, 2, 5, 5, 5 ] );
   test.identical( got, expected );
-  test.is( got !== src );
+  test.true( got !== src );
 
   /* */
 
@@ -238,7 +238,7 @@ function zero( test )
   var got = _.euler.zero( src );
   var expected = _.euler.tools.longMake( [ 0, 0, 0, 0, 1, 2 ] );
   test.identical( got, expected );
-  test.is( got !== src );
+  test.true( got !== src );
 
   /* */
 
@@ -248,7 +248,7 @@ function zero( test )
   var got = _.euler.zero( src );
   var expected = _.euler.tools.longMake( [ 0, 0, 0, 0, 1, 2 ] );
   test.identical( got, expected );
-  test.is( got !== src );
+  test.true( got !== src );
 
   /* */
 
@@ -258,7 +258,7 @@ function zero( test )
   var got = _.euler.zero( dst );
   var expected = _.euler.tools.longMake( [ 0, 0, 0, 5, 5, 5 ] );
   test.identical( got, expected );
-  test.is( got === dst );
+  test.true( got === dst );
 
   /* */
 
@@ -268,7 +268,7 @@ function zero( test )
   var got = _.euler.zero( dst );
   var expected = _.euler.tools.vectorAdapter.fromLong([ 0, 0, 0, 5, 5, 5 ]);
   test.identical( got, expected );
-  test.is( got === dst );
+  test.true( got === dst );
 
   /* */
 
@@ -295,7 +295,7 @@ function fromAxisAndAngle( test )
     // var dst = [ 0, 0, 0, 0, 1, 2 ]
     // var got = _.euler.fromAxisAndAngle( dst, axisAndAngle );
     // test.identical( got, expected );
-    // test.is( got === dst );
+    // test.true( got === dst );
 
     var dst = expected.slice();
     dst[ 0 ] = 0;
@@ -311,7 +311,7 @@ function fromAxisAndAngle( test )
     var appliedQuat1 = _.quat.applyTo( quat1, [ 0.25, 0.5, 1 ] );
     var appliedQuat2 = _.quat.applyTo( quat2, [ 0.25, 0.5, 1 ] );
 
-    test.is( euler1 === dst );
+    test.true( euler1 === dst );
     test.equivalent( euler1, expected );
     test.equivalent( appliedQuat1, appliedQuat2 );
 
@@ -330,7 +330,7 @@ function fromAxisAndAngle( test )
   // var dst = [ 0, 0, 0, 0, 1, 2 ]
   // var got = _.euler.fromAxisAndAngle( dst, axisAndAngle );
   // test.identical( got, expected );
-  // test.is( got === dst );
+  // test.true( got === dst );
 
   test.case = 'trivial xyz';
 
@@ -364,7 +364,7 @@ function fromQuat( test )
 
     test.equivalent( euler1, expected );
     test.equivalent( appliedQuat1, appliedQuat2 );
-    test.is( euler1 === dst );
+    test.true( euler1 === dst );
 
     // logger.log( 'quat1', quat1 );
     // logger.log( 'quat2', quat2 );
@@ -742,7 +742,7 @@ function toMatrix( test )
      0.415,   0.829,   0.375,
   ]);
   test.equivalent( got.toStr(), exp.toStr() );
-  test.is( got === src );
+  test.true( got === src );
   // /* */
 
  test.case = 'special zyx';
@@ -1007,7 +1007,7 @@ function fromQuat2( test )
   var gotEuler = _.euler.fromQuat2( dstEuler, srcQuat );
   test.equivalent( gotEuler, expected );
   test.equivalent( srcQuat, oldQuat );
-  test.is( gotEuler === dstEuler );
+  test.true( gotEuler === dstEuler );
 
   /* */
 
@@ -1229,7 +1229,7 @@ function fromQuat2( test )
 
   var gotEuler = _.euler.fromQuat2( dstEuler, srcQuat );
   test.equivalent( gotEuler, expected );
-  test.is( gotEuler !== dstEuler );
+  test.true( gotEuler !== dstEuler );
 
   /* */
 
@@ -1241,7 +1241,7 @@ function fromQuat2( test )
 
   var gotEuler = _.euler.fromQuat2( dstEuler, srcQuat );
   test.equivalent( gotEuler, expected );
-  test.is( gotEuler !== dstEuler );
+  test.true( gotEuler !== dstEuler );
 
   if( !Config.debug )
   return;
@@ -1274,7 +1274,7 @@ function toQuat2( test )
   var gotQuat = _.euler.toQuat2( srcEuler, dstQuat );
   test.equivalent( gotQuat, expected );
   test.equivalent( srcEuler, oldEuler );
-  test.is( gotQuat === dstQuat );
+  test.true( gotQuat === dstQuat );
 
   /* */
 
@@ -1286,7 +1286,7 @@ function toQuat2( test )
 
   var gotQuat = _.euler.toQuat2( srcEuler, dstQuat );
   test.equivalent( gotQuat, expected );
-  test.is( gotQuat !== dstQuat );
+  test.true( gotQuat !== dstQuat );
 
   /* */
 
@@ -1298,7 +1298,7 @@ function toQuat2( test )
 
   var gotQuat = _.euler.toQuat2( srcEuler, dstQuat );
   test.equivalent( gotQuat, expected );
-  test.is( gotQuat !== dstQuat );
+  test.true( gotQuat !== dstQuat );
 
   /* */
 
@@ -1837,7 +1837,7 @@ function fromMatrix2( test )
   var gotEuler = _.euler.fromMatrix2( dstEuler, srcMatrix );
   gotEuler = _.vectorAdapter.toLong( gotEuler );
   test.equivalent( gotEuler, expected );
-  test.is( gotEuler === dstEuler );
+  test.true( gotEuler === dstEuler );
 
   var oldMatrix = _.Matrix.Make([ 3, 3 ]).copy
   ([
@@ -1966,7 +1966,7 @@ function fromMatrix2( test )
   var gotEuler = _.euler.fromMatrix2( dstEuler, srcMatrix );
   gotEuler = _.vectorAdapter.toLong( gotEuler );
   test.equivalent( gotEuler, expected );
-  test.is( gotEuler !== dstEuler );
+  test.true( gotEuler !== dstEuler );
 
   /* */
 
@@ -1984,7 +1984,7 @@ function fromMatrix2( test )
   var gotEuler = _.euler.fromMatrix2( dstEuler, srcMatrix );
   gotEuler = _.vectorAdapter.toLong( gotEuler );
   test.equivalent( gotEuler, expected );
-  test.is( gotEuler !== dstEuler );
+  test.true( gotEuler !== dstEuler );
 
   /* */
 
@@ -2190,7 +2190,7 @@ function toMatrix2( test )
   ]);
 
   var gotMatrix = _.euler.toMatrix2( srcEuler, dstMatrix );
-  test.is( gotMatrix === dstMatrix );
+  test.true( gotMatrix === dstMatrix );
   test.equivalent( gotMatrix, expected );
   test.equivalent( srcEuler, oldEuler );
 
@@ -2305,7 +2305,7 @@ function toMatrix2( test )
 
   var gotMatrix = _.euler.toMatrix2( srcEuler, dstMatrix );
   test.equivalent( gotMatrix, expected );
-  test.is( dstMatrix !== gotMatrix );
+  test.true( dstMatrix !== gotMatrix );
 
   /* */
 
@@ -2322,7 +2322,7 @@ function toMatrix2( test )
 
   var gotMatrix = _.euler.toMatrix2( srcEuler, dstMatrix );
   test.equivalent( gotMatrix, expected );
-  test.is( dstMatrix !== gotMatrix );
+  test.true( dstMatrix !== gotMatrix );
 
   /* */
 
@@ -2875,7 +2875,7 @@ function eulerToQuatToEulerToQuatFast( test )
     var eq = false;
     eq = eq || _.entityEquivalent( positiveResult, quat1, { accuracy : test.accuracy } );
     eq = eq || _.entityEquivalent( negativeResult, quat1, { accuracy : test.accuracy } );
-    test.is( eq );
+    test.true( eq );
   }
 
 }
@@ -2933,7 +2933,7 @@ function eulerToQuatToEulerToQuatSlow( test )
     var eq = false;
     eq = eq || _.entityEquivalent( positiveResult, quat1, { accuracy : test.accuracy } );
     eq = eq || _.entityEquivalent( negativeResult, quat1, { accuracy : test.accuracy } );
-    test.is( eq );
+    test.true( eq );
   }
 
 }
@@ -2992,7 +2992,7 @@ function eulerToQuatToMatrixToQuatSlow( test )
     eq = eq || _.entityEquivalent( positiveResult, quat1, { accuracy : test.accuracy } );
     eq = eq || _.entityEquivalent( negativeResult, quat1, { accuracy : test.accuracy } );
 
-    test.is( eq );
+    test.true( eq );
 
   }
 
@@ -3072,7 +3072,7 @@ function eulerToQuatToMatrixToEulerSlow( test )
       logger.log( fails );
     }
 
-    test.is( eq );
+    test.true( eq );
 
   }
 
@@ -3137,7 +3137,7 @@ function eulerToQuatToAxisAndAngleToEulerToAxisAndAngleToQuatFast( test )
     eq = eq || _.entityEquivalent( positiveResult, quat1, { accuracy : test.accuracy } );
     eq = eq || _.entityEquivalent( negativeResult, quat1, { accuracy : test.accuracy } );
 
-    test.is( eq );
+    test.true( eq );
 
   }
 
@@ -3204,7 +3204,7 @@ function eulerToQuatToAxisAndAngleToEulerToAxisAndAngleToQuatSlow( test )
     eq = eq || _.entityEquivalent( positiveResult, quat1, { accuracy : test.accuracy } );
     eq = eq || _.entityEquivalent( negativeResult, quat1, { accuracy : test.accuracy } );
 
-    test.is( eq );
+    test.true( eq );
 
   }
 
@@ -3230,7 +3230,7 @@ function represent( test )
   var oldRepresentation = representation.slice();
 
   var gotEuler = _.euler.represent( dstEuler, representation );
-  test.is( gotEuler === dstEuler );
+  test.true( gotEuler === dstEuler );
   test.equivalent( representation, oldRepresentation );
 
   /* */
@@ -3243,7 +3243,7 @@ function represent( test )
   var representation = [ 0, 1, 2 ];
 
   var gotEuler = _.euler.represent( dstEuler, representation );
-  test.is( gotEuler === dstEuler );
+  test.true( gotEuler === dstEuler );
   var result = _.euler.represent( gotEuler, oldRepresentation );
   test.equivalent( result, srcEuler );
 
@@ -3257,7 +3257,7 @@ function represent( test )
   var representation = [ 0, 2, 1 ];
 
   var gotEuler = _.euler.represent( dstEuler, representation );
-  test.is( gotEuler === dstEuler );
+  test.true( gotEuler === dstEuler );
   var result = _.euler.represent( gotEuler, oldRepresentation );
   test.equivalent( result, srcEuler );
 
@@ -3271,7 +3271,7 @@ function represent( test )
   var representation = [ 1, 0, 2 ];
 
   var gotEuler = _.euler.represent( dstEuler, representation );
-  test.is( gotEuler === dstEuler );
+  test.true( gotEuler === dstEuler );
   var result = _.euler.represent( gotEuler, oldRepresentation );
   test.equivalent( result, srcEuler );
 
@@ -3285,7 +3285,7 @@ function represent( test )
   var representation = [ 1, 2, 0 ];
 
   var gotEuler = _.euler.represent( dstEuler, representation );
-  test.is( gotEuler === dstEuler );
+  test.true( gotEuler === dstEuler );
   var result = _.euler.represent( gotEuler, oldRepresentation );
   test.equivalent( result, srcEuler );
 
@@ -3299,7 +3299,7 @@ function represent( test )
   var representation = [ 2, 0, 1 ];
 
   var gotEuler = _.euler.represent( dstEuler, representation );
-  test.is( gotEuler === dstEuler );
+  test.true( gotEuler === dstEuler );
   var result = _.euler.represent( gotEuler, oldRepresentation );
   test.equivalent( result, srcEuler );
 
@@ -3313,7 +3313,7 @@ function represent( test )
   var representation = [ 2, 1, 0 ];
 
   var gotEuler = _.euler.represent( dstEuler, representation );
-  test.is( gotEuler === dstEuler );
+  test.true( gotEuler === dstEuler );
   var result = _.euler.represent( gotEuler, oldRepresentation );
   test.equivalent( result, srcEuler );
 
@@ -3327,7 +3327,7 @@ function represent( test )
   var representation = [ 0, 1, 0 ];
 
   var gotEuler = _.euler.represent( dstEuler, representation );
-  test.is( gotEuler === dstEuler );
+  test.true( gotEuler === dstEuler );
   var result = _.euler.represent( gotEuler, oldRepresentation );
   test.equivalent( result, srcEuler );
 
@@ -3341,7 +3341,7 @@ function represent( test )
   var representation = [ 0, 2, 0 ];
 
   var gotEuler = _.euler.represent( dstEuler, representation );
-  test.is( gotEuler === dstEuler );
+  test.true( gotEuler === dstEuler );
   var result = _.euler.represent( gotEuler, oldRepresentation );
   test.equivalent( result, srcEuler );
 
@@ -3355,7 +3355,7 @@ function represent( test )
   var representation = [ 1, 0, 1 ];
 
   var gotEuler = _.euler.represent( dstEuler, representation );
-  test.is( gotEuler === dstEuler );
+  test.true( gotEuler === dstEuler );
   var result = _.euler.represent( gotEuler, oldRepresentation );
   test.equivalent( result, srcEuler );
 
@@ -3369,7 +3369,7 @@ function represent( test )
   var representation = [ 1, 2, 1 ];
 
   var gotEuler = _.euler.represent( dstEuler, representation );
-  test.is( gotEuler === dstEuler );
+  test.true( gotEuler === dstEuler );
   var result = _.euler.represent( gotEuler, oldRepresentation );
   test.equivalent( result, srcEuler );
 
@@ -3383,7 +3383,7 @@ function represent( test )
   var representation = [ 2, 0, 2 ];
 
   var gotEuler = _.euler.represent( dstEuler, representation );
-  test.is( gotEuler === dstEuler );
+  test.true( gotEuler === dstEuler );
   var result = _.euler.represent( gotEuler, oldRepresentation );
   test.equivalent( result, srcEuler );
 
@@ -3397,7 +3397,7 @@ function represent( test )
   var representation = [ 2, 1, 2 ];
 
   var gotEuler = _.euler.represent( dstEuler, representation );
-  test.is( gotEuler === dstEuler );
+  test.true( gotEuler === dstEuler );
   var result = _.euler.represent( gotEuler, oldRepresentation );
   test.equivalent( result, srcEuler );
 
@@ -3411,7 +3411,7 @@ function represent( test )
   var representation = 'xyz';
 
   var gotEuler = _.euler.represent( dstEuler, representation );
-  test.is( gotEuler === dstEuler );
+  test.true( gotEuler === dstEuler );
   var result = _.euler.represent( gotEuler, oldRepresentation );
   test.equivalent( result, srcEuler );
 
@@ -3425,7 +3425,7 @@ function represent( test )
   var representation = 'xzy';
 
   var gotEuler = _.euler.represent( dstEuler, representation );
-  test.is( gotEuler === dstEuler );
+  test.true( gotEuler === dstEuler );
   var result = _.euler.represent( gotEuler, oldRepresentation );
   test.equivalent( result, srcEuler );
 
@@ -3439,7 +3439,7 @@ function represent( test )
   var representation = 'yxz';
 
   var gotEuler = _.euler.represent( dstEuler, representation );
-  test.is( gotEuler === dstEuler );
+  test.true( gotEuler === dstEuler );
   var result = _.euler.represent( gotEuler, oldRepresentation );
   test.equivalent( result, srcEuler );
 
@@ -3453,7 +3453,7 @@ function represent( test )
   var representation = 'yzx';
 
   var gotEuler = _.euler.represent( dstEuler, representation );
-  test.is( gotEuler === dstEuler );
+  test.true( gotEuler === dstEuler );
   var result = _.euler.represent( gotEuler, oldRepresentation );
   test.equivalent( result, srcEuler );
 
@@ -3467,7 +3467,7 @@ function represent( test )
   var representation = 'zxy';
 
   var gotEuler = _.euler.represent( dstEuler, representation );
-  test.is( gotEuler === dstEuler );
+  test.true( gotEuler === dstEuler );
   var result = _.euler.represent( gotEuler, oldRepresentation );
   test.equivalent( result, srcEuler );
 
@@ -3481,7 +3481,7 @@ function represent( test )
   var representation = 'zyx';
 
   var gotEuler = _.euler.represent( dstEuler, representation );
-  test.is( gotEuler === dstEuler );
+  test.true( gotEuler === dstEuler );
   var result = _.euler.represent( gotEuler, oldRepresentation );
   test.equivalent( result, srcEuler );
 
@@ -3495,7 +3495,7 @@ function represent( test )
   var representation = 'xyx';
 
   var gotEuler = _.euler.represent( dstEuler, representation );
-  test.is( gotEuler === dstEuler );
+  test.true( gotEuler === dstEuler );
   var result = _.euler.represent( gotEuler, oldRepresentation );
   test.equivalent( result, srcEuler );
 
@@ -3509,7 +3509,7 @@ function represent( test )
   var representation = 'xzx';
 
   var gotEuler = _.euler.represent( dstEuler, representation );
-  test.is( gotEuler === dstEuler );
+  test.true( gotEuler === dstEuler );
   var result = _.euler.represent( gotEuler, oldRepresentation );
   test.equivalent( result, srcEuler );
 
@@ -3523,7 +3523,7 @@ function represent( test )
   var representation = 'yxy';
 
   var gotEuler = _.euler.represent( dstEuler, representation );
-  test.is( gotEuler === dstEuler );
+  test.true( gotEuler === dstEuler );
   var result = _.euler.represent( gotEuler, oldRepresentation );
   test.equivalent( result, srcEuler );
 
@@ -3537,7 +3537,7 @@ function represent( test )
   var representation = 'yzy';
 
   var gotEuler = _.euler.represent( dstEuler, representation );
-  test.is( gotEuler === dstEuler );
+  test.true( gotEuler === dstEuler );
   var result = _.euler.represent( gotEuler, oldRepresentation );
   test.equivalent( result, srcEuler );
 
@@ -3551,7 +3551,7 @@ function represent( test )
   var representation = 'zxz';
 
   var gotEuler = _.euler.represent( dstEuler, representation );
-  test.is( gotEuler === dstEuler );
+  test.true( gotEuler === dstEuler );
   var result = _.euler.represent( gotEuler, oldRepresentation );
   test.equivalent( result, srcEuler );
 
@@ -3565,7 +3565,7 @@ function represent( test )
   var representation = 'zyz';
 
   var gotEuler = _.euler.represent( dstEuler, representation );
-  test.is( gotEuler === dstEuler );
+  test.true( gotEuler === dstEuler );
   var result = _.euler.represent( gotEuler, oldRepresentation );
   test.equivalent( result, srcEuler );
 
@@ -3578,7 +3578,7 @@ function represent( test )
   var expected = _.euler.tools.longMake( [ 0, 0, 0, 2, 1, 2 ] );
 
   var gotEuler = _.euler.represent( dstEuler, representation );
-  test.is( dstEuler !== gotEuler );
+  test.true( dstEuler !== gotEuler );
   test.equivalent(expected, gotEuler );
 
   /* */
@@ -3590,7 +3590,7 @@ function represent( test )
   var expected = _.euler.tools.longMake( [ 0, 0, 0, 2, 1, 2 ] );
 
   var gotEuler = _.euler.represent( dstEuler, representation );
-  test.is( dstEuler !== gotEuler );
+  test.true( dstEuler !== gotEuler );
   test.equivalent(expected, gotEuler );
 
   /* */
@@ -3680,7 +3680,7 @@ function representFullCoverageFast( test )
       eq = false;
       eq = eq || _.entityEquivalent( positiveResult, quat1, { accuracy : test.accuracy } );
       eq = eq || _.entityEquivalent( negativeResult, quat1, { accuracy : test.accuracy } );
-      test.is( eq );
+      test.true( eq );
     }
   }
 
@@ -3754,7 +3754,7 @@ function representFullCoverageSlow( test )
       eq = false;
       eq = eq || _.entityEquivalent( positiveResult, quat1, { accuracy : test.accuracy } );
       eq = eq || _.entityEquivalent( negativeResult, quat1, { accuracy : test.accuracy } );
-      test.is( eq );
+      test.true( eq );
     }
   }
 
