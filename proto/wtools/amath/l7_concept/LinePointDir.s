@@ -569,8 +569,6 @@ function lineParallel( src1Line, src2Line, accuracySqr )
     return true;
   }
 
-  debugger;
-
   for( let i = 0; i < direction1.length ; i++  )
   {
     if( direction1.eGet( i ) === 0 || direction2.eGet( i ) === 0 )
@@ -614,7 +612,7 @@ function lineParallel( src1Line, src2Line, accuracySqr )
   *
   * @example
   * // returns  this.tools.vectorAdapter.from( [ 2, 1 ] ) // qqq : check
-  * _.lineIntersectionFactors( [ - 2, 0, 1, 0 ], [ 0, - 2, 0, 2 ] );
+  * _.lineIntersectionFactors( [ -2, 0, 1, 0 ], [ 0, -2, 0, 2 ] );
   *
   * @returns { Array } Returns the factors for the two lines intersection.
   * @function lineIntersectionFactors
@@ -641,7 +639,7 @@ function lineIntersectionFactors( srcLine1, srcLine2 )
 
   let direction1 = this.directionGet( srcLine1View );
   let direction2 = this.directionGet( srcLine2View );
-  let directions = _.Matrix.Make( [ srcLine1.length / 2 , 2 ] );
+  let directions = _.Matrix.Make( [ srcLine1.length / 2, 2 ] );
   directions.colGet( 0 ).copy( direction1 );
   directions.colGet( 1 ).copy( direction2.clone().mul( - 1 ) );
 
@@ -761,8 +759,6 @@ function lineIntersectionFactors( srcLine1, srcLine2 )
 
   let result = this.tools.vectorAdapter.from( [ 0, 0 ] );
 
-  debugger;
-
   for( let i = 0; i < dOrigin.length - 1 ; i++ )
   {
     let m = _.Matrix.Make( [ 2, 2 ] );
@@ -795,6 +791,8 @@ function lineIntersectionFactors( srcLine1, srcLine2 )
     }
 
     let contained = 0;
+
+    debugger;
 
     if( this.pointContains( srcLine1View, point2 ) )
     {
