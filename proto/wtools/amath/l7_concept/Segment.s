@@ -1,4 +1,5 @@
-(function _Segment_s_(){
+( function _Segment_s_()
+{
 
 'use strict';
 
@@ -582,8 +583,6 @@ function segmentParallel( src1Segment, src2Segment, accuracySqr )
     return true;
   }
 
-  debugger;
-
   for( let i = 0; i < direction1.length ; i++  )
   {
     if( direction1.eGet( i ) === 0 || direction2.eGet( i ) === 0 )
@@ -866,7 +865,6 @@ function segmentIntersectionFactors( srcSegment1, srcSegment2 )
   }
 
   let result = this.tools.vectorAdapter.from( [ 0, 0 ] );
-  debugger;
 
   for( let i = 0; i < dOrigin.length - 1 ; i++ )
   {
@@ -1192,22 +1190,21 @@ segmentIntersectionPointAccurate.shaderChunk =
 
 function fromPair( pair )
 {
-    _.assert( arguments.length === 1, 'Expects single argument' );
-    _.assert( pair.length === 2, 'Expects two points' );
-    _.assert( pair[ 0 ].length === pair[ 1 ].length, 'Expects two points' );
+  _.assert( arguments.length === 1, 'Expects single argument' );
+  _.assert( pair.length === 2, 'Expects two points' );
+  _.assert( pair[ 0 ].length === pair[ 1 ].length, 'Expects two points' );
 
-    let result = this.tools.vectorAdapter.from( this.tools.longMake( pair[ 0 ].length * 2 ) );
-    let pair0 = this.tools.vectorAdapter.from( pair[ 0 ] );
-    let pair1 = this.tools.vectorAdapter.from( pair[ 1 ] );
+  let result = this.tools.vectorAdapter.from( this.tools.longMake( pair[ 0 ].length * 2 ) );
+  let pair0 = this.tools.vectorAdapter.from( pair[ 0 ] );
+  let pair1 = this.tools.vectorAdapter.from( pair[ 1 ] );
 
-    for( let i = 0; i < pair0.length ; i++ )
-    {
-      result.eSet( i, pair0.eGet( i ) );
-      result.eSet( pair0.length + i, pair1.eGet( i ) );
-    }
+  for( let i = 0; i < pair0.length ; i++ )
+  {
+    result.eSet( i, pair0.eGet( i ) );
+    result.eSet( pair0.length + i, pair1.eGet( i ) );
+  }
 
-    debugger;
-    return result;
+  return result;
 }
 
 //
@@ -3182,7 +3179,9 @@ function rayClosestPoint( srcSegment, srcRay, dstPoint )
   }
   else
   {
-    let lineSegment = this.tools.linePointDir.fromPair( [ srcOrigin, srcEnd ] );
+    let lineSegment = this.tools.linePointDir.fromPoints( srcOrigin, srcEnd );
+    // let lineSegment = this.tools.linePointDir.fromPair( [ srcOrigin, srcEnd ] );
+
     // Parallel segments
     if( this.tools.linePointDir.lineParallel( lineSegment, srcRayView ) )
     {
@@ -3387,6 +3386,7 @@ function segmentClosestPoint( srcSegment, tstSegment, dstPoint )
   if( srcSegment === null )
   srcSegment = this.make( tstSegment.length / 2 );
 
+  debugger;
   let srcSegmentView = this.adapterFrom( srcSegment );
   let srcOrigin = this.originGet( srcSegmentView );
   let srcEnd = this.endPointGet( srcSegmentView );
