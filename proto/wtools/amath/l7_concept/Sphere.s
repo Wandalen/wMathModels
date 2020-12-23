@@ -2766,51 +2766,51 @@ function sphereClosestPoint( srcSphere, tstSphere, dstPoint )
   * @module Tools/math/Concepts
   */
 
-function sphereExpand( sphereDst, sphereSrc )
-{
+// function sphereExpand( sphereDst, sphereSrc )
+// {
 
-  let sphereViewDst = this.adapterFrom( sphereDst );
-  let centerDst = this.centerGet( sphereViewDst );
-  let radiusDst = this.radiusGet( sphereViewDst );
-  let dimDst = this.dimGet( sphereViewDst );
+//   let sphereViewDst = this.adapterFrom( sphereDst );
+//   let centerDst = this.centerGet( sphereViewDst );
+//   let radiusDst = this.radiusGet( sphereViewDst );
+//   let dimDst = this.dimGet( sphereViewDst );
 
-  _.assert( this.is( sphereSrc ) );
+//   _.assert( this.is( sphereSrc ) );
 
-  let sphereViewSrc = this.adapterFrom( sphereSrc );
-  let centerSrc = this.centerGet( sphereViewSrc );
-  let radiusSrc = this.radiusGet( sphereViewSrc );
-  let dimSrc = this.dimGet( sphereViewSrc );
+//   let sphereViewSrc = this.adapterFrom( sphereSrc );
+//   let centerSrc = this.centerGet( sphereViewSrc );
+//   let radiusSrc = this.radiusGet( sphereViewSrc );
+//   let dimSrc = this.dimGet( sphereViewSrc );
 
-  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
-  _.assert( dimDst === dimSrc );
+//   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
+//   _.assert( dimDst === dimSrc );
 
-  if( radiusSrc === -Infinity )
-  {
-    return sphereDst;
-  }
+//   if( radiusSrc === -Infinity )
+//   {
+//     return sphereDst;
+//   }
 
-  if( radiusDst === -Infinity )
-  {
-    sphereViewDst.copy( sphereViewSrc );
-    return sphereDst;
-  }
+//   if( radiusDst === -Infinity )
+//   {
+//     sphereViewDst.copy( sphereViewSrc );
+//     return sphereDst;
+//   }
 
-  let distance = this.tools.vectorAdapter.distance( centerDst, centerSrc );
-  if( radiusDst < distance+radiusSrc )
-  {
-    //if( distance > 0 )
-    //this.tools.vectorAdapter.mix( centerDst, centerSrc, 0.5 + ( radiusSrc-radiusDst ) / ( distance*2 ) );
+//   let distance = this.tools.vectorAdapter.distance( centerDst, centerSrc );
+//   if( radiusDst < distance+radiusSrc )
+//   {
+//     //if( distance > 0 )
+//     //this.tools.vectorAdapter.mix( centerDst, centerSrc, 0.5 + ( radiusSrc-radiusDst ) / ( distance*2 ) );
 
-    //if( distance > 0 )
-    //this.radiusSet( sphereViewDst, ( distance+radiusSrc+radiusDst ) / 2 );
-    this.radiusSet( sphereViewDst, ( distance + radiusSrc ) );
-    //else
-    //this.radiusSet( sphereViewDst, Math.max( radiusDst, radiusSrc ) );
+//     //if( distance > 0 )
+//     //this.radiusSet( sphereViewDst, ( distance+radiusSrc+radiusDst ) / 2 );
+//     this.radiusSet( sphereViewDst, ( distance + radiusSrc ) );
+//     //else
+//     //this.radiusSet( sphereViewDst, Math.max( radiusDst, radiusSrc ) );
 
-  }
+//   }
 
-  return sphereDst;
-}
+//   return sphereDst;
+// }
 
 //
 
