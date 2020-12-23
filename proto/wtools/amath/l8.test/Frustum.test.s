@@ -1239,7 +1239,7 @@ function boundingBoxGet( test )
 
   var gotBox = _.frustum.boundingBoxGet( dstBox, srcFrustum );
   test.identical( expected, gotBox );
-  test.is( dstBox === gotBox );
+  test.true( dstBox === gotBox );
 
   var oldSrcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
     ([
@@ -3246,7 +3246,7 @@ function lineClosestPoint( test )
 
   var gotLine = _.frustum.lineClosestPoint( srcFrustum, tstLine, dstPoint );
   test.identical( expected, gotLine );
-  test.is( dstPoint === gotLine );
+  test.true( dstPoint === gotLine );
 
   /* */
 
@@ -3265,7 +3265,7 @@ function lineClosestPoint( test )
 
   var gotLine = _.frustum.lineClosestPoint( srcFrustum, tstLine, dstPoint );
   test.equivalent( expected, gotLine );
-  test.is( dstPoint === gotLine );
+  test.true( dstPoint === gotLine );
 
   /* */
 
@@ -3894,7 +3894,7 @@ function rayClosestPoint( test )
 
   var gotRay = _.frustum.rayClosestPoint( srcFrustum, tstRay, dstPoint );
   test.identical( expected, gotRay );
-  test.is( dstPoint === gotRay );
+  test.true( dstPoint === gotRay );
 
   /* */
 
@@ -3914,7 +3914,7 @@ function rayClosestPoint( test )
 
   var gotRay = _.frustum.rayClosestPoint( srcFrustum, tstRay, dstPoint );
   test.equivalent( expected, gotRay );
-  test.is( dstPoint === gotRay );
+  test.true( dstPoint === gotRay );
 
   /* */
 
@@ -4359,7 +4359,7 @@ function segmentClosestPoint( test )
 
   var gotSegment = _.frustum.segmentClosestPoint( srcFrustum, tstSegment, dstPoint );
   test.identical( expected, gotSegment );
-  test.is( dstPoint === gotSegment );
+  test.true( dstPoint === gotSegment );
 
   /* */
 
@@ -4379,7 +4379,7 @@ function segmentClosestPoint( test )
 
   var gotSegment = _.frustum.segmentClosestPoint( srcFrustum, tstSegment, dstPoint );
   test.equivalent( expected, gotSegment );
-  test.is( dstPoint === gotSegment );
+  test.true( dstPoint === gotSegment );
 
   /* */
 
@@ -4954,7 +4954,7 @@ function boundingSphereGet( test )
 
   var gotSphere = _.frustum.boundingSphereGet( dstSphere, srcFrustum );
   test.identical( expected, gotSphere );
-  test.is( dstSphere === gotSphere );
+  test.true( dstSphere === gotSphere );
 
   var oldSrcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([

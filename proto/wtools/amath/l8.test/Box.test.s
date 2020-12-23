@@ -56,7 +56,7 @@ function make( test )
   var got = _.box.make( src );
   var expected = _.box.tools.longMake( [ 0, 0, 0, 0, 0, 0 ] );
   test.identical( got, expected );
-  test.is( got !== src );
+  test.true( got !== src );
 
   /* */
 
@@ -66,7 +66,7 @@ function make( test )
   var got = _.box.make( src );
   var expected = _.box.tools.longMake( [ 0, 0, 0, 0, 0, 0 ] );
   test.identical( got, expected );
-  test.is( got !== src );
+  test.true( got !== src );
 
   /* */
 
@@ -76,7 +76,7 @@ function make( test )
   var got = _.box.make( src );
   var expected = _.box.tools.longMake( [ 0, 0, 0, 0 ] );
   test.identical( got, expected );
-  test.is( got !== src );
+  test.true( got !== src );
 
   /* */
 
@@ -86,7 +86,7 @@ function make( test )
   var got = _.box.make( src );
   var expected = _.box.tools.longMake( [ 0, 1, 2, 3 ] );
   test.identical( got, expected );
-  test.is( got !== src );
+  test.true( got !== src );
 
   /* */
 
@@ -96,7 +96,7 @@ function make( test )
   var got = _.box.make( src );
   var expected = _.box.tools.longMake( [ 0, 1, 2, 3 ] );
   test.identical( got, expected );
-  test.is( got !== src );
+  test.true( got !== src );
 
 }
 
@@ -113,7 +113,7 @@ function makeZero( test )
   var got = _.box.makeZero( src );
   var expected = _.box.tools.longMake( [ 0, 0, 0, 0, 0, 0 ] );
   test.identical( got, expected );
-  test.is( got !== src );
+  test.true( got !== src );
 
   /* */
 
@@ -123,7 +123,7 @@ function makeZero( test )
   var got = _.box.makeZero( src );
   var expected = _.box.tools.longMake( [ 0, 0, 0, 0, 0, 0 ] );
   test.identical( got, expected );
-  test.is( got !== src );
+  test.true( got !== src );
 
   /* */
 
@@ -133,7 +133,7 @@ function makeZero( test )
   var got = _.box.makeZero( src );
   var expected = _.box.tools.longMake( [ 0, 0, 0, 0 ] );
   test.identical( got, expected );
-  test.is( got !== src );
+  test.true( got !== src );
 
   /* */
 
@@ -143,7 +143,7 @@ function makeZero( test )
   var got = _.box.makeZero( src );
   var expected = _.box.tools.longMake( [ 0, 0, 0, 0 ] );
   test.identical( got, expected );
-  test.is( got !== src );
+  test.true( got !== src );
 
   /* */
 
@@ -153,7 +153,7 @@ function makeZero( test )
   var got = _.box.makeZero( src );
   var expected = _.box.tools.longMake( [ 0, 0, 0, 0 ] );
   test.identical( got, expected );
-  test.is( got !== src );
+  test.true( got !== src );
 
 }
 
@@ -170,7 +170,7 @@ function makeSingular( test )
   var got = _.box.makeSingular( src );
   var expected = _.box.tools.longMake( [ +Infinity, +Infinity, +Infinity, -Infinity, -Infinity, -Infinity ] );
   test.identical( got, expected );
-  test.is( got !== src );
+  test.true( got !== src );
 
   /* */
 
@@ -180,7 +180,7 @@ function makeSingular( test )
   var got = _.box.makeSingular( src );
   var expected = _.box.tools.longMake( [ +Infinity, +Infinity, +Infinity, -Infinity, -Infinity, -Infinity ] );
   test.identical( got, expected );
-  test.is( got !== src );
+  test.true( got !== src );
 
   /* */
 
@@ -190,7 +190,7 @@ function makeSingular( test )
   var got = _.box.makeSingular( src );
   var expected = _.box.tools.longMake( [ +Infinity, +Infinity, -Infinity, -Infinity ] );
   test.identical( got, expected );
-  test.is( got !== src );
+  test.true( got !== src );
 
   /* */
 
@@ -200,7 +200,7 @@ function makeSingular( test )
   var got = _.box.makeSingular( src );
   var expected = _.box.tools.longMake( [ +Infinity, +Infinity, -Infinity, -Infinity ] );
   test.identical( got, expected );
-  test.is( got !== src );
+  test.true( got !== src );
 
   /* */
 
@@ -210,7 +210,7 @@ function makeSingular( test )
   var got = _.box.makeSingular( src );
   var expected = _.box.tools.longMake( [ +Infinity, +Infinity, -Infinity, -Infinity ] );
   test.identical( got, expected );
-  test.is( got !== src );
+  test.true( got !== src );
 
 }
 
@@ -227,7 +227,7 @@ function zero( test )
   var got = _.box.zero( src );
   var expected = _.box.tools.longMake( [ 0, 0, 0, 0, 0, 0 ] );
   test.identical( got, expected );
-  test.is( got !== src );
+  test.true( got !== src );
 
   /* */
 
@@ -237,7 +237,7 @@ function zero( test )
   var got = _.box.zero( src );
   var expected = _.box.tools.longMake( [ 0, 0, 0, 0, 0, 0 ] );
   test.identical( got, expected );
-  test.is( got !== src );
+  test.true( got !== src );
 
   /* */
 
@@ -247,7 +247,7 @@ function zero( test )
   var got = _.box.zero( src );
   var expected = _.box.tools.longMake( [ 0, 0, 0, 0 ] );
   test.identical( got, expected );
-  test.is( got !== src );
+  test.true( got !== src );
 
   /* */
 
@@ -257,7 +257,7 @@ function zero( test )
   var got = _.box.zero( dst );
   var expected = _.box.tools.longMake( [ 0, 0, 0, 0 ] );
   test.identical( got, expected );
-  test.is( got === dst );
+  test.true( got === dst );
 
   /* */
 
@@ -267,7 +267,7 @@ function zero( test )
   var got = _.box.zero( dst );
   var expected = _.box.tools.vectorAdapter.fromLong([ 0, 0, 0, 0 ]);
   test.identical( got, expected );
-  test.is( got === dst );
+  test.true( got === dst );
 
   /* */
 
@@ -277,7 +277,7 @@ function zero( test )
   var got = _.box.zero( dst );
   var expected = _.box.tools.longMake( [ 0, 0 ] );
   test.identical( got, expected );
-  test.is( got === dst );
+  test.true( got === dst );
 
 }
 
@@ -294,7 +294,7 @@ function nil( test )
   var got = _.box.nil( src );
   var expected = _.box.tools.longMake( [ +Infinity, +Infinity, +Infinity, -Infinity, -Infinity, -Infinity ] );
   test.identical( got, expected );
-  test.is( got !== src );
+  test.true( got !== src );
 
   /* */
 
@@ -304,7 +304,7 @@ function nil( test )
   var got = _.box.nil( src );
   var expected = _.box.tools.longMake( [ +Infinity, +Infinity, +Infinity, -Infinity, -Infinity, -Infinity ] );
   test.identical( got, expected );
-  test.is( got !== src );
+  test.true( got !== src );
 
   /* */
 
@@ -314,7 +314,7 @@ function nil( test )
   var got = _.box.nil( src );
   var expected = _.box.tools.longMake( [ +Infinity, +Infinity, -Infinity, -Infinity ] );
   test.identical( got, expected );
-  test.is( got !== src );
+  test.true( got !== src );
 
   /* */
 
@@ -324,7 +324,7 @@ function nil( test )
   var got = _.box.nil( dst );
   var expected = _.box.tools.longMake( [ +Infinity, +Infinity, -Infinity, -Infinity ] );
   test.identical( got, expected );
-  test.is( got === dst );
+  test.true( got === dst );
 
   /* */
 
@@ -334,7 +334,7 @@ function nil( test )
   var got = _.box.nil( dst );
   var expected = _.box.tools.vectorAdapter.fromLong([ +Infinity, +Infinity, -Infinity, -Infinity ]);
   test.identical( got, expected );
-  test.is( got === dst );
+  test.true( got === dst );
 
   /* */
 
@@ -344,7 +344,7 @@ function nil( test )
   var got = _.box.nil( dst );
   var expected = _.box.tools.longMake( [ +Infinity, -Infinity ] );
   test.identical( got, expected );
-  test.is( got === dst );
+  test.true( got === dst );
 
 }
 
@@ -361,7 +361,7 @@ function centeredOfSize( test )
   var got = _.box.centeredOfSize( src, 2 );
   var expected = _.box.tools.longMake( [ -1, -1, -1, +1, +1, +1 ] );
   test.identical( got, expected );
-  test.is( got !== src );
+  test.true( got !== src );
 
   /* */
 
@@ -371,7 +371,7 @@ function centeredOfSize( test )
   var got = _.box.centeredOfSize( src, 2 );
   var expected = _.box.tools.longMake( [ -1, -1, -1, +1, +1, +1 ] );
   test.identical( got, expected );
-  test.is( got !== src );
+  test.true( got !== src );
 
   /* */
 
@@ -381,7 +381,7 @@ function centeredOfSize( test )
   var got = _.box.centeredOfSize( src, 2 );
   var expected = _.box.tools.longMake( [ -1, -1, +1, +1 ] );
   test.identical( got, expected );
-  test.is( got !== src );
+  test.true( got !== src );
 
   /* */
 
@@ -391,7 +391,7 @@ function centeredOfSize( test )
   var got = _.box.centeredOfSize( dst, 2 );
   var expected = _.box.tools.longMake( [ -1, -1, +1, +1 ] );
   test.identical( got, expected );
-  test.is( got === dst );
+  test.true( got === dst );
 
   /* */
 
@@ -401,7 +401,7 @@ function centeredOfSize( test )
   var got = _.box.centeredOfSize( dst, 2 );
   var expected = _.box.tools.vectorAdapter.fromLong([ -1, -1, +1, +1 ]);
   test.identical( got, expected );
-  test.is( got === dst );
+  test.true( got === dst );
 
   /* */
 
@@ -411,7 +411,7 @@ function centeredOfSize( test )
   var got = _.box.centeredOfSize( dst, 2 );
   var expected = _.box.tools.longMake( [ -1, +1 ] );
   test.identical( got, expected );
-  test.is( got === dst );
+  test.true( got === dst );
 
   /* */
 
@@ -423,7 +423,7 @@ function centeredOfSize( test )
   var got = _.box.centeredOfSize( null, 1 );
   var expected = _.box.tools.longMake( [ -0.5, -0.5, -0.5, +0.5, +0.5, +0.5 ] );
   test.identical( got, expected );
-  test.is( got !== src );
+  test.true( got !== src );
 
   /* */
 
@@ -433,7 +433,7 @@ function centeredOfSize( test )
   var got = _.box.centeredOfSize( src, 1 );
   var expected = _.box.tools.longMake( [ -0.5, -0.5, +0.5, +0.5 ] );
   test.identical( got, expected );
-  test.is( got !== src );
+  test.true( got !== src );
 
   /* */
 
@@ -443,7 +443,7 @@ function centeredOfSize( test )
   var got = _.box.centeredOfSize( dst, 1 );
   var expected = _.box.tools.longMake( [ -0.5, -0.5, +0.5, +0.5 ] );
   test.identical( got, expected );
-  test.is( got === dst );
+  test.true( got === dst );
 
   /* */
 
@@ -453,7 +453,7 @@ function centeredOfSize( test )
   var got = _.box.centeredOfSize( dst, 1 );
   var expected = _.box.tools.vectorAdapter.fromLong([ -0.5, -0.5, +0.5, +0.5 ]);
   test.identical( got, expected );
-  test.is( got === dst );
+  test.true( got === dst );
 
   /* */
 
@@ -463,7 +463,7 @@ function centeredOfSize( test )
   var got = _.box.centeredOfSize( dst, 1 );
   var expected = _.box.tools.longMake( [ -0.5, +0.5 ] );
   test.identical( got, expected );
-  test.is( got === dst );
+  test.true( got === dst );
 
   /* */
 
@@ -475,7 +475,7 @@ function centeredOfSize( test )
   var got = _.box.centeredOfSize( src, [ 1, 2, 4 ] );
   var expected = _.box.tools.longMake( [ -0.5, -1, -2, +0.5, +1, +2 ] );
   test.identical( got, expected );
-  test.is( got !== src );
+  test.true( got !== src );
 
   /* */
 
@@ -485,7 +485,7 @@ function centeredOfSize( test )
   var got = _.box.centeredOfSize( src, [ 1, 2, 4 ] );
   var expected = _.box.tools.longMake( [ -0.5, -1, -2, +0.5, +1, +2 ] );
   test.identical( got, expected );
-  test.is( got !== src );
+  test.true( got !== src );
 
   /* */
 
@@ -495,7 +495,7 @@ function centeredOfSize( test )
   var got = _.box.centeredOfSize( src, [ 2, 4 ] );
   var expected = _.box.tools.longMake( [ -1, -2, +1, +2 ] );
   test.identical( got, expected );
-  test.is( got !== src );
+  test.true( got !== src );
 
   /* */
 
@@ -505,7 +505,7 @@ function centeredOfSize( test )
   var got = _.box.centeredOfSize( dst, [ 2, 4 ] );
   var expected = _.box.tools.longMake( [ -1, -2, +1, +2 ] );
   test.identical( got, expected );
-  test.is( got === dst );
+  test.true( got === dst );
 
   /* */
 
@@ -515,7 +515,7 @@ function centeredOfSize( test )
   var got = _.box.centeredOfSize( dst, [ 2, 4 ] );
   var expected = _.box.tools.vectorAdapter.fromLong([ -1, -2, +1, +2 ]);
   test.identical( got, expected );
-  test.is( got === dst );
+  test.true( got === dst );
 
   /* */
 
@@ -525,7 +525,7 @@ function centeredOfSize( test )
   var got = _.box.centeredOfSize( dst, [ 4 ] );
   var expected = _.box.tools.longMake( [ -2, +2 ] );
   test.identical( got, expected );
-  test.is( got === dst );
+  test.true( got === dst );
 
 }
 
@@ -543,7 +543,7 @@ function from( test )
 
   var gotBox = _.box.from( srcBox );
   test.identical( gotBox, expected );
-  test.is( srcBox === gotBox );
+  test.true( srcBox === gotBox );
 
   /* */
 
@@ -554,7 +554,7 @@ function from( test )
 
   var gotBox = _.box.from( srcBox );
   test.identical( gotBox, expected );
-  test.is( srcBox === gotBox );
+  test.true( srcBox === gotBox );
 
   /* */
 
@@ -565,7 +565,7 @@ function from( test )
 
   var gotBox = _.box.from( srcBox );
   test.identical( gotBox, expected );
-  test.is( srcBox === gotBox );
+  test.true( srcBox === gotBox );
 
   /* */
 
@@ -576,7 +576,7 @@ function from( test )
 
   var gotBox = _.box.from( srcBox );
   test.identical( gotBox, expected );
-  test.is( srcBox !== gotBox );
+  test.true( srcBox !== gotBox );
   /* */
 
   if( !Config.debug )
@@ -1529,33 +1529,33 @@ function is( test )
 
   test.case = 'array';
 
-  test.is( _.box.is( [] ) );
-  test.is( _.box.is([ 0, 0 ]) );
-  test.is( _.box.is([ 1, 2, 3, 4 ]) );
-  test.is( _.box.is([ 0, 0, 0, 0, 0, 0 ]) );
+  test.true( _.box.is( [] ) );
+  test.true( _.box.is([ 0, 0 ]) );
+  test.true( _.box.is([ 1, 2, 3, 4 ]) );
+  test.true( _.box.is([ 0, 0, 0, 0, 0, 0 ]) );
 
   /* */
 
   test.case = 'vector';
 
-  test.is( _.box.is( _.box.tools.vectorAdapter.fromLong([]) ) );
-  test.is( _.box.is( _.box.tools.vectorAdapter.fromLong([ 0, 0 ]) ) );
-  test.is( _.box.is( _.box.tools.vectorAdapter.fromLong([ 1, 2, 3, 4 ]) ) );
-  test.is( _.box.is( _.box.tools.vectorAdapter.fromLong([ 0, 0, 0, 0, 0, 0 ]) ) );
+  test.true( _.box.is( _.box.tools.vectorAdapter.fromLong([]) ) );
+  test.true( _.box.is( _.box.tools.vectorAdapter.fromLong([ 0, 0 ]) ) );
+  test.true( _.box.is( _.box.tools.vectorAdapter.fromLong([ 1, 2, 3, 4 ]) ) );
+  test.true( _.box.is( _.box.tools.vectorAdapter.fromLong([ 0, 0, 0, 0, 0, 0 ]) ) );
 
   /* */
 
   test.case = 'not box';
 
-  test.is( !_.box.is([ 0 ]) );
-  test.is( !_.box.is([ 0, 0, 0 ]) );
+  test.true( !_.box.is([ 0 ]) );
+  test.true( !_.box.is([ 0, 0, 0 ]) );
 
-  test.is( !_.box.is( _.box.tools.vectorAdapter.fromLong([ 0 ]) ) );
-  test.is( !_.box.is( _.box.tools.vectorAdapter.fromLong([ 0, 0, 0 ]) ) );
+  test.true( !_.box.is( _.box.tools.vectorAdapter.fromLong([ 0 ]) ) );
+  test.true( !_.box.is( _.box.tools.vectorAdapter.fromLong([ 0, 0, 0 ]) ) );
 
-  test.is( !_.box.is( 'abc' ) );
-  test.is( !_.box.is( { center : [ 0, 0, 0 ], radius : 1 } ) );
-  test.is( !_.box.is( function( a, b, c ){} ) );
+  test.true( !_.box.is( 'abc' ) );
+  test.true( !_.box.is( { center : [ 0, 0, 0 ], radius : 1 } ) );
+  test.true( !_.box.is( function( a, b, c ){} ) );
 
 }
 
@@ -1568,36 +1568,36 @@ function isEmpty( test )
 
   test.case = 'empty';
 
-  test.is( _.box.isEmpty([]) );
-  test.is( _.box.isEmpty([ 0, 0 ]) );
-  test.is( _.box.isEmpty([ 0, 0, 0, 0, 0, 0 ]) );
-  test.is( _.box.isEmpty([ 1, 1 ]) );
-  test.is( _.box.isEmpty([ 5, 0, 5, 0 ]) );
-  test.is( _.box.isEmpty([ -3, 0, 5, -3, 0, 5 ]) );
+  test.true( _.box.isEmpty([]) );
+  test.true( _.box.isEmpty([ 0, 0 ]) );
+  test.true( _.box.isEmpty([ 0, 0, 0, 0, 0, 0 ]) );
+  test.true( _.box.isEmpty([ 1, 1 ]) );
+  test.true( _.box.isEmpty([ 5, 0, 5, 0 ]) );
+  test.true( _.box.isEmpty([ -3, 0, 5, -3, 0, 5 ]) );
 
-  test.is( _.box.isEmpty([ 0, 0, 0, 1 ]) );
-  test.is( _.box.isEmpty([ 0, -1 ]) );
-  test.is( _.box.isEmpty([ 0, 0, 0, -1 ]) );
-  test.is( _.box.isEmpty([ 0, 0, 5, 0 ]) );
+  test.true( _.box.isEmpty([ 0, 0, 0, 1 ]) );
+  test.true( _.box.isEmpty([ 0, -1 ]) );
+  test.true( _.box.isEmpty([ 0, 0, 0, -1 ]) );
+  test.true( _.box.isEmpty([ 0, 0, 5, 0 ]) );
 
-  test.is( _.box.isEmpty([ 0, -Infinity ]) );
-  test.is( _.box.isEmpty([ +Infinity, +Infinity, +Infinity, -Infinity, -Infinity, -Infinity ]) );
-  test.is( _.box.isEmpty([ 0, 0, 0, Infinity ]) );
+  test.true( _.box.isEmpty([ 0, -Infinity ]) );
+  test.true( _.box.isEmpty([ +Infinity, +Infinity, +Infinity, -Infinity, -Infinity, -Infinity ]) );
+  test.true( _.box.isEmpty([ 0, 0, 0, Infinity ]) );
 
-  test.is( _.box.isEmpty([ 0.1, -Infinity ]) );
-  test.is( _.box.isEmpty([ 0, 0, 0.1, -Infinity ]) );
+  test.true( _.box.isEmpty([ 0.1, -Infinity ]) );
+  test.true( _.box.isEmpty([ 0, 0, 0.1, -Infinity ]) );
 
   /* */
 
   test.case = 'not empty';
 
-  test.is( !_.box.isEmpty([ 0, 1 ]) );
+  test.true( !_.box.isEmpty([ 0, 1 ]) );
 
-  test.is( !_.box.isEmpty([ 0, +Infinity ]) );
-  test.is( !_.box.isEmpty([ -Infinity, 0, 0, +Infinity ]) );
+  test.true( !_.box.isEmpty([ 0, +Infinity ]) );
+  test.true( !_.box.isEmpty([ -Infinity, 0, 0, +Infinity ]) );
 
-  test.is( !_.box.isEmpty([ 0.1, +Infinity ]) );
-  test.is( !_.box.isEmpty([ 0, 0.00001, 0.1, +Infinity ]) );
+  test.true( !_.box.isEmpty([ 0.1, +Infinity ]) );
+  test.true( !_.box.isEmpty([ 0, 0.00001, 0.1, +Infinity ]) );
 
 }
 
@@ -1610,32 +1610,32 @@ function isZero( test )
 
   test.case = 'zero';
 
-  test.is( _.box.isZero([]) );
-  test.is( _.box.isZero([ 0, 0 ]) );
-  test.is( _.box.isZero([ 0, 0, 0, 0, 0, 0 ]) );
-  test.is( _.box.isZero([ 1, 1 ]) );
-  test.is( _.box.isZero([ 5, 0, 5, 0 ]) );
-  test.is( _.box.isZero([ -3, 0, 5, -3, 0, 5 ]) );
+  test.true( _.box.isZero([]) );
+  test.true( _.box.isZero([ 0, 0 ]) );
+  test.true( _.box.isZero([ 0, 0, 0, 0, 0, 0 ]) );
+  test.true( _.box.isZero([ 1, 1 ]) );
+  test.true( _.box.isZero([ 5, 0, 5, 0 ]) );
+  test.true( _.box.isZero([ -3, 0, 5, -3, 0, 5 ]) );
 
   /* */
 
   test.case = 'not zero';
 
-  test.is( !_.box.isZero([ 0, 1 ]) );
-  test.is( !_.box.isZero([ 0, 0, 0, 1 ]) );
+  test.true( !_.box.isZero([ 0, 1 ]) );
+  test.true( !_.box.isZero([ 0, 0, 0, 1 ]) );
 
-  test.is( !_.box.isZero([ 0, -1 ]) );
-  test.is( !_.box.isZero([ 0, 0, 0, -1 ]) );
-  test.is( !_.box.isZero([ 0, 0, 5, 0 ]) );
+  test.true( !_.box.isZero([ 0, -1 ]) );
+  test.true( !_.box.isZero([ 0, 0, 0, -1 ]) );
+  test.true( !_.box.isZero([ 0, 0, 5, 0 ]) );
 
-  test.is( !_.box.isZero([ 0, -Infinity ]) );
-  test.is( !_.box.isZero([ +Infinity, +Infinity, +Infinity, -Infinity, -Infinity, -Infinity ]) );
+  test.true( !_.box.isZero([ 0, -Infinity ]) );
+  test.true( !_.box.isZero([ +Infinity, +Infinity, +Infinity, -Infinity, -Infinity, -Infinity ]) );
 
-  test.is( !_.box.isZero([ 0, Infinity ]) );
-  test.is( !_.box.isZero([ 0, 0, 0, Infinity ]) );
+  test.true( !_.box.isZero([ 0, Infinity ]) );
+  test.true( !_.box.isZero([ 0, 0, 0, Infinity ]) );
 
-  test.is( !_.box.isZero([ 0.1, -Infinity ]) );
-  test.is( !_.box.isZero([ 0, 0, 0.1, -Infinity ]) );
+  test.true( !_.box.isZero([ 0.1, -Infinity ]) );
+  test.true( !_.box.isZero([ 0, 0, 0.1, -Infinity ]) );
 
 }
 
@@ -1648,21 +1648,21 @@ function isNil( test )
 
   test.case = 'nil';
 
-  test.is( _.box.isNil([ +Infinity, +Infinity, -Infinity, -Infinity ]) );
-  test.is( _.box.isNil([ +Infinity, +Infinity, +Infinity, -Infinity, -Infinity, -Infinity ]) );
+  test.true( _.box.isNil([ +Infinity, +Infinity, -Infinity, -Infinity ]) );
+  test.true( _.box.isNil([ +Infinity, +Infinity, +Infinity, -Infinity, -Infinity, -Infinity ]) );
 
-  test.is( _.box.isNil([ +1, +1, -2, -5 ]) );
-  test.is( _.box.isNil([ +1, +1, +1, -2, -3, -4 ]) );
+  test.true( _.box.isNil([ +1, +1, -2, -5 ]) );
+  test.true( _.box.isNil([ +1, +1, +1, -2, -3, -4 ]) );
 
   /* */
 
   test.case = 'not nil';
 
-  test.is( !_.box.isNil([ 0, Infinity ]) );
-  test.is( !_.box.isNil([ 0, 0, 0, Infinity ]) );
+  test.true( !_.box.isNil([ 0, Infinity ]) );
+  test.true( !_.box.isNil([ 0, 0, 0, Infinity ]) );
 
-  test.is( !_.box.isNil([ Infinity, Infinity ]) );
-  test.is( !_.box.isNil([ 0, 0, 0.1, Infinity ]) );
+  test.true( !_.box.isNil([ Infinity, Infinity ]) );
+  test.true( !_.box.isNil([ 0, 0, 0.1, Infinity ]) );
 
 }
 
@@ -2865,7 +2865,7 @@ function expand( test )
   test.identical( expand, oldexpand );
 
   var oldBox = [ 0, 0, 1, 1 ];
-  test.is( oldBox !== gotBox );
+  test.true( oldBox !== gotBox );
 
   /* */
 
@@ -3102,7 +3102,7 @@ function project( test )
   test.identical( project, oldProject );
 
   var oldBox = _.box.tools.longMake( [ 0, 0, 1, 1 ] );
-  test.is( oldBox !== gotBox );
+  test.true( oldBox !== gotBox );
 
   /* */
 
@@ -5631,7 +5631,7 @@ function boxClosestPoint( test )
 
   var gotBox = _.box.boxClosestPoint( srcBox, tstBox, dstPoint );
   test.identical( expected, gotBox );
-  test.is( dstPoint === gotBox );
+  test.true( dstPoint === gotBox );
 
   /* */
 
@@ -5644,7 +5644,7 @@ function boxClosestPoint( test )
 
   var gotBox = _.box.boxClosestPoint( srcBox, tstBox, dstPoint );
   test.identical( expected, gotBox );
-  test.is( dstPoint === gotBox );
+  test.true( dstPoint === gotBox );
 
   /* */
 
@@ -6157,7 +6157,7 @@ function capsuleClosestPoint( test )
 
   var gotCapsule = _.box.capsuleClosestPoint( srcBox, tstCapsule, dstPoint );
   test.identical( expected, gotCapsule );
-  test.is( dstPoint === gotCapsule );
+  test.true( dstPoint === gotCapsule );
 
   /* */
 
@@ -6170,7 +6170,7 @@ function capsuleClosestPoint( test )
 
   var gotCapsule = _.box.capsuleClosestPoint( srcBox, tstCapsule, dstPoint );
   test.equivalent( expected, gotCapsule );
-  test.is( dstPoint === gotCapsule );
+  test.true( dstPoint === gotCapsule );
 
   /* */
 
@@ -6587,7 +6587,7 @@ function convexPolygonClosestPoint( test )
 
   var gotPoint = _.box.convexPolygonClosestPoint( srcBox, polygon, dstPoint );
   test.identical( expected, gotPoint );
-  test.is( dstPoint === gotPoint );
+  test.true( dstPoint === gotPoint );
 
   /* */
 
@@ -6605,7 +6605,7 @@ function convexPolygonClosestPoint( test )
 
   var gotPoint = _.box.convexPolygonClosestPoint( srcBox, polygon, dstPoint );
   test.equivalent( expected, gotPoint );
-  test.is( dstPoint === gotPoint );
+  test.true( dstPoint === gotPoint );
 
   /* */
 
@@ -7374,7 +7374,7 @@ function lineClosestPoint( test )
 
   var gotLine = _.box.lineClosestPoint( srcBox, tstLine, dstPoint );
   test.identical( expected, gotLine );
-  test.is( dstPoint === gotLine );
+  test.true( dstPoint === gotLine );
 
   /* */
 
@@ -7387,7 +7387,7 @@ function lineClosestPoint( test )
 
   var gotLine = _.box.lineClosestPoint( srcBox, tstLine, dstPoint );
   test.equivalent( expected, gotLine );
-  test.is( dstPoint === gotLine );
+  test.true( dstPoint === gotLine );
 
   /* */
 
@@ -7664,7 +7664,7 @@ function planeClosestPoint( test )
 
   var gotPoint = _.box.planeClosestPoint( srcBox, srcPlane, dstPoint );
   test.identical( expected, gotPoint );
-  test.is( dstPoint === gotPoint );
+  test.true( dstPoint === gotPoint );
 
   /* */
 
@@ -7677,7 +7677,7 @@ function planeClosestPoint( test )
 
   var gotPoint = _.box.planeClosestPoint( srcBox, srcPlane, dstPoint );
   test.identical( expected, gotPoint );
-  test.is( dstPoint === gotPoint );
+  test.true( dstPoint === gotPoint );
   /* */
 
   if( !Config.debug )
@@ -7715,7 +7715,7 @@ function planeExpand( test )
 
   var gotBox = _.box.planeExpand( dstBox, srcPlane );
   test.identical( expected, gotBox );
-  test.is( gotBox === dstBox );
+  test.true( gotBox === dstBox );
   test.identical( srcPlane, oldSrcPlane );
 
   /* */
@@ -7923,7 +7923,7 @@ function rayClosestPoint( test )
 
   var gotRay = _.box.rayClosestPoint( srcBox, tstRay, dstPoint );
   test.identical( expected, gotRay );
-  test.is( dstPoint === gotRay );
+  test.true( dstPoint === gotRay );
 
   /* */
 
@@ -7936,7 +7936,7 @@ function rayClosestPoint( test )
 
   var gotRay = _.box.rayClosestPoint( srcBox, tstRay, dstPoint );
   test.equivalent( expected, gotRay );
-  test.is( dstPoint === gotRay );
+  test.true( dstPoint === gotRay );
 
   /* */
 
@@ -8137,7 +8137,7 @@ function segmentClosestPoint( test )
 
   var gotSegment = _.box.segmentClosestPoint( srcBox, tstSegment, dstPoint );
   test.identical( expected, gotSegment );
-  test.is( dstPoint === gotSegment );
+  test.true( dstPoint === gotSegment );
 
   /* */
 
@@ -8150,7 +8150,7 @@ function segmentClosestPoint( test )
 
   var gotSegment = _.box.segmentClosestPoint( srcBox, tstSegment, dstPoint );
   test.equivalent( expected, gotSegment );
-  test.is( dstPoint === gotSegment );
+  test.true( dstPoint === gotSegment );
 
   /* */
 
@@ -8607,7 +8607,7 @@ function sphereExpand( test )
 
   var gotBox = _.box.sphereExpand( dstBox, srcSphere );
   test.identical( expected, gotBox );
-  test.is( dstBox === gotBox );
+  test.true( dstBox === gotBox );
 
   var oldSrcSphere = [ 1, 1, 2, 1 ];
   test.identical( srcSphere, oldSrcSphere );
@@ -8754,7 +8754,7 @@ function boundingSphereGet( test )
 
   var gotSphere = _.box.boundingSphereGet( dstSphere, srcBox );
   test.identical( expected, gotSphere );
-  test.is( dstSphere === gotSphere );
+  test.true( dstSphere === gotSphere );
 
   var oldSrcBox = [ 0, 0, 0, 3, 3, 3 ];
   test.identical( srcBox, oldSrcBox );

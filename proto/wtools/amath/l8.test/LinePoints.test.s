@@ -81,14 +81,14 @@ function from( test )
 
   var gotPair = _.linePoints.from( srcPair );
   test.identical( gotPair, expected );
-  test.is( srcPair === gotPair );
+  test.true( srcPair === gotPair );
 
   var srcPair = null;
   var expected = _.linePoints.tools.longMake( [ 0, 0, 0, 0 ] );
 
   var gotPair = _.linePoints.from( srcPair );
   test.identical( gotPair, expected );
-  test.is( srcPair !== gotPair );
+  test.true( srcPair !== gotPair );
   /* */
 
   if( !Config.debug )
@@ -108,18 +108,18 @@ function from( test )
 function is( test )
 {
 
-  test.is( _.linePoints.is( [ 0, 0, 0, 0 ] ) );
-  test.is( _.linePoints.is( [ 0, 0, 1, 1, 2, 0 ] ) );
+  test.true( _.linePoints.is( [ 0, 0, 0, 0 ] ) );
+  test.true( _.linePoints.is( [ 0, 0, 1, 1, 2, 0 ] ) );
 
   //
 
-  test.is( !_.linePoints.is( [ 0, 0, 1, 1, 2, 0, 0 ] ) );
-  test.is( !_.linePoints.is( null ) );
-  test.is( !_.linePoints.is( NaN ) );
-  test.is( !_.linePoints.is( undefined ) );
-  test.is( !_.linePoints.is( 'polygon' ) );
-  test.is( !_.linePoints.is( [ 3 ] ) );
-  test.is( !_.linePoints.is( 3 ) );
+  test.true( !_.linePoints.is( [ 0, 0, 1, 1, 2, 0, 0 ] ) );
+  test.true( !_.linePoints.is( null ) );
+  test.true( !_.linePoints.is( NaN ) );
+  test.true( !_.linePoints.is( undefined ) );
+  test.true( !_.linePoints.is( 'polygon' ) );
+  test.true( !_.linePoints.is( [ 3 ] ) );
+  test.true( !_.linePoints.is( 3 ) );
 
 }
 
@@ -131,13 +131,13 @@ function fromRay( test )
   var got = _.linePoints.fromRay( src );
   var expected = _.linePoints.tools.longMake( [ 0,0, 1,1 ] );
   test.identical( got, expected );
-  test.is( got !== src );
+  test.true( got !== src );
 
   var src = [ 1, 1, 1, 1 ]
   var got = _.linePoints.fromRay( src );
   var expected = _.linePoints.tools.longMake([ 1, 1, 2, 2 ] );
   test.identical( got, expected );
-  test.is( got !== src );
+  test.true( got !== src );
 }
 
 //
@@ -198,25 +198,25 @@ function pairAt( test )
   var got = _.linePoints.pairAt( src, 0.25 );
   var expected = _.linePoints.tools.vectorAdapter.fromLong( [ 2, 2 ] );
   test.identical( got, expected );
-  test.is( got !== src );
+  test.true( got !== src );
 
   var src = [ 1, 1, 5, 5 ]
   var got = _.linePoints.pairAt( src, 0.5 );
   var expected = _.linePoints.tools.vectorAdapter.fromLong( [ 3, 3 ] );
   test.identical( got, expected );
-  test.is( got !== src );
+  test.true( got !== src );
 
   var src = [ 1, 1, 5, 5 ]
   var got = _.linePoints.pairAt( src, 0 );
   var expected = _.linePoints.tools.vectorAdapter.fromLong( [ 1, 1 ] );
   test.identical( got, expected );
-  test.is( got !== src );
+  test.true( got !== src );
 
   var src = [ 1, 1, 5, 5 ]
   var got = _.linePoints.pairAt( src, 1 );
   var expected = _.linePoints.tools.vectorAdapter.fromLong( [ 5, 5 ] );
   test.identical( got, expected );
-  test.is( got !== src );
+  test.true( got !== src );
 
 }
 

@@ -251,31 +251,31 @@ function is( test )
 
   test.case = 'array';
 
-  test.is( !_.quat.is([ 0 ]) );
-  test.is( !_.quat.is([ 0, 0 ]) );
-  test.is( !_.quat.is([ 0, 0, 0 ]) );
-  test.is( _.quat.is([ 0, 0, 0, 0 ]) );
-  test.is( !_.quat.is([ 0, 0, 0, 0, 0 ]) );
+  test.true( !_.quat.is([ 0 ]) );
+  test.true( !_.quat.is([ 0, 0 ]) );
+  test.true( !_.quat.is([ 0, 0, 0 ]) );
+  test.true( _.quat.is([ 0, 0, 0, 0 ]) );
+  test.true( !_.quat.is([ 0, 0, 0, 0, 0 ]) );
 
   /* */
 
   test.case = 'vector';
 
-  test.is( !_.quat.is( _.vectorAdapter.fromLong([ 0 ]) ) );
-  test.is( !_.quat.is( _.vectorAdapter.fromLong([ 0, 0 ]) ) );
-  test.is( !_.quat.is( _.vectorAdapter.fromLong([ 0, 0, 0 ]) ) );
-  test.is( _.quat.is( _.vectorAdapter.fromLong([ 0, 0, 0, 0 ]) ) );
-  test.is( !_.quat.is( _.vectorAdapter.fromLong([ 0, 0, 0, 0, 0 ]) ) );
+  test.true( !_.quat.is( _.vectorAdapter.fromLong([ 0 ]) ) );
+  test.true( !_.quat.is( _.vectorAdapter.fromLong([ 0, 0 ]) ) );
+  test.true( !_.quat.is( _.vectorAdapter.fromLong([ 0, 0, 0 ]) ) );
+  test.true( _.quat.is( _.vectorAdapter.fromLong([ 0, 0, 0, 0 ]) ) );
+  test.true( !_.quat.is( _.vectorAdapter.fromLong([ 0, 0, 0, 0, 0 ]) ) );
 
   /* */
 
   test.case = 'not quat';
 
-  test.is( !_.quat.is( [] ) );
-  test.is( !_.quat.is( _.vectorAdapter.fromLong([]) ) );
-  test.is( !_.quat.is( 'abc' ) );
-  test.is( !_.quat.is( { center : [ 0, 0, 0 ], radius : 1 } ) );
-  test.is( !_.quat.is( function( a, b, c ){} ) );
+  test.true( !_.quat.is( [] ) );
+  test.true( !_.quat.is( _.vectorAdapter.fromLong([]) ) );
+  test.true( !_.quat.is( 'abc' ) );
+  test.true( !_.quat.is( { center : [ 0, 0, 0 ], radius : 1 } ) );
+  test.true( !_.quat.is( function( a, b, c ){} ) );
 
 }
 
@@ -288,31 +288,31 @@ function isZero( test )
 
   test.case = 'zero';
 
-  test.is( _.quat.isZero([ 0, 0, 0, 0 ]) );
+  test.true( _.quat.isZero([ 0, 0, 0, 0 ]) );
 
   /* */
 
   test.case = 'not zero';
 
-  test.is( !_.quat.isZero([ 0, 0, 0, 1 ]) );
-  test.is( !_.quat.isZero([ 0, 0, 0, 1.1 ]) );
-  test.is( !_.quat.isZero([ 0, 0, 0, Infinity ]) );
+  test.true( !_.quat.isZero([ 0, 0, 0, 1 ]) );
+  test.true( !_.quat.isZero([ 0, 0, 0, 1.1 ]) );
+  test.true( !_.quat.isZero([ 0, 0, 0, Infinity ]) );
 
-  test.is( !_.quat.isZero([ 1, 0, 0, 0 ]) );
-  test.is( !_.quat.isZero([ 0, 1, 0, 0 ]) );
-  test.is( !_.quat.isZero([ 0, 0, 1, 0 ]) );
+  test.true( !_.quat.isZero([ 1, 0, 0, 0 ]) );
+  test.true( !_.quat.isZero([ 0, 1, 0, 0 ]) );
+  test.true( !_.quat.isZero([ 0, 0, 1, 0 ]) );
 
-  test.is( !_.quat.isZero([ 1, 0, 0, 1 ]) );
-  test.is( !_.quat.isZero([ 0, 1, 0, 1 ]) );
-  test.is( !_.quat.isZero([ 0, 0, 1, 1 ]) );
+  test.true( !_.quat.isZero([ 1, 0, 0, 1 ]) );
+  test.true( !_.quat.isZero([ 0, 1, 0, 1 ]) );
+  test.true( !_.quat.isZero([ 0, 0, 1, 1 ]) );
 
-  test.is( !_.quat.isZero([ 0.1, 0, 0, 0 ]) );
-  test.is( !_.quat.isZero([ 0, 0.1, 0, 0 ]) );
-  test.is( !_.quat.isZero([ 0, 0, 0.1, 0 ]) );
+  test.true( !_.quat.isZero([ 0.1, 0, 0, 0 ]) );
+  test.true( !_.quat.isZero([ 0, 0.1, 0, 0 ]) );
+  test.true( !_.quat.isZero([ 0, 0, 0.1, 0 ]) );
 
-  test.is( !_.quat.isZero([ 0.1, 0, 0, 1 ]) );
-  test.is( !_.quat.isZero([ 0, 0.1, 0, 1 ]) );
-  test.is( !_.quat.isZero([ 0, 0, 0.1, 1 ]) );
+  test.true( !_.quat.isZero([ 0.1, 0, 0, 1 ]) );
+  test.true( !_.quat.isZero([ 0, 0.1, 0, 1 ]) );
+  test.true( !_.quat.isZero([ 0, 0, 0.1, 1 ]) );
 
 }
 
@@ -325,31 +325,31 @@ function isUnit( test )
 
   test.case = 'zero';
 
-  test.is( _.quat.isUnit([ 1, 0, 0, 0 ]) );
+  test.true( _.quat.isUnit([ 1, 0, 0, 0 ]) );
 
   /* */
 
   test.case = 'not zero';
 
-  test.is( !_.quat.isUnit([ 0, 0, 0, 0 ]) );
-  test.is( !_.quat.isUnit([ 0, 0, 0, 1.1 ]) );
-  test.is( !_.quat.isUnit([ 0, 0, 0, Infinity ]) );
+  test.true( !_.quat.isUnit([ 0, 0, 0, 0 ]) );
+  test.true( !_.quat.isUnit([ 0, 0, 0, 1.1 ]) );
+  test.true( !_.quat.isUnit([ 0, 0, 0, Infinity ]) );
 
-  test.is( !_.quat.isUnit([ 0, 0, 0, 1 ]) );
-  test.is( !_.quat.isUnit([ 0, 1, 0, 0 ]) );
-  test.is( !_.quat.isUnit([ 0, 0, 1, 0 ]) );
+  test.true( !_.quat.isUnit([ 0, 0, 0, 1 ]) );
+  test.true( !_.quat.isUnit([ 0, 1, 0, 0 ]) );
+  test.true( !_.quat.isUnit([ 0, 0, 1, 0 ]) );
 
-  test.is( !_.quat.isUnit([ 1, 0, 0, 1 ]) );
-  test.is( !_.quat.isUnit([ 0, 1, 0, 1 ]) );
-  test.is( !_.quat.isUnit([ 0, 0, 1, 1 ]) );
+  test.true( !_.quat.isUnit([ 1, 0, 0, 1 ]) );
+  test.true( !_.quat.isUnit([ 0, 1, 0, 1 ]) );
+  test.true( !_.quat.isUnit([ 0, 0, 1, 1 ]) );
 
-  test.is( !_.quat.isUnit([ 0.1, 0, 0, 0 ]) );
-  test.is( !_.quat.isUnit([ 0, 0.1, 0, 0 ]) );
-  test.is( !_.quat.isUnit([ 0, 0, 0.1, 0 ]) );
+  test.true( !_.quat.isUnit([ 0.1, 0, 0, 0 ]) );
+  test.true( !_.quat.isUnit([ 0, 0.1, 0, 0 ]) );
+  test.true( !_.quat.isUnit([ 0, 0, 0.1, 0 ]) );
 
-  test.is( !_.quat.isUnit([ 0.1, 0, 0, 1 ]) );
-  test.is( !_.quat.isUnit([ 0, 0.1, 0, 1 ]) );
-  test.is( !_.quat.isUnit([ 0, 0, 0.1, 1 ]) );
+  test.true( !_.quat.isUnit([ 0.1, 0, 0, 1 ]) );
+  test.true( !_.quat.isUnit([ 0, 0.1, 0, 1 ]) );
+  test.true( !_.quat.isUnit([ 0, 0, 0.1, 1 ]) );
 
 }
 
@@ -366,7 +366,7 @@ function make( test )
   var got = _.quat.make( src );
   var expected = _.quat.tools.longMake( [ 1, 0, 0, 0 ] );
   test.identical( got, expected );
-  test.is( got !== src );
+  test.true( got !== src );
 
   /* */
 
@@ -376,7 +376,7 @@ function make( test )
   var got = _.quat.make( src );
   var expected = _.quat.tools.longMake( [ 1, 0, 0, 0 ] );
   test.identical( got, expected );
-  test.is( got !== src );
+  test.true( got !== src );
 
   /* */
 
@@ -386,7 +386,7 @@ function make( test )
   var got = _.quat.make( src );
   var expected = _.quat.tools.longMake( [ 3, 0, 1, 2 ] );
   test.identical( got, expected );
-  test.is( got !== src );
+  test.true( got !== src );
 
   /* */
 
@@ -396,7 +396,7 @@ function make( test )
   var got = _.quat.make( src );
   var expected = _.quat.tools.longMake( [ 3, 0, 1, 2 ] );
   test.identical( got, expected );
-  test.is( got !== src );
+  test.true( got !== src );
 
   /* - */
 
@@ -473,28 +473,28 @@ function zero( test )
   var got = _.quat.zero( src );
   var expected = _.quat.tools.longMake( [ 0, 0, 0, 0 ] );
   test.identical( got, expected );
-  test.is( got !== src );
+  test.true( got !== src );
 
   test.case = 'src null';
   var src = null;
   var got = _.quat.zero( src );
   var expected = _.quat.tools.longMake( [ 0, 0, 0, 0 ] );
   test.identical( got, expected );
-  test.is( got !== src );
+  test.true( got !== src );
 
   test.case = 'dst array';
   var dst = [ 3, 0, 1, 2 ];
   var got = _.quat.zero( dst );
   var expected = _.quat.tools.longMake( [ 0, 0, 0, 0 ] );
   test.identical( got, expected );
-  test.is( got === dst );
+  test.true( got === dst );
 
   test.case = 'dst vector';
   var dst = _.vectorAdapter.fromLong([ 3, 0, 1, 2 ]);
   var got = _.quat.zero( dst );
   var expected = _.quat.tools.vectorAdapter.fromLong([ 0, 0, 0, 0 ]);
   test.identical( got, expected );
-  test.is( got === dst );
+  test.true( got === dst );
 
   /* - */
 
@@ -521,7 +521,7 @@ function unit( test )
   var got = _.quat.unit( src );
   var expected = _.quat.tools.longMake( [ 1, 0, 0, 0 ] );
   test.identical( got, expected );
-  test.is( got !== src );
+  test.true( got !== src );
 
   /* */
 
@@ -530,7 +530,7 @@ function unit( test )
   var got = _.quat.unit( src );
   var expected = _.quat.tools.longMake( [ 1, 0, 0, 0 ] );
   test.identical( got, expected );
-  test.is( got !== src );
+  test.true( got !== src );
 
   /* */
 
@@ -539,7 +539,7 @@ function unit( test )
   var got = _.quat.unit( dst );
   var expected = _.quat.tools.longMake( [ 1, 0, 0, 0 ] );
   test.identical( got, expected );
-  test.is( got === dst );
+  test.true( got === dst );
 
   /* */
 
@@ -548,7 +548,7 @@ function unit( test )
   var got = _.quat.unit( dst );
   var expected = _.quat.tools.vectorAdapter.fromLong([ 1, 0, 0, 0 ]);
   test.identical( got, expected );
-  test.is( got === dst );
+  test.true( got === dst );
 
   /* - */
 
@@ -1326,7 +1326,7 @@ function eulerToQuatToMatrixToQuatFast( test )
     var eq = false;
     eq = eq || _.entityEquivalent( positiveResult, quat1, { accuracy : test.accuracy } );
     eq = eq || _.entityEquivalent( negativeResult, quat1, { accuracy : test.accuracy } );
-    test.is( eq );
+    test.true( eq );
   }
 
 }
@@ -1380,7 +1380,7 @@ function eulerToQuatToMatrixToQuatSlow( test )
     var eq = false;
     eq = eq || _.entityEquivalent( positiveResult, quat1, { accuracy : test.accuracy } );
     eq = eq || _.entityEquivalent( negativeResult, quat1, { accuracy : test.accuracy } );
-    test.is( eq );
+    test.true( eq );
   }
 
 }
@@ -1434,7 +1434,7 @@ function eulerToQuatToAxisAndAngleToQuatSlow( test )
     var eq = false;
     eq = eq || _.entityEquivalent( positiveResult, quat1, { accuracy : test.accuracy } );
     eq = eq || _.entityEquivalent( negativeResult, quat1, { accuracy : test.accuracy } );
-    test.is( eq );
+    test.true( eq );
   }
 
 }
