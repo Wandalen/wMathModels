@@ -2766,48 +2766,107 @@ function sphereClosestPoint( srcSphere, tstSphere, dstPoint )
   * @module Tools/math/Concepts
   */
 
+// function sphereExpand( sphereDst, sphereSrc )
+// {
+
+//   let sphereViewDst = this.adapterFrom( sphereDst );
+//   let centerDst = this.centerGet( sphereViewDst );
+//   let radiusDst = this.radiusGet( sphereViewDst );
+//   let dimDst = this.dimGet( sphereViewDst );
+
+//   _.assert( this.is( sphereSrc ) );
+
+//   let sphereViewSrc = this.adapterFrom( sphereSrc );
+//   let centerSrc = this.centerGet( sphereViewSrc );
+//   let radiusSrc = this.radiusGet( sphereViewSrc );
+//   let dimSrc = this.dimGet( sphereViewSrc );
+
+//   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
+//   _.assert( dimDst === dimSrc );
+
+//   if( radiusSrc === -Infinity )
+//   {
+//     return sphereDst;
+//   }
+
+//   if( radiusDst === -Infinity )
+//   {
+//     sphereViewDst.copy( sphereViewSrc );
+//     return sphereDst;
+//   }
+
+//   let distance = this.tools.vectorAdapter.distance( centerDst, centerSrc );
+//   if( radiusDst < distance+radiusSrc )
+//   {
+//     //if( distance > 0 )
+//     //this.tools.vectorAdapter.mix( centerDst, centerSrc, 0.5 + ( radiusSrc-radiusDst ) / ( distance*2 ) );
+
+//     //if( distance > 0 )
+//     //this.radiusSet( sphereViewDst, ( distance+radiusSrc+radiusDst ) / 2 );
+//     this.radiusSet( sphereViewDst, ( distance + radiusSrc ) );
+//     //else
+//     //this.radiusSet( sphereViewDst, Math.max( radiusDst, radiusSrc ) );
+
+//   }
+
+//   return sphereDst;
+// }
+
+//
+
 function sphereExpand( sphereDst, sphereSrc )
 {
-
   let sphereViewDst = this.adapterFrom( sphereDst );
-  let centerDst = this.centerGet( sphereViewDst );
-  let radiusDst = this.radiusGet( sphereViewDst );
-  let dimDst = this.dimGet( sphereViewDst );
+  let sphereViewSrc = this.adapterFrom( sphereSrc );
 
   _.assert( this.is( sphereSrc ) );
 
-  let sphereViewSrc = this.adapterFrom( sphereSrc );
-  let centerSrc = this.centerGet( sphereViewSrc );
-  let radiusSrc = this.radiusGet( sphereViewSrc );
+  let dimDst = this.dimGet( sphereViewDst );
   let dimSrc = this.dimGet( sphereViewSrc );
 
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( dimDst === dimSrc );
 
-  if( radiusSrc === -Infinity )
+  let dstCenter = this.centerGet( sphereViewDst );
+  let srcCenter = this.centerGet( sphereViewSrc );
+
+  let dstRadius = this.radiusGet( sphereViewDst );
+  let srcRadius = this.radiusGet( sphereViewSrc );
+
+  if( srcRadius === -Infinity )
   {
     return sphereDst;
   }
 
-  if( radiusDst === -Infinity )
+  if( dstRadius === -Infinity )
   {
     sphereViewDst.copy( sphereViewSrc );
     return sphereDst;
   }
 
-  let distance = this.tools.vectorAdapter.distance( centerDst, centerSrc );
-  if( radiusDst < distance+radiusSrc )
+  if( this.tools.vector.distance( dstCenter, srcCenter ) + dstRadius < srcRadius )
   {
-    //if( distance > 0 )
-    //this.tools.vectorAdapter.mix( centerDst, centerSrc, 0.5 + ( radiusSrc-radiusDst ) / ( distance*2 ) );
-
-    //if( distance > 0 )
-    //this.radiusSet( sphereViewDst, ( distance+radiusSrc+radiusDst ) / 2 );
-    this.radiusSet( sphereViewDst, ( distance + radiusSrc ) );
-    //else
-    //this.radiusSet( sphereViewDst, Math.max( radiusDst, radiusSrc ) );
-
+    sphereViewDst.copy( sphereViewSrc );
+    return sphereDst;
   }
+  else if( this.tools.vector.distance( srcCenter, dstCenter ) + srcRadius < dstRadius )
+  {
+    return sphereDst;
+  }
+
+  var distance1 = this.tools.vector.distance( dstCenter, srcCenter );
+
+  if( distance1 === 0 && dstRadius === srcRadius )
+  return sphereDst;
+
+  let radius = this.tools.vector.add( null, dstRadius, srcRadius, distance1 ) / 2;
+  let center = this.tools.vector.mul( null, this.tools.vector.sub( null, srcCenter, dstCenter ), radius - dstRadius );
+  let distance2 = this.tools.vector.distance( srcCenter, dstCenter );
+  this.tools.vector.div( center, distance2 );
+  this.tools.vector.add( center, dstCenter );
+
+  dstCenter.assign( center );
+  this.radiusSet( sphereViewDst, radius );
 
   return sphereDst;
 }
