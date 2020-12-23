@@ -756,6 +756,14 @@ function fromBox( test )
 
   /* */
 
+  test.case = 'transfrom cube to sphere';
+  var box = _.box.fromCube( null, 6 );
+  var gotSphere = _.sphere.fromBox( null, box );
+  var expected = _.sphere.tools.longMake([ 0, 0, 0, 3 ]);
+  test.identical( gotSphere, expected );
+
+  /* */
+
   test.case = 'bad arguments';
 
   if( !Config.debug )
@@ -6448,7 +6456,7 @@ function sphereExpand( test )
   var s1 = [ -2, 0, 0, 1 ];
   var s2 = [ +2, 0, 0, 1 ];
 
-  var expected = _.sphere.tools.longMake( [ -2, 0, 0, 5 ] );
+  var expected = _.sphere.tools.longMake( [ 0, 0, 0, 3 ] );
   var got = _.sphere.sphereExpand( s1, s2 );
 
   test.identical( got, expected );
@@ -6458,7 +6466,7 @@ function sphereExpand( test )
 
   var s1 = [ -2, 0, 0, 2 ];
   var s2 = [ +2, 0, 0, 1 ];
-  var expected = _.sphere.tools.longMake( [ -2, 0, 0, 5 ] );
+  var expected = _.sphere.tools.longMake( [ -0.5, 0, 0, 3.5 ] );
   var got = _.sphere.sphereExpand( s1, s2 );
 
   test.identical( got, expected );
@@ -6488,7 +6496,7 @@ function sphereExpand( test )
 
   var s1 = [ -2, 0, 0, 3 ];
   var s2 = [ +1, 0, 0, 2 ];
-  var expected = _.sphere.tools.longMake( [ -2, 0, 0, 5 ] );
+  var expected = _.sphere.tools.longMake( [ -1, 0, 0, 4 ] );
   var got = _.sphere.sphereExpand( s1, s2 );
 
   test.equivalent( got, expected );
@@ -6498,7 +6506,7 @@ function sphereExpand( test )
 
   var s1 = [ 1, 2, 3, 5 ];
   var s2 = [ -1, -2, -3, 5 ];
-  var expected = _.sphere.tools.longMake( [ 1, 2, 3, 12.483314773547882 ] );
+  var expected = _.sphere.tools.longMake( [ 6.372004368593309e-8, 1.2744008737186618e-7, 1.9116013127984388e-7, 8.741657257080078 ] );
   var got = _.sphere.sphereExpand( s1, s2 );
 
   test.equivalent( got, expected );
@@ -6528,7 +6536,7 @@ function sphereExpand( test )
 
   var s1 = [ 0, 0, 0, 0 ];
   var s2 = [ 1, 1, 1, 0 ];
-  var expected = _.sphere.tools.longMake( [ 0, 0, 0, _.math.sqrt( 3 ) ] );
+  var expected = _.sphere.tools.longMake( [ 0.5, 0.5, 0.5, 0.8660253882408142 ] );
   var got = _.sphere.sphereExpand( s1, s2 );
 
   test.equivalent( got, expected );
@@ -6538,7 +6546,7 @@ function sphereExpand( test )
 
   var s1 = [ -3, 0, 0, 3 ];
   var s2 = [ +1, 0, 0, 2 ];
-  var expected = _.sphere.tools.longMake( [ -3, 0, 0, 6 ] );
+  var expected = _.sphere.tools.longMake( [ -1.5, 0, 0, 4.5 ] );
   var got = _.sphere.sphereExpand( s1, s2 );
 
   test.identical( got, expected );
@@ -6608,8 +6616,59 @@ function sphereExpand( test )
 
 }
 
+//
 
+function sphereExpandExtended( test )
+{
+  test.case = 'same center, same radius'
+  var s1 = [ 0, 0, 0, 1 ];
+  var s2 = [ 0, 0, 0, 1 ];
+  var expected = _.sphere.tools.longMake( [ 0, 0, 0, 1 ] );
+  var got = _.sphere.sphereExpand( s1, s2 );
+  test.identical( got, expected );
 
+  test.case = 'same center, diff radius'
+  var s1 = [ 0, 0, 0, 1 ];
+  var s2 = [ 0, 0, 0, 2 ];
+  var expected = _.sphere.tools.longMake( [ 0, 0, 0, 2 ] );
+  var got = _.sphere.sphereExpand( s1, s2 );
+  test.identical( got, expected );
+
+  test.case = 'diff center, same radius'
+  var s1 = [ 0, 0, 0, 1 ];
+  var s2 = [ 2, 0, 0, 1 ];
+  var expected = _.sphere.tools.longMake( [ 1, 0, 0, 2 ] );
+  var got = _.sphere.sphereExpand( s1, s2 );
+  test.identical( got, expected );
+
+  test.case = 'diff center, diff radius'
+  var s1 = [ 0, 0, 0, 1 ]
+  var s2 = [ 5, 5, 0, 3 ]
+  var expected = _.sphere.tools.longMake( [ 3.207106781367236, 3.207106781367236, 0, 5.535533905029297 ] );
+  var got = _.sphere.sphereExpand( s1, s2 );
+  test.identical( got, expected );
+
+  test.case = 'diff center, diff radius, enclosed'
+  var s1 = [ 4, 5, 0, 1 ]
+  var s2 = [ 5, 5, 0, 3 ]
+  var expected = _.sphere.tools.longMake( [ 5, 5, 0, 3 ] );
+  var got = _.sphere.sphereExpand( s1, s2 );
+  test.identical( got, expected );
+
+  test.case = 'diff center, diff radius, enclosed'
+  var s1 = [ 4, 5, 0, 10 ]
+  var s2 = [ 5, 5, 0, 3 ]
+  var expected = _.sphere.tools.longMake( [ 4, 5, 0, 10 ] );
+  var got = _.sphere.sphereExpand( s1, s2 );
+  test.identical( got, expected );
+
+  test.case = 'diff center, diff radius, intersection'
+  var s1 = [ 0, 0, 0, 1 ]
+  var s2 = [ 1, 0, 0, 1 ]
+  var expected = _.sphere.tools.longMake( [ 0.5, 0, 0, 1.5 ] );
+  var got = _.sphere.sphereExpand( s1, s2 );
+  test.identical( got, expected );
+}
 
 // --
 // declare
@@ -6686,6 +6745,7 @@ let Self =
     sphereDistance,
     sphereClosestPoint,
     sphereExpand,
+    sphereExpandExtended
 
   }
 
