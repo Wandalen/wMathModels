@@ -2814,6 +2814,65 @@ function sphereExpand( sphereDst, sphereSrc )
 
 //
 
+function sphereExpand( sphereDst, sphereSrc )
+{
+  let sphereViewDst = this.adapterFrom( sphereDst );
+  let sphereViewSrc = this.adapterFrom( sphereSrc );
+
+  _.assert( this.is( sphereSrc ) );
+
+  let dimDst = this.dimGet( sphereViewDst );
+  let dimSrc = this.dimGet( sphereViewSrc );
+
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
+  _.assert( dimDst === dimSrc );
+
+  let dstCenter = this.centerGet( sphereViewDst );
+  let srcCenter = this.centerGet( sphereViewSrc );
+
+  let dstRadius = this.radiusGet( sphereViewDst );
+  let srcRadius = this.radiusGet( sphereViewSrc );
+
+  if( srcRadius === -Infinity )
+  {
+    return sphereDst;
+  }
+
+  if( dstRadius === -Infinity )
+  {
+    sphereViewDst.copy( sphereViewSrc );
+    return sphereDst;
+  }
+
+  if( this.tools.vector.distance( dstCenter, srcCenter ) + dstRadius < srcRadius )
+  {
+    sphereViewDst.copy( sphereViewSrc );
+    return sphereDst;
+  }
+  else if( this.tools.vector.distance( srcCenter, dstCenter ) + srcRadius < dstRadius )
+  {
+    return sphereDst;
+  }
+
+  var distance1 = this.tools.vector.distance( dstCenter, srcCenter );
+
+  if( distance1 === 0 && dstRadius === srcRadius )
+  return sphereDst;
+
+  let radius = this.tools.vector.add( null, dstRadius, srcRadius, distance1 ) / 2;
+  let center = this.tools.vector.mul( null, this.tools.vector.sub( null, srcCenter, dstCenter ), radius - dstRadius );
+  let distance2 = this.tools.vector.distance( srcCenter, dstCenter );
+  this.tools.vector.div( center, distance2 );
+  this.tools.vector.add( center, dstCenter );
+
+  dstCenter.assign( center );
+  this.radiusSet( sphereViewDst, radius );
+
+  return sphereDst;
+}
+
+//
+
 function matrixHomogenousApply( sphere, matrix )
 {
 
