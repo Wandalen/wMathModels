@@ -1261,6 +1261,13 @@ function fromSphere( test )
 
   /* */
 
+  test.case = 'Nil sphere';
+  var sphere = _.sphere.nil();
+  var gotBox = _.box.fromSphere( null, sphere );
+  test.true( _.box.isNil( gotBox ) );
+
+  /* */
+
   if( !Config.debug )
   return;
 
