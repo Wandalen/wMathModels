@@ -440,13 +440,16 @@ function fromBox( sphere, box )
 {
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 
-  _.assert( _.box.is( box ) );
+  _.assert( this.tools.box.is( box ) );
 
   let boxView = this.tools.box.adapterFrom( box );
   let dimB = this.tools.box.dimGet( boxView );
   let min = this.tools.box.cornerLeftGet( boxView );
   let max = this.tools.box.cornerRightGet( boxView );
   let size = this.tools.box.sizeGet( boxView );
+
+  if( this.tools.box.isNil( box ) )
+  return this.tools.sphere.nil( sphere )
 
   if( sphere === null )
   sphere = this.make( dimB );
