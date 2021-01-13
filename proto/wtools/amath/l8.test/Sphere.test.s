@@ -762,6 +762,18 @@ function fromBox( test )
   var expected = _.sphere.tools.longMake([ 0, 0, 0, 3 ]);
   test.identical( gotSphere, expected );
 
+  test.case = 'Nil box';
+  var box = _.box.nil();
+  var gotSphere = _.sphere.fromBox( null, box );
+  test.true( _.sphere.isNil( gotSphere ) );
+
+  test.case = 'Nil box';
+  var box = _.box.nil();
+  var dstShere = _.sphere.make();
+  var gotSphere = _.sphere.fromBox( dstShere, box );
+  test.identical( dstShere, gotSphere );
+  test.true( _.sphere.isNil( gotSphere ) );
+
   /* */
 
   test.case = 'bad arguments';
