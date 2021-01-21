@@ -224,7 +224,7 @@ function from( axisAndAngle, angle )
     if( axisAndAngle.length === 3 )
     {
       // axisAndAngle = _.longResize( axisAndAngle, 0, 4 );
-      // axisAndAngle = this.tools.longGrow( axisAndAngle, [ -1, 3 ] ); /* Dmytro : previous */
+      // axisAndAngle = this.tools.longGrow_( null, axisAndAngle, [ -1, 3 ] ); /* Dmytro : previous */ /* xxx */
       axisAndAngle = this.tools.longGrow_( null, axisAndAngle, [ -1, 2 ] );
       // axisAndAngle = this.tools.longGrow( axisAndAngle, [ 0, 4 ] )
       axisAndAngle[ 0 ] = angle === null ? 0 : angle;
