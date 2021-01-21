@@ -689,6 +689,7 @@ function isZero( box )
   * @namespace wTools.box
   * @module Tools/math/Concepts
   */
+
 function isNil( box )
 {
   _.assert( arguments.length === 1, 'Expects single argument' );
@@ -698,7 +699,8 @@ function isNil( box )
   let min = this.cornerLeftGet( boxView );
   let max = this.cornerRightGet( boxView );
 
-  for( let d = 0 ; d < dim ; d++ ){
+  for( let d = 0 ; d < dim ; d++ )
+  {
     if( min.eGet( d ) > max.eGet( d ) )
     return true;
   }
