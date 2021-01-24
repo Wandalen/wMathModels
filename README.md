@@ -8,7 +8,7 @@ Collection of functions to operate such geometrical models as Sphere, Box, Plane
 git clone https://github.com/Wandalen/wMathModels
 cd wMathModels
 npm install
-node sample/Sample.s
+node sample/trivial/Sample.s
 ```
 
 ## To add to your project
