@@ -8026,6 +8026,21 @@ function matrixHomogenousApply( test )
 
   //
 
+  test.case = 'nil box, scale'
+  var dstBox = [ 2, 2, 2, 1, 1, 1 ];
+  var matrix = _.Matrix.Make( [ 4, 4 ] ).copy
+  ([
+    +0.5, +0, +0, +0,
+    +0, +0.5, +0, +0,
+    +0, +0, +0.5, +0,
+    +0, +0, +0, +1
+  ]);
+  var expectedBox = _.box.tools.longMake([ 1, 1, 1, 0.5, 0.5, 0.5 ]);
+  var gotBox = _.box.matrixHomogenousApply( dstBox, matrix );
+  test.identical( gotBox, expectedBox );
+
+  //
+
   test.case = 'nil box, translate'
   var dstBox = [ 1, 1, 1, 0, 0, 0 ];
   var matrix = _.Matrix.Make( [ 4, 4 ] ).copy
@@ -8036,6 +8051,36 @@ function matrixHomogenousApply( test )
     +0, +0, +0, +1
   ]);
   var expectedBox = _.box.tools.longMake([ 2, 2, 2, 1, 1, 1 ]);
+  var gotBox = _.box.matrixHomogenousApply( dstBox, matrix );
+  test.identical( gotBox, expectedBox );
+
+  //
+
+  test.case = 'nil box, translate'
+  var dstBox = [ 2, 2, 2, 1, 1, 1 ];
+  var matrix = _.Matrix.Make( [ 4, 4 ] ).copy
+  ([
+    +1, +0, +0, +2,
+    +0, +1, +0, +0,
+    +0, +0, +1, +0,
+    +0, +0, +0, +1
+  ]);
+  var expectedBox = _.box.tools.longMake([ 4, 2, 2, 3, 1, 1 ]);
+  var gotBox = _.box.matrixHomogenousApply( dstBox, matrix );
+  test.identical( gotBox, expectedBox );
+
+  //
+
+  test.case = 'nil box, translate'
+  var dstBox = [ 2, 2, 2, 1, 1, 1 ];
+  var matrix = _.Matrix.Make( [ 4, 4 ] ).copy
+  ([
+    +1, +0, +0, -2,
+    +0, +1, +0, +0,
+    +0, +0, +1, +0,
+    +0, +0, +0, +1
+  ]);
+  var expectedBox = _.box.tools.longMake([ 0, 2, 2, -1, 1, 1 ]);
   var gotBox = _.box.matrixHomogenousApply( dstBox, matrix );
   test.identical( gotBox, expectedBox );
 }
