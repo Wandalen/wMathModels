@@ -3292,6 +3292,7 @@ function matrixHomogenousApply( box , matrix )
   let dim = this.dimGet( boxView );
   let min = this.cornerLeftGet( boxView );
   let max = this.cornerRightGet( boxView );
+  let isNil = this.isNil( box );
 
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( _.matrixIs( matrix ) );
@@ -3311,7 +3312,15 @@ function matrixHomogenousApply( box , matrix )
 
   });
 
-  boxView.copy( box2 );
+  if( isNil )
+  {
+    min.assign( this.cornerRightGet( box2 ) );
+    max.assign( this.cornerLeftGet( box2 ) );
+  }
+  else
+  {
+    boxView.copy( box2 );
+  }
 
   return box;
 }
