@@ -7966,7 +7966,7 @@ function rayClosestPoint( test )
 
 function matrixHomogenousApply( test )
 {
-  test.case = 'trivial'
+  test.case = 'trivial, scale'
   var dstBox = [ 0, 0, 0, 1, 1, 1 ];
   var matrix = _.Matrix.Make( [ 4, 4 ] ).copy
   ([
@@ -7976,6 +7976,21 @@ function matrixHomogenousApply( test )
     +0, +0, +0, +1
   ]);
   var expectedBox = _.box.tools.longMake([ 0, 0, 0, 1, 1, 1 ]);
+  var gotBox = _.box.matrixHomogenousApply( dstBox, matrix );
+  test.identical( gotBox, expectedBox );
+
+  //
+
+  test.case = 'trivial, scale x2'
+  var dstBox = [ 0, 0, 0, 1, 1, 1 ];
+  var matrix = _.Matrix.Make( [ 4, 4 ] ).copy
+  ([
+    +2, +0, +0, +0,
+    +0, +2, +0, +0,
+    +0, +0, +2, +0,
+    +0, +0, +0, +1
+  ]);
+  var expectedBox = _.box.tools.longMake([ 0, 0, 0, 2, 2, 2 ]);
   var gotBox = _.box.matrixHomogenousApply( dstBox, matrix );
   test.identical( gotBox, expectedBox );
 
