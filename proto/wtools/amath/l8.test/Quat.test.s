@@ -1161,7 +1161,7 @@ fromMatrixRotationFast.rapidity = -1;
 
 //
 
-function fromMatrixWithScale( test )
+function fromMatrixWithScale2( test )
 {
   test.case = 'scale with 45 degree rotation on x';
   var dst = _.Matrix.Make([ 4, 4 ]);
@@ -1169,7 +1169,7 @@ function fromMatrixWithScale( test )
   var quaternion = [ 0.92, 0.38, 0, 0 ];
   var scale = [ 1, 1, 1 ];
   var src = _.Matrix.FromTransformations( dst, position, quaternion, scale );
-  var got = _.quat.fromMatrixWithScale( null, src );
+  var got = _.quat.fromMatrixWithScale2( null, src );
   test.equivalent( got, quaternion )
 
   test.case = 'scale with 45 degree rotation on y';
@@ -1178,7 +1178,7 @@ function fromMatrixWithScale( test )
   var quaternion = [ 0.92, 0, 0.38, 0 ];
   var scale = [ 1, 1, 1 ];
   var src = _.Matrix.FromTransformations( dst, position, quaternion, scale );
-  var got = _.quat.fromMatrixWithScale( null, src );
+  var got = _.quat.fromMatrixWithScale2( null, src );
   test.equivalent( got, quaternion )
 
   test.case = 'scale with 45 degree rotation on z';
@@ -1187,7 +1187,7 @@ function fromMatrixWithScale( test )
   var quaternion = [ 0.92, 0, 0, 0.38 ];
   var scale = [ 1, 1, 1 ];
   var src = _.Matrix.FromTransformations( dst, position, quaternion, scale );
-  var got = _.quat.fromMatrixWithScale( null, src );
+  var got = _.quat.fromMatrixWithScale2( null, src );
   test.equivalent( got, quaternion )
 
   test.case = 'scale with 45 degree rotation on xyz';
@@ -1196,7 +1196,7 @@ function fromMatrixWithScale( test )
   var quaternion = [ 0.73, 0.46, 0.19, 0.46 ];
   var scale = [ 1, 1, 1 ];
   var src = _.Matrix.FromTransformations( dst, position, quaternion, scale );
-  var got = _.quat.fromMatrixWithScale( null, src );
+  var got = _.quat.fromMatrixWithScale2( null, src );
   test.equivalent( got, quaternion )
 
   test.case = 'scale with 45 degree rotation on xyz and position';
@@ -1205,7 +1205,7 @@ function fromMatrixWithScale( test )
   var quaternion = [ 0.73, 0.46, 0.19, 0.46 ];
   var scale = [ 1, 1, 1 ];
   var src = _.Matrix.FromTransformations( dst, position, quaternion, scale );
-  var got = _.quat.fromMatrixWithScale( null, src );
+  var got = _.quat.fromMatrixWithScale2( null, src );
   test.equivalent( got, quaternion )
 
   test.case = 'scale with 45 degree rotation on x';
@@ -1214,7 +1214,7 @@ function fromMatrixWithScale( test )
   var quaternion = [ 0.92, 0.38, 0, 0 ];
   var scale = [ 0.5, 1, 1.5 ];
   var src = _.Matrix.FromTransformations( dst, position, quaternion, scale );
-  var got = _.quat.fromMatrixWithScale( null, src );
+  var got = _.quat.fromMatrixWithScale2( null, src );
   test.equivalent( got, quaternion )
 
   test.case = 'scale with 45 degree rotation on y';
@@ -1223,7 +1223,7 @@ function fromMatrixWithScale( test )
   var quaternion = [ 0.92, 0, 0.38, 0 ];
   var scale = [ 0.5, 1, 1.5 ];
   var src = _.Matrix.FromTransformations( dst, position, quaternion, scale );
-  var got = _.quat.fromMatrixWithScale( null, src );
+  var got = _.quat.fromMatrixWithScale2( null, src );
   test.equivalent( got, quaternion )
 
   test.case = 'scale with 45 degree rotation on z';
@@ -1232,7 +1232,7 @@ function fromMatrixWithScale( test )
   var quaternion = [ 0.92, 0, 0, 0.38 ];
   var scale = [ 0.5, 1, 1.5 ];
   var src = _.Matrix.FromTransformations( dst, position, quaternion, scale );
-  var got = _.quat.fromMatrixWithScale( null, src );
+  var got = _.quat.fromMatrixWithScale2( null, src );
   test.equivalent( got, quaternion )
 
   test.case = 'scale with 45 degree rotation on xyz';
@@ -1241,7 +1241,7 @@ function fromMatrixWithScale( test )
   var quaternion = [ 0.73, 0.46, 0.19, 0.46 ];
   var scale = [ 0.5, 1, 1.5 ];
   var src = _.Matrix.FromTransformations( dst, position, quaternion, scale );
-  var got = _.quat.fromMatrixWithScale( null, src );
+  var got = _.quat.fromMatrixWithScale2( null, src );
   test.equivalent( got, quaternion )
 
   test.case = 'scale with 45 degree rotation on xyz and position';
@@ -1250,11 +1250,11 @@ function fromMatrixWithScale( test )
   var quaternion = [ 0.73, 0.46, 0.19, 0.46 ];
   var scale = [ 0.5, 1, 1.5 ];
   var src = _.Matrix.FromTransformations( dst, position, quaternion, scale );
-  var got = _.quat.fromMatrixWithScale( null, src );
+  var got = _.quat.fromMatrixWithScale2( null, src );
   test.equivalent( got, quaternion )
 }
 
-fromMatrixWithScale.accuracy = 10e-3;
+fromMatrixWithScale2.accuracy = 10e-3;
 
 //
 
@@ -1575,7 +1575,7 @@ let Self =
     fromAxisAndAngle,
     fromVectors,
     fromMatrixRotationFast,
-    fromMatrixWithScale,
+    fromMatrixWithScale2,
 
     toMatrix,
 
