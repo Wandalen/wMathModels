@@ -215,10 +215,7 @@ function pointDistance3DSqr( linePoints, point )
 
 function injectChunks( routines )
 {
-
-  _global_.SRT = _global_.SRT || Object.create( null );
-  _global_.SRT.gl = _global_.SRT.gl || Object.create( null );
-  let Chunks = SRT.gl.Chunks = SRT.gl.Chunks || Object.create( null );
+  let Chunks = _._chunk = _._chunk || Object.create( null );
 
   for( let r in routines )
   {

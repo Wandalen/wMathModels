@@ -850,6 +850,33 @@ function fromMatrixWithScale( dst, mat )
 
 //
 
+function fromMatrixWithScale2( dst, mat )
+{
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
+  _.assert( _.Matrix.Is( mat ) );
+  _.assert( mat.dims[ 0 ] >= 3 );
+  _.assert( mat.dims[ 1 ] >= 3 );
+
+  let rotationMatrix = mat.clone();
+
+  rotationMatrix.colSet( 3, [ 0, 0, 0, 1] );
+
+  let ape = rotationMatrix.scalarsPerElement;
+  let l = rotationMatrix.length;
+  let scale = rotationMatrix.scaleGet();
+
+  for( let i = 0 ; i < ape ; i += 1 )
+  {
+    let c = rotationMatrix.rowGet( i );
+    c = this.tools.vectorAdapter.fromLongLrange( c, 0, l-1 );
+    this.tools.vectorAdapter.div( c, scale );
+  }
+
+  return this.fromMatrixRotation( dst, rotationMatrix )
+}
+
+//
+
 function fromPlane( plane, origin )
 {
   let originVector;
@@ -1195,6 +1222,7 @@ let Extension = /* qqq : normalize order */
   fromMatrixRotation,
   fromMatrixRotation2,
   fromMatrixWithScale,
+  fromMatrixWithScale2,
 
   fromPlane,
 
