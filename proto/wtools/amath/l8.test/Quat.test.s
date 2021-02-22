@@ -761,27 +761,27 @@ function fromAxisAndAngle( test )
   function allAxisesTest( d )
   {
 
-    test.case = d + ' with axis ' + _.toStr( axis );
+    test.case = d + ' with axis ' + _.entity.exportString( axis );
     expected = [ sample.w, sample.oc, sample.oc, sample.oc ];
     axis = [ 0, 0, 0 ];
     caseTest();
 
-    test.case = d + ' with axis ' + _.toStr( axis );
+    test.case = d + ' with axis ' + _.entity.exportString( axis );
     expected = [ sample.w, sample.tc, sample.oc, sample.oc ];
     axis = [ 1, 0, 0 ];
     caseTest();
 
-    test.case = d + ' with axis ' + _.toStr( axis );
+    test.case = d + ' with axis ' + _.entity.exportString( axis );
     expected = [ sample.w, sample.oc, sample.tc, sample.oc ];
     axis = [ 0, 1, 0 ];
     caseTest();
 
-    test.case = d + ' with axis ' + _.toStr( axis );
+    test.case = d + ' with axis ' + _.entity.exportString( axis );
     expected = [ sample.w, sample.oc, sample.oc, sample.tc ];
     axis = [ 0, 0, 1 ];
     caseTest();
 
-    test.case = d + ' with axis ' + _.toStr( axis );
+    test.case = d + ' with axis ' + _.entity.exportString( axis );
     expected = [ sample.w, sample.tc, sample.tc, sample.tc ];
     axis = [ 1, 1, 1 ];
     caseTest();

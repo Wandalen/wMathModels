@@ -263,7 +263,7 @@ function centeredOfRadius( sphere, radius )
   *
   * @example
   * // returns [ 1, 1, 2, 2 ];
-  * _.toStr( [ 1, 1, 2, 2] );
+  * _.entity.exportString( [ 1, 1, 2, 2] );
   *
   * @returns { String } Returns an string with the box information.
   * @function toStr
@@ -282,7 +282,7 @@ function toStr( sphere, options )
   // let radius = this.radiusGet( sphereView );
   // let dim = this.dimGet( sphereView );
 
-  return _.toStr( sphere, options );
+  return _.entity.exportString( sphere, options );
   debugger;
 }
 

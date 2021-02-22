@@ -260,7 +260,7 @@ function representationSet( dstEuler, representation )
     }
     else _.assert( 0, 'Not an Euler Representation', _.strQuote( representation ) );
   }
-  else _.assert( 0, 'unknown type of {-representation-}', _.strType( representation ) )
+  else _.assert( 0, 'unknown type of {-representation-}', _.entity.strType( representation ) )
 
   return dstEuler;
 }
