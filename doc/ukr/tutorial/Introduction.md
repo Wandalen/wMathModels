@@ -18,7 +18,7 @@
 
 ```js
 var box = _.box.make();
-console.log( `Type : ${ _.strType( box ) }` );
+console.log( `Type : ${ _.entity.strType( box ) }` );
 /* log : Type : Array */
 console.log( box );
 /* log : [ 0, 0, 0, 0, 0, 0 ] */
@@ -37,7 +37,7 @@ var dim = 2;
 var box = _.box.make( dim );
 console.log( box );
 /* log : [ 0, 0, 0, 0 ] */
-console.log( `Type : ${ _.strType( box ) }` );
+console.log( `Type : ${ _.entity.strType( box ) }` );
 /* log : Type : Array */
 console.log( `_.box.is( box ) : ${ _.box.is( box ) }` );
 /* log : _.box.is( box ) : true */
@@ -54,7 +54,7 @@ console.log( box );
 /* log : [ 2, 1, 9, 5 ] */
 console.log( `srcBox === box : ${ srcBox === box }` );
 /* log : srcBox === box : false */
-console.log( `Type : ${ _.strType( box ) }` );
+console.log( `Type : ${ _.entity.strType( box ) }` );
 /* log : Type : Array */
 console.log( `_.box.is( box ) : ${ _.box.is( box ) }` );
 /* log : _.box.is( box ) : true */
@@ -72,7 +72,7 @@ console.log( `_.box.is( box ) : ${ _.box.is( box ) }` );
 var box = _.box.make( null );
 console.log( box );
 /* log : [ 0, 0, 0, 0 ] */
-console.log( `Type : ${ _.strType( box ) }` );
+console.log( `Type : ${ _.entity.strType( box ) }` );
 /* log : Type : Array */
 console.log( `_.box.is( box ) : ${ _.box.is( box ) }` );
 /* log : _.box.is( box ) : true */
@@ -93,7 +93,7 @@ console.log( box );
 /* log : Float32Array(4) [ 2, 1, 9, 5 ] */
 console.log( `srcBox === box : ${ srcBox === box }` );
 /* log : srcBox === box : true */
-console.log( `Type : ${ _.strType( box ) }` );
+console.log( `Type : ${ _.entity.strType( box ) }` );
 /* log : Type : F32x */
 console.log( `_.box.is( box ) : ${ _.box.is( box ) }` );
 /* log : _.box.is( box ) : true */
@@ -122,7 +122,7 @@ console.log( `_.box.is( box ) : ${ _.box.is( box ) }` );
 var box = _.box.from( null );
 console.log( box );
 /* log : [ 0, 0, 0, 0, 0, 0 ] */
-console.log( `Type : ${ _.strType( box ) }` );
+console.log( `Type : ${ _.entity.strType( box ) }` );
 /* log : Type : Array */
 console.log( `_.box.is( box ) : ${ _.box.is( box ) }` );
 /* log : _.box.is( box ) : true */
@@ -197,7 +197,7 @@ var srcBox = new F32x([ 2, 1, 9, 5 ]);
 var box = _.box.from( srcBox );
 console.log( box );
 /* log : Float32Array(4) [ 2, 1, 9, 5 ] */
-console.log( `Type : ${ _.strType( box ) }` );
+console.log( `Type : ${ _.entity.strType( box ) }` );
 /* log : Type : F32x */
 console.log( `srcBox === box : ${ srcBox === box }` );
 /* log : srcBox === box : true */

@@ -11,7 +11,7 @@ console.log( box );
 /* log : [ 2, 1, 9, 5 ] */
 console.log( `srcBox === box : ${ srcBox === box }` );
 /* log : srcBox === box : false */
-console.log( `Type : ${ _.strType( box ) }` );
+console.log( `Type : ${ _.entity.strType( box ) }` );
 /* log : Type : Array */
 console.log( `_.box.is( box ) : ${ _.box.is( box ) }` );
 /* log : _.box.is( box ) : true */

@@ -11,7 +11,7 @@ console.log( box );
 /* log : Float32Array(4) [ 2, 1, 9, 5 ] */
 console.log( `srcBox === box : ${ srcBox === box }` );
 /* log : srcBox === box : true */
-console.log( `Type : ${ _.strType( box ) }` );
+console.log( `Type : ${ _.entity.strType( box ) }` );
 /* log : Type : F32x */
 console.log( `_.box.is( box ) : ${ _.box.is( box ) }` );
 /* log : _.box.is( box ) : true */

@@ -8,7 +8,7 @@ let _ = wTools;
 var box = _.box.from( null );
 console.log( box );
 /* log : [ 0, 0, 0, 0, 0, 0 ] */
-console.log( `Type : ${ _.strType( box ) }` );
+console.log( `Type : ${ _.entity.strType( box ) }` );
 /* log : Type : Array */
 console.log( `_.box.is( box ) : ${ _.box.is( box ) }` );
 /* log : _.box.is( box ) : true */

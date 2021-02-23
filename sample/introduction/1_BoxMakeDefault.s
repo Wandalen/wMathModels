@@ -6,7 +6,7 @@ let _ = wTools;
 /* */
 
 var box = _.box.make();
-console.log( `Type : ${ _.strType( box ) }` );
+console.log( `Type : ${ _.entity.strType( box ) }` );
 /* log : Type : Array */
 console.log( box );
 /* log : [ 0, 0, 0, 0, 0, 0 ] */

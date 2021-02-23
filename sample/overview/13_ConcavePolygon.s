@@ -15,5 +15,5 @@ var point = [ 3, 6 ]
 var distance = _.concavePolygon.pointDistance( polygon, point );
 console.log( `Distance from concave polygon to point : ${ _.toStr( distance, { precision : 2 } ) }` );
 /* log : Distance from concave polygon to point : 1.7 */
-console.log( `Type : ${ _.strType( polygon ) }` );
+console.log( `Type : ${ _.entity.strType( polygon ) }` );
 /* log : Type : wMatrix */

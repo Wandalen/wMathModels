@@ -190,7 +190,7 @@ var point = [ 3, 6 ]
 var distance = _.triangle.pointDistance( triangle, point );
 console.log( `Distance from triangle to point : ${ _.toStr( distance, { precision : 2 } ) }` );
 /* log : Distance from triangle to point : 1.7 */
-console.log( `Type : ${ _.strType( triangle ) }` );
+console.log( `Type : ${ _.entity.strType( triangle ) }` );
 /* log : Type : Array */
 ```
 
@@ -215,7 +215,7 @@ var point = [ 3, 6 ];
 var distance = _.convexPolygon.pointDistance( polygon, point );
 console.log( `Distance from convex polygon to point : ${ _.toStr( distance, { precision : 2 } ) }` );
 /* log : Distance from convex polygon to point : 1.7 */
-console.log( `Type : ${ _.strType( polygon ) }` );
+console.log( `Type : ${ _.entity.strType( polygon ) }` );
 /* log : Type : wMatrix */
 ```
 
@@ -240,7 +240,7 @@ var point = [ 3, 6 ]
 var distance = _.concavePolygon.pointDistance( polygon, point );
 console.log( `Distance from concave polygon to point : ${ _.toStr( distance, { precision : 2 } ) }` );
 /* log : Distance from concave polygon to point : 1.7 */
-console.log( `Type : ${ _.strType( polygon ) }` );
+console.log( `Type : ${ _.entity.strType( polygon ) }` );
 /* log : Type : wMatrix */
 ```
 
@@ -270,7 +270,7 @@ Matrix.F32x.4x6 ::
 var distance = _.frustum.pointDistance( frustum, point );
 console.log( `Distance from frustum to point : ${ _.toStr( distance, { precision : 2 } ) }` );
 /* log : Distance from frustum to point : 37 */
-console.log( `Type of frustum : ${ _.strType( frustum ) }` );
+console.log( `Type of frustum : ${ _.entity.strType( frustum ) }` );
 /* log : Type of frustum : wMatrix */
 ```
 

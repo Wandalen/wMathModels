@@ -20,6 +20,6 @@ Matrix.F32x.4x6 ::
 var distance = _.frustum.pointDistance( frustum, point );
 console.log( `Distance from frustum to point : ${ _.toStr( distance, { precision : 2 } ) }` );
 /* log : Distance from frustum to point : 37 */
-console.log( `Type of frustum : ${ _.strType( frustum ) }` );
+console.log( `Type of frustum : ${ _.entity.strType( frustum ) }` );
 /* log : Type of frustum : wMatrix */
 
