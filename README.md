@@ -485,7 +485,7 @@ Another good example is determining the distance between a point and a line.
 var point = [ 3, 2 ];
 var line = [ -4, 4, 0 ];
 var distance = _.plane.pointDistance( line, point );
-console.log( `Distance from line to point : ${ _.toStr( distance, { precision : 2 } ) }` );
+console.log( `Distance from line to point : ${ _.entity.exportString( distance, { precision : 2 } ) }` );
 /* log : Distance from line to point : -0.71*/
 ```
 
@@ -495,7 +495,7 @@ The distance from the point `point` to the line `line` is returned in a variable
 var point = [ 4, 1, -3 ];
 var plane = [ 1, 2, -1, 3 ];
 var distance = _.plane.pointDistance( plane, point );
-console.log( `Distance from 3D plane to point : ${ _.toStr( distance, { precision : 2 } ) }` );
+console.log( `Distance from 3D plane to point : ${ _.entity.exportString( distance, { precision : 2 } ) }` );
 /* log : Distance from 3D plane to point : -0.27 */
 ```
 
@@ -533,15 +533,15 @@ An example of converting Euler's angles into quaternions and back:
 
 ```js
 var euler1 =  [ 1, 0, 0.5, 0, 1, 2 ] ;
-console.log( `Euler : ${ _.toStr( euler1, { precision : 2 } ) }` );
+console.log( `Euler : ${ _.entity.exportString( euler1, { precision : 2 } ) }` );
 /* log : Euler : [ 1.0, 0.0, 0.50, 0.0, 1.0, 2.0 ] */
 
 var quat = _.euler.toQuat( euler1, null );
-console.log( `Quat from Euler : ${ _.toStr( quat, { precision : 2 } ) }` );
+console.log( `Quat from Euler : ${ _.entity.exportString( quat, { precision : 2 } ) }` );
 /* log : Quat from Euler : [ 0.46, -0.12, 0.22, 0.85 ] */
 
 var euler2 = _.quat.toEuler( quat, null );
-console.log( `Euler from Quat : ${ _.toStr( euler2, { precision : 2 } ) }` );
+console.log( `Euler from Quat : ${ _.entity.exportString( euler2, { precision : 2 } ) }` );
 /* log : Euler from Quat : [ 1.0, 0.0, 0.50, 0.0, 1.0, 2.0 ] */
 ```
 
@@ -557,7 +557,7 @@ An instance of the model is stored in vector of any form.
 var box = [ 2, 1, 9, 5 ];
 var point = [ 6, 8 ];
 var got = _.box.pointDistance( box, point );
-console.log( `Distance from box to point : ${ _.toStr( got, { precision : 2 } ) }` );
+console.log( `Distance from box to point : ${ _.entity.exportString( got, { precision : 2 } ) }` );
 /* log : Distance from box to point : 3.0 */
 ```
 
@@ -575,7 +575,7 @@ An instance of the model is stored in vector of any form.
 var segment = [ 9, 1, 2, 4 ];
 var point = [ 3, 5 ];
 var distance = _.segment.pointDistance( segment, point );
-console.log( `Distance from segment to point : ${ _.toStr( distance, { precision : 2 } ) }` );
+console.log( `Distance from segment to point : ${ _.entity.exportString( distance, { precision : 2 } ) }` );
 /* log : Distance from segment to point : 1.3 */
 ```
 
@@ -593,7 +593,7 @@ A capsule is a segment that has a thickness. The capsule, as well as the segment
 var capsule = [ 9, 1, 2, 4, 0.5 ];
 var point = [ 3, 5 ];
 var distance = _.capsule.pointDistance( capsule, point );
-console.log( `Distance from capsule to point : ${ _.toStr( distance, { precision : 2 } ) }` );
+console.log( `Distance from capsule to point : ${ _.entity.exportString( distance, { precision : 2 } ) }` );
 /* log : Distance from capsule to point : 0.81 */
 ```
 
@@ -611,7 +611,7 @@ In a 2D it's a circle, in 3D it's a normal sphere, in 4D it's a glome. It is des
 var sphere = [ 2, 1, 3 ];
 var point = [ 5, 6 ];
 var distance = _.sphere.pointDistance( sphere, point );
-console.log( `Distance from sphere to point : ${ _.toStr( distance, { precision : 2 } ) }` );
+console.log( `Distance from sphere to point : ${ _.entity.exportString( distance, { precision : 2 } ) }` );
 /* log : Distance from sphere to point : 2.8 */
 ```
 
@@ -631,7 +631,7 @@ The first point is the beginning of the ray, the second sets the direction. An i
 var ray = [ 2, 1, 6, 3 ];
 var point = [ 2, 3 ];
 var distance = _.ray.pointDistance( ray, point );
-console.log( `Distance from ray to point : ${ _.toStr( distance, { precision : 2 } ) }` );
+console.log( `Distance from ray to point : ${ _.entity.exportString( distance, { precision : 2 } ) }` );
 /* log : Distance from ray to point : 1.8 */
 ```
 
@@ -649,7 +649,7 @@ Describes a line with two points through which it passes. An instance of the mod
 var line = [ 2, 1, 4, 2 ];
 var point = [ 2, 3 ];
 var distance = _.linePoints.pointDistance( line, point );
-console.log( `Distance from line to point : ${ _.toStr( distance, { precision : 2 } ) }` );
+console.log( `Distance from line to point : ${ _.entity.exportString( distance, { precision : 2 } ) }` );
 /* log : Distance from line to point : 1.8 */
 ```
 
@@ -667,7 +667,7 @@ The second point is set relative to the first. An instance of the model is store
 var line = [ 2, 1, 2, 1 ];
 var point = [ 2, 3 ];
 var distance = _.linePointDir.pointDistance( line, point );
-console.log( `Distance from line by point and direction to point : ${ _.toStr( distance, { precision : 2 } ) }` );
+console.log( `Distance from line by point and direction to point : ${ _.entity.exportString( distance, { precision : 2 } ) }` );
 /* log : Distance from line by point and direction to point : 1.8 */
 ```
 
@@ -685,7 +685,7 @@ An instance of the model is stored in vector of any form.
 var line = [ 4, 2 ];
 var point = [ 2, 3 ];
 var distance = _.linePointCentered.pointDistanceCentered2D( line, point );
-console.log( `Distance from centered line to point : ${ _.toStr( distance, { precision : 2 } ) }` );
+console.log( `Distance from centered line to point : ${ _.entity.exportString( distance, { precision : 2 } ) }` );
 /* log : Distance from centered line to point : 1.8 */
 ```
 
@@ -703,7 +703,7 @@ This mathematical model will always divide the space in which it exists into two
 var line = [ -2, -1, 2 ];
 var point = [ 2, 3 ];
 var distance = _.plane.pointDistance( line, point );
-console.log( `Distance from straight to point : ${ _.toStr( distance, { precision : 2 } ) }` );
+console.log( `Distance from straight to point : ${ _.entity.exportString( distance, { precision : 2 } ) }` );
 /* log : Distance from straight to point : 0.89 */
 ```
 
@@ -715,7 +715,7 @@ The line `line` satisfies the equation `-2 - 1 * x + 2 * y = 0` passes through t
 var plane = [ 0, -2, -1, 2 ];
 var point = [ 2, 3, -3 ];
 var distance = _.plane.pointDistance( plane, point );
-console.log( `Distance from 3D plane to point : ${ _.toStr( distance, { precision : 2 } ) }` );
+console.log( `Distance from 3D plane to point : ${ _.entity.exportString( distance, { precision : 2 } ) }` );
 /* log : Distance from 3D plane to point : 0.89 */
 ```
 
@@ -733,7 +733,7 @@ It is defined by three vertices. An instance of the model is stored in vector of
 var triangle = [ 2, 1, 9, 2, 5, 6 ];
 var point = [ 3, 6 ]
 var distance = _.triangle.pointDistance( triangle, point );
-console.log( `Distance from triangle to point : ${ _.toStr( distance, { precision : 2 } ) }` );
+console.log( `Distance from triangle to point : ${ _.entity.exportString( distance, { precision : 2 } ) }` );
 /* log : Distance from triangle to point : 1.7 */
 console.log( `Type : ${ _.entity.strType( triangle ) }` );
 /* log : Type : Array */
@@ -758,7 +758,7 @@ var vertices =
 var polygon = _.convexPolygon.make( vertices, 2 );
 var point = [ 3, 6 ];
 var distance = _.convexPolygon.pointDistance( polygon, point );
-console.log( `Distance from convex polygon to point : ${ _.toStr( distance, { precision : 2 } ) }` );
+console.log( `Distance from convex polygon to point : ${ _.entity.exportString( distance, { precision : 2 } ) }` );
 /* log : Distance from convex polygon to point : 1.7 */
 console.log( `Type : ${ _.entity.strType( polygon ) }` );
 /* log : Type : wMatrix */
@@ -783,7 +783,7 @@ var vertices =
 var polygon = _.concavePolygon.make( vertices, 2 );
 var point = [ 3, 6 ]
 var distance = _.concavePolygon.pointDistance( polygon, point );
-console.log( `Distance from concave polygon to point : ${ _.toStr( distance, { precision : 2 } ) }` );
+console.log( `Distance from concave polygon to point : ${ _.entity.exportString( distance, { precision : 2 } ) }` );
 /* log : Distance from concave polygon to point : 1.7 */
 console.log( `Type : ${ _.entity.strType( polygon ) }` );
 /* log : Type : wMatrix */
@@ -813,7 +813,7 @@ Matrix.F32x.4x6 ::
   0.000  0.000  0.000  0.000  25.000 -25.000
 */
 var distance = _.frustum.pointDistance( frustum, point );
-console.log( `Distance from frustum to point : ${ _.toStr( distance, { precision : 2 } ) }` );
+console.log( `Distance from frustum to point : ${ _.entity.exportString( distance, { precision : 2 } ) }` );
 /* log : Distance from frustum to point : 37 */
 console.log( `Type of frustum : ${ _.entity.strType( frustum ) }` );
 /* log : Type of frustum : wMatrix */
@@ -832,7 +832,7 @@ One possible way to set the rotation. An instance of the model is stored in vect
 ```js
 var axisAndAngle = [ Math.PI / 4, 1, 0, 0 ];
 var euler = _.euler.fromAxisAndAngle2( null, axisAndAngle );
-console.log( `AxisAndAngle to Euler : ${ _.toStr( euler, { precision : 2 } ) }` )
+console.log( `AxisAndAngle to Euler : ${ _.entity.exportString( euler, { precision : 2 } ) }` )
 /* log : AxisAndAngle to Euler : [ 0.79, 0.0, -0.0, 0.0, 1.0, 2.0 ] */
 ```
 
@@ -864,7 +864,7 @@ Some combinations of values of angles of rotation ( it is the first 3 scalars ) 
 ```js
 var euler = [ Math.PI/4, 0, 0, 0, 1, 2 ];
 var quat = _.euler.toQuat( euler, null );
-console.log( `Quat from Euler : ${ _.toStr( quat, { precision : 2 } ) }` );
+console.log( `Quat from Euler : ${ _.entity.exportString( quat, { precision : 2 } ) }` );
 /* log : Quat from Euler : [ 0.38, 0.0, 0.0, 0.92 ] */
 ```
 
@@ -881,7 +881,7 @@ One possible way to set the rotation. Quaternion is an extension of the concept 
 ```js
 var quat = [ 0.38, 0.0, 0.0, 0.92 ];
 var euler = _.quat.toEuler( quat, null );
-console.log( `Quat from Euler : ${ _.toStr( euler, { precision : 2 } ) }` );
+console.log( `Quat from Euler : ${ _.entity.exportString( euler, { precision : 2 } ) }` );
 /* log : Euler from Quat : [ 0.78, 0.0, -0.0, 0.0, 1.0, 2.0 ] */
 ```
 

@@ -473,7 +473,7 @@ console.log( `Sphere contains point : ${ contains }` );
 var point = [ 3, 2 ];
 var line = [ -4, 4, 0 ];
 var distance = _.plane.pointDistance( line, point );
-console.log( `Distance from line to point : ${ _.toStr( distance, { precision : 2 } ) }` );
+console.log( `Distance from line to point : ${ _.entity.exportString( distance, { precision : 2 } ) }` );
 /* log : Distance from line to point : -0.71*/
 ```
 
@@ -483,7 +483,7 @@ console.log( `Distance from line to point : ${ _.toStr( distance, { precision : 
 var point = [ 4, 1, -3 ];
 var plane = [ 1, 2, -1, 3 ];
 var distance = _.plane.pointDistance( plane, point );
-console.log( `Distance from 3D plane to point : ${ _.toStr( distance, { precision : 2 } ) }` );
+console.log( `Distance from 3D plane to point : ${ _.entity.exportString( distance, { precision : 2 } ) }` );
 /* log : Distance from 3D plane to point : -0.27 */
 ```
 
@@ -521,15 +521,15 @@ console.log( `Intersection point : ${ point2 }` );
 
 ```js
 var euler1 =  [ 1, 0, 0.5, 0, 1, 2 ] ;
-console.log( `Euler : ${ _.toStr( euler1, { precision : 2 } ) }` );
+console.log( `Euler : ${ _.entity.exportString( euler1, { precision : 2 } ) }` );
 /* log : Euler : [ 1.0, 0.0, 0.50, 0.0, 1.0, 2.0 ] */
 
 var quat = _.euler.toQuat( euler1, null );
-console.log( `Quat from Euler : ${ _.toStr( quat, { precision : 2 } ) }` );
+console.log( `Quat from Euler : ${ _.entity.exportString( quat, { precision : 2 } ) }` );
 /* log : Quat from Euler : [ 0.46, -0.12, 0.22, 0.85 ] */
 
 var euler2 = _.quat.toEuler( quat, null );
-console.log( `Euler from Quat : ${ _.toStr( euler2, { precision : 2 } ) }` );
+console.log( `Euler from Quat : ${ _.entity.exportString( euler2, { precision : 2 } ) }` );
 /* log : Euler from Quat : [ 1.0, 0.0, 0.50, 0.0, 1.0, 2.0 ] */
 ```
 
