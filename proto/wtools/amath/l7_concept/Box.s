@@ -2,10 +2,10 @@
 
 'use strict';
 
-let _ = _global_.wTools;
+const _ = _global_.wTools;
 // let this.tools.avector = this.tools.avector;
 // let vector = this.tools.vectorAdapter;
-let Self = _.box = _.box || Object.create( _.avector );
+const Self = _.box = _.box || Object.create( _.avector );
 
 /**
  * @description
@@ -317,7 +317,7 @@ function from( box )
 
   // if( _.objectIs( box ) )
   // {
-  //   _.assertMapHasFields( box, { min : 'min' , max : 'max' } );
+  //   _.map.assertHasExactly( box, { min : 'min' , max : 'max' } );
   //   debugger;
   //   box = _.arrayAppendArrays( [], [ box.min, box.max ] );
   // }

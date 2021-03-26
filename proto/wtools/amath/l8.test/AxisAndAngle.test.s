@@ -17,9 +17,9 @@ if( typeof module !== 'undefined' )
 
 //
 
-let _ = _global_.wTools.withDefaultLong.Fx;
+const _ = _global_.wTools.withDefaultLong.Fx;
 var Matrix = _.Matrix;
-let Parent = wTester;
+const Parent = wTester;
 
 var avector = _.avector;
 var vector = _.vectorAdapter;
@@ -794,7 +794,7 @@ eulerToQuatToAxisAndAngleMatrixToAxisAndAngleToQuatSlow.rapidity = -2;
 // declare
 // --
 
-let Self =
+const Proto =
 {
 
   name : 'Tools.Math.AxisAndAngle',
@@ -833,7 +833,7 @@ let Self =
 
 //
 
-Self = wTestSuite( Self );
+const Self = wTestSuite( Proto );
 if( typeof module !== 'undefined' && !module.parent )
 wTester.test( Self.name );
 

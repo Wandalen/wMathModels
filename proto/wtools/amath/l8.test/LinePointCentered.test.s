@@ -5,7 +5,7 @@
 if( typeof module !== 'undefined' )
 {
 
-  let _ = require( '../../Tools.s' );
+  const _ = require( '../../Tools.s' );
 
   _.include( 'wTesting' );
   _.include( 'wMathVector' );
@@ -17,13 +17,13 @@ if( typeof module !== 'undefined' )
 
 //
 
-let _ = _global_.wTools.withDefaultLong.Fx;
+const _ = _global_.wTools.withDefaultLong.Fx;
 var Matrix = _.Matrix;
 var vector = _.vectorAdapter;
 var vec = _.vectorAdapter.fromArray;
 var avector = _.avector;
 var sqrt = _.math.sqrt;
-let Parent = wTester;
+const Parent = wTester;
 
 _.assert( _.routineIs( sqrt ) );
 
@@ -273,7 +273,7 @@ function pointDistanceCentered3DSqr( test )//qqq vova: extend
 // declare
 // --
 
-let Self =
+const Proto =
 {
 
   name : 'Tools/Math/LinePointCentered',
@@ -296,7 +296,7 @@ let Self =
 
 //
 
-Self = wTestSuite( Self );
+const Self = wTestSuite( Proto );
 if( typeof module !== 'undefined' && !module.parent )
 wTester.test( Self.name );
 

@@ -2,10 +2,10 @@
 
 'use strict';
 
-let _ = _global_.wTools;
+const _ = _global_.wTools;
 // let this.tools.avector = this.tools.avector;
 // let vector = this.tools.vectorAdapter;
-let Self = _.ray = _.ray || Object.create( _.avector );
+const Self = _.ray = _.ray || Object.create( _.avector );
 
 /**
  * @description
@@ -126,7 +126,7 @@ function from( ray )
 {
 //  if( _.objectIs( ray ) )
 //  {
-//    _.assertMapHasFields( ray, { min : 'min' , max : 'max' } );
+//    _.map.assertHasExactly( ray, { min : 'min' , max : 'max' } );
 //    ray = _.arrayAppendArrays( [], [ ray.min, ray.max ] );
 //  }
 

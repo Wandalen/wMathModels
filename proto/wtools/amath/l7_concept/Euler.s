@@ -2,7 +2,7 @@
 
 'use strict';
 
-let _ = _global_.wTools;
+const _ = _global_.wTools;
 let pi = Math.PI;
 let sin = Math.sin;
 let cos = Math.cos;
@@ -28,7 +28,7 @@ _.assert( !this );
   * @module Tools/math/Concepts
  */
 
-let Self = _.euler = _.euler || Object.create( _.avector );
+const Self = _.euler = _.euler || Object.create( _.avector );
 
 /*
 

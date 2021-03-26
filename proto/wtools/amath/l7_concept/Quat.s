@@ -2,7 +2,7 @@
 
 'use strict';
 
-let _ = _global_.wTools;
+const _ = _global_.wTools;
 // let this.tools.avector = this.tools.avector;
 // let vector = this.tools.vectorAdapter;
 let pi = Math.PI;
@@ -15,7 +15,7 @@ let sqr = _.math.sqr;
 let sqrt = _.math.sqrt;
 
 _.assert( !this );
-let Self = _.quat = _.quat || Object.create( _.avector );
+const Self = _.quat = _.quat || Object.create( _.avector );
 
 /**
  * @description

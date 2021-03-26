@@ -2,10 +2,10 @@
 
 'use strict';
 
-let _ = _global_.wTools;
+const _ = _global_.wTools;
 // let this.tools.avector = this.tools.avector;
 // let vector = this.tools.vectorAdapter;
-let Self = _.linePointCentered = _.linePointCentered || Object.create( _.avector );
+const Self = _.linePointCentered = _.linePointCentered || Object.create( _.avector );
 
 /**
  * Is a line alligned relative to the origin of coordinate system.

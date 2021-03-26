@@ -2,9 +2,9 @@
 
 'use strict';
 
-let _ = _global_.wTools;
+const _ = _global_.wTools;
 // let this.tools.avector = this.tools.avector;
-let Self = _.frustum = _.frustum || Object.create( _.avector );
+const Self = _.frustum = _.frustum || Object.create( _.avector );
 
 /**
  * @description

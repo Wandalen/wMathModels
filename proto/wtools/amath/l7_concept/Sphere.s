@@ -2,10 +2,10 @@
 
 'use strict';
 
-let _ = _global_.wTools;
+const _ = _global_.wTools;
 // let this.tools.avector = this.tools.avector;
 // let vector = this.tools.vectorAdapter;
-let Self = _.sphere = _.sphere || Object.create( _.avector );
+const Self = _.sphere = _.sphere || Object.create( _.avector );
 
 /**
  * @description
@@ -313,7 +313,7 @@ function from( sphere )
   if( _.objectIs( sphere ) )
   {
     _.assert( arguments.length === 1, 'Expects single argument' );
-    _.assertMapHasOnly( sphere, { center : 'center' , radius : 'radius' } );
+    _.map.assertHasOnly( sphere, { center : 'center' , radius : 'radius' } );
     sphere = [ sphere.center[ 0 ] , sphere.center[ 1 ] , sphere.center[ 2 ] , sphere.radius ]
   }
   else

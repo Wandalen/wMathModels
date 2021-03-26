@@ -13,7 +13,7 @@ if( typeof module !== 'undefined' )
 
 //
 
-let _ = _global_.wTools;
+const _ = _global_.wTools;
 
 //
 
@@ -210,4 +210,4 @@ mod
 // if( typeof module !== 'undefined' && !module.parent )
 // wTester.test( Self.name );
 
-} )( );
+})( );
