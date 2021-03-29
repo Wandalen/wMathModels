@@ -3,14 +3,14 @@
 'use strict';
 
 const _ = _global_.wTools;
-let pi = Math.PI;
-let sin = Math.sin;
-let cos = Math.cos;
+const pi = Math.PI;
+const sin = Math.sin;
+const cos = Math.cos;
 let atan2 = Math.atan2;
-let asin = Math.asin;
-let acos = Math.acos;
-let abs = Math.abs;
-let sqr = _.math.sqr;
+const asin = Math.asin;
+const acos = Math.acos;
+const abs = Math.abs;
+const sqr = _.math.sqr;
 let sqrt = _.math.sqrt;
 let clamp = _.math.clamp;
 

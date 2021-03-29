@@ -5,13 +5,13 @@
 const _ = _global_.wTools;
 // let this.tools.avector = this.tools.avector;
 // let vector = this.tools.vectorAdapter;
-let pi = Math.PI;
-let sin = Math.sin;
-let cos = Math.cos;
-let asin = Math.asin;
-let acos = Math.acos;
-let abs = Math.abs;
-let sqr = _.math.sqr;
+const pi = Math.PI;
+const sin = Math.sin;
+const cos = Math.cos;
+const asin = Math.asin;
+const acos = Math.acos;
+const abs = Math.abs;
+const sqr = _.math.sqr;
 let sqrt = _.math.sqrt;
 
 _.assert( !this );
