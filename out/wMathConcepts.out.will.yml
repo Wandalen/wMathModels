@@ -173,7 +173,7 @@ module:
         path:
           - ../proto
           - ../proto/wtools
-          - ../proto/wtools/Tools.s
+          - ../proto/node_modules/Tools
           - ../proto/wtools/abase
           - ../proto/wtools/amath
           - ../proto/wtools/amath/l7_concept
