@@ -153,7 +153,7 @@ function adapterFrom( capsule )
   *
   * @example
   * // returns true;
-  * _.is( [ 0, 0, 1, 1, 1 ] );
+  * _.capsule.is( [ 0, 0, 1, 1, 1 ] );
   *
   * @returns { Boolean } Returns true if the input is capsule.
   * @function is
@@ -716,7 +716,7 @@ function pointClosestPoint( srcCapsule, srcPoint, dstPoint )
   _.assert( arguments.length === 2 || arguments.length === 3 , 'Expects two or three arguments' );
 
   if( arguments.length === 2 )
-  dstPoint = this.tools.longMake( srcPoint.length );
+  dstPoint = this.tools.long.make( srcPoint.length );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Not a valid destination point' );
@@ -964,7 +964,7 @@ function boxClosestPoint( srcCapsule, srcBox, dstPoint )
   _.assert( arguments.length === 2 || arguments.length === 3 , 'Expects two or three arguments' );
 
   if( arguments.length === 2 )
-  dstPoint = this.tools/* .long */.longMake( srcBox.length / 2 );
+  dstPoint = this.tools/* .long */.long.make( srcBox.length / 2 );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Not a valid destination point' );
@@ -1294,7 +1294,7 @@ function capsuleClosestPoint( srcCapsule, tstCapsule, dstPoint )
   _.assert( srcDim === tstDim );
 
   if( arguments.length === 2 )
-  dstPoint = this.tools.longMake( srcDim );
+  dstPoint = this.tools.long.make( srcDim );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Not a valid destination point' );
@@ -1433,7 +1433,7 @@ function convexPolygonClosestPoint( capsule, polygon, dstPoint )
   let dimB = this.dimGet( capsuleView );
 
   if( arguments.length === 2 )
-  dstPoint = this.tools.longMake( dimB );
+  dstPoint = this.tools.long.make( dimB );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Null or undefined dstPoint is not allowed' );
@@ -1692,7 +1692,7 @@ function frustumClosestPoint( srcCapsule, srcFrustum, dstPoint )
   let cols = dimFrustum[ 1 ];
 
   if( arguments.length === 2 )
-  dstPoint = this.tools.longMake( rows - 1 );
+  dstPoint = this.tools.long.make( rows - 1 );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Not a valid destination point' );
@@ -1880,7 +1880,7 @@ function lineClosestPoint( srcCapsule, srcLine, dstPoint )
   _.assert( arguments.length === 2 || arguments.length === 3 , 'Expects two or three arguments' );
 
   if( arguments.length === 2 )
-  dstPoint = this.tools.longMake( srcLine.length / 2 );
+  dstPoint = this.tools.long.make( srcLine.length / 2 );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Not a valid destination point' );
@@ -2069,7 +2069,7 @@ function planeClosestPoint( srcCapsule, srcPlane, dstPoint )
   _.assert( arguments.length === 2 || arguments.length === 3 , 'Expects two or three arguments' );
 
   if( arguments.length === 2 )
-  dstPoint = this.tools.longMake( srcPlane.length - 1 );
+  dstPoint = this.tools.long.make( srcPlane.length - 1 );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Not a valid destination point' );
@@ -2261,7 +2261,7 @@ function rayClosestPoint( srcCapsule, srcRay, dstPoint )
   _.assert( arguments.length === 2 || arguments.length === 3 , 'Expects two or three arguments' );
 
   if( arguments.length === 2 )
-  dstPoint = this.tools.longMake( srcRay.length / 2 );
+  dstPoint = this.tools.long.make( srcRay.length / 2 );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Not a valid destination point' );
@@ -2500,7 +2500,7 @@ function segmentClosestPoint( srcCapsule, srcSegment, dstPoint )
   _.assert( arguments.length === 2 || arguments.length === 3 , 'Expects two or three arguments' );
 
   if( arguments.length === 2 )
-  dstPoint = this.tools.longMake( srcSegment.length / 2 );
+  dstPoint = this.tools.long.make( srcSegment.length / 2 );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Not a valid destination point' );
@@ -2748,7 +2748,7 @@ function sphereClosestPoint( srcCapsule, srcSphere, dstPoint )
   _.assert( _.sphere.is( srcSphere ) );
 
   if( arguments.length === 2 )
-  dstPoint = this.tools.longMake( srcSphere.length - 1 );
+  dstPoint = this.tools.long.make( srcSphere.length - 1 );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Not a valid destination point' );
@@ -2938,6 +2938,6 @@ let Extension = /* qqq : normalize order */
   tools : _,
 
 }
-_.mapExtend( Self, Extension );
+_.props.extend( Self, Extension );
 
 })();

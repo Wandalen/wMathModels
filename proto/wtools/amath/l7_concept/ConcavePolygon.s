@@ -20,7 +20,7 @@ const Self = _.concavePolygon = _.concavePolygon || Object.create( _.avector );
  */
 
 // --
-// routines
+// implementation
 // --
 
 function is( polygon )
@@ -103,11 +103,11 @@ function isClockwise( polygon )
  *   0, 0, 0, 0, 0, 0, 0, 0,
  *   0, 0, 0, 0, 0, 0, 0, 0,
  * ];
- * _.make( 8, 3 );
+ * _.concavePolygon.make( 8, 3 );
  *
  * @example
  * // returns [ 0, 0, 1, 1 ];
- * _.make( [ 0, 0, 1, 1 ] );
+ * _.concavePolygon.make( [ 0, 0, 1, 1 ] );
  *
  * @returns { Array } Returns the array of the created box.
  * @function make
@@ -295,6 +295,6 @@ let Extension = /* qqq xxx : normalize order */
   tools : _,
 }
 
-_.mapExtend( Self, Extension );
+_.props.extend( Self, Extension );
 
 })();

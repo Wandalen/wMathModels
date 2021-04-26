@@ -65,11 +65,11 @@ and maxX, maxY, maxZ the coordinates of the front, top right corner.
   *
   * @example
   * // returns [ 0, 0, 0, 0, 0, 0 ];
-  * _.make( 3 );
+  * _.box.make( 3 );
   *
   * @example
   * // returns [ 0, 0, 1, 1 ];
-  * _.make( [ 0, 0, 1, 1 ] );
+  * _.box.make( [ 0, 0, 1, 1 ] );
   *
   * @returns { Array } Returns the array of the created box.
   * @function make
@@ -99,11 +99,11 @@ function make( dim )
   *
   * @example
   * // returns [ 0, 0, 0, 0, 0, 0 ];
-  * _.makeZero( 3 );
+  * _.box.makeZero( 3 );
   *
   * @example
   * // returns [ 0, 0, 0, 0 ];
-  * _.makeZero( [ 1, 1, 2, 2] );
+  * _.box.makeZero( [ 1, 1, 2, 2] );
   *
   * @function makeZero
   * @throws { Error } An Error if ( arguments.length ) is different than zero or one.
@@ -135,11 +135,11 @@ function makeZero( dim )
   *
   * @example
   * // returns [ Infinity, Infinity, Infinity, - Infinity, - Infinity, - Infinity ];
-  * _.makeSingular( 3 );
+  * _.box.makeSingular( 3 );
   *
   * @example
   * // returns [ Infinity, Infinity, - Infinity, - Infinity ];
-  * _.makeSingular( [ 1, 1, 2, 2] );
+  * _.box.makeSingular( [ 1, 1, 2, 2] );
   *
   * @function makeSingular
   * @throws { Error } An Error if ( arguments.length ) is different than zero or one.
@@ -587,7 +587,7 @@ function fromCube( box, size )
   *
   * @example
   * // returns true;
-  * _.is( [ 0, 0, 1, 1 ] );
+  * _.box.is( [ 0, 0, 1, 1 ] );
   *
   * @returns { Boolean } Returns true if the input is box.
   * @function is
@@ -1643,7 +1643,7 @@ function boxClosestPoint( srcBox , tstBox, dstPoint )
   _.assert( tstDim === srcDim );
 
   if( arguments.length === 2 )
-  dstPoint = this.tools.longMake( tstDim );
+  dstPoint = this.tools.long.make( tstDim );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Null or undefined dstPoint is not allowed' );
@@ -1863,7 +1863,7 @@ function capsuleClosestPoint( box, capsule, dstPoint )
   let max = this.cornerRightGet( boxView );
 
   if( arguments.length === 2 )
-  dstPoint = this.tools.longMake( dimB );
+  dstPoint = this.tools.long.make( dimB );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Null or undefined dstPoint is not allowed' );
@@ -2252,7 +2252,7 @@ function frustumClosestPoint( box, frustum, dstPoint )
   let max = this.cornerRightGet( boxView );
 
   if( arguments.length === 2 )
-  dstPoint = this.tools.longMake( dimB );
+  dstPoint = this.tools.long.make( dimB );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Null or undefined dstPoint is not allowed' );
@@ -2417,7 +2417,7 @@ function lineClosestPoint( box, line, dstPoint )
   let max = this.cornerRightGet( boxView );
 
   if( arguments.length === 2 )
-  dstPoint = this.tools.longMake( dimB );
+  dstPoint = this.tools.long.make( dimB );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Null or undefined dstPoint is not allowed' );
@@ -2514,7 +2514,7 @@ function rayClosestPoint( box, ray, dstPoint )
   let max = this.cornerRightGet( boxView );
 
   if( arguments.length === 2 )
-  dstPoint = this.tools.longMake( dimB );
+  dstPoint = this.tools.long.make( dimB );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Null or undefined dstPoint is not allowed' );
@@ -2690,7 +2690,7 @@ function planeClosestPoint( srcBox, plane, dstPoint )
   let dimP = this.tools.plane.dimGet( planeView );
 
   if( arguments.length === 2 )
-  dstPoint = this.tools.longMake( dimB );
+  dstPoint = this.tools.long.make( dimB );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Null or undefined dstPoint is not allowed' );
@@ -2709,7 +2709,7 @@ function planeClosestPoint( srcBox, plane, dstPoint )
 
     let distance = Infinity;
     let d = 0;
-    let point = this.tools.longMake( dimB );
+    let point = this.tools.long.make( dimB );
     for( let j = 0 ; j < _.Matrix.DimsOf( c )[ 1 ] ; j++ )
     {
       let corner = c.colGet( j );
@@ -2902,7 +2902,7 @@ function segmentClosestPoint( box, segment, dstPoint )
   let max = this.cornerRightGet( boxView );
 
   if( arguments.length === 2 )
-  dstPoint = this.tools.longMake( dimB );
+  dstPoint = this.tools.long.make( dimB );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Null or undefined dstPoint is not allowed' );
@@ -3120,7 +3120,7 @@ function sphereClosestPoint( srcBox , tstSphere, dstPoint )
   let dimB = this.dimGet( boxView );
 
   if( arguments.length === 2 )
-  dstPoint = this.tools.longMake( dimB );
+  dstPoint = this.tools.long.make( dimB );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Null or undefined dstPoint is not allowed' );
@@ -3616,6 +3616,6 @@ let Extension = /* qqq : normalize order */
 
 }
 
-_.mapExtend( Self, Extension );
+_.props.extend( Self, Extension );
 
 })();

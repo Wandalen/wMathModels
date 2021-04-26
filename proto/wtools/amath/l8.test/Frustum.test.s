@@ -17,7 +17,7 @@ if( typeof module !== 'undefined' )
 
 //
 
-const _ = _global_.wTools.withDefaultLong.Fx;
+const _ = _global_.wTools.withLong.Fx;
 var Matrix = _.Matrix;
 var vector = _.vectorAdapter;
 var vec = _.vectorAdapter.fromLong;
@@ -562,7 +562,7 @@ function pointClosestPoint( test )
     0, 0, 1, - 1, 0, 0,
   ]);
   var srcPoint = [ -1, -1, -1 ];
-  var expected = _.frustum.tools.longMake( [ 0, 0, 0 ] );
+  var expected = _.frustum.tools.long.make( [ 0, 0, 0 ] );
 
   var closestPoint = _.frustum.pointClosestPoint( srcFrustum, srcPoint );
   test.equivalent( closestPoint, expected );
@@ -589,7 +589,7 @@ function pointClosestPoint( test )
     0, 0, 1, - 1, 0, 0,
   ]);
   var srcPoint = [ -1, -1, -1 ];
-  var expected = _.frustum.tools.longMake( [ 0, 0, 0 ] );
+  var expected = _.frustum.tools.long.make( [ 0, 0, 0 ] );
 
   var closestPoint = _.frustum.pointClosestPoint( srcFrustum, srcPoint );
   test.identical( closestPoint, expected );
@@ -604,7 +604,7 @@ function pointClosestPoint( test )
     0, 0, 1, - 1, 0, 0,
   ]);
   var srcPoint = [ 0.5, 0.5, -3 ];
-  var expected = _.frustum.tools.longMake( [ 0.5, 0.5, 0 ] );
+  var expected = _.frustum.tools.long.make( [ 0.5, 0.5, 0 ] );
 
   var closestPoint = _.frustum.pointClosestPoint( srcFrustum, srcPoint );
   test.identical( closestPoint, expected );
@@ -634,7 +634,7 @@ function pointClosestPoint( test )
     0, 0, 1, - 1, 0, 0,
   ]);
   var srcPoint = [ -1, -1, -1 ];
-  var expected = _.frustum.tools.longMake( [ 0, 0, 0 ] );
+  var expected = _.frustum.tools.long.make( [ 0, 0, 0 ] );
 
   var closestPoint = _.frustum.pointClosestPoint( srcFrustum, srcPoint );
   test.identical( closestPoint, expected );
@@ -649,7 +649,7 @@ function pointClosestPoint( test )
     0, 2, 1, - 1, 0, 0,
   ]);
   var srcPoint = [ 0, 0, 2 ];
-  var expected = _.frustum.tools.longMake( [ 0, 0.4, 0.2 ] );
+  var expected = _.frustum.tools.long.make( [ 0, 0.4, 0.2 ] );
 
   var closestPoint = _.frustum.pointClosestPoint( srcFrustum, srcPoint );
   test.equivalent( closestPoint, expected );
@@ -665,7 +665,7 @@ function pointClosestPoint( test )
   ]);
   var srcPoint = [ 0, 0, 2 ];
   var dstPoint = [ 0, 0, 0 ];
-  var expected = _.frustum.tools.longMake( [ 0, 0.4, 0.2 ] );
+  var expected = _.frustum.tools.long.make( [ 0, 0.4, 0.2 ] );
 
   var closestPoint = _.frustum.pointClosestPoint( srcFrustum, srcPoint, dstPoint );
   test.equivalent( closestPoint, expected );
@@ -1104,7 +1104,7 @@ function boxClosestPoint( test )
     0, 0, 1, - 1, 0, 0,
   ]);
   var box = [ 1.5, 1.5, 1.5, 2.5, 2.5, 2.5 ];
-  var expected = _.frustum.tools.longMake( [ 1, 1, 1 ] );
+  var expected = _.frustum.tools.long.make( [ 1, 1, 1 ] );
 
   var closestPoint = _.frustum.boxClosestPoint( srcFrustum, box );
   test.equivalent( closestPoint, expected );
@@ -1119,7 +1119,7 @@ function boxClosestPoint( test )
     0, 0, 1, - 1, 0, 0,
   ]);
   var box = [ -1, -1, -1, -0.5, -0.5, -0.5 ];
-  var expected = _.frustum.tools.longMake( [ 0, 0, 0 ] );
+  var expected = _.frustum.tools.long.make( [ 0, 0, 0 ] );
 
   var closestPoint = _.frustum.boxClosestPoint( srcFrustum, box );
   test.equivalent( closestPoint, expected );
@@ -1149,7 +1149,7 @@ function boxClosestPoint( test )
     0, 2, 1, - 1, 0, 0,
   ]);
   var box = [ -1, -1, 1, 0.5, 1.5, 2 ];
-  var expected = _.frustum.tools.longMake( [ 0.5, 1.6, 0.79999999 ] );
+  var expected = _.frustum.tools.long.make( [ 0.5, 1.6, 0.79999999 ] );
 
   var closestPoint = _.frustum.boxClosestPoint( srcFrustum, box );
   test.equivalent( closestPoint, expected );
@@ -1164,7 +1164,7 @@ function boxClosestPoint( test )
     0, 2, 1, - 1, 0, 0,
   ]);
   var box = [ -2, -2, 2, 0, 0, 4 ];
-  var expected = _.frustum.tools.longMake( [ 0, 0.4, 0.20000 ] );
+  var expected = _.frustum.tools.long.make( [ 0, 0.4, 0.20000 ] );
 
   var closestPoint = _.frustum.boxClosestPoint( srcFrustum, box );
   test.equivalent( closestPoint, expected );
@@ -1179,7 +1179,7 @@ function boxClosestPoint( test )
     0, 2, 1, - 1, 0, 0,
   ]);
   var box = [ -2, -2, -2, -2, -2, -2 ];
-  var expected = _.frustum.tools.longMake( [ 0, 0, 0 ] );
+  var expected = _.frustum.tools.long.make( [ 0, 0, 0 ] );
 
   var closestPoint = _.frustum.boxClosestPoint( srcFrustum, box );
   test.equivalent( closestPoint, expected );
@@ -1194,7 +1194,7 @@ function boxClosestPoint( test )
     0, 0, 1, - 1, 0, 0,
   ]);
   var box = [ 1.1, 0.5, 0.5, 1.1, 0.5, 0.5 ];
-  var expected = _.frustum.tools.longMake( [ 1, 0.5, 0.5 ] );
+  var expected = _.frustum.tools.long.make( [ 1, 0.5, 0.5 ] );
 
   var closestPoint = _.frustum.boxClosestPoint( srcFrustum, box );
   test.equivalent( closestPoint, expected );
@@ -1235,7 +1235,7 @@ function boundingBoxGet( test )
       0, 0, 1, - 1, 0, 0,
     ]);
   var dstBox = [ 1, 1, 1, 2, 2, 2 ];
-  var expected = _.frustum.tools.longMake( [ 0, 0, 0, 1, 1, 1 ] );
+  var expected = _.frustum.tools.long.make( [ 0, 0, 0, 1, 1, 1 ] );
 
   var gotBox = _.frustum.boundingBoxGet( dstBox, srcFrustum );
   test.identical( expected, gotBox );
@@ -1262,7 +1262,7 @@ function boundingBoxGet( test )
       0, 0, 1, - 1, 0, 0,
     ]);
   var dstBox = [ 0, 0, 0, 1, 1, 1 ];
-  var expected = _.frustum.tools.longMake( [ 0, 0, 0, 0, 0, 0 ] );
+  var expected = _.frustum.tools.long.make( [ 0, 0, 0, 0, 0, 0 ] );
 
   var gotBox = _.frustum.boundingBoxGet( dstBox, srcFrustum );
   test.identical( gotBox, expected );
@@ -1279,7 +1279,7 @@ function boundingBoxGet( test )
       0, 0, 1, - 1, 0, 0,
     ]);
   var dstBox = [ 0, 0, 0, 5, 5, 5 ];
-  var expected = _.frustum.tools.longMake( [ 2, 1, 0, 3, 2, 1 ] );
+  var expected = _.frustum.tools.long.make( [ 2, 1, 0, 3, 2, 1 ] );
 
   var gotBox = _.frustum.boundingBoxGet( dstBox, srcFrustum );
   test.identical( gotBox, expected );
@@ -1296,7 +1296,7 @@ function boundingBoxGet( test )
       0, 0, 1, - 1, 0, 0,
     ]);
   var dstBox = [ - 3, - 4, - 5, - 5, - 4, - 2 ];
-  var expected = _.frustum.tools.longMake( [ 1, 1, 1, 3, 3, 3 ] );
+  var expected = _.frustum.tools.long.make( [ 1, 1, 1, 3, 3, 3 ] );
 
   var gotBox = _.frustum.boundingBoxGet( dstBox, srcFrustum );
   test.identical( gotBox, expected );
@@ -1313,7 +1313,7 @@ function boundingBoxGet( test )
       0, 0, 1, - 1, 0, 0,
     ]);
   var dstBox = [ 3, 3, 3, 4, 4, 4 ];
-  var expected = _.frustum.tools.longMake( [ 1, 1, 1, 1, 1, 1 ] );
+  var expected = _.frustum.tools.long.make( [ 1, 1, 1, 1, 1, 1 ] );
 
   var gotBox = _.frustum.boundingBoxGet( dstBox, srcFrustum );
   test.identical( gotBox, expected );
@@ -1330,7 +1330,7 @@ function boundingBoxGet( test )
       0, 0, 1, - 1, 0, 0,
     ]);
   var dstBox = [ 3, 3, 3, 4, 4, 4 ];
-  var expected = _.frustum.tools.longMake( [ - 2, - 2, - 3, - 1, - 1, - 1 ] );
+  var expected = _.frustum.tools.long.make( [ - 2, - 2, - 3, - 1, - 1, - 1 ] );
 
   var gotBox = _.frustum.boundingBoxGet( dstBox, srcFrustum );
   test.identical( gotBox, expected );
@@ -1345,7 +1345,7 @@ function boundingBoxGet( test )
     0, 2, 1, - 1, 0, 0,
   ]);
   var dstBox = [ 3, 3, 3, 4, 4, 4 ];
-  var expected = _.frustum.tools.longMake( [ 0, 0, 0, 1, 3, 1 ] );
+  var expected = _.frustum.tools.long.make( [ 0, 0, 0, 1, 3, 1 ] );
 
   var gotBox = _.frustum.boundingBoxGet( dstBox, srcFrustum );
   test.identical( gotBox, expected );
@@ -1379,7 +1379,7 @@ function boundingBoxGet( test )
     0, 0, 1, - 1, 0, 0,
   ]);
   var dstBox = null;
-  var expected = _.frustum.tools.longMake( [ 1, 0, 0, 3, 3, 1 ] );
+  var expected = _.frustum.tools.long.make( [ 1, 0, 0, 3, 3, 1 ] );
 
   var gotBox = _.frustum.boundingBoxGet( dstBox, srcFrustum );
   test.equivalent( gotBox, expected );
@@ -1396,7 +1396,7 @@ function boundingBoxGet( test )
     0, 0, 1, - 1, 0, 0,
   ]);
   var dstBox = undefined;
-  var expected = _.frustum.tools.longMake( [ 0, 1, 0, 1, 3, 1 ] );
+  var expected = _.frustum.tools.long.make( [ 0, 1, 0, 1, 3, 1 ] );
 
   var gotBox = _.frustum.boundingBoxGet( dstBox, srcFrustum );
   test.identical( gotBox, expected );
@@ -1634,7 +1634,7 @@ function capsuleClosestPoint( test )
     0, 0, 1, - 1, 0, 0,
   ]);
   var capsule = [ 1.5, 1.5, 1.5, 2.5, 2.5, 2.5, 0.1 ];
-  var expected = _.frustum.tools.longMake( [ 1, 1, 1 ] );
+  var expected = _.frustum.tools.long.make( [ 1, 1, 1 ] );
 
   var closestPoint = _.frustum.capsuleClosestPoint( srcFrustum, capsule );
   test.equivalent( closestPoint, expected );
@@ -1649,7 +1649,7 @@ function capsuleClosestPoint( test )
     0, 0, 1, - 1, 0, 0,
   ]);
   var capsule = [ -1, -1, -1, -0.5, -0.5, -0.5, 0.2 ];
-  var expected = _.frustum.tools.longMake( [ 0, 0, 0 ] );
+  var expected = _.frustum.tools.long.make( [ 0, 0, 0 ] );
 
   var closestPoint = _.frustum.capsuleClosestPoint( srcFrustum, capsule );
   test.equivalent( closestPoint, expected );
@@ -1679,7 +1679,7 @@ function capsuleClosestPoint( test )
     0, 2, 1, - 1, 0, 0,
   ]);
   var capsule = [ -1, -1, 1, 0.5, 1.5, 2, 0.3 ];
-  var expected = _.frustum.tools.longMake( [ 0.42105263157894735, 1.3684210526315788, 0 ] );
+  var expected = _.frustum.tools.long.make( [ 0.42105263157894735, 1.3684210526315788, 0 ] );
 
   var closestPoint = _.frustum.capsuleClosestPoint( srcFrustum, capsule );
   test.equivalent( closestPoint, expected );
@@ -1694,7 +1694,7 @@ function capsuleClosestPoint( test )
     0, 2, 1, - 1, 0, 0,
   ]);
   var capsule = [ -2, -2, 2, 0, 0, 4, 0.05 ];
-  var expected = _.frustum.tools.longMake( [ 0, 0.4, 0.20000 ] );
+  var expected = _.frustum.tools.long.make( [ 0, 0.4, 0.20000 ] );
 
   var closestPoint = _.frustum.capsuleClosestPoint( srcFrustum, capsule );
   test.equivalent( closestPoint, expected );
@@ -1709,7 +1709,7 @@ function capsuleClosestPoint( test )
     0, 2, 1, - 1, 0, 0,
   ]);
   var capsule = [ -2, -2, -2, -2, -2, -2, 0 ];
-  var expected = _.frustum.tools.longMake( [ 0, 0, 0 ] );
+  var expected = _.frustum.tools.long.make( [ 0, 0, 0 ] );
 
   var closestPoint = _.frustum.capsuleClosestPoint( srcFrustum, capsule );
   test.equivalent( closestPoint, expected );
@@ -1724,7 +1724,7 @@ function capsuleClosestPoint( test )
     0, 0, 1, - 1, 0, 0,
   ]);
   var capsule = [ 1.1, 0.5, 0.5, 1.1, 0.5, 0.5, 0 ];
-  var expected = _.frustum.tools.longMake( [ 1, 0.5, 0.5 ] );
+  var expected = _.frustum.tools.long.make( [ 1, 0.5, 0.5 ] );
 
   var closestPoint = _.frustum.capsuleClosestPoint( srcFrustum, capsule );
   test.equivalent( closestPoint, expected );
@@ -1739,7 +1739,7 @@ function capsuleClosestPoint( test )
     0, 2, 1, - 1, 0, 0,
   ]);
   var capsule = [ -2, -2, -2, -2, -2, -2, 0.4 ];
-  var expected = _.frustum.tools.longMake( [ 0, 0, 0 ] );
+  var expected = _.frustum.tools.long.make( [ 0, 0, 0 ] );
 
   var closestPoint = _.frustum.capsuleClosestPoint( srcFrustum, capsule );
   test.equivalent( closestPoint, expected );
@@ -2105,7 +2105,7 @@ function convexPolygonClosestPoint( test )
     0,   0, 0.5, 0.5,
     0, 0.5, 0.5,   0
   ]);
-  var expected = _.frustum.tools.longMake( [ 1, 1, 1 ] );
+  var expected = _.frustum.tools.long.make( [ 1, 1, 1 ] );
 
   var closestPoint = _.frustum.convexPolygonClosestPoint( srcFrustum, polygon );
   test.equivalent( closestPoint, expected );
@@ -2125,7 +2125,7 @@ function convexPolygonClosestPoint( test )
     0,   0, 0.5, 0.5,
     0, 0.5, 0.5,   0
   ]);
-  var expected = _.frustum.tools.longMake( [ 1, 1, 1 ] );
+  var expected = _.frustum.tools.long.make( [ 1, 1, 1 ] );
 
   var closestPoint = _.frustum.convexPolygonClosestPoint( srcFrustum, polygon );
   test.equivalent( closestPoint, expected );
@@ -2145,7 +2145,7 @@ function convexPolygonClosestPoint( test )
     1,   2,   1, 0.5,
     4,   4,   4,   4
   ]);
-  var expected = _.frustum.tools.longMake( [ 0.75, 0.75, 3 ] );
+  var expected = _.frustum.tools.long.make( [ 0.75, 0.75, 3 ] );
 
   var closestPoint = _.frustum.convexPolygonClosestPoint( srcFrustum, polygon );
   test.equivalent( closestPoint, expected );
@@ -2165,7 +2165,7 @@ function convexPolygonClosestPoint( test )
     1,   0, - 1,   0,
     0,   1,   0, - 1
   ]);
-  var expected = _.frustum.tools.longMake( [ 1, 0, 0 ] );
+  var expected = _.frustum.tools.long.make( [ 1, 0, 0 ] );
 
   var closestPoint = _.frustum.convexPolygonClosestPoint( srcFrustum, polygon );
   test.equivalent( closestPoint, expected );
@@ -2934,7 +2934,7 @@ function frustumClosestPoint( test )
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
   ]);
-  var expected = _.frustum.tools.longMake( [ 1, 1, 1 ] );
+  var expected = _.frustum.tools.long.make( [ 1, 1, 1 ] );
 
   var gotPoint = _.frustum.frustumClosestPoint( srcFrustum, tstFrustum );
   test.identical( gotPoint, expected );
@@ -2955,7 +2955,7 @@ function frustumClosestPoint( test )
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
   ]);
-  var expected = _.frustum.tools.longMake( [ 3, 3, 3 ] );
+  var expected = _.frustum.tools.long.make( [ 3, 3, 3 ] );
 
   var gotPoint = _.frustum.frustumClosestPoint( srcFrustum, tstFrustum );
   test.identical( gotPoint, expected );
@@ -2976,7 +2976,7 @@ function frustumClosestPoint( test )
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
   ]);
-  var expected = _.frustum.tools.longMake( [ 0, 1, 1 ] );
+  var expected = _.frustum.tools.long.make( [ 0, 1, 1 ] );
 
   var gotPoint = _.frustum.frustumClosestPoint( srcFrustum, tstFrustum );
   test.identical( gotPoint, expected );
@@ -2997,7 +2997,7 @@ function frustumClosestPoint( test )
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
   ]);
-  var expected = _.frustum.tools.longMake( [ 0, 1, 2 ] );
+  var expected = _.frustum.tools.long.make( [ 0, 1, 2 ] );
 
   var gotPoint = _.frustum.frustumClosestPoint( srcFrustum, tstFrustum );
   test.identical( gotPoint, expected );
@@ -3018,7 +3018,7 @@ function frustumClosestPoint( test )
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
   ]);
-  var expected = _.frustum.tools.longMake( [ 1, 1, 1 ] );
+  var expected = _.frustum.tools.long.make( [ 1, 1, 1 ] );
 
   var gotPoint = _.frustum.frustumClosestPoint( srcFrustum, tstFrustum );
   test.equivalent( gotPoint, expected );
@@ -3039,7 +3039,7 @@ function frustumClosestPoint( test )
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
   ]);
-  var expected = _.frustum.tools.longMake( [ 1.1, 1.1, 1.1 ] );
+  var expected = _.frustum.tools.long.make( [ 1.1, 1.1, 1.1 ] );
 
   var gotPoint = _.frustum.frustumClosestPoint( srcFrustum, tstFrustum );
   test.equivalent( gotPoint, expected );
@@ -3207,7 +3207,7 @@ function lineClosestPoint( test )
     0, 0, 1, - 1, 0, 0,
   ]);
   var tstLine = [ 1, 1, 2, 0, 1, 0 ];
-  var expected = _.frustum.tools.longMake( [ 1, 1, 1 ] );
+  var expected = _.frustum.tools.long.make( [ 1, 1, 1 ] );
 
   var gotLine = _.frustum.lineClosestPoint( srcFrustum, tstLine );
   test.identical( expected, gotLine );
@@ -3242,7 +3242,7 @@ function lineClosestPoint( test )
   ]);
   var tstLine = [ 5, 5, 1, 1, 0, 0 ];
   var dstPoint = [ 0, 0, 0 ];
-  var expected = _.frustum.tools.longMake( [ 0, 1, 1 ] );
+  var expected = _.frustum.tools.long.make( [ 0, 1, 1 ] );
 
   var gotLine = _.frustum.lineClosestPoint( srcFrustum, tstLine, dstPoint );
   test.identical( expected, gotLine );
@@ -3631,7 +3631,7 @@ function planeClosestPoint( test )
 
   ]);
   var plane = [ - 6, 1, 1, 1 ];
-  var expected = _.frustum.tools.longMake( [ 1, 1, 1 ] );
+  var expected = _.frustum.tools.long.make( [ 1, 1, 1 ] );
 
   var closestPoint = _.frustum.planeClosestPoint( srcFrustum, plane );
   test.equivalent( closestPoint, expected );
@@ -3647,7 +3647,7 @@ function planeClosestPoint( test )
 
   ]);
   var plane = [ 3, 1, 1, 1 ];
-  var expected = _.frustum.tools.longMake( [ 0, 0, 0 ] );
+  var expected = _.frustum.tools.long.make( [ 0, 0, 0 ] );
 
   var closestPoint = _.frustum.planeClosestPoint( srcFrustum, plane );
   test.equivalent( closestPoint, expected );
@@ -3679,7 +3679,7 @@ function planeClosestPoint( test )
 
   ]);
   var plane = [ - 5, 0, -1, 2 ];
-  var expected = _.frustum.tools.longMake( [ 0, 2, 1 ] );
+  var expected = _.frustum.tools.long.make( [ 0, 2, 1 ] );
 
   var closestPoint = _.frustum.planeClosestPoint( srcFrustum, plane );
   test.equivalent( closestPoint, expected );
@@ -3853,7 +3853,7 @@ function rayClosestPoint( test )
 
   ]);
   var tstRay = [ -3, -3, -3, -1, -1, -1 ];
-  var expected = _.frustum.tools.longMake( [ 0, 0, 0 ] );
+  var expected = _.frustum.tools.long.make( [ 0, 0, 0 ] );
 
   var gotRay = _.frustum.rayClosestPoint( srcFrustum, tstRay );
   test.identical( expected, gotRay );
@@ -3871,7 +3871,7 @@ function rayClosestPoint( test )
 
   ]);
   var tstRay = [ 0.5, 0.5, 2, 0, 0, 1 ];
-  var expected = _.frustum.tools.longMake( [ 0.5, 0.5, 1 ] );
+  var expected = _.frustum.tools.long.make( [ 0.5, 0.5, 1 ] );
 
   var gotRay = _.frustum.rayClosestPoint( srcFrustum, tstRay );
   test.identical( expected, gotRay );
@@ -3890,7 +3890,7 @@ function rayClosestPoint( test )
   ]);
   var tstRay = [ 5, 5, 1, 1, 0, 0 ];
   var dstPoint = [ 0, 0, 0 ];
-  var expected = _.frustum.tools.longMake( [ 1, 1, 1 ] );
+  var expected = _.frustum.tools.long.make( [ 1, 1, 1 ] );
 
   var gotRay = _.frustum.rayClosestPoint( srcFrustum, tstRay, dstPoint );
   test.identical( expected, gotRay );
@@ -4246,7 +4246,7 @@ function segmentClosestPoint( test )
 
   ]);
   var tstSegment = [ 3, 3, 3, 4, 4, 4 ];
-  var expected = _.frustum.tools.longMake( [ 1, 1, 1 ] );
+  var expected = _.frustum.tools.long.make( [ 1, 1, 1 ] );
 
   var gotSegment = _.frustum.segmentClosestPoint( srcFrustum, tstSegment );
   test.identical( expected, gotSegment );
@@ -4264,7 +4264,7 @@ function segmentClosestPoint( test )
 
   ]);
   var tstSegment = [ -3, -3, -3, -1, -1, -1 ];
-  var expected = _.frustum.tools.longMake( [ 0, 0, 0 ] );
+  var expected = _.frustum.tools.long.make( [ 0, 0, 0 ] );
 
   var gotSegment = _.frustum.segmentClosestPoint( srcFrustum, tstSegment );
   test.identical( expected, gotSegment );
@@ -4282,7 +4282,7 @@ function segmentClosestPoint( test )
 
   ]);
   var tstSegment = [ 0.5, 0.5, 2, 0.5, 0.5, 3 ];
-  var expected = _.frustum.tools.longMake( [ 0.5, 0.5, 1 ] );
+  var expected = _.frustum.tools.long.make( [ 0.5, 0.5, 1 ] );
 
   var gotSegment = _.frustum.segmentClosestPoint( srcFrustum, tstSegment );
   test.identical( expected, gotSegment );
@@ -4300,7 +4300,7 @@ function segmentClosestPoint( test )
 
   ]);
   var tstSegment = [ 0.5, 0.5, - 2, 0.5, 0.5, - 1 ];
-  var expected = _.frustum.tools.longMake( [ 0.5, 0.5, 0 ] );
+  var expected = _.frustum.tools.long.make( [ 0.5, 0.5, 0 ] );
 
   var gotSegment = _.frustum.segmentClosestPoint( srcFrustum, tstSegment );
   test.identical( expected, gotSegment );
@@ -4318,7 +4318,7 @@ function segmentClosestPoint( test )
 
   ]);
   var tstSegment = [ 0, 0, 2, 0, 0, 7 ];
-  var expected = _.frustum.tools.longMake( [ 0, 0, 1 ] );
+  var expected = _.frustum.tools.long.make( [ 0, 0, 1 ] );
 
   var gotSegment = _.frustum.segmentClosestPoint( srcFrustum, tstSegment );
   test.identical( expected, gotSegment );
@@ -4336,7 +4336,7 @@ function segmentClosestPoint( test )
 
   ]);
   var tstSegment = [ 0.2, 0.3, 1.1, 0.4, 0.5, 1.2 ];
-  var expected = _.frustum.tools.longMake( [ 0.2, 0.3, 1 ] );
+  var expected = _.frustum.tools.long.make( [ 0.2, 0.3, 1 ] );
 
   var gotSegment = _.frustum.segmentClosestPoint( srcFrustum, tstSegment );
   test.identical( expected, gotSegment );
@@ -4355,7 +4355,7 @@ function segmentClosestPoint( test )
   ]);
   var tstSegment = [ 5, 5, 1, 8, 5, 1 ];
   var dstPoint = [ 0, 0, 0 ];
-  var expected = _.frustum.tools.longMake( [ 1, 1, 1 ] );
+  var expected = _.frustum.tools.long.make( [ 1, 1, 1 ] );
 
   var gotSegment = _.frustum.segmentClosestPoint( srcFrustum, tstSegment, dstPoint );
   test.identical( expected, gotSegment );
@@ -4813,7 +4813,7 @@ function sphereClosestPoint( test )
 
   ]);
   var sphere = [ 2.5, 2.5, 2.5, 0.5 ];
-  var expected = _.frustum.tools.longMake( [ 1, 1, 1 ] );
+  var expected = _.frustum.tools.long.make( [ 1, 1, 1 ] );
 
   var closestPoint = _.frustum.sphereClosestPoint( srcFrustum, sphere );
   test.equivalent( closestPoint, expected );
@@ -4829,7 +4829,7 @@ function sphereClosestPoint( test )
 
   ]);
   var sphere = [ -1, -1, -1, 0.5 ];
-  var expected = _.frustum.tools.longMake( [ 0, 0, 0 ] );
+  var expected = _.frustum.tools.long.make( [ 0, 0, 0 ] );
 
   var closestPoint = _.frustum.sphereClosestPoint( srcFrustum, sphere );
   test.equivalent( closestPoint, expected );
@@ -4861,7 +4861,7 @@ function sphereClosestPoint( test )
 
   ]);
   var sphere = [ 0.5, 1.5, 1, 0.01 ];
-  var expected = _.frustum.tools.longMake( [ 0.5, 1.6, 0.79999999 ] );
+  var expected = _.frustum.tools.long.make( [ 0.5, 1.6, 0.79999999 ] );
 
   var closestPoint = _.frustum.sphereClosestPoint( srcFrustum, sphere );
   test.equivalent( closestPoint, expected );
@@ -4877,7 +4877,7 @@ function sphereClosestPoint( test )
 
   ]);
   var sphere = [ 0, 0, 2, 0.01 ];
-  var expected = _.frustum.tools.longMake( [ 0, 0.4, 0.20000 ] );
+  var expected = _.frustum.tools.long.make( [ 0, 0.4, 0.20000 ] );
   var closestPoint = _.frustum.sphereClosestPoint( srcFrustum, sphere );
   test.equivalent( closestPoint, expected );
 
@@ -4892,7 +4892,7 @@ function sphereClosestPoint( test )
 
   ]);
   var sphere = [ -2, -2, -2, 0 ];
-  var expected = _.frustum.tools.longMake( [ 0, 0, 0 ] );
+  var expected = _.frustum.tools.long.make( [ 0, 0, 0 ] );
 
   var closestPoint = _.frustum.sphereClosestPoint( srcFrustum, sphere );
   test.equivalent( closestPoint, expected );
@@ -4908,7 +4908,7 @@ function sphereClosestPoint( test )
 
   ]);
   var sphere = [ 1.1, 0.5, 0.5, 0 ];
-  var expected = _.frustum.tools.longMake( [ 1, 0.5, 0.5 ] );
+  var expected = _.frustum.tools.long.make( [ 1, 0.5, 0.5 ] );
   var closestPoint = _.frustum.sphereClosestPoint( srcFrustum, sphere );
   test.equivalent( closestPoint, expected );
 
@@ -4950,7 +4950,7 @@ function boundingSphereGet( test )
 
   ]);
   var dstSphere = [ 1, 1, 2, 1 ];
-  var expected = _.frustum.tools.longMake( [ 0.5, 0.5, 0.5, Math.sqrt( 0.75 ) ] );
+  var expected = _.frustum.tools.long.make( [ 0.5, 0.5, 0.5, Math.sqrt( 0.75 ) ] );
 
   var gotSphere = _.frustum.boundingSphereGet( dstSphere, srcFrustum );
   test.identical( expected, gotSphere );
@@ -4979,7 +4979,7 @@ function boundingSphereGet( test )
 
   ]);
   var dstSphere = [ 0, 0, 0, 1 ];
-  var expected = _.frustum.tools.longMake( [ 0, 0, 0, 0 ] );
+  var expected = _.frustum.tools.long.make( [ 0, 0, 0, 0 ] );
 
   var gotSphere = _.frustum.boundingSphereGet( dstSphere, srcFrustum );
   test.identical( gotSphere, expected );
@@ -4997,7 +4997,7 @@ function boundingSphereGet( test )
 
   ]);
   var dstSphere = [ 2, 2, 2, 1 ];
-  var expected = _.frustum.tools.longMake( [ 2, 2, 2, Math.sqrt( 12 ) ] );
+  var expected = _.frustum.tools.long.make( [ 2, 2, 2, Math.sqrt( 12 ) ] );
 
   var gotSphere = _.frustum.boundingSphereGet( dstSphere, srcFrustum );
   test.identical( gotSphere, expected );
@@ -5015,7 +5015,7 @@ function boundingSphereGet( test )
 
   ]);
   var dstSphere = [ 3, 3, 3, 0 ];
-  var expected = _.frustum.tools.longMake( [ 1, 1, 1, 0 ] );
+  var expected = _.frustum.tools.long.make( [ 1, 1, 1, 0 ] );
 
   var gotSphere = _.frustum.boundingSphereGet( dstSphere, srcFrustum );
   test.identical( gotSphere, expected );
@@ -5033,7 +5033,7 @@ function boundingSphereGet( test )
 
   ]);
   var dstSphere = [ 0, 0, 0, 3 ];
-  var expected = _.frustum.tools.longMake( [ 0.5, 0.5, 0.5, Math.sqrt( 0.75 ) ] );
+  var expected = _.frustum.tools.long.make( [ 0.5, 0.5, 0.5, Math.sqrt( 0.75 ) ] );
 
   var gotSphere = _.frustum.boundingSphereGet( dstSphere, srcFrustum );
   test.identical( gotSphere, expected );
@@ -5051,7 +5051,7 @@ function boundingSphereGet( test )
 
   ]);
   var dstSphere = [ 5, 5, 5, 3 ];
-  var expected = _.frustum.tools.longMake( [ 1, 1, 1, Math.sqrt( 3 ) ] );
+  var expected = _.frustum.tools.long.make( [ 1, 1, 1, Math.sqrt( 3 ) ] );
 
   var gotSphere = _.frustum.boundingSphereGet( dstSphere, srcFrustum );
   test.identical( gotSphere, expected );
@@ -5087,7 +5087,7 @@ function boundingSphereGet( test )
 
   ]);
   var dstSphere = null;
-  var expected = _.frustum.tools.longMake( [ 1, 6, 0, Math.sqrt( 6 ) ] );
+  var expected = _.frustum.tools.long.make( [ 1, 6, 0, Math.sqrt( 6 ) ] );
 
   var gotSphere = _.frustum.boundingSphereGet( dstSphere, srcFrustum );
   test.identical( gotSphere, expected );
@@ -5105,7 +5105,7 @@ function boundingSphereGet( test )
 
   ]);
   var dstSphere = undefined;
-  var expected = _.frustum.tools.longMake( [ 0, - 1.5, 2.5, Math.sqrt( 9.5 ) ] );
+  var expected = _.frustum.tools.long.make( [ 0, - 1.5, 2.5, Math.sqrt( 9.5 ) ] );
 
   var gotSphere = _.frustum.boundingSphereGet( dstSphere, srcFrustum );
   test.identical( gotSphere, expected );
@@ -5123,7 +5123,7 @@ function boundingSphereGet( test )
 
   ]);
   var dstSphere = [ 5, 5, 5, 3 ];
-  var expected = _.frustum.tools.longMake( [ 3, 3, 3, Math.sqrt( 3 ) ] );
+  var expected = _.frustum.tools.long.make( [ 3, 3, 3, Math.sqrt( 3 ) ] );
 
   var gotSphere = _.frustum.boundingSphereGet( dstSphere, srcFrustum );
   test.identical( gotSphere, expected );

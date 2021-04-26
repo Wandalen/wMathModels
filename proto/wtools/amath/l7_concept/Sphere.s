@@ -44,11 +44,11 @@ and radius is the radius pf the sphere.
   *
   * @example
   * // returns [ 0, 0, 0, 0 ];
-  * _.make( 3 );
+  * _.sphere.make( 3 );
   *
   * @example
   * // returns [ 0, 0, 0, 1 ];
-  * _.make( [ 0, 0, 0, 1 ] );
+  * _.sphere.make( [ 0, 0, 0, 1 ] );
   *
   * @returns { Array } Returns the array of the created sphere.
   * @function make
@@ -76,11 +76,11 @@ function make( dim )
   *
   * @example
   * // returns [ 0, 0, 0, 0 ];
-  * _.makeZero( 3 );
+  * _.sphere.makeZero( 3 );
   *
   * @example
   * // returns [ 0, 0, 0, 0 ];
-  * _.makeZero( [ 0, 0, 0, 1 ] );
+  * _.sphere.makeZero( [ 0, 0, 0, 1 ] );
   *
   * @returns { Array } Returns the array of the created sphere.
   * @function makeZero
@@ -115,11 +115,11 @@ function makeZero( dim )
   *
   * @example
   * // returns [ 0, 0, 0, - Infinity ];
-  * _.makeSingular( 3 );
+  * _.sphere.makeSingular( 3 );
   *
   * @example
   * // returns [ 0, 0, 0, - Infinity ];
-  * _.makeSingular( [ 0, 2, 0, 1 ] );
+  * _.sphere.makeSingular( [ 0, 2, 0, 1 ] );
   *
   * @returns { Array } Returns the array of the created sphere.
   * @function makeSingular
@@ -534,7 +534,7 @@ function fromCenterAndRadius( sphere, center, radius )
   *
   * @example
   * // returns true;
-  * _.is( [ 0, 0, 0, 1 ] );
+  * _.sphere.is( [ 0, 0, 0, 1 ] );
   *
   * @returns { Boolean } Returns true if the input is sphere
   * @function is
@@ -898,7 +898,7 @@ function getProjectionFactors( srcSphere, projSphere )
 
   _.assert( srcDim === projDim );
 
-  let project = this.tools.longMake( 2 );
+  let project = this.tools.long.make( 2 );
   let projectView = this.tools.vectorAdapter.from( project );
 
   let translation = this.tools.vectorAdapter.sub( projCenter.clone(), srcCenter );
@@ -1569,7 +1569,7 @@ function capsuleClosestPoint( sphere, capsule, dstPoint )
   let dimSphere = this.dimGet( sphereView );
 
   if( arguments.length === 2 )
-  dstPoint = this.tools.longMake( dimSphere );
+  dstPoint = this.tools.long.make( dimSphere );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Null or undefined dstPoint is not allowed' );
@@ -1715,7 +1715,7 @@ function convexPolygonClosestPoint( sphere, polygon, dstPoint )
   let dimS = this.dimGet( sphereView );
 
   if( arguments.length === 2 )
-  dstPoint = this.tools.longMake( dimS );
+  dstPoint = this.tools.long.make( dimS );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Null or undefined dstPoint is not allowed' );
@@ -1733,7 +1733,7 @@ function convexPolygonClosestPoint( sphere, polygon, dstPoint )
   {
     let polygonPoint = this.tools.convexPolygon.sphereClosestPoint( polygon, sphereView );
 
-    let spherePoint = this.pointClosestPoint( sphereView, polygonPoint, this.tools.vectorAdapter.from( this.tools.longMake( dimS ) ) ) ;
+    let spherePoint = this.pointClosestPoint( sphereView, polygonPoint, this.tools.vectorAdapter.from( this.tools.long.make( dimS ) ) ) ;
 
     for( let i = 0; i < dimS; i++ )
     {
@@ -2057,7 +2057,7 @@ function lineClosestPoint( sphere, line, dstPoint )
   let dimSphere = this.dimGet( srcSphereView );
 
   if( arguments.length === 2 )
-  dstPoint = this.tools.longMake( dimSphere );
+  dstPoint = this.tools.long.make( dimSphere );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Null or undefined dstPoint is not allowed' );
@@ -2202,7 +2202,7 @@ function planeClosestPoint( sphere, plane, dstPoint )
   _.assert( dim === dimP );
 
   if( arguments.length === 2 )
-  dstPoint = this.tools.longMake( dim );
+  dstPoint = this.tools.long.make( dim );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Null or undefined dstPoint is not allowed' );
@@ -2350,7 +2350,7 @@ function rayClosestPoint( sphere, ray, dstPoint )
   let dimSphere = this.dimGet( srcSphereView );
 
   if( arguments.length === 2 )
-  dstPoint = this.tools.longMake( dimSphere );
+  dstPoint = this.tools.long.make( dimSphere );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Null or undefined dstPoint is not allowed' );
@@ -2496,7 +2496,7 @@ function segmentClosestPoint( sphere, segment, dstPoint )
   let dimSphere = this.dimGet( srcSphereView );
 
   if( arguments.length === 2 )
-  dstPoint = this.tools.longMake( dimSphere );
+  dstPoint = this.tools.long.make( dimSphere );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Null or undefined dstPoint is not allowed' );
@@ -2728,7 +2728,7 @@ function sphereClosestPoint( srcSphere, tstSphere, dstPoint )
   // throw _.err( 'not tested' );
 
   if( arguments.length === 2 )
-  dstPoint = this.tools.longMake( srcDim );
+  dstPoint = this.tools.long.make( srcDim );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Null or undefined dstPoint is not allowed' );
@@ -3013,6 +3013,6 @@ let Extension = /* qqq : normalize order */
 
 }
 
-_.mapExtend( Self, Extension );
+_.props.extend( Self, Extension );
 
 })();

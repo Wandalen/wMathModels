@@ -184,7 +184,7 @@ function fromPair( pair )
   _.assert( pair.length === 2, 'Expects two points' );
   _.assert( pair[ 0 ].length === pair[ 1 ].length, 'Expects two points' );
 
-  let result = this.tools.vectorAdapter.from( this.tools.longMake( pair[ 0 ].length * 2 ) );
+  let result = this.tools.vectorAdapter.from( this.tools.long.make( pair[ 0 ].length * 2 ) );
   let pair0 = this.tools.vectorAdapter.from( pair[ 0 ] );
   let pair1 = this.tools.vectorAdapter.from( pair[ 1 ] );
 
@@ -268,7 +268,7 @@ function toLinePoints( dstPoints, srcRay )
   *
   * @example
   * // returns true;
-  * _.is( [ 0, 0, 1, 1 ] );
+  * _.ray.is( [ 0, 0, 1, 1 ] );
   *
   * @returns { Boolean } Returns true if the input is ray.
   * @function is
@@ -276,6 +276,7 @@ function toLinePoints( dstPoints, srcRay )
   * @namespace wTools.ray
   * @module Tools/math/Concepts
   */
+
 function is( ray )
 {
   _.assert( arguments.length === 1, 'Expects single argument' );
@@ -638,7 +639,7 @@ function rayParallel( src1Ray, src2Ray, accuracySqr )
     if( direction1.eGet( i ) === 0 || direction2.eGet( i ) === 0 )
     {
       // if( direction1.eGet( i ) !== direction2.eGet( i ) )
-      if( !this.tools.numbersAreEquivalent( direction1.eGet( i ), direction2.eGet( i ) ) )
+      if( !this.tools.number.equivalent( direction1.eGet( i ), direction2.eGet( i ) ) )
       {
         return false;
       }
@@ -783,8 +784,8 @@ function rayIntersectionFactors( r1, r2 )
     result = _.Matrix.ConvertToClass( _.VectorAdapter, x.ox ); /* Dmytro : not sure that needs to use x.ox, it also can be x.x */
     // result = this.tools.vectorAdapter.from( x.base );
 
-    let point1 = this.tools.vectorAdapter.from( this.tools.longMake( dOrigin.length ) );
-    let point2 = this.tools.vectorAdapter.from( this.tools.longMake( dOrigin.length ) );
+    let point1 = this.tools.vectorAdapter.from( this.tools.long.make( dOrigin.length ) );
+    let point2 = this.tools.vectorAdapter.from( this.tools.long.make( dOrigin.length ) );
 
     for( var j = 0; j < dOrigin.length; j++ )
     {
@@ -1248,7 +1249,7 @@ function pointClosestPoint( srcRay, srcPoint, dstPoint )
   _.assert( arguments.length === 2 || arguments.length === 3 , 'Expects two or three arguments' );
 
   if( arguments.length === 2 )
-  dstPoint = this.tools.longMake( srcPoint.length );
+  dstPoint = this.tools.long.make( srcPoint.length );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Not a valid destination point' );
@@ -1458,7 +1459,7 @@ function boxClosestPoint( srcRay, srcBox, dstPoint )
   _.assert( arguments.length === 2 || arguments.length === 3 , 'Expects two or three arguments' );
 
   if( arguments.length === 2 )
-  dstPoint = this.tools.longMake( srcBox.length / 2 );
+  dstPoint = this.tools.long.make( srcBox.length / 2 );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Not a valid destination point' );
@@ -1551,7 +1552,7 @@ function boundingBoxGet( dstBox, srcRay )
 
   _.assert( dimRay === dimB );
 
-  let endPoint = this.tools.longMake( dimB );
+  let endPoint = this.tools.long.make( dimB );
 
   for( let i = 0; i < dimB; i++ )
   {
@@ -1640,7 +1641,7 @@ function capsuleClosestPoint( ray, capsule, dstPoint )
   let dimRay = this.dimGet( rayView );
 
   if( arguments.length === 2 )
-  dstPoint = this.tools.longMake( dimRay );
+  dstPoint = this.tools.long.make( dimRay );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Null or undefined dstPoint is not allowed' );
@@ -1735,7 +1736,7 @@ function convexPolygonClosestPoint( ray, polygon, dstPoint )
   let dimR = this.dimGet( rayView );
 
   if( arguments.length === 2 )
-  dstPoint = this.tools.longMake( dimR );
+  dstPoint = this.tools.long.make( dimR );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Null or undefined dstPoint is not allowed' );
@@ -1753,7 +1754,7 @@ function convexPolygonClosestPoint( ray, polygon, dstPoint )
   {
     let polygonPoint = this.tools.convexPolygon.rayClosestPoint( polygon, rayView );
 
-    let rayPoint = this.pointClosestPoint( rayView, polygonPoint, this.tools.vectorAdapter.from( this.tools.longMake( dimR ) ) ) ;
+    let rayPoint = this.pointClosestPoint( rayView, polygonPoint, this.tools.vectorAdapter.from( this.tools.long.make( dimR ) ) ) ;
 
     for( let i = 0; i < dimR; i++ )
     {
@@ -1925,7 +1926,7 @@ function frustumClosestPoint( srcRay, srcFrustum, dstPoint )
   let cols = dimFrustum[ 1 ];
 
   if( arguments.length === 2 )
-  dstPoint = this.tools.longMake( srcFrustum.length / 2 );
+  dstPoint = this.tools.long.make( srcFrustum.length / 2 );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Not a valid destination point' );
@@ -2017,7 +2018,7 @@ function lineIntersectionPoint( ray, line, dstPoint )
   let dimR = this.dimGet( rayView );
 
   if( arguments.length === 2 )
-  dstPoint = this.tools.longMake( dimR );
+  dstPoint = this.tools.long.make( dimR );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Null or undefined dstPoint is not allowed' );
@@ -2133,7 +2134,7 @@ function lineClosestPoint( srcRay, tstLine, dstPoint )
   _.assert( arguments.length === 2 || arguments.length === 3 , 'Expects two or three arguments' );
 
   if( arguments.length === 2 )
-  dstPoint = this.tools.longMake( tstLine.length / 2 );
+  dstPoint = this.tools.long.make( tstLine.length / 2 );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Not a valid destination point' );
@@ -2298,7 +2299,7 @@ function planeIntersectionPoint( ray, plane, dstPoint )
   let dimR = this.dimGet( rayView );
 
   if( arguments.length === 2 )
-  dstPoint = this.tools.longMake( dimR );
+  dstPoint = this.tools.long.make( dimR );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Null or undefined dstPoint is not allowed' );
@@ -2409,7 +2410,7 @@ function planeClosestPoint( srcRay, srcPlane, dstPoint )
   _.assert( arguments.length === 2 || arguments.length === 3 , 'Expects two or three arguments' );
 
   if( arguments.length === 2 )
-  dstPoint = this.tools.longMake( srcPlane.length - 1 );
+  dstPoint = this.tools.long.make( srcPlane.length - 1 );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Not a valid destination point' );
@@ -2597,7 +2598,7 @@ function rayClosestPoint( srcRay, tstRay, dstPoint )
   _.assert( arguments.length === 2 || arguments.length === 3 , 'Expects two or three arguments' );
 
   if( arguments.length === 2 )
-  dstPoint = this.tools.longMake( tstRay.length / 2 );
+  dstPoint = this.tools.long.make( tstRay.length / 2 );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Not a valid destination point' );
@@ -2717,7 +2718,7 @@ function segmentIntersectionPoint( srcRay, srcSegment, dstPoint )
   _.assert( arguments.length === 2 || arguments.length === 3 , 'Expects two or three arguments' );
 
   if( arguments.length === 2 )
-  dstPoint = this.tools.longMake( srcSegment.length / 2 );
+  dstPoint = this.tools.long.make( srcSegment.length / 2 );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Not a valid destination point' );
@@ -2872,7 +2873,7 @@ function segmentClosestPoint( srcRay, tstSegment, dstPoint )
   _.assert( arguments.length === 2 || arguments.length === 3 , 'Expects two or three arguments' );
 
   if( arguments.length === 2 )
-  dstPoint = this.tools.longMake( tstSegment.length / 2 );
+  dstPoint = this.tools.long.make( tstSegment.length / 2 );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Not a valid destination point' );
@@ -3084,7 +3085,7 @@ function sphereClosestPoint( srcRay, srcSphere, dstPoint )
   _.assert( _.sphere.is( srcSphere ) );
 
   if( arguments.length === 2 )
-  dstPoint = this.tools.longMake( srcSphere.length - 1 );
+  dstPoint = this.tools.long.make( srcSphere.length - 1 );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Not a valid destination point' );
@@ -3300,7 +3301,7 @@ let Extension = /* qqq : normalize order */
 
 }
 
-_.mapExtend( Self, Extension );
+_.props.extend( Self, Extension );
 injectChunks( Extension )
 
 })();

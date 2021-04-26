@@ -17,7 +17,7 @@ if( typeof module !== 'undefined' )
 
 //
 
-const _ = _global_.wTools.withDefaultLong.Fx;
+const _ = _global_.wTools.withLong.Fx;
 var Matrix = _.Matrix;
 const Parent = wTester;
 var sqrt = _.math.sqrt;
@@ -34,7 +34,7 @@ function eachAngle( o )
 {
 
   _.assert( arguments.length === 1, 'Expects single argument' );
-  _.routineOptions( eachAngle, o );
+  _.routine.options_( eachAngle, o );
 
   if( o.representations === null )
   o.representations = [ 'xyz', 'xzy', 'yxz', 'yzx', 'zxy', 'zyx', 'xyx', 'xzx', 'yxy', 'yzy', 'zxz', 'zyz' ];
@@ -108,7 +108,7 @@ eachAngle.defaults =
 // {
 //
 //   _.assert( arguments.length === 1, 'Expects single argument' );
-//   _.routineOptions( eachAngle, o );
+//   _.routine.options_( eachAngle, o );
 //
 //   /**/
 //
@@ -364,7 +364,7 @@ function make( test )
 
   var src = undefined;
   var got = _.quat.make( src );
-  var expected = _.quat.tools.longMake( [ 1, 0, 0, 0 ] );
+  var expected = _.quat.tools.long.make( [ 1, 0, 0, 0 ] );
   test.identical( got, expected );
   test.true( got !== src );
 
@@ -374,7 +374,7 @@ function make( test )
 
   var src = null;
   var got = _.quat.make( src );
-  var expected = _.quat.tools.longMake( [ 1, 0, 0, 0 ] );
+  var expected = _.quat.tools.long.make( [ 1, 0, 0, 0 ] );
   test.identical( got, expected );
   test.true( got !== src );
 
@@ -384,7 +384,7 @@ function make( test )
 
   var src = [ 3, 0, 1, 2 ];
   var got = _.quat.make( src );
-  var expected = _.quat.tools.longMake( [ 3, 0, 1, 2 ] );
+  var expected = _.quat.tools.long.make( [ 3, 0, 1, 2 ] );
   test.identical( got, expected );
   test.true( got !== src );
 
@@ -394,7 +394,7 @@ function make( test )
 
   var src = _.vectorAdapter.fromLong([ 3, 0, 1, 2 ]);
   var got = _.quat.make( src );
-  var expected = _.quat.tools.longMake( [ 3, 0, 1, 2 ] );
+  var expected = _.quat.tools.long.make( [ 3, 0, 1, 2 ] );
   test.identical( got, expected );
   test.true( got !== src );
 
@@ -422,7 +422,7 @@ function makeZero( test )
   test.case = 'trivial';
 
   var got = _.quat.makeZero();
-  var expected = _.quat.tools.longMake( [ 0, 0, 0, 0 ] );
+  var expected = _.quat.tools.long.make( [ 0, 0, 0, 0 ] );
   test.identical( got, expected );
 
   /* */
@@ -446,7 +446,7 @@ function makeUnit( test )
 {
   test.case = 'trivial';
   var got = _.quat.makeUnit();
-  var expected = _.quat.tools.longMake( [ 1, 0, 0, 0 ] );
+  var expected = _.quat.tools.long.make( [ 1, 0, 0, 0 ] );
   test.identical( got, expected );
 
   /* */
@@ -471,21 +471,21 @@ function zero( test )
   test.case = 'src undefined';
   var src = undefined;
   var got = _.quat.zero( src );
-  var expected = _.quat.tools.longMake( [ 0, 0, 0, 0 ] );
+  var expected = _.quat.tools.long.make( [ 0, 0, 0, 0 ] );
   test.identical( got, expected );
   test.true( got !== src );
 
   test.case = 'src null';
   var src = null;
   var got = _.quat.zero( src );
-  var expected = _.quat.tools.longMake( [ 0, 0, 0, 0 ] );
+  var expected = _.quat.tools.long.make( [ 0, 0, 0, 0 ] );
   test.identical( got, expected );
   test.true( got !== src );
 
   test.case = 'dst array';
   var dst = [ 3, 0, 1, 2 ];
   var got = _.quat.zero( dst );
-  var expected = _.quat.tools.longMake( [ 0, 0, 0, 0 ] );
+  var expected = _.quat.tools.long.make( [ 0, 0, 0, 0 ] );
   test.identical( got, expected );
   test.true( got === dst );
 
@@ -519,7 +519,7 @@ function unit( test )
   test.case = 'src undefined';
   var src = undefined;
   var got = _.quat.unit( src );
-  var expected = _.quat.tools.longMake( [ 1, 0, 0, 0 ] );
+  var expected = _.quat.tools.long.make( [ 1, 0, 0, 0 ] );
   test.identical( got, expected );
   test.true( got !== src );
 
@@ -528,7 +528,7 @@ function unit( test )
   test.case = 'src null';
   var src = null;
   var got = _.quat.unit( src );
-  var expected = _.quat.tools.longMake( [ 1, 0, 0, 0 ] );
+  var expected = _.quat.tools.long.make( [ 1, 0, 0, 0 ] );
   test.identical( got, expected );
   test.true( got !== src );
 
@@ -537,7 +537,7 @@ function unit( test )
   test.case = 'dst array';
   var dst = [ 3, 0, 1, 2 ];
   var got = _.quat.unit( dst );
-  var expected = _.quat.tools.longMake( [ 1, 0, 0, 0 ] );
+  var expected = _.quat.tools.long.make( [ 1, 0, 0, 0 ] );
   test.identical( got, expected );
   test.true( got === dst );
 
@@ -666,19 +666,19 @@ function fromAxisAndAngle( test )
   /* */
 
   test.case = 'zero';
-  var expected = _.quat.tools.longMake( [ 1, 0, 0, 0 ] );
+  var expected = _.quat.tools.long.make( [ 1, 0, 0, 0 ] );
   var got = _.quat.fromAxisAndAngle( null, [ 0, 0, 0 ], 0 );
   test.equivalent( got, expected );
 
-  var expected = _.quat.tools.longMake( [ 1, 0, 0, 0 ] );
+  var expected = _.quat.tools.long.make( [ 1, 0, 0, 0 ] );
   var got = _.quat.fromAxisAndAngle( null, [ 1, 0, 0 ], 0 );
   test.equivalent( got, expected );
 
-  var expected = _.quat.tools.longMake( [ 1, 0, 0, 0 ] );
+  var expected = _.quat.tools.long.make( [ 1, 0, 0, 0 ] );
   var got = _.quat.fromAxisAndAngle( null, [ 0, 1, 0 ], 0 );
   test.equivalent( got, expected );
 
-  var expected = _.quat.tools.longMake( [ 1, 0, 0, 0 ] );
+  var expected = _.quat.tools.long.make( [ 1, 0, 0, 0 ] );
   var got = _.quat.fromAxisAndAngle( null, [ 0, 0, 1 ], 0 );
   test.equivalent( got, expected );
 
@@ -687,13 +687,13 @@ function fromAxisAndAngle( test )
   test.case = 'near zero';
 
   var angle = test.accuracy;
-  var expected = _.quat.tools.longMake( [ 1, 0.00000004999999873689376, 0, 0 ] );
+  var expected = _.quat.tools.long.make( [ 1, 0.00000004999999873689376, 0, 0 ] );
   var got = _.quat.fromAxisAndAngle( null, [ 1, 0, 0 ], angle );
   test.equivalent( got, expected );
-  var expected = _.quat.tools.longMake( [ 1, 0, 0.00000004999999873689376, 0 ] );
+  var expected = _.quat.tools.long.make( [ 1, 0, 0.00000004999999873689376, 0 ] );
   var got = _.quat.fromAxisAndAngle( null, [ 0, 1, 0 ], angle );
   test.equivalent( got, expected );
-  var expected = _.quat.tools.longMake( [ 1, 0, 0, 0.00000004999999873689376 ] );
+  var expected = _.quat.tools.long.make( [ 1, 0, 0, 0.00000004999999873689376 ] );
   var got = _.quat.fromAxisAndAngle( null, [ 0, 0, 1 ], angle );
   test.equivalent( got, expected );
 
@@ -868,11 +868,11 @@ function fromVectors( test )
 
     test.case = 'same avectors';
 
-    var expected = _.quat.tools.longMake( [ normalized ? 1 : 0, 0, 0, 0 ] );
+    var expected = _.quat.tools.long.make( [ normalized ? 1 : 0, 0, 0, 0 ] );
     var got = _.quat[ r ]( null, [ 0, 0, 0 ], [ 0, 0, 0 ] );
     test.equivalent( got, expected );
 
-    var expected = _.quat.tools.longMake( [ 1, 0, 0, 0 ] );
+    var expected = _.quat.tools.long.make( [ 1, 0, 0, 0 ] );
     var got = _.quat[ r ]( null, [ 1, 0, 0 ], [ 1, 0, 0 ] );
     test.equivalent( got, expected );
 

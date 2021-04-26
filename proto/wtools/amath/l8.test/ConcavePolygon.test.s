@@ -17,7 +17,7 @@ if( typeof module !== 'undefined' )
 
 //
 
-const _ = _global_.wTools.withDefaultLong.Fx;
+const _ = _global_.wTools.withLong.Fx;
 var Matrix = _.Matrix;
 var vector = _.vectorAdapter;
 var vec = _.vectorAdapter.fromArray;

@@ -42,7 +42,7 @@ const Self = _.frustum = _.frustum || Object.create( _.avector );
  */
 
 // --
-// routines
+// implementation
 // --
 
 function make()
@@ -815,7 +815,7 @@ function boxClosestPoint( frustum, box, dstPoint )
   _.assert( arguments.length === 2 || arguments.length === 3 , 'Expects two or three arguments' );
 
   if( arguments.length === 2 )
-  dstPoint = this.tools.longMake( rows - 1 );
+  dstPoint = this.tools.long.make( rows - 1 );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Not a valid destination point' );
@@ -825,7 +825,7 @@ function boxClosestPoint( frustum, box, dstPoint )
   if( this.boxIntersects( frustum, boxView ) )
   return 0;
 
-  let point = this.tools.vectorAdapter.from( this.tools.longMake( rows - 1 ) );
+  let point = this.tools.vectorAdapter.from( this.tools.long.make( rows - 1 ) );
 
   /* frustum corners */
 
@@ -1092,7 +1092,7 @@ function capsuleClosestPoint( frustum, capsule, dstPoint )
   let cols = dims[ 1 ];
 
   if( arguments.length === 2 )
-  dstPoint = this.tools.longMake( rows - 1 );
+  dstPoint = this.tools.long.make( rows - 1 );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Null or undefined dstPoint is not allowed' );
@@ -1253,7 +1253,7 @@ function convexPolygonClosestPoint( frustum, polygon, dstPoint )
   let dimF  = _.Matrix.DimsOf( frustum );
 
   if( arguments.length === 2 )
-  dstPoint = this.tools.longMake( dimP[ 0 ] );
+  dstPoint = this.tools.long.make( dimP[ 0 ] );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Null or undefined dstPoint is not allowed' );
@@ -1525,7 +1525,7 @@ function frustumClosestPoint( srcFrustum , tstFrustum, dstPoint )
   let cols = dims[ 1 ];
 
   if( arguments.length === 2 )
-  dstPoint = this.tools.longMake( rows - 1 );
+  dstPoint = this.tools.long.make( rows - 1 );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Not a valid destination point' );
@@ -1538,7 +1538,7 @@ function frustumClosestPoint( srcFrustum , tstFrustum, dstPoint )
   return 0;
 
   let distance = Infinity;
-  let finalPoint = this.tools.longMake( rows - 1 );
+  let finalPoint = this.tools.long.make( rows - 1 );
 
   let srcPoints = this.cornersGet( srcFrustum );
   for( let i = 0 ; i < srcPoints.length ; i += 1 )
@@ -1640,7 +1640,7 @@ function lineClosestPoint( frustum, line, dstPoint )
   let dimF = _.Matrix.DimsOf( frustum ) ;
 
   if( arguments.length === 2 )
-  dstPoint = this.tools.longMake( dimF[ 0 ] - 1);
+  dstPoint = this.tools.long.make( dimF[ 0 ] - 1);
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Null or undefined dstPoint is not allowed' );
@@ -1810,7 +1810,7 @@ function planeClosestPoint( frustum, plane, dstPoint )
   _.assert( this.is( frustum ) );
 
   if( arguments.length === 2 )
-  dstPoint = this.tools.longMake( plane.length - 1 );
+  dstPoint = this.tools.long.make( plane.length - 1 );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Not a valid destination point' );
@@ -1823,7 +1823,7 @@ function planeClosestPoint( frustum, plane, dstPoint )
 
   let corners = this.cornersGet( frustum );
   let distance = Infinity;
-  let point = this.tools.longMake( plane.length - 1 );
+  let point = this.tools.long.make( plane.length - 1 );
   for( let j = 0 ; j < 8 ; j = j + 1 )
   {
     let corner = corners.colGet( j );
@@ -1911,7 +1911,7 @@ function rayClosestPoint( frustum, ray, dstPoint )
   let dimF = _.Matrix.DimsOf( frustum ) ;
 
   if( arguments.length === 2 )
-  dstPoint = this.tools.longMake( dimF[ 0 ] - 1);
+  dstPoint = this.tools.long.make( dimF[ 0 ] - 1);
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Null or undefined dstPoint is not allowed' );
@@ -2063,7 +2063,7 @@ function segmentClosestPoint( frustum, segment, dstPoint )
   let dimF = _.Matrix.DimsOf( frustum ) ;
 
   if( arguments.length === 2 )
-  dstPoint = this.tools.longMake( dimF[ 0 ] - 1);
+  dstPoint = this.tools.long.make( dimF[ 0 ] - 1);
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Null or undefined dstPoint is not allowed' );
@@ -2271,7 +2271,7 @@ function sphereClosestPoint( frustum , sphere, dstPoint )
   _.assert( dim === 3 );
 
   if( arguments.length === 2 )
-  dstPoint = this.tools.longMake( dim );
+  dstPoint = this.tools.long.make( dim );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Not a valid destination point' );
@@ -2464,6 +2464,6 @@ let Extension = /* qqq : normalize order */
 
 }
 
-_.mapExtend( Self, Extension );
+_.props.extend( Self, Extension );
 
 })();

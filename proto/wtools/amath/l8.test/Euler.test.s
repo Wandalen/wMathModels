@@ -50,7 +50,7 @@ if( typeof module !== 'undefined' )
 
 //
 
-const _ = _global_.wTools.withDefaultLong.Fx;
+const _ = _global_.wTools.withLong.Fx;
 var Matrix = _.Matrix;
 const Parent = wTester;
 
@@ -147,7 +147,7 @@ function make( test )
 
   var src = undefined;
   var got = _.euler.make( src );
-  var expected = _.euler.tools.longMake( [ 0, 0, 0, 0, 1, 2 ] );
+  var expected = _.euler.tools.long.make( [ 0, 0, 0, 0, 1, 2 ] );
   test.identical( got, expected );
   test.true( got !== src );
 
@@ -157,7 +157,7 @@ function make( test )
 
   var src = null;
   var got = _.euler.make( src );
-  var expected = _.euler.tools.longMake( [ 0, 0, 0, 0, 1, 2 ] );
+  var expected = _.euler.tools.long.make( [ 0, 0, 0, 0, 1, 2 ] );
   test.identical( got, expected );
   test.true( got !== src );
 
@@ -167,7 +167,7 @@ function make( test )
 
   var src = [ 0, 1, 2, 5, 5, 5 ];
   var got = _.euler.make( src );
-  var expected = _.euler.tools.longMake( [ 0, 1, 2, 5, 5, 5 ] );
+  var expected = _.euler.tools.long.make( [ 0, 1, 2, 5, 5, 5 ] );
   test.identical( got, expected );
   test.true( got !== src );
 
@@ -177,7 +177,7 @@ function make( test )
 
   var src = _.euler.tools.vectorAdapter.fromLong([ 0, 1, 2, 5, 5, 5 ]);
   var got = _.euler.make( src );
-  var expected = _.euler.tools.longMake( [ 0, 1, 2, 5, 5, 5 ] );
+  var expected = _.euler.tools.long.make( [ 0, 1, 2, 5, 5, 5 ] );
   test.identical( got, expected );
   test.true( got !== src );
 
@@ -202,11 +202,11 @@ function makeZero( test )
   test.case = 'trivial';
 
   var got = _.euler.makeZero();
-  var expected = _.euler.tools.longMake( [ 0, 0, 0, 0, 1, 2 ] );
+  var expected = _.euler.tools.long.make( [ 0, 0, 0, 0, 1, 2 ] );
   test.identical( got, expected );
 
   var got = _.euler.makeZero( undefined );
-  var expected = _.euler.tools.longMake( [ 0, 0, 0, 0, 1, 2 ] );
+  var expected = _.euler.tools.long.make( [ 0, 0, 0, 0, 1, 2 ] );
   test.identical( got, expected );
 
   if( !Config.debug )
@@ -236,7 +236,7 @@ function zero( test )
 
   var src = undefined;
   var got = _.euler.zero( src );
-  var expected = _.euler.tools.longMake( [ 0, 0, 0, 0, 1, 2 ] );
+  var expected = _.euler.tools.long.make( [ 0, 0, 0, 0, 1, 2 ] );
   test.identical( got, expected );
   test.true( got !== src );
 
@@ -246,7 +246,7 @@ function zero( test )
 
   var src = null;
   var got = _.euler.zero( src );
-  var expected = _.euler.tools.longMake( [ 0, 0, 0, 0, 1, 2 ] );
+  var expected = _.euler.tools.long.make( [ 0, 0, 0, 0, 1, 2 ] );
   test.identical( got, expected );
   test.true( got !== src );
 
@@ -256,7 +256,7 @@ function zero( test )
 
   var dst = [ 0, 1, 2, 5, 5, 5 ];
   var got = _.euler.zero( dst );
-  var expected = _.euler.tools.longMake( [ 0, 0, 0, 5, 5, 5 ] );
+  var expected = _.euler.tools.long.make( [ 0, 0, 0, 5, 5, 5 ] );
   test.identical( got, expected );
   test.true( got === dst );
 
@@ -326,7 +326,7 @@ function fromAxisAndAngle( test )
   // test.case = 'trivial xyz';
   //
   // var axisAndAngle = [ 1 / sqrt( 3 ), 1 / sqrt( 3 ), 1 / sqrt( 3 ), 0.5 ];
-  // var expected = _.euler.tools.longMake( [ 0.25152005616932893, 0.32319976617576235, 0.25152005616932893, 0, 1, 2 ] );
+  // var expected = _.euler.tools.long.make( [ 0.25152005616932893, 0.32319976617576235, 0.25152005616932893, 0, 1, 2 ] );
   // var dst = [ 0, 0, 0, 0, 1, 2 ]
   // var got = _.euler.fromAxisAndAngle( dst, axisAndAngle );
   // test.identical( got, expected );
@@ -335,7 +335,7 @@ function fromAxisAndAngle( test )
   test.case = 'trivial xyz';
 
   var axisAndAngle1 = [ 0.3, 0.7, 0.6480740698407861, 0.5 ];
-  var expected = _.euler.tools.longMake( [ 0.25152005616932893, 0.32319976617576235, 0.25152005616932893, 0, 1, 2 ] );
+  var expected = _.euler.tools.long.make( [ 0.25152005616932893, 0.32319976617576235, 0.25152005616932893, 0, 1, 2 ] );
   sampleTest();
 
 }
@@ -409,11 +409,11 @@ function fromQuat( test )
   test.case = 'trivial xyz';
 
   var quat1 = [ 0.4795831523312719, 0.4, 0.5, 0.6 ];
-  var expected = _.euler.tools.longMake( [ -0.8768166446364086, 1.2855172555584793, 2.4682396612065283, 0, 1, 2 ] );
+  var expected = _.euler.tools.long.make( [ -0.8768166446364086, 1.2855172555584793, 2.4682396612065283, 0, 1, 2 ] );
   sampleTest();
 
   var quat1 = [ 0.8170067319184096, 0.2, 0.3, 0.45 ];
-  var expected = _.euler.tools.longMake( [ 0.07661016491652753, 0.73448367317603, 0.9774169729318261, 0, 1, 2 ] );
+  var expected = _.euler.tools.long.make( [ 0.07661016491652753, 0.73448367317603, 0.9774169729318261, 0, 1, 2 ] );
   sampleTest();
 
   /* */
@@ -421,7 +421,7 @@ function fromQuat( test )
   test.case = 'trivial xzy';
 
   var quat1 = [ 0.4795831523312719, 0.4, 0.5, 0.6 ];
-  var expected = _.euler.tools.longMake( [ 1.611438122848755, 0.1764134071967898, 1.79616768779864, 0, 2, 1 ] );
+  var expected = _.euler.tools.long.make( [ 1.611438122848755, 0.1764134071967898, 1.79616768779864, 0, 2, 1 ] );
 
   sampleTest();
 
@@ -430,7 +430,7 @@ function fromQuat( test )
   test.case = 'trivial yxz';
 
   var quat1 = [ 0.4795831523312719, 0.4, 0.5, 0.6 ];
-  var expected = _.euler.tools.longMake( [ 1.3853696932905102, -0.21805744508021838, 1.611777990662973, 1, 0, 2 ] );
+  var expected = _.euler.tools.long.make( [ 1.3853696932905102, -0.21805744508021838, 1.611777990662973, 1, 0, 2 ] );
 
   sampleTest();
 
@@ -439,7 +439,7 @@ function fromQuat( test )
   test.case = 'trivial yzx';
 
   var quat1 = [ 0.4795831523312719, 0.4, 0.5, 0.6 ];
-  var expected = _.euler.tools.longMake( [ -3.139697893726683, 1.3489814514664218, -1.7536311318816715, 1, 2, 0 ] );
+  var expected = _.euler.tools.long.make( [ -3.139697893726683, 1.3489814514664218, -1.7536311318816715, 1, 2, 0 ] );
 
   sampleTest();
 
@@ -448,7 +448,7 @@ function fromQuat( test )
   test.case = 'trivial zxy';
 
   var quat1 = [ 0.4795831523312719, 0.4, 0.5, 0.6 ];
-  var expected = _.euler.tools.longMake( [ 1.7948888079254575, 1.3898093848622433, -0.0023158162419024777, 2, 0, 1 ] );
+  var expected = _.euler.tools.long.make( [ 1.7948888079254575, 1.3898093848622433, -0.0023158162419024777, 2, 0, 1 ] );
 
   sampleTest();
 
@@ -457,11 +457,11 @@ function fromQuat( test )
   test.case = 'trivial zyx';
 
   var quat1 = [ 0.4795831523312719, 0.4, 0.5, 0.6 ];
-  var expected = _.euler.tools.longMake( [ 1.7926108168855637, -0.0004168476808001178, 1.3898098596500965, 2, 1, 0 ] );
+  var expected = _.euler.tools.long.make( [ 1.7926108168855637, -0.0004168476808001178, 1.3898098596500965, 2, 1, 0 ] );
   sampleTest();
 
   var quat1 = [ 0.8170067319184096, 0.2, 0.3, 0.45 ];
-  var expected = _.euler.tools.longMake( [ 1.1190534595035637, 0.31540765161226797, 0.6786858260419525, 2, 1, 0 ] );
+  var expected = _.euler.tools.long.make( [ 1.1190534595035637, 0.31540765161226797, 0.6786858260419525, 2, 1, 0 ] );
   sampleTest();
 
   //
@@ -471,11 +471,11 @@ function fromQuat( test )
   test.case = 'trivial xyx';
 
   var quat1 = [ 0.4795831523312719, 0.4, 0.5, 0.6 ];
-  var expected = _.euler.tools.longMake( [ 1.5712236437976341, 1.792610797291691, -0.1808924573987528, 0, 1, 0 ] );
+  var expected = _.euler.tools.long.make( [ 1.5712236437976341, 1.792610797291691, -0.1808924573987528, 0, 1, 0 ] );
   sampleTest();
 
   var quat1 = [ 0.8170067319184096, 0.2, 0.3, 0.45 ];
-  var expected = _.euler.tools.longMake( [ 1.2228685618221453, 1.1428535238213908, -0.7427188846725128, 0, 1, 0 ] );
+  var expected = _.euler.tools.long.make( [ 1.2228685618221453, 1.1428535238213908, -0.7427188846725128, 0, 1, 0 ] );
   sampleTest();
 
   /* */
@@ -483,11 +483,11 @@ function fromQuat( test )
   test.case = 'trivial xzx';
 
   var quat1 = [ 0.4795831523312719, 0.4, 0.5, 0.6 ];
-  var expected = _.euler.tools.longMake( [ 0.0004273170027373423, 1.792610797291691, 1.3899038693961439, 0, 2, 0 ] );
+  var expected = _.euler.tools.long.make( [ 0.0004273170027373423, 1.792610797291691, 1.3899038693961439, 0, 2, 0 ] );
   sampleTest();
 
   var quat1 = [ 0.8170067319184096, 0.2, 0.3, 0.45 ];
-  var expected = _.euler.tools.longMake( [ -0.3479277649727513, 1.1428535238213908, 0.8280774421223838, 0, 2, 0 ] );
+  var expected = _.euler.tools.long.make( [ -0.3479277649727513, 1.1428535238213908, 0.8280774421223838, 0, 2, 0 ] );
   sampleTest();
 
   /* */
@@ -495,11 +495,11 @@ function fromQuat( test )
   test.case = 'trivial yxy';
 
   var quat1 = [ 0.4795831523312719, 0.4, 0.5, 0.6 ];
-  var expected = _.euler.tools.longMake( [ -0.17655619363859168, 1.6108070011488855, 1.7890312528560666, 1, 0, 1 ] );
+  var expected = _.euler.tools.long.make( [ -0.17655619363859168, 1.6108070011488855, 1.7890312528560666, 1, 0, 1 ] );
   sampleTest();
 
   var quat1 = [ 0.8170067319184096, 0.2, 0.3, 0.45 ];
-  var expected = _.euler.tools.longMake( [ -0.8006624116228127, 1.0297886775455747, 1.5044815828085223, 1, 0, 1 ] );
+  var expected = _.euler.tools.long.make( [ -0.8006624116228127, 1.0297886775455747, 1.5044815828085223, 1, 0, 1 ] );
   sampleTest();
 
   /* */
@@ -507,11 +507,11 @@ function fromQuat( test )
   test.case = 'trivial yzy';
 
   var quat1 = [ 0.4795831523312719, 0.4, 0.5, 0.6 ];
-  var expected = _.euler.tools.longMake( [ 1.394240133156305, 1.6108070011488855, 0.2182349260611697, 1, 2, 1 ] );
+  var expected = _.euler.tools.long.make( [ 1.394240133156305, 1.6108070011488855, 0.2182349260611697, 1, 2, 1 ] );
   sampleTest();
 
   var quat1 = [ 0.8170067319184096, 0.2, 0.3, 0.45 ];
-  var expected = _.euler.tools.longMake( [ 0.770133915172084, 1.0297886775455747, -0.06631474398637426, 1, 2, 1 ] );
+  var expected = _.euler.tools.long.make( [ 0.770133915172084, 1.0297886775455747, -0.06631474398637426, 1, 2, 1 ] );
   sampleTest();
 
   /* */
@@ -519,11 +519,11 @@ function fromQuat( test )
   test.case = 'trivial zxz';
 
   var quat1 = [ 0.4795831523312719, 0.4, 0.5, 0.6 ];
-  var expected = _.euler.tools.longMake( [ 1.7925345384125673, 1.389809875548349, 0.00042376926987936647, 2, 0, 2 ] );
+  var expected = _.euler.tools.long.make( [ 1.7925345384125673, 1.389809875548349, 0.00042376926987936647, 2, 0, 2 ] );
   sampleTest();
 
   var quat1 = [ 0.8170067319184096, 0.2, 0.3, 0.45 ];
-  var expected = _.euler.tools.longMake( [ 1.486244067362877, 0.7377259684532488, -0.47934337913178104, 2, 0, 2 ] );
+  var expected = _.euler.tools.long.make( [ 1.486244067362877, 0.7377259684532488, -0.47934337913178104, 2, 0, 2 ] );
 
   sampleTest();
 
@@ -532,11 +532,11 @@ function fromQuat( test )
   test.case = 'trivial zyz';
 
   var quat1 = [ 0.4795831523312719, 0.4, 0.5, 0.6 ];
-  var expected = _.euler.tools.longMake( [ 0.22173821161767063, 1.389809875548349, 1.5712200960647762, 2, 1, 2 ] );
+  var expected = _.euler.tools.long.make( [ 0.22173821161767063, 1.389809875548349, 1.5712200960647762, 2, 1, 2 ] );
   sampleTest();
 
   var quat1 = [ 0.8170067319184096, 0.2, 0.3, 0.45 ];
-  var expected = _.euler.tools.longMake( [ -0.0845522594320196, 0.7377259684532488, 1.0914529476631156, 2, 1, 2 ] );
+  var expected = _.euler.tools.long.make( [ -0.0845522594320196, 0.7377259684532488, 1.0914529476631156, 2, 1, 2 ] );
   sampleTest();
 
   //
@@ -544,7 +544,7 @@ function fromQuat( test )
   test.case = 'trivial xzy';
 
   var quat1 = [ 0, 1 / sqrt( 3 ), 1 / sqrt( 3 ), 1 / sqrt( 3 ) ];
-  var expected = _.euler.tools.longMake( [ 2.0344439357957027, -0.7297276562269666, 2.0344439357957027, 0, 2, 1 ] );
+  var expected = _.euler.tools.long.make( [ 2.0344439357957027, -0.7297276562269666, 2.0344439357957027, 0, 2, 1 ] );
   sampleTest();
 
   /* */
@@ -552,7 +552,7 @@ function fromQuat( test )
   test.case = 'trivial yxz';
 
   var quat1 = [ 0, 1 / sqrt( 3 ), 1 / sqrt( 3 ), 1 / sqrt( 3 ) ];
-  var expected = _.euler.tools.longMake( [  2.0344439357957027, -0.7297276562269666, 2.0344439357957027, 1, 0, 2 ] );
+  var expected = _.euler.tools.long.make( [  2.0344439357957027, -0.7297276562269666, 2.0344439357957027, 1, 0, 2 ] );
   sampleTest();
 
   /* */
@@ -560,7 +560,7 @@ function fromQuat( test )
   test.case = 'trivial yzx';
 
   var quat1 = [ 0, 1 / sqrt( 3 ), 1 / sqrt( 3 ), 1 / sqrt( 3 ) ];
-  var expected = _.euler.tools.longMake( [ -2.0344439357957027, 0.7297276562269666, -2.0344439357957027, 1, 2, 0 ] );
+  var expected = _.euler.tools.long.make( [ -2.0344439357957027, 0.7297276562269666, -2.0344439357957027, 1, 2, 0 ] );
   sampleTest();
 
   /* */
@@ -568,7 +568,7 @@ function fromQuat( test )
   test.case = 'trivial zxy';
 
   var quat1 = [ 0, 1 / sqrt( 3 ), 1 / sqrt( 3 ), 1 / sqrt( 3 ) ];
-  var expected = _.euler.tools.longMake( [ -2.0344439357957027, 0.7297276562269666, -2.0344439357957027, 2, 0, 1 ] );
+  var expected = _.euler.tools.long.make( [ -2.0344439357957027, 0.7297276562269666, -2.0344439357957027, 2, 0, 1 ] );
   sampleTest();
 
   /* */
@@ -576,7 +576,7 @@ function fromQuat( test )
   test.case = 'trivial zyx';
 
   var quat1 = [ 0, 1 / sqrt( 3 ), 1 / sqrt( 3 ), 1 / sqrt( 3 ) ];
-  var expected = _.euler.tools.longMake( [ 2.0344439357957027, -0.7297276562269666, 2.0344439357957027, 2, 1, 0 ] );
+  var expected = _.euler.tools.long.make( [ 2.0344439357957027, -0.7297276562269666, 2.0344439357957027, 2, 1, 0 ] );
   sampleTest();
 
   //
@@ -584,7 +584,7 @@ function fromQuat( test )
   test.case = 'trivial xyx';
 
   var quat1 = [ 0, 0.25, 0.5, 0.82915619758885 ];
-  var expected = _.euler.tools.longMake( [ 2.5989535513401405, 2.636232143305636, 0.5426391022496527, 0, 1, 0 ] );
+  var expected = _.euler.tools.long.make( [ 2.5989535513401405, 2.636232143305636, 0.5426391022496527, 0, 1, 0 ] );
   sampleTest();
 
   /* */
@@ -592,7 +592,7 @@ function fromQuat( test )
   test.case = 'trivial xzx';
 
   var quat1 = [ 0, 0.25, 0.5, 0.82915619758885 ];
-  var expected = _.euler.tools.longMake( [ 1.028157224545244, 2.636232143305636, 2.113435429044549, 0, 2, 0 ] );
+  var expected = _.euler.tools.long.make( [ 1.028157224545244, 2.636232143305636, 2.113435429044549, 0, 2, 0 ] );
   sampleTest();
 
   /* */
@@ -600,7 +600,7 @@ function fromQuat( test )
   test.case = 'trivial yxy';
 
   var quat1 = [ 0, 0.25, 0.5, 0.82915619758885 ];
-  var expected = _.euler.tools.longMake( [ 0.2928427717285755, 2.0943951023931957, 2.8487498818612176, 1, 0, 1 ] );
+  var expected = _.euler.tools.long.make( [ 0.2928427717285755, 2.0943951023931957, 2.8487498818612176, 1, 0, 1 ] );
   sampleTest();
 
   /* */
@@ -608,7 +608,7 @@ function fromQuat( test )
   test.case = 'trivial yzy';
 
   var quat1 = [ 0, 0.25, 0.5, 0.82915619758885 ];
-  var expected = _.euler.tools.longMake( [ 1.8636390985234723, 2.0943951023931957, 1.277953555066321, 1, 2, 1 ] );
+  var expected = _.euler.tools.long.make( [ 1.8636390985234723, 2.0943951023931957, 1.277953555066321, 1, 2, 1 ] );
   sampleTest();
 
   /* */
@@ -616,7 +616,7 @@ function fromQuat( test )
   test.case = 'trivial zxz';
 
   var quat1 = [ 0, 0.25, 0.5, 0.82915619758885 ];
-  var expected = _.euler.tools.longMake( [ 2.677945044588987, 1.1863995522992576, 0.4636476090008061, 2, 0, 2 ] );
+  var expected = _.euler.tools.long.make( [ 2.677945044588987, 1.1863995522992576, 0.4636476090008061, 2, 0, 2 ] );
   sampleTest();
 
   /* */
@@ -624,7 +624,7 @@ function fromQuat( test )
   test.case = 'trivial zyz';
 
   var quat1 = [ 0, 0.25, 0.5, 0.82915619758885 ];
-  var expected = _.euler.tools.longMake( [ 1.1071487177940904, 1.1863995522992576, 2.0344439357957027, 2, 1, 2 ] );
+  var expected = _.euler.tools.long.make( [ 1.1071487177940904, 1.1863995522992576, 2.0344439357957027, 2, 1, 2 ] );
   sampleTest();
 
   //
@@ -632,37 +632,37 @@ function fromQuat( test )
   test.case = 'trivial xyz';
 
   var quat1 = [ 0, 0.25, 0.5, 0.82915619758885 ];
-  var expected = _.euler.tools.longMake( [ -1.1460587478032058, 0.4274791332848927, -2.8632929945846817, 0, 1, 2 ] );
+  var expected = _.euler.tools.long.make( [ -1.1460587478032058, 0.4274791332848927, -2.8632929945846817, 0, 1, 2 ] );
   sampleTest();
 
   test.case = 'trivial xzy';
 
   var quat1 = [ 0, 0.25, 0.5, 0.82915619758885 ];
-  var expected = _.euler.tools.longMake( [ 2.113435429044549, -0.25268025514207865, 2.6991209725017002, 0, 2, 1 ] );
+  var expected = _.euler.tools.long.make( [ 2.113435429044549, -0.25268025514207865, 2.6991209725017002, 0, 2, 1 ] );
   sampleTest();
 
   test.case = 'trivial yxz';
 
   var quat1 = [ 0, 0.25, 0.5, 0.82915619758885 ];
-  var expected = _.euler.tools.longMake( [ 0.8354818739782282, -0.9775965506452678, 2.677945044588987, 1, 0, 2 ] );
+  var expected = _.euler.tools.long.make( [ 0.8354818739782282, -0.9775965506452678, 2.677945044588987, 1, 0, 2 ] );
   sampleTest();
 
   test.case = 'trivial yzx';
 
   var quat1 = [ 0, 0.25, 0.5, 0.82915619758885 ];
-  var expected = _.euler.tools.longMake( [ -2.6991209725017002, 0.25268025514207865, -2.113435429044549, 1, 2, 0 ] );
+  var expected = _.euler.tools.long.make( [ -2.6991209725017002, 0.25268025514207865, -2.113435429044549, 1, 2, 0 ] );
   sampleTest();
 
   test.case = 'trivial zxy';
 
   var quat1 = [ 0, 0.25, 0.5, 0.82915619758885 ];
-  var expected = _.euler.tools.longMake( [ -2.677945044588987, 0.9775965506452678, -0.8354818739782282, 2, 0, 1 ] );
+  var expected = _.euler.tools.long.make( [ -2.677945044588987, 0.9775965506452678, -0.8354818739782282, 2, 0, 1 ] );
   sampleTest();
 
   test.case = 'trivial zyx';
 
   var quat1 = [ 0, 0.25, 0.5, 0.82915619758885 ];
-  var expected = _.euler.tools.longMake( [ 2.8632929945846817, -0.4274791332848927, 1.1460587478032058, 2, 1, 0 ] );
+  var expected = _.euler.tools.long.make( [ 2.8632929945846817, -0.4274791332848927, 1.1460587478032058, 2, 1, 0 ] );
   sampleTest();
 
 }
@@ -754,7 +754,7 @@ function toMatrix( test )
   // var euler = [ 2.8633, -0.4275, 1.1461, 2, 1, 0 ]
   // var m1 = _.euler.toMatrix( euler, null );
   //
-  // var expected = _.euler.tools.longMake( [ 0, 0, 0 ] );
+  // var expected = _.euler.tools.long.make( [ 0, 0, 0 ] );
   // var applied = m1.matrixApplyTo([ 0.25, 0.5, 1.0 ]);
   //
   // var quat1 = _.quat.fromEuler( null, euler );
@@ -821,7 +821,7 @@ function toMatrix( test )
   //
   // var q = [ 0.4, 0.5, 0.6, 0.4795831523312719 ];
   // var euler = [ 1.7518, 0.0004, 1.7926, 2, 1, 0 ];
-  // var expected = _.euler.tools.longMake( [ 0, 0, 0 ] );
+  // var expected = _.euler.tools.long.make( [ 0, 0, 0 ] );
   //
   // sampleTest();
 
@@ -831,7 +831,7 @@ function toMatrix( test )
 
   var q = [ 0.25, 0.5, 0.82915619758885, 0 ];
   var euler = [ 2.8633, -0.4275, 1.1461, 2, 1, 0 ];
-  var expected = _.euler.tools.longMake( [ 0.32083976188534435, 0.6416910401663305, 0.893193402509267 ] );
+  var expected = _.euler.tools.long.make( [ 0.32083976188534435, 0.6416910401663305, 0.893193402509267 ] );
 
   //  -0.8750    0.2500    0.4146
   //   0.2500   -0.5000    0.8292
@@ -846,7 +846,7 @@ function toMatrix( test )
   //
   // // var q = [ 0.25, 0.5, 0.82915619758885, 0 ];
   // var euler = [ -1.1460588, 0.4274791, -2.863293, 0, 1, 2 ];
-  // var expected = _.euler.tools.longMake( [ 0.32082808017730713, 0.6416562497615814, 0.8932226002216339 ] );
+  // var expected = _.euler.tools.long.make( [ 0.32082808017730713, 0.6416562497615814, 0.8932226002216339 ] );
   //
   // sampleTest();
 
@@ -856,7 +856,7 @@ function toMatrix( test )
   //
   // var q = [ 0.25, 0.5, 0.82915619758885, 0 ];
   // var euler = [ 2.1134354, 2.699121, -0.2526803, 0, 2, 1 ];
-  // var expected = _.euler.tools.longMake( [ 0.32082808017730713, 0.6416562497615814, 0.8932226002216339 ] );
+  // var expected = _.euler.tools.long.make( [ 0.32082808017730713, 0.6416562497615814, 0.8932226002216339 ] );
   //
   // sampleTest();
 
@@ -867,7 +867,7 @@ function toMatrix( test )
   var euler = [ 0.25, 0.5, 0.82915619758885, 1, 0, 2 ];
   var m1 = _.euler.toMatrix( euler, null );
 
-  var expected = _.euler.tools.longMake( [ 0.2530621141195297, 0.7159013152122498, 0.8578723147511482 ] );
+  var expected = _.euler.tools.long.make( [ 0.2530621141195297, 0.7159013152122498, 0.8578723147511482 ] );
   var applied = m1.matrixApplyTo([ 0.25, 0.5, 1.0 ] );
 
   var quat1 = _.quat.fromEuler( null, euler );
@@ -896,7 +896,7 @@ function toMatrix( test )
   var euler = [ 0.25, 0.5, 0.82915619758885, 1, 2, 0 ];
   var m1 = _.euler.toMatrix( euler, null );
 
-  var expected = _.euler.tools.longMake( [  0.10337161687032922620704260170366, 0.63904984198111440718540503189963, 0.945214054217099848725599587179 ] );
+  var expected = _.euler.tools.long.make( [  0.10337161687032922620704260170366, 0.63904984198111440718540503189963, 0.945214054217099848725599587179 ] );
   var applied = m1.matrixApplyTo([ 0.25, 0.5, 1.0 ] );
 
   var quat1 = _.quat.fromEuler( null, euler );
@@ -925,7 +925,7 @@ function toMatrix( test )
   var euler = [ 0.25, 0.5, 0.82915619758885, 2, 0, 1 ];
   var m1 = _.euler.toMatrix( euler, null );
 
-  var expected = _.euler.tools.longMake( [ 0.35110081948689522723014362674347, 0.25845504803910486458114577211113, 1.0594475931818121834782685936401 ] );
+  var expected = _.euler.tools.long.make( [ 0.35110081948689522723014362674347, 0.25845504803910486458114577211113, 1.0594475931818121834782685936401 ] );
   var applied = m1.matrixApplyTo([ 0.25, 0.5, 1.0 ] );
 
   var quat1 = _.quat.fromEuler( null, euler );
@@ -952,7 +952,7 @@ function toMatrix( test )
   var euler = [ 0.25, 0.5, 0.82915619758885, 2, 1, 0 ];
   var m1 = _.euler.toMatrix( euler, null );
 
-  var expected = _.euler.tools.longMake( [ 0.30407903473460450205181031365661, 0.26504222953334272978258325424794, 1.0722819392300077603778543592048 ] );
+  var expected = _.euler.tools.long.make( [ 0.30407903473460450205181031365661, 0.26504222953334272978258325424794, 1.0722819392300077603778543592048 ] );
   var applied = m1.matrixApplyTo([ 0.25, 0.5, 1.0 ] );
 
   var quat1 = _.quat.fromEuler( null, euler );
@@ -1002,7 +1002,7 @@ function fromQuat2( test )
   var srcQuat = [ 0.89446325406638, 0.29156656802867026, 0.17295479161025828, 0.29156656802867026 ];
   var oldQuat = srcQuat.slice();
   var dstEuler = [ 0, 0, 0, 0, 1, 2 ];
-  var expected = _.euler.tools.longMake( [ 0.5, 0.5, 0.5, 0, 1, 2 ] );
+  var expected = _.euler.tools.long.make( [ 0.5, 0.5, 0.5, 0, 1, 2 ] );
 
   var gotEuler = _.euler.fromQuat2( dstEuler, srcQuat );
   test.equivalent( gotEuler, expected );
@@ -1015,7 +1015,7 @@ function fromQuat2( test )
 
   var srcQuat =  [ 0.7354858336283155, 0.46990785942494523, 0.3649976887426158, 0.32407387953254757 ];
   var dstEuler = [ 0, 0, 0, 0, 1, 2 ];
-  var expected = _.euler.tools.longMake( [ 1, 1, 0.25, 0, 1, 2 ] );
+  var expected = _.euler.tools.long.make( [ 1, 1, 0.25, 0, 1, 2 ] );
 
   var gotEuler = _.euler.fromQuat2( dstEuler, srcQuat );
   test.equivalent( gotEuler, expected );
@@ -1026,7 +1026,7 @@ function fromQuat2( test )
 
   var srcQuat = [ 0.8584542083038603, 0.43382795540572155, 0.15750930151157658, 0.22369733411737125 ];
   var dstEuler = [ 0, 0, 0, 0, 2, 1 ];
-  var expected = _.euler.tools.longMake( [ 1, 0.25, 0.5, 0, 2, 1 ] );
+  var expected = _.euler.tools.long.make( [ 1, 0.25, 0.5, 0, 2, 1 ] );
 
   var gotEuler = _.euler.fromQuat2( dstEuler, srcQuat );
   test.equivalent( gotEuler, expected );
@@ -1037,7 +1037,7 @@ function fromQuat2( test )
 
   var srcQuat = [ 0.8532118805123485, 0.3252921697349392, 0.39636481102592414, 0.09544332266900905 ];
   var dstEuler = [ 0, 0, 0, 1, 0, 2 ];
-  var expected = _.euler.tools.longMake( [ 1, 0.5, 0.5, 1, 0, 2 ] );
+  var expected = _.euler.tools.long.make( [ 1, 0.5, 0.5, 1, 0, 2 ] );
 
   var gotEuler = _.euler.fromQuat2( dstEuler, srcQuat );
   test.equivalent( gotEuler, expected );
@@ -1048,7 +1048,7 @@ function fromQuat2( test )
 
   var srcQuat = [ 0.4201637135104611, 0.7649936350495811, 0.3490809852398744, -0.3411592852710977 ];
   var dstEuler = [ 0, 0, 0, 1, 2, 0 ];
-  var expected = _.euler.tools.longMake( [ 1, 0.25, 2, 1, 2, 0 ] );
+  var expected = _.euler.tools.long.make( [ 1, 0.25, 2, 1, 2, 0 ] );
 
   var gotEuler = _.euler.fromQuat2( dstEuler, srcQuat );
   test.equivalent( gotEuler, expected );
@@ -1070,7 +1070,7 @@ function fromQuat2( test )
 
   var srcQuat =  [ 0.8532118805123485, 0.09544332266900905, 0.3252921697349392, 0.39636481102592414 ];
   var dstEuler = [ 0, 0, 0, 2, 1, 0 ];
-  var expected = _.euler.tools.longMake( [ 1, 0.5, 0.5, 2, 1, 0 ] );
+  var expected = _.euler.tools.long.make( [ 1, 0.5, 0.5, 2, 1, 0 ] );
 
   var gotEuler = _.euler.fromQuat2( dstEuler, srcQuat );
   test.equivalent( gotEuler, expected );
@@ -1081,7 +1081,7 @@ function fromQuat2( test )
 
   var srcQuat = [ 0.7354858336283155, 0.46990785942494523, 0.3649976887426158, 0.32407387953254757 ];
   var dstEuler = [ 0, 0, 0, 0, 1, 2 ];
-  var expected = _.euler.tools.longMake( [ 0.7354858336283155, 0.46990785942494523, 0.3649976887426158, 0.32407387953254757 ] );
+  var expected = _.euler.tools.long.make( [ 0.7354858336283155, 0.46990785942494523, 0.3649976887426158, 0.32407387953254757 ] );
 
   var euler = _.euler.fromQuat2( dstEuler, srcQuat );
   var gotQuat = _.euler.toQuat2( euler, null );
@@ -1093,7 +1093,7 @@ function fromQuat2( test )
 
   var srcQuat = [ 0.8584542083038603, 0.43382795540572155, 0.15750930151157658, 0.22369733411737125 ];
   var dstEuler = [ 0, 0, 0, 0, 2, 1 ];
-  var expected = _.euler.tools.longMake( [ 0.8584542083038603, 0.43382795540572155, 0.15750930151157658, 0.22369733411737125 ] );
+  var expected = _.euler.tools.long.make( [ 0.8584542083038603, 0.43382795540572155, 0.15750930151157658, 0.22369733411737125 ] );
 
   var euler = _.euler.fromQuat2( dstEuler, srcQuat );
   var gotQuat = _.euler.toQuat2( euler, null );
@@ -1105,7 +1105,7 @@ function fromQuat2( test )
 
   var srcQuat = [ 0.8532118805123485, 0.3252921697349392, 0.39636481102592414, 0.09544332266900905 ];
   var dstEuler = [ 0, 0, 0, 1, 0, 2 ];
-  var expected = _.euler.tools.longMake( [ 0.8532118805123485, 0.3252921697349392, 0.39636481102592414, 0.09544332266900905 ] );
+  var expected = _.euler.tools.long.make( [ 0.8532118805123485, 0.3252921697349392, 0.39636481102592414, 0.09544332266900905 ] );
 
   var euler = _.euler.fromQuat2( dstEuler, srcQuat );
   var gotQuat = _.euler.toQuat2( euler, null );
@@ -1117,7 +1117,7 @@ function fromQuat2( test )
 
   var srcQuat = [ 0.4201637135104611, 0.7649936350495811, 0.3490809852398744, -0.3411592852710977 ];
   var dstEuler = [ 0, 0, 0, 1, 2, 0 ];
-  var expected = _.euler.tools.longMake( [ 0.4201637135104611, 0.7649936350495811, 0.3490809852398744, -0.3411592852710977 ] );
+  var expected = _.euler.tools.long.make( [ 0.4201637135104611, 0.7649936350495811, 0.3490809852398744, -0.3411592852710977 ] );
 
   var euler = _.euler.fromQuat2( dstEuler, srcQuat );
   var gotQuat = _.euler.toQuat2( euler, null );
@@ -1129,7 +1129,7 @@ function fromQuat2( test )
 
   var srcQuat = [ 0.7354858336283155, 0.3649976887426158, 0.46990785942494523, 0.32407387953254757 ];
   var dstEuler = [ 0, 0, 0, 2, 0, 1 ]
-  var expected = _.euler.tools.longMake( [ 0.7354858336283155, 0.3649976887426158, 0.46990785942494523, 0.32407387953254757 ] );
+  var expected = _.euler.tools.long.make( [ 0.7354858336283155, 0.3649976887426158, 0.46990785942494523, 0.32407387953254757 ] );
 
   var euler = _.euler.fromQuat2( dstEuler, srcQuat );
   var gotQuat = _.euler.toQuat2( euler, null );
@@ -1141,7 +1141,7 @@ function fromQuat2( test )
 
   var srcQuat =  [ 0.8532118805123485, 0.09544332266900905, 0.3252921697349392, 0.39636481102592414 ];
   var dstEuler = [ 0, 0, 0, 2, 1, 0 ];
-  var expected = _.euler.tools.longMake( [ 0.8532118805123485, 0.09544332266900905, 0.3252921697349392, 0.39636481102592414 ] );
+  var expected = _.euler.tools.long.make( [ 0.8532118805123485, 0.09544332266900905, 0.3252921697349392, 0.39636481102592414 ] );
 
   var euler = _.euler.fromQuat2( dstEuler, srcQuat );
   var gotQuat = _.euler.toQuat2( euler, null );
@@ -1153,7 +1153,7 @@ function fromQuat2( test )
 
   var euler = [ 1, 1, 0.25, 0, 1, 0 ];
   var dstEuler = [ 0, 0, 0, 0, 1, 0 ];
-  var expected = _.euler.tools.longMake( [ 1, 1, 0.25, 0, 1, 0 ] ); ;
+  var expected = _.euler.tools.long.make( [ 1, 1, 0.25, 0, 1, 0 ] ); ;
 
   var srcQuat = _.euler.toQuat2( euler, null );
   var gotEuler = _.euler.fromQuat2( dstEuler, srcQuat );
@@ -1165,7 +1165,7 @@ function fromQuat2( test )
 
   var euler =  [ 1, 0.25, 0.5, 0, 2, 0 ] ;
   var dstEuler = [ 0, 0, 0, 0, 2, 0 ];
-  var expected = _.euler.tools.longMake( [ 1, 0.25, 0.5, 0, 2, 0 ] );
+  var expected = _.euler.tools.long.make( [ 1, 0.25, 0.5, 0, 2, 0 ] );
 
   var srcQuat = _.euler.toQuat2( euler, null );
   var gotEuler = _.euler.fromQuat2( dstEuler, srcQuat );
@@ -1177,7 +1177,7 @@ function fromQuat2( test )
 
   var euler = [ 1, 0.5, 0.5, 1, 0, 1 ];
   var dstEuler = [ 0, 0, 0, 1, 0, 1 ];
-  var expected = _.euler.tools.longMake( [ 1, 0.5, 0.5, 1, 0, 1 ] );
+  var expected = _.euler.tools.long.make( [ 1, 0.5, 0.5, 1, 0, 1 ] );
 
   var srcQuat = _.euler.toQuat2( euler, null );
   var gotEuler = _.euler.fromQuat2( dstEuler, srcQuat );
@@ -1189,7 +1189,7 @@ function fromQuat2( test )
 
   var euler = [ 1, 0.25, 2, 1, 2, 1 ];
   var dstEuler = [ 0, 0, 0, 1, 2, 1 ];
-  var expected = _.euler.tools.longMake( [ 1, 0.25, 2, 1, 2, 1 ] );
+  var expected = _.euler.tools.long.make( [ 1, 0.25, 2, 1, 2, 1 ] );
 
   var gotQuat = _.euler.toQuat2( euler, null );
   var gotEuler = _.euler.fromQuat2( dstEuler, gotQuat );
@@ -1213,7 +1213,7 @@ function fromQuat2( test )
 
   var euler =  [ 1, 0.5, 0.5, 2, 1, 2 ];
   var dstEuler = [ 0, 0, 0, 2, 1, 2 ];
-  var expected = _.euler.tools.longMake( [ 1, 0.5, 0.5, 2, 1, 2 ] );
+  var expected = _.euler.tools.long.make( [ 1, 0.5, 0.5, 2, 1, 2 ] );
 
   var gotQuat = _.euler.toQuat2( euler, null );
   var gotEuler = _.euler.fromQuat2( dstEuler, gotQuat );
@@ -1225,7 +1225,7 @@ function fromQuat2( test )
 
   var dstEuler = undefined;
   var srcQuat = [ 0.7354858336283155, 0.46990785942494523, 0.3649976887426158, 0.32407387953254757 ];
-  var expected = _.euler.tools.longMake( [ 1, 1, 0.25, 0, 1, 2 ] );
+  var expected = _.euler.tools.long.make( [ 1, 1, 0.25, 0, 1, 2 ] );
 
   var gotEuler = _.euler.fromQuat2( dstEuler, srcQuat );
   test.equivalent( gotEuler, expected );
@@ -1237,7 +1237,7 @@ function fromQuat2( test )
 
   var dstEuler = null;
   var srcQuat = [ 0.7354858336283155, 0.46990785942494523, 0.3649976887426158, 0.32407387953254757 ];
-  var expected = _.euler.tools.longMake( [ 1, 1, 0.25, 0, 1, 2 ] );
+  var expected = _.euler.tools.long.make( [ 1, 1, 0.25, 0, 1, 2 ] );
 
   var gotEuler = _.euler.fromQuat2( dstEuler, srcQuat );
   test.equivalent( gotEuler, expected );
@@ -1269,7 +1269,7 @@ function toQuat2( test )
   var srcEuler = [ 0.5, 0.5, 0.5, 0, 1, 2 ];
   var oldEuler =   srcEuler.slice();
   var dstQuat = [ 1, 0, 0, 0 ];
-  var expected = _.euler.tools.longMake( [ 0.89446325406638, 0.29156656802867026, 0.17295479161025828, 0.29156656802867026 ] );
+  var expected = _.euler.tools.long.make( [ 0.89446325406638, 0.29156656802867026, 0.17295479161025828, 0.29156656802867026 ] );
 
   var gotQuat = _.euler.toQuat2( srcEuler, dstQuat );
   test.equivalent( gotQuat, expected );
@@ -1282,7 +1282,7 @@ function toQuat2( test )
 
   var srcEuler = [ 1, 1, 0.25, 0, 1, 2 ];
   var dstQuat = null;
-  var expected = _.euler.tools.longMake( [ 0.7354858336283155, 0.46990785942494523, 0.3649976887426158, 0.32407387953254757 ] );
+  var expected = _.euler.tools.long.make( [ 0.7354858336283155, 0.46990785942494523, 0.3649976887426158, 0.32407387953254757 ] );
 
   var gotQuat = _.euler.toQuat2( srcEuler, dstQuat );
   test.equivalent( gotQuat, expected );
@@ -1294,7 +1294,7 @@ function toQuat2( test )
 
   var srcEuler = [ 1, 0.25, 0.5, 0, 2, 1 ];
   var dstQuat = undefined;
-  var expected = _.euler.tools.longMake( [ 0.8584542083038603, 0.43382795540572155, 0.15750930151157658, 0.22369733411737125 ] );
+  var expected = _.euler.tools.long.make( [ 0.8584542083038603, 0.43382795540572155, 0.15750930151157658, 0.22369733411737125 ] );
 
   var gotQuat = _.euler.toQuat2( srcEuler, dstQuat );
   test.equivalent( gotQuat, expected );
@@ -1305,7 +1305,7 @@ function toQuat2( test )
   test.case = 'Euler YXZ';
 
   var srcEuler = [ 1, 2, 0.25, 1, 0, 2 ];
-  var expected = _.euler.tools.longMake( [ 0.5207569436793306, 0.7649936350495811, 0.1649463125283644, - 0.3411592852710977 ] );
+  var expected = _.euler.tools.long.make( [ 0.5207569436793306, 0.7649936350495811, 0.1649463125283644, - 0.3411592852710977 ] );
 
   var gotQuat = _.euler.toQuat2( srcEuler, null );
   test.equivalent( gotQuat, expected );
@@ -1315,7 +1315,7 @@ function toQuat2( test )
   test.case = 'Euler YZX';
 
   var srcEuler = [ 1, 0.25, 2, 1, 2, 0 ];
-  var expected = _.euler.tools.longMake( [ 0.4201637135104611, 0.7649936350495811, 0.3490809852398744, - 0.3411592852710977 ] );
+  var expected = _.euler.tools.long.make( [ 0.4201637135104611, 0.7649936350495811, 0.3490809852398744, - 0.3411592852710977 ] );
 
   var gotQuat = _.euler.toQuat2( srcEuler, null );
   test.equivalent( gotQuat, expected );
@@ -1325,7 +1325,7 @@ function toQuat2( test )
   test.case = 'Euler ZXY';
 
   var srcEuler = [ 0.25, 1, 1, 2, 0, 1 ];
-  var expected = _.euler.tools.longMake( [ 0.7354858336283155, 0.3649976887426158, 0.46990785942494523, 0.32407387953254757 ] );
+  var expected = _.euler.tools.long.make( [ 0.7354858336283155, 0.3649976887426158, 0.46990785942494523, 0.32407387953254757 ] );
 
   var gotQuat = _.euler.toQuat2( srcEuler, null );
   test.equivalent( gotQuat, expected );
@@ -1335,7 +1335,7 @@ function toQuat2( test )
   test.case = 'Euler ZYX';
 
   var srcEuler = [ 0.25, 1, 0.5, 2, 1, 0 ];
-  var expected = _.euler.tools.longMake( [ 0.8584542083038603, 0.15750930151157658, 0.48796606341816057, -0.011675321619178877 ] );
+  var expected = _.euler.tools.long.make( [ 0.8584542083038603, 0.15750930151157658, 0.48796606341816057, -0.011675321619178877 ] );
 
   var gotQuat = _.euler.toQuat2( srcEuler, null );
   test.equivalent( gotQuat, expected );
@@ -1346,7 +1346,7 @@ function toQuat2( test )
 
   var srcEuler = [ 1, 1, 0.25, 0, 1, 2 ];
   var dst = [ 0, 0, 0, 0, 1, 2 ];
-  var expected = _.euler.tools.longMake( [ 1, 1, 0.25, 0, 1, 2 ] );
+  var expected = _.euler.tools.long.make( [ 1, 1, 0.25, 0, 1, 2 ] );
 
   var gotQuat = _.euler.toQuat2( srcEuler, null );
   var gotEuler = _.euler.fromQuat2( dstEuler, gotQuat );
@@ -1358,7 +1358,7 @@ function toQuat2( test )
 
   var srcEuler = [ 1, 0.25, 0.5, 0, 2, 1 ];
   var dstEuler = [ 0, 0, 0, 0, 2, 1 ];
-  var expected = _.euler.tools.longMake( [ 1, 0.25, 0.5, 0, 2, 1 ] );
+  var expected = _.euler.tools.long.make( [ 1, 0.25, 0.5, 0, 2, 1 ] );
 
   var gotQuat = _.euler.toQuat2( srcEuler, null );
   var gotEuler = _.euler.fromQuat2( dstEuler, gotQuat );
@@ -1370,7 +1370,7 @@ function toQuat2( test )
 
   var srcEuler = [ 2, 1, 0.25, 1, 0, 2 ];
   var dstEuler = [ 0, 0, 0, 1, 0, 2 ];
-  var expected = _.euler.tools.longMake( [ 2, 1, 0.25, 1, 0, 2 ] );
+  var expected = _.euler.tools.long.make( [ 2, 1, 0.25, 1, 0, 2 ] );
 
   var gotQuat = _.euler.toQuat2( srcEuler, null );
   var gotEuler = _.euler.fromQuat2( dstEuler, gotQuat );
@@ -1382,7 +1382,7 @@ function toQuat2( test )
 
   var srcEuler = [ 1, 0.25, 2, 1, 2, 0 ];
   var dstEuler = [ 0, 0, 0, 1, 2, 0 ];
-  var expected = _.euler.tools.longMake( [ 1, 0.25, 2, 1, 2, 0 ] );
+  var expected = _.euler.tools.long.make( [ 1, 0.25, 2, 1, 2, 0 ] );
 
   var gotQuat = _.euler.toQuat2( srcEuler, null );
   var gotEuler = _.euler.fromQuat2( dstEuler, gotQuat );
@@ -1394,7 +1394,7 @@ function toQuat2( test )
 
   var srcEuler = [ 0.25, 1, 1, 2, 0, 1 ];
   var dstEuler = [ 0, 0, 0, 2, 0, 1 ];
-  var expected = _.euler.tools.longMake( [ 0.25, 1, 1, 2, 0, 1 ] );
+  var expected = _.euler.tools.long.make( [ 0.25, 1, 1, 2, 0, 1 ] );
 
   var gotQuat = _.euler.toQuat2( srcEuler, null );
   var gotEuler = _.euler.fromQuat2( dstEuler, gotQuat );
@@ -1406,7 +1406,7 @@ function toQuat2( test )
 
   var srcEuler = [ 0.25, 1, 0.5, 2, 1, 0 ];
   var dstEuler = [ 0, 0, 0, 2, 1, 0 ];
-  var expected = _.euler.tools.longMake( [ 0.25, 1, 0.5, 2, 1, 0 ] );
+  var expected = _.euler.tools.long.make( [ 0.25, 1, 0.5, 2, 1, 0 ] );
 
   var gotQuat = _.euler.toQuat2( srcEuler, null );
   var gotEuler = _.euler.fromQuat2( dstEuler, gotQuat );
@@ -1418,7 +1418,7 @@ function toQuat2( test )
 
   var srcEuler = [ 1, 1, 0.25, 0, 1, 0 ];
   var dstEuler = [ 0, 0, 0, 0, 1, 0 ];
-  var expected = _.euler.tools.longMake( [ 1, 1, 0.25, 0, 1, 0 ] );
+  var expected = _.euler.tools.long.make( [ 1, 1, 0.25, 0, 1, 0 ] );
 
   var gotQuat = _.euler.toQuat2( srcEuler, null );
   var gotEuler = _.euler.fromQuat2( dstEuler, gotQuat );
@@ -1430,7 +1430,7 @@ function toQuat2( test )
 
   var srcEuler = [ 1, 0.25, 0.5, 0, 2, 0 ];
   var dstEuler = [ 0, 0, 0, 0, 2, 0 ];
-  var expected = _.euler.tools.longMake( [ 1, 0.25, 0.5, 0, 2, 0 ] );
+  var expected = _.euler.tools.long.make( [ 1, 0.25, 0.5, 0, 2, 0 ] );
 
   var gotQuat = _.euler.toQuat2( srcEuler, null );
   var gotEuler = _.euler.fromQuat2( dstEuler, gotQuat );
@@ -1442,7 +1442,7 @@ function toQuat2( test )
 
   var srcEuler = [ 1, 2, 0.25, 1, 0, 1 ];
   var dstEuler = [ 0, 0, 0, 1, 0, 1 ];
-  var expected = _.euler.tools.longMake( [ 1, 2, 0.25, 1, 0, 1 ] );
+  var expected = _.euler.tools.long.make( [ 1, 2, 0.25, 1, 0, 1 ] );
 
   var gotQuat = _.euler.toQuat2( srcEuler, null );
   var gotEuler = _.euler.fromQuat2( dstEuler, gotQuat );
@@ -1454,7 +1454,7 @@ function toQuat2( test )
 
   var srcEuler = [ 1, 0.25, 2, 1, 2, 1 ];
   var dstEuler = [ 0, 0, 0, 1, 2, 1 ];
-  var expected = _.euler.tools.longMake( [ 1, 0.25, 2, 1, 2, 1 ] );
+  var expected = _.euler.tools.long.make( [ 1, 0.25, 2, 1, 2, 1 ] );
 
   var gotQuat = _.euler.toQuat2( srcEuler, null );
   var gotEuler = _.euler.fromQuat2( dstEuler, gotQuat );
@@ -1466,7 +1466,7 @@ function toQuat2( test )
 
   var srcEuler = [ 0.25, 1, 1, 2, 0, 2 ];
   var dstEuler = [ 0, 0, 0, 2, 0, 2 ];
-  var expected = _.euler.tools.longMake( [ 0.25, 1, 1, 2, 0, 2 ] );
+  var expected = _.euler.tools.long.make( [ 0.25, 1, 1, 2, 0, 2 ] );
 
   var gotQuat = _.euler.toQuat2( srcEuler, null );
   var gotEuler = _.euler.fromQuat2( dstEuler, gotQuat );
@@ -1478,7 +1478,7 @@ function toQuat2( test )
 
   var srcEuler = [ 0.25, 1, 0.5, 2, 1, 2 ];
   var dstEuler = [ 0, 0, 0, 2, 1, 2 ];
-  var expected = _.euler.tools.longMake( [ 0.25, 1, 0.5, 2, 1, 2 ] );
+  var expected = _.euler.tools.long.make( [ 0.25, 1, 0.5, 2, 1, 2 ] );
 
   var gotQuat = _.euler.toQuat2( srcEuler, null );
   var gotEuler = _.euler.fromQuat2( dstEuler, gotQuat );
@@ -1489,7 +1489,7 @@ function toQuat2( test )
   test.case = 'dstQuat null';
 
   var srcEuler = [ 1, 0, 0, 0, 1, 2 ];
-  var expected = _.euler.tools.longMake( [ 0.8775825618903728, 0.479425538604203, 0, 0 ] );
+  var expected = _.euler.tools.long.make( [ 0.8775825618903728, 0.479425538604203, 0, 0 ] );
 
   var gotQuat = _.euler.toQuat2( srcEuler, null );
   test.equivalent( gotQuat, expected );
@@ -1499,7 +1499,7 @@ function toQuat2( test )
   test.case = 'dstQuat undefined';
 
   var srcEuler = [ 1, 0, 0, 0, 1, 2 ];
-  var expected = _.euler.tools.longMake( [ 0.8775825618903728, 0.479425538604203, 0, 0 ] );
+  var expected = _.euler.tools.long.make( [ 0.8775825618903728, 0.479425538604203, 0, 0 ] );
 
   var gotQuat = _.euler.toQuat2( srcEuler, undefined );
   test.equivalent( gotQuat, expected );
@@ -1532,7 +1532,7 @@ function eulerToQuatToEulerGimbalLock( test )
 
   var srcEuler = [ - 0.1, Math.PI/2, 0, 0, 1, 2 ];
   var dstEuler = [ 0, 0, 0, 0, 1, 2 ];
-  var expected = _.euler.tools.longMake( [ - 0.1, Math.PI/2, 0, 0, 1, 2 ] );
+  var expected = _.euler.tools.long.make( [ - 0.1, Math.PI/2, 0, 0, 1, 2 ] );
 
   var gotQuat = _.euler.toQuat2( srcEuler, null );
   var gotEuler = _.euler.fromQuat2( dstEuler, gotQuat );
@@ -1544,7 +1544,7 @@ function eulerToQuatToEulerGimbalLock( test )
 
   var srcEuler = [ 0.1, - Math.PI/2, 0, 0, 1, 2 ];
   var dstEuler = [ 0, 0, 0, 0, 1, 2 ];
-  var expected = _.euler.tools.longMake( [ 0.1, - Math.PI/2, 0, 0, 1, 2 ] );
+  var expected = _.euler.tools.long.make( [ 0.1, - Math.PI/2, 0, 0, 1, 2 ] );
 
   var gotQuat = _.euler.toQuat2( srcEuler, null );
   var gotEuler = _.euler.fromQuat2( dstEuler, gotQuat );
@@ -1556,7 +1556,7 @@ function eulerToQuatToEulerGimbalLock( test )
 
   var srcEuler =  [ 0.1, Math.PI/2, 0, 0, 2, 1 ] ;
   var dstEuler = [ 0, 0, 0, 0, 2, 1 ];
-  var expected = _.euler.tools.longMake( [ 0.1, Math.PI/2, 0, 0, 2, 1 ] );
+  var expected = _.euler.tools.long.make( [ 0.1, Math.PI/2, 0, 0, 2, 1 ] );
 
   var gotQuat = _.euler.toQuat2( srcEuler, null );
   var gotEuler = _.euler.fromQuat2( dstEuler, gotQuat );
@@ -1568,7 +1568,7 @@ function eulerToQuatToEulerGimbalLock( test )
 
   var srcEuler =  [ 0.1, - Math.PI/2, 0, 0, 2, 1 ] ;
   var dstEuler = [ 0, 0, 0, 0, 2, 1 ];
-  var expected = _.euler.tools.longMake( [ 0.1, - Math.PI/2, 0, 0, 2, 1 ] );
+  var expected = _.euler.tools.long.make( [ 0.1, - Math.PI/2, 0, 0, 2, 1 ] );
 
   var gotQuat = _.euler.toQuat2( srcEuler, null );
   var gotEuler = _.euler.fromQuat2( dstEuler, gotQuat );
@@ -1580,7 +1580,7 @@ function eulerToQuatToEulerGimbalLock( test )
 
   var srcEuler = [ 0.1, Math.PI/2, 0, 1, 0, 2 ];
   var dstEuler = [ 0, 0, 0, 1, 0, 2 ];
-  var expected = _.euler.tools.longMake( [ 0.1, Math.PI/2, 0, 1, 0, 2 ] );
+  var expected = _.euler.tools.long.make( [ 0.1, Math.PI/2, 0, 1, 0, 2 ] );
 
   var gotQuat = _.euler.toQuat2( srcEuler, null );
   var gotEuler = _.euler.fromQuat2( dstEuler, gotQuat );
@@ -1592,7 +1592,7 @@ function eulerToQuatToEulerGimbalLock( test )
 
   var srcEuler = [ - 0.1, - Math.PI/2, 0, 1, 0, 2 ];
   var dstEuler = [ 0, 0, 0, 1, 0, 2 ];
-  var expected = _.euler.tools.longMake( [ - 0.1, - Math.PI/2, 0, 1, 0, 2 ] );
+  var expected = _.euler.tools.long.make( [ - 0.1, - Math.PI/2, 0, 1, 0, 2 ] );
 
   var gotQuat = _.euler.toQuat2( srcEuler, null );
   var gotEuler = _.euler.fromQuat2( dstEuler, gotQuat );
@@ -1604,7 +1604,7 @@ function eulerToQuatToEulerGimbalLock( test )
 
   var srcEuler = [ - 0.1, Math.PI/2, 0, 1, 2, 0 ];
   var dstEuler = [ 0, 0, 0, 1, 2, 0 ];
-  var expected = _.euler.tools.longMake( [ - 0.1, Math.PI/2, 0, 1, 2, 0 ] );
+  var expected = _.euler.tools.long.make( [ - 0.1, Math.PI/2, 0, 1, 2, 0 ] );
 
   var gotQuat = _.euler.toQuat2( srcEuler, null );
   var gotEuler = _.euler.fromQuat2( dstEuler, gotQuat );
@@ -1616,7 +1616,7 @@ function eulerToQuatToEulerGimbalLock( test )
 
   var srcEuler = [ - 0.1, - Math.PI/2, 0, 1, 2, 0 ];
   var dstEuler = [ 0, 0, 0, 1, 2, 0 ];
-  var expected = _.euler.tools.longMake( [ - 0.1, - Math.PI/2, 0, 1, 2, 0 ] );
+  var expected = _.euler.tools.long.make( [ - 0.1, - Math.PI/2, 0, 1, 2, 0 ] );
 
   var gotQuat = _.euler.toQuat2( srcEuler, null );
   var gotEuler = _.euler.fromQuat2( dstEuler, gotQuat );
@@ -1652,7 +1652,7 @@ function eulerToQuatToEulerGimbalLock( test )
 
   var srcEuler =  [ - 0.1, Math.PI/2, 0, 2, 1, 0 ];
   var dstEuler = [ 0, 0, 0, 2, 1, 0 ];
-  var expected = _.euler.tools.longMake( [ - 0.1, Math.PI/2, 0, 2, 1, 0 ] );
+  var expected = _.euler.tools.long.make( [ - 0.1, Math.PI/2, 0, 2, 1, 0 ] );
 
   var gotQuat = _.euler.toQuat2( srcEuler, null );
   var gotEuler = _.euler.fromQuat2( dstEuler, gotQuat );
@@ -1664,7 +1664,7 @@ function eulerToQuatToEulerGimbalLock( test )
 
   var srcEuler =  [ - 0.1, - Math.PI/2, 0, 2, 1, 0 ];
   var dstEuler = [ 0, 0, 0, 2, 1, 0 ];
-  var expected = _.euler.tools.longMake( [ - 0.1, - Math.PI/2, 0, 2, 1, 0 ] );
+  var expected = _.euler.tools.long.make( [ - 0.1, - Math.PI/2, 0, 2, 1, 0 ] );
 
   var gotQuat = _.euler.toQuat2( srcEuler, null );
   var gotEuler = _.euler.fromQuat2( dstEuler, gotQuat );
@@ -1676,7 +1676,7 @@ function eulerToQuatToEulerGimbalLock( test )
 
   var srcEuler = [ 0.1, 0, 0, 0, 1, 0 ];
   var dstEuler = [ 0, 0, 0, 0, 1, 0 ];
-  var expected = _.euler.tools.longMake( [ 0.1, 0, 0, 0, 1, 0 ] ); ;
+  var expected = _.euler.tools.long.make( [ 0.1, 0, 0, 0, 1, 0 ] ); ;
 
   var gotQuat = _.euler.toQuat2( srcEuler, null );
   var gotEuler = _.euler.fromQuat2( dstEuler, gotQuat );
@@ -1688,7 +1688,7 @@ function eulerToQuatToEulerGimbalLock( test )
 
   var srcEuler = [ 0.1, Math.PI, 0, 0, 1, 0 ];
   var dstEuler = [ 0, 0, 0, 0, 1, 0 ];
-  var expected = _.euler.tools.longMake( [ 0.1, Math.PI, 0, 0, 1, 0 ] ); ;
+  var expected = _.euler.tools.long.make( [ 0.1, Math.PI, 0, 0, 1, 0 ] ); ;
 
   var gotQuat = _.euler.toQuat2( srcEuler, null );
   var gotEuler = _.euler.fromQuat2( dstEuler, gotQuat );
@@ -1700,7 +1700,7 @@ function eulerToQuatToEulerGimbalLock( test )
 
   var srcEuler =  [ 0.1, 0, 0, 0, 2, 0 ] ;
   var dstEuler = [ 0, 0, 0, 0, 2, 0 ];
-  var expected = _.euler.tools.longMake( [ 0.1, 0, 0, 0, 2, 0 ] );
+  var expected = _.euler.tools.long.make( [ 0.1, 0, 0, 0, 2, 0 ] );
 
   var gotQuat = _.euler.toQuat2( srcEuler, null );
   var gotEuler = _.euler.fromQuat2( dstEuler, gotQuat );
@@ -1712,7 +1712,7 @@ function eulerToQuatToEulerGimbalLock( test )
 
   var srcEuler =  [ 0.1, Math.PI, 0, 0, 2, 0 ] ;
   var dstEuler = [ 0, 0, 0, 0, 2, 0 ];
-  var expected = _.euler.tools.longMake( [ 0.1, Math.PI, 0, 0, 2, 0 ] );
+  var expected = _.euler.tools.long.make( [ 0.1, Math.PI, 0, 0, 2, 0 ] );
 
   var gotQuat = _.euler.toQuat2( srcEuler, null );
   var gotEuler = _.euler.fromQuat2( dstEuler, gotQuat );
@@ -1724,7 +1724,7 @@ function eulerToQuatToEulerGimbalLock( test )
 
   var srcEuler = [ 0.1, 0, 0, 1, 0, 1 ];
   var dstEuler = [ 0, 0, 0, 1, 0, 1 ];
-  var expected = _.euler.tools.longMake( [ 0.1, 0, 0, 1, 0, 1 ] );
+  var expected = _.euler.tools.long.make( [ 0.1, 0, 0, 1, 0, 1 ] );
 
   var gotQuat = _.euler.toQuat2( srcEuler, null );
   var gotEuler = _.euler.fromQuat2( dstEuler, gotQuat );
@@ -1736,7 +1736,7 @@ function eulerToQuatToEulerGimbalLock( test )
 
   var srcEuler = [ 0.1, Math.PI, 0, 1, 0, 1 ];
   var dstEuler = [ 0, 0, 0, 1, 0, 1 ];
-  var expected = _.euler.tools.longMake( [ 0.1, Math.PI, 0, 1, 0, 1 ] );
+  var expected = _.euler.tools.long.make( [ 0.1, Math.PI, 0, 1, 0, 1 ] );
 
   var gotQuat = _.euler.toQuat2( srcEuler, null );
   var gotEuler = _.euler.fromQuat2( dstEuler, gotQuat );
@@ -1748,7 +1748,7 @@ function eulerToQuatToEulerGimbalLock( test )
 
   var srcEuler = [ 0.1, 0, 0, 1, 2, 1 ];
   var dstEuler = [ 0, 0, 0, 1, 2, 1 ];
-  var expected = _.euler.tools.longMake( [ 0.1, 0, 0, 1, 2, 1 ] );
+  var expected = _.euler.tools.long.make( [ 0.1, 0, 0, 1, 2, 1 ] );
 
   var gotQuat = _.euler.toQuat2( srcEuler, null );
   var gotEuler = _.euler.fromQuat2( dstEuler, gotQuat );
@@ -1760,7 +1760,7 @@ function eulerToQuatToEulerGimbalLock( test )
 
   var srcEuler = [ 0.1, Math.PI, 0, 1, 2, 1 ];
   var dstEuler = [ 0, 0, 0, 1, 2, 1 ];
-  var expected = _.euler.tools.longMake( [ 0.1, Math.PI, 0, 1, 2, 1 ] );
+  var expected = _.euler.tools.long.make( [ 0.1, Math.PI, 0, 1, 2, 1 ] );
 
   var gotQuat = _.euler.toQuat2( srcEuler, null );
   var gotEuler = _.euler.fromQuat2( dstEuler, gotQuat );
@@ -1796,7 +1796,7 @@ function eulerToQuatToEulerGimbalLock( test )
 
   var srcEuler =  [ 0.1, 0, 0, 2, 1, 2 ];
   var dstEuler = [ 0, 0, 0, 2, 1, 2 ];
-  var expected = _.euler.tools.longMake( [ 0.1, 0, 0, 2, 1, 2 ] );
+  var expected = _.euler.tools.long.make( [ 0.1, 0, 0, 2, 1, 2 ] );
 
   var gotQuat = _.euler.toQuat2( srcEuler, null );
   var gotEuler = _.euler.fromQuat2( dstEuler, gotQuat );
@@ -1808,7 +1808,7 @@ function eulerToQuatToEulerGimbalLock( test )
 
   var srcEuler =  [ 0.1, Math.PI, 0, 2, 1, 2 ];
   var dstEuler = [ 0, 0, 0, 2, 1, 2 ];
-  var expected = _.euler.tools.longMake( [ 0.1, Math.PI, 0, 2, 1, 2 ] );
+  var expected = _.euler.tools.long.make( [ 0.1, Math.PI, 0, 2, 1, 2 ] );
 
   var gotQuat = _.euler.toQuat2( srcEuler, null );
   var gotEuler = _.euler.fromQuat2( dstEuler, gotQuat );
@@ -1832,7 +1832,7 @@ function fromMatrix2( test )
     - 0.13938128948, 0.622446835, 0.7701511383
   ]);
   var dstEuler = [ 0, 0, 0, 0, 1, 2 ];
-  var expected = _.euler.tools.longMake( [ 0.5, 0.5, 0.5, 0, 1, 2 ] );
+  var expected = _.euler.tools.long.make( [ 0.5, 0.5, 0.5, 0, 1, 2 ] );
 
   var gotEuler = _.euler.fromMatrix2( dstEuler, srcMatrix );
   gotEuler = _.vectorAdapter.toLong( gotEuler );
@@ -1858,7 +1858,7 @@ function fromMatrix2( test )
     - 0.13938128948, 0.622446835, 0.7701511383
   ]);
   var dstEuler = [ 0, 0, 0, 0, 1, 2 ];
-  var expected = _.euler.tools.longMake( [ 0.5, 0.5, 0.5, 0, 1, 2 ] );
+  var expected = _.euler.tools.long.make( [ 0.5, 0.5, 0.5, 0, 1, 2 ] );
 
   var gotEuler = _.euler.fromMatrix2( dstEuler, srcMatrix );
   gotEuler = _.vectorAdapter.toLong( gotEuler );
@@ -1876,7 +1876,7 @@ function fromMatrix2( test )
   ]);
 
   var dstEuler = [ 0, 0, 0, 0, 2, 1 ];
-  var expected = _.euler.tools.longMake( [ 0.5, 0.5, 0.5, 0, 2, 1 ] );
+  var expected = _.euler.tools.long.make( [ 0.5, 0.5, 0.5, 0, 2, 1 ] );
 
   var gotEuler = _.euler.fromMatrix2( dstEuler, srcMatrix );
   gotEuler = _.vectorAdapter.toLong( gotEuler );
@@ -1893,7 +1893,7 @@ function fromMatrix2( test )
     - 0.6142724156, 0.6307470202, 0.474159896
   ]);
   var dstEuler = [ 0, 0, 0, 1, 0, 2 ];
-  var expected = _.euler.tools.longMake( [ 1, 0.5, 0.5, 1, 0, 2 ] );
+  var expected = _.euler.tools.long.make( [ 1, 0.5, 0.5, 1, 0, 2 ] );
 
   var gotEuler = _.euler.fromMatrix2( dstEuler, srcMatrix );
   gotEuler = _.vectorAdapter.toLong( gotEuler );
@@ -1910,7 +1910,7 @@ function fromMatrix2( test )
     - 0.8153116703033, 0.441732704, 0.374351501
   ]);
   var dstEuler = [ 0, 0, 0, 1, 2, 0 ];
-  var expected = _.euler.tools.longMake( [ 1, 0.25, 0.5, 1, 2, 0 ] );
+  var expected = _.euler.tools.long.make( [ 1, 0.25, 0.5, 1, 2, 0 ] );
 
   var gotEuler = _.euler.fromMatrix2( dstEuler, srcMatrix );
   gotEuler = _.vectorAdapter.toLong( gotEuler );
@@ -1944,7 +1944,7 @@ function fromMatrix2( test )
     - 0.4794255495, 0.4207354784, 0.770151138
   ]);
   var dstEuler = [ 0, 0, 0, 2, 1, 0 ];
-  var expected = _.euler.tools.longMake( [ 1, 0.5, 0.5, 2, 1, 0 ] );
+  var expected = _.euler.tools.long.make( [ 1, 0.5, 0.5, 2, 1, 0 ] );
 
   var gotEuler = _.euler.fromMatrix2( dstEuler, srcMatrix );
   gotEuler = _.vectorAdapter.toLong( gotEuler );
@@ -1961,7 +1961,7 @@ function fromMatrix2( test )
     - 0.13938128948, 0.622446835, 0.7701511383
   ]);
   var dstEuler = null;
-  var expected = _.euler.tools.longMake( [ 0.5, 0.5, 0.5, 0, 1, 2 ] );
+  var expected = _.euler.tools.long.make( [ 0.5, 0.5, 0.5, 0, 1, 2 ] );
 
   var gotEuler = _.euler.fromMatrix2( dstEuler, srcMatrix );
   gotEuler = _.vectorAdapter.toLong( gotEuler );
@@ -1979,7 +1979,7 @@ function fromMatrix2( test )
     - 0.13938128948, 0.622446835, 0.7701511383
   ]);
   var dstEuler = undefined;
-  var expected = _.euler.tools.longMake( [ 0.5, 0.5, 0.5, 0, 1, 2 ] );
+  var expected = _.euler.tools.long.make( [ 0.5, 0.5, 0.5, 0, 1, 2 ] );
 
   var gotEuler = _.euler.fromMatrix2( dstEuler, srcMatrix );
   gotEuler = _.vectorAdapter.toLong( gotEuler );
@@ -1993,7 +1993,7 @@ function fromMatrix2( test )
   var srcEuler = [ 1, 0.5, 0.5, 0, 1, 2 ];
   var dstEuler = [ 0, 0, 0, 0, 1, 2 ];
   var dstMatrix = _.Matrix.MakeZero( [ 3, 3 ] );
-  var expected = _.euler.tools.longMake( [ 1, 0.5, 0.5, 0, 1, 2 ] );
+  var expected = _.euler.tools.long.make( [ 1, 0.5, 0.5, 0, 1, 2 ] );
 
   var gotMatrix = _.euler.toMatrix2( srcEuler, dstMatrix );
   var gotEuler = _.euler.fromMatrix2( dstEuler, gotMatrix );
@@ -2007,7 +2007,7 @@ function fromMatrix2( test )
   var srcEuler = [ 1, 0.5, 0.25, 0, 2, 1 ];
   var dstEuler = [ 0, 0, 0, 0, 2, 1 ];
   var dstMatrix = _.Matrix.MakeZero( [ 3, 3 ] );
-  var expected = _.euler.tools.longMake( [ 1, 0.5, 0.25, 0, 2, 1 ] );
+  var expected = _.euler.tools.long.make( [ 1, 0.5, 0.25, 0, 2, 1 ] );
 
   var gotMatrix = _.euler.toMatrix2( srcEuler, dstMatrix );
   var gotEuler = _.euler.fromMatrix2( dstEuler, gotMatrix );
@@ -2021,7 +2021,7 @@ function fromMatrix2( test )
   var srcEuler = [ 1, 0.25, 0.25, 1, 0, 2 ];
   var dstEuler = [ 0, 0, 0, 1, 0, 2 ];
   var dstMatrix = _.Matrix.MakeZero( [ 3, 3 ] );
-  var expected = _.euler.tools.longMake( [ 1, 0.25, 0.25, 1, 0, 2 ] );
+  var expected = _.euler.tools.long.make( [ 1, 0.25, 0.25, 1, 0, 2 ] );
 
   var gotMatrix = _.euler.toMatrix2( srcEuler, dstMatrix );
   var gotEuler = _.euler.fromMatrix2( dstEuler, gotMatrix );
@@ -2035,7 +2035,7 @@ function fromMatrix2( test )
   var srcEuler = [ 0.5, 0.25, - 0.25, 1, 2, 0 ];
   var dstEuler = [ 0, 0, 0, 1, 2, 0 ];
   var dstMatrix = _.Matrix.MakeZero( [ 3, 3 ] );
-  var expected = _.euler.tools.longMake( [ 0.5, 0.25, - 0.25, 1, 2, 0 ] );
+  var expected = _.euler.tools.long.make( [ 0.5, 0.25, - 0.25, 1, 2, 0 ] );
 
   var gotMatrix = _.euler.toMatrix2( srcEuler, dstMatrix );
   var gotEuler = _.euler.fromMatrix2( dstEuler, gotMatrix );
@@ -2049,7 +2049,7 @@ function fromMatrix2( test )
   var srcEuler = [ 0.5, 0.75, - 0.25, 2, 0, 1 ];
   var dstEuler = [ 0, 0, 0, 2, 0, 1 ];
   var dstMatrix = _.Matrix.MakeZero( [ 3, 3 ] );
-  var expected = _.euler.tools.longMake( [ 0.5, 0.75, - 0.25, 2, 0, 1 ] );
+  var expected = _.euler.tools.long.make( [ 0.5, 0.75, - 0.25, 2, 0, 1 ] );
 
   var gotMatrix = _.euler.toMatrix2( srcEuler, dstMatrix );
   var gotEuler = _.euler.fromMatrix2( dstEuler, gotMatrix );
@@ -2063,7 +2063,7 @@ function fromMatrix2( test )
   var srcEuler = [ 0.25, 0.75, - 0.25, 2, 1, 0 ];
   var dstEuler = [ 0, 0, 0, 2, 1, 0 ];
   var dstMatrix = _.Matrix.MakeZero( [ 3, 3 ] );
-  var expected = _.euler.tools.longMake( [ 0.25, 0.75, - 0.25, 2, 1, 0 ] );
+  var expected = _.euler.tools.long.make( [ 0.25, 0.75, - 0.25, 2, 1, 0 ] );
 
   var gotMatrix = _.euler.toMatrix2( srcEuler, dstMatrix );
   var gotEuler = _.euler.fromMatrix2( dstEuler, gotMatrix );
@@ -2077,7 +2077,7 @@ function fromMatrix2( test )
   var srcEuler = [ 1, 1, 0.25, 0, 1, 0 ];
   var dstEuler = [ 0, 0, 0, 0, 1, 0 ];
   var dstMatrix = _.Matrix.MakeZero( [ 3, 3 ] );
-  var expected = _.euler.tools.longMake( [ 1, 1, 0.25, 0, 1, 0 ] ); ;
+  var expected = _.euler.tools.long.make( [ 1, 1, 0.25, 0, 1, 0 ] ); ;
 
   var gotMatrix = _.euler.toMatrix2( srcEuler, dstMatrix );
   var gotEuler = _.euler.fromMatrix2( dstEuler, gotMatrix );
@@ -2091,7 +2091,7 @@ function fromMatrix2( test )
   var srcEuler =  [ 1, 0.25, 0.5, 0, 2, 0 ] ;
   var dstEuler = [ 0, 0, 0, 0, 2, 0 ];
   var dstMatrix = _.Matrix.MakeZero( [ 3, 3 ] );
-  var expected = _.euler.tools.longMake( [ 1, 0.25, 0.5, 0, 2, 0 ] );
+  var expected = _.euler.tools.long.make( [ 1, 0.25, 0.5, 0, 2, 0 ] );
 
   var gotMatrix = _.euler.toMatrix2( srcEuler, dstMatrix );
   var gotEuler = _.euler.fromMatrix2( dstEuler, gotMatrix );
@@ -2105,7 +2105,7 @@ function fromMatrix2( test )
   var srcEuler = [ 1, 0.5, 0.5, 1, 0, 1 ];
   var dstEuler = [ 0, 0, 0, 1, 0, 1 ];
   var dstMatrix = _.Matrix.MakeZero( [ 3, 3 ] );
-  var expected = _.euler.tools.longMake( [ 1, 0.5, 0.5, 1, 0, 1 ] );
+  var expected = _.euler.tools.long.make( [ 1, 0.5, 0.5, 1, 0, 1 ] );
 
   var gotMatrix = _.euler.toMatrix2( srcEuler, dstMatrix );
   var gotEuler = _.euler.fromMatrix2( dstEuler, gotMatrix );
@@ -2119,7 +2119,7 @@ function fromMatrix2( test )
   var srcEuler = [ 1, 0.25, 2, 1, 2, 1 ];
   var dstEuler = [ 0, 0, 0, 1, 2, 1 ];
   var dstMatrix = _.Matrix.MakeZero( [ 3, 3 ] );
-  var expected = _.euler.tools.longMake( [ 1, 0.25, 2, 1, 2, 1 ] );
+  var expected = _.euler.tools.long.make( [ 1, 0.25, 2, 1, 2, 1 ] );
 
   var gotMatrix = _.euler.toMatrix2( srcEuler, dstMatrix );
   var gotEuler = _.euler.fromMatrix2( dstEuler, gotMatrix );
@@ -2147,7 +2147,7 @@ function fromMatrix2( test )
   var srcEuler =  [ 1, 0.5, 0.5, 2, 1, 2 ];
   var dstEuler = [ 0, 0, 0, 2, 1, 2 ];
   var dstMatrix = _.Matrix.MakeZero( [ 3, 3 ] );
-  var expected = _.euler.tools.longMake( [ 1, 0.5, 0.5, 2, 1, 2 ] );
+  var expected = _.euler.tools.long.make( [ 1, 0.5, 0.5, 2, 1, 2 ] );
 
   var gotMatrix = _.euler.toMatrix2( srcEuler, dstMatrix );
   var gotEuler = _.euler.fromMatrix2( dstEuler, gotMatrix );
@@ -2495,7 +2495,7 @@ function eulerToRotationMatrixToEulerGimbalLock( test )
   var srcEuler = [ - 0.1, Math.PI/2, 0, 0, 1, 2 ];
   var dstEuler = [ 0, 0, 0, 0, 1, 2 ];
   var dstMatrix = _.Matrix.MakeZero( [ 3, 3 ] );
-  var expected = _.euler.tools.longMake( [ - 0.1, Math.PI/2, 0, 0, 1, 2 ] );
+  var expected = _.euler.tools.long.make( [ - 0.1, Math.PI/2, 0, 0, 1, 2 ] );
 
   var gotMatrix = _.euler.toMatrix2( srcEuler, dstMatrix );
   var gotEuler = _.euler.fromMatrix2( dstEuler, gotMatrix );
@@ -2509,7 +2509,7 @@ function eulerToRotationMatrixToEulerGimbalLock( test )
   var srcEuler = [ 0.1, - Math.PI/2, 0, 0, 1, 2 ];
   var dstEuler = [ 0, 0, 0, 0, 1, 2 ];
   var dstMatrix = _.Matrix.MakeZero( [ 3, 3 ] );
-  var expected = _.euler.tools.longMake( [ 0.1, - Math.PI/2, 0, 0, 1, 2 ] );
+  var expected = _.euler.tools.long.make( [ 0.1, - Math.PI/2, 0, 0, 1, 2 ] );
 
   var gotMatrix = _.euler.toMatrix2( srcEuler, dstMatrix );
   var gotEuler = _.euler.fromMatrix2( dstEuler, gotMatrix );
@@ -2523,7 +2523,7 @@ function eulerToRotationMatrixToEulerGimbalLock( test )
   var srcEuler =  [ 0.1, Math.PI/2, 0, 0, 2, 1 ] ;
   var dstEuler = [ 0, 0, 0, 0, 2, 1 ];
   var dstMatrix = _.Matrix.MakeZero( [ 3, 3 ] );
-  var expected = _.euler.tools.longMake( [ 0.1, Math.PI/2, 0, 0, 2, 1 ] );
+  var expected = _.euler.tools.long.make( [ 0.1, Math.PI/2, 0, 0, 2, 1 ] );
 
   var gotMatrix = _.euler.toMatrix2( srcEuler, dstMatrix );
   var gotEuler = _.euler.fromMatrix2( dstEuler, gotMatrix );
@@ -2537,7 +2537,7 @@ function eulerToRotationMatrixToEulerGimbalLock( test )
   var srcEuler =  [ 0.1, - Math.PI/2, 0, 0, 2, 1 ] ;
   var dstEuler = [ 0, 0, 0, 0, 2, 1 ];
   var dstMatrix = _.Matrix.MakeZero( [ 3, 3 ] );
-  var expected = _.euler.tools.longMake( [ 0.1, - Math.PI/2, 0, 0, 2, 1 ] );
+  var expected = _.euler.tools.long.make( [ 0.1, - Math.PI/2, 0, 0, 2, 1 ] );
 
   var gotMatrix = _.euler.toMatrix2( srcEuler, dstMatrix );
   var gotEuler = _.euler.fromMatrix2( dstEuler, gotMatrix );
@@ -2551,7 +2551,7 @@ function eulerToRotationMatrixToEulerGimbalLock( test )
   var srcEuler = [ 0.1, Math.PI/2, 0, 1, 0, 2 ];
   var dstEuler = [ 0, 0, 0, 1, 0, 2 ];
   var dstMatrix = _.Matrix.MakeZero( [ 3, 3 ] );
-  var expected = _.euler.tools.longMake( [ 0.1, Math.PI/2, 0, 1, 0, 2 ] );
+  var expected = _.euler.tools.long.make( [ 0.1, Math.PI/2, 0, 1, 0, 2 ] );
 
   var gotMatrix = _.euler.toMatrix2( srcEuler, dstMatrix );
   var gotEuler = _.euler.fromMatrix2( dstEuler, gotMatrix );
@@ -2565,7 +2565,7 @@ function eulerToRotationMatrixToEulerGimbalLock( test )
   var srcEuler = [ - 0.1, - Math.PI/2, 0, 1, 0, 2 ];
   var dstEuler = [ 0, 0, 0, 1, 0, 2 ];
   var dstMatrix = _.Matrix.MakeZero( [ 3, 3 ] );
-  var expected = _.euler.tools.longMake( [ - 0.1, - Math.PI/2, 0, 1, 0, 2 ] );
+  var expected = _.euler.tools.long.make( [ - 0.1, - Math.PI/2, 0, 1, 0, 2 ] );
 
   var gotMatrix = _.euler.toMatrix2( srcEuler, dstMatrix );
   var gotEuler = _.euler.fromMatrix2( dstEuler, gotMatrix );
@@ -2579,7 +2579,7 @@ function eulerToRotationMatrixToEulerGimbalLock( test )
   var srcEuler = [ - 0.1, Math.PI/2, 0, 1, 2, 0 ];
   var dstEuler = [ 0, 0, 0, 1, 2, 0 ];
   var dstMatrix = _.Matrix.MakeZero( [ 3, 3 ] );
-  var expected = _.euler.tools.longMake( [ - 0.1, Math.PI/2, 0, 1, 2, 0 ] );
+  var expected = _.euler.tools.long.make( [ - 0.1, Math.PI/2, 0, 1, 2, 0 ] );
 
   var gotMatrix = _.euler.toMatrix2( srcEuler, dstMatrix );
   var gotEuler = _.euler.fromMatrix2( dstEuler, gotMatrix );
@@ -2593,7 +2593,7 @@ function eulerToRotationMatrixToEulerGimbalLock( test )
   var srcEuler = [ - 0.1, - Math.PI/2, 0, 1, 2, 0 ];
   var dstEuler = [ 0, 0, 0, 1, 2, 0 ];
   var dstMatrix = _.Matrix.MakeZero( [ 3, 3 ] );
-  var expected = _.euler.tools.longMake( [ - 0.1, - Math.PI/2, 0, 1, 2, 0 ] );
+  var expected = _.euler.tools.long.make( [ - 0.1, - Math.PI/2, 0, 1, 2, 0 ] );
 
   var gotMatrix = _.euler.toMatrix2( srcEuler, dstMatrix );
   var gotEuler = _.euler.fromMatrix2( dstEuler, gotMatrix );
@@ -2635,7 +2635,7 @@ function eulerToRotationMatrixToEulerGimbalLock( test )
   var srcEuler =  [ - 0.1, Math.PI/2, 0, 2, 1, 0 ];
   var dstEuler = [ 0, 0, 0, 2, 1, 0 ];
   var dstMatrix = _.Matrix.MakeZero( [ 3, 3 ] );
-  var expected = _.euler.tools.longMake( [ - 0.1, Math.PI/2, 0, 2, 1, 0 ] );
+  var expected = _.euler.tools.long.make( [ - 0.1, Math.PI/2, 0, 2, 1, 0 ] );
 
   var gotMatrix = _.euler.toMatrix2( srcEuler, dstMatrix );
   var gotEuler = _.euler.fromMatrix2( dstEuler, gotMatrix );
@@ -2649,7 +2649,7 @@ function eulerToRotationMatrixToEulerGimbalLock( test )
   var srcEuler =  [ - 0.1, - Math.PI/2, 0, 2, 1, 0 ];
   var dstEuler = [ 0, 0, 0, 2, 1, 0 ];
   var dstMatrix = _.Matrix.MakeZero( [ 3, 3 ] );
-  var expected = _.euler.tools.longMake( [ - 0.1, - Math.PI/2, 0, 2, 1, 0 ] );
+  var expected = _.euler.tools.long.make( [ - 0.1, - Math.PI/2, 0, 2, 1, 0 ] );
 
   var gotMatrix = _.euler.toMatrix2( srcEuler, dstMatrix );
   var gotEuler = _.euler.fromMatrix2( dstEuler, gotMatrix );
@@ -2663,7 +2663,7 @@ function eulerToRotationMatrixToEulerGimbalLock( test )
   var srcEuler = [ 0.1, 0, 0, 0, 1, 0 ];
   var dstEuler = [ 0, 0, 0, 0, 1, 0 ];
   var dstMatrix = _.Matrix.MakeZero( [ 3, 3 ] );
-  var expected = _.euler.tools.longMake( [ 0.1, 0, 0, 0, 1, 0 ] ); ;
+  var expected = _.euler.tools.long.make( [ 0.1, 0, 0, 0, 1, 0 ] ); ;
 
   var gotMatrix = _.euler.toMatrix2( srcEuler, dstMatrix );
   var gotEuler = _.euler.fromMatrix2( dstEuler, gotMatrix );
@@ -2677,7 +2677,7 @@ function eulerToRotationMatrixToEulerGimbalLock( test )
   var srcEuler = [ 0.1, Math.PI, 0, 0, 1, 0 ];
   var dstEuler = [ 0, 0, 0, 0, 1, 0 ];
   var dstMatrix = _.Matrix.MakeZero( [ 3, 3 ] );
-  var expected = _.euler.tools.longMake( [ 0.1, Math.PI, 0, 0, 1, 0 ] ); ;
+  var expected = _.euler.tools.long.make( [ 0.1, Math.PI, 0, 0, 1, 0 ] ); ;
 
   var gotMatrix = _.euler.toMatrix2( srcEuler, dstMatrix );
   var gotEuler = _.euler.fromMatrix2( dstEuler, gotMatrix );
@@ -2691,7 +2691,7 @@ function eulerToRotationMatrixToEulerGimbalLock( test )
   var srcEuler =  [ 0.1, 0, 0, 0, 2, 0 ] ;
   var dstEuler = [ 0, 0, 0, 0, 2, 0 ];
   var dstMatrix = _.Matrix.MakeZero( [ 3, 3 ] );
-  var expected = _.euler.tools.longMake( [ 0.1, 0, 0, 0, 2, 0 ] );
+  var expected = _.euler.tools.long.make( [ 0.1, 0, 0, 0, 2, 0 ] );
 
   var gotMatrix = _.euler.toMatrix2( srcEuler, dstMatrix );
   var gotEuler = _.euler.fromMatrix2( dstEuler, gotMatrix );
@@ -2705,7 +2705,7 @@ function eulerToRotationMatrixToEulerGimbalLock( test )
   var srcEuler =  [ 0.1, Math.PI, 0, 0, 2, 0 ] ;
   var dstEuler = [ 0, 0, 0, 0, 2, 0 ];
   var dstMatrix = _.Matrix.MakeZero( [ 3, 3 ] );
-  var expected = _.euler.tools.longMake( [ 0.1, Math.PI, 0, 0, 2, 0 ] );
+  var expected = _.euler.tools.long.make( [ 0.1, Math.PI, 0, 0, 2, 0 ] );
 
   var gotMatrix = _.euler.toMatrix2( srcEuler, dstMatrix );
   var gotEuler = _.euler.fromMatrix2( dstEuler, gotMatrix );
@@ -2719,7 +2719,7 @@ function eulerToRotationMatrixToEulerGimbalLock( test )
   var srcEuler = [ 0.1, 0, 0, 1, 0, 1 ];
   var dstEuler = [ 0, 0, 0, 1, 0, 1 ];
   var dstMatrix = _.Matrix.MakeZero( [ 3, 3 ] );
-  var expected = _.euler.tools.longMake( [ 0.1, 0, 0, 1, 0, 1 ] );
+  var expected = _.euler.tools.long.make( [ 0.1, 0, 0, 1, 0, 1 ] );
 
   var gotMatrix = _.euler.toMatrix2( srcEuler, dstMatrix );
   var gotEuler = _.euler.fromMatrix2( dstEuler, gotMatrix );
@@ -2733,7 +2733,7 @@ function eulerToRotationMatrixToEulerGimbalLock( test )
   var srcEuler = [ 0.1, Math.PI, 0, 1, 0, 1 ];
   var dstEuler = [ 0, 0, 0, 1, 0, 1 ];
   var dstMatrix = _.Matrix.MakeZero( [ 3, 3 ] );
-  var expected = _.euler.tools.longMake( [ 0.1, Math.PI, 0, 1, 0, 1 ] );
+  var expected = _.euler.tools.long.make( [ 0.1, Math.PI, 0, 1, 0, 1 ] );
 
   var gotMatrix = _.euler.toMatrix2( srcEuler, dstMatrix );
   var gotEuler = _.euler.fromMatrix2( dstEuler, gotMatrix );
@@ -2747,7 +2747,7 @@ function eulerToRotationMatrixToEulerGimbalLock( test )
   var srcEuler = [ 0.1, 0, 0, 1, 2, 1 ];
   var dstEuler = [ 0, 0, 0, 1, 2, 1 ];
   var dstMatrix = _.Matrix.MakeZero( [ 3, 3 ] );
-  var expected = _.euler.tools.longMake( [ 0.1, 0, 0, 1, 2, 1 ] );
+  var expected = _.euler.tools.long.make( [ 0.1, 0, 0, 1, 2, 1 ] );
 
   var gotMatrix = _.euler.toMatrix2( srcEuler, dstMatrix );
   var gotEuler = _.euler.fromMatrix2( dstEuler, gotMatrix );
@@ -2761,7 +2761,7 @@ function eulerToRotationMatrixToEulerGimbalLock( test )
   var srcEuler = [ 0.2, Math.PI, 0, 1, 2, 1 ];
   var dstEuler = [ 0, 0, 0, 1, 2, 1 ];
   var dstMatrix = _.Matrix.MakeZero( [ 3, 3 ] );
-  var expected = _.euler.tools.longMake( [ 0.2, Math.PI, 0, 1, 2, 1 ] );
+  var expected = _.euler.tools.long.make( [ 0.2, Math.PI, 0, 1, 2, 1 ] );
 
   var gotMatrix = _.euler.toMatrix2( srcEuler, dstMatrix );
   var gotEuler = _.euler.fromMatrix2( dstEuler, gotMatrix );
@@ -2803,7 +2803,7 @@ function eulerToRotationMatrixToEulerGimbalLock( test )
   var srcEuler =  [ 0.1, 0, 0, 2, 1, 2 ];
   var dstEuler = [ 0, 0, 0, 2, 1, 2 ];
   var dstMatrix = _.Matrix.MakeZero( [ 3, 3 ] );
-  var expected = _.euler.tools.longMake( [ 0.1, 0, 0, 2, 1, 2 ] );
+  var expected = _.euler.tools.long.make( [ 0.1, 0, 0, 2, 1, 2 ] );
 
   var gotMatrix = _.euler.toMatrix2( srcEuler, dstMatrix );
   var gotEuler = _.euler.fromMatrix2( dstEuler, gotMatrix );
@@ -2817,7 +2817,7 @@ function eulerToRotationMatrixToEulerGimbalLock( test )
   var srcEuler =  [ 0.1, Math.PI, 0, 2, 1, 2 ];
   var dstEuler = [ 0, 0, 0, 2, 1, 2 ];
   var dstMatrix = _.Matrix.MakeZero( [ 3, 3 ] );
-  var expected = _.euler.tools.longMake( [ 0.1, Math.PI, 0, 2, 1, 2 ] );
+  var expected = _.euler.tools.long.make( [ 0.1, Math.PI, 0, 2, 1, 2 ] );
 
   var gotMatrix = _.euler.toMatrix2( srcEuler, dstMatrix );
   var gotEuler = _.euler.fromMatrix2( dstEuler, gotMatrix );
@@ -3575,7 +3575,7 @@ function represent( test )
 
   var dstEuler = null;
   var representation = 'zyz';
-  var expected = _.euler.tools.longMake( [ 0, 0, 0, 2, 1, 2 ] );
+  var expected = _.euler.tools.long.make( [ 0, 0, 0, 2, 1, 2 ] );
 
   var gotEuler = _.euler.represent( dstEuler, representation );
   test.true( dstEuler !== gotEuler );
@@ -3587,7 +3587,7 @@ function represent( test )
 
   var dstEuler = undefined;
   var representation = 'zyz';
-  var expected = _.euler.tools.longMake( [ 0, 0, 0, 2, 1, 2 ] );
+  var expected = _.euler.tools.long.make( [ 0, 0, 0, 2, 1, 2 ] );
 
   var gotEuler = _.euler.represent( dstEuler, representation );
   test.true( dstEuler !== gotEuler );
@@ -4102,7 +4102,7 @@ function eachAngle( o )
 {
 
   _.assert( arguments.length === 1, 'Expects single argument' );
-  _.routineOptions( eachAngle, o );
+  _.routine.options_( eachAngle, o );
 
   /**/
 

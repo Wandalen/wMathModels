@@ -219,7 +219,7 @@ function fromPoints2( points )
   *
   * @example
   * // returns true;
-  * _.is( [ 0, 0, 1, 1 ] );
+  * _.linePointDir.is( [ 0, 0, 1, 1 ] );
   *
   * @returns { Boolean } Returns true if the input is line.
   * @function is
@@ -227,6 +227,7 @@ function fromPoints2( points )
   * @namespace wTools.linePointDir
   * @module Tools/math/Concepts
   */
+
 function is( line )
 {
   _.assert( arguments.length === 1, 'Expects single argument' );
@@ -743,8 +744,8 @@ function lineIntersectionFactors( srcLine1, srcLine2 )
   }
   logger.log('result', result)
   // Check result
-  let point1 = _.vector.from( this.tools.longMake( origin1.length ) )
-  let point2 = _.vector.from( this.tools.longMake( origin1.length ) )
+  let point1 = _.vector.from( this.tools.long.make( origin1.length ) )
+  let point2 = _.vector.from( this.tools.long.make( origin1.length ) )
   for( let i = 0; i < origin1.length; i++ )
   {
     point1.eSet( i, origin1.eGet( i ) + result.eGet( 0 )*direction1.eGet( i ) )
@@ -782,8 +783,8 @@ function lineIntersectionFactors( srcLine1, srcLine2 )
     result = _.Matrix.ConvertToClass( _.VectorAdapter, x.ox ); /* Dmytro : not sure that needs to use x.ox, it also can be x.x */
     // result = this.tools.vectorAdapter.from( x.base );
 
-    let point1 = this.tools.vectorAdapter.from( this.tools.longMake( dOrigin.length ) );
-    let point2 = this.tools.vectorAdapter.from( this.tools.longMake( dOrigin.length ) );
+    let point1 = this.tools.vectorAdapter.from( this.tools.long.make( dOrigin.length ) );
+    let point2 = this.tools.vectorAdapter.from( this.tools.long.make( dOrigin.length ) );
     for( var j = 0; j < dOrigin.length; j++ )
     {
       point1.eSet( j, origin1.eGet( j ) + direction1.eGet( j )*result.eGet( 0 ) );
@@ -1195,7 +1196,7 @@ function pointClosestPoint( srcLine, srcPoint, dstPoint )
   _.assert( arguments.length === 2 || arguments.length === 3 , 'Expects two or three arguments' );
 
   if( arguments.length === 2 )
-  dstPoint = this.tools.longMake( srcPoint.length );
+  dstPoint = this.tools.long.make( srcPoint.length );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Not a valid destination point' );
@@ -1400,7 +1401,7 @@ function boxClosestPoint( srcLine, srcBox, dstPoint )
   _.assert( arguments.length === 2 || arguments.length === 3 , 'Expects two or three arguments' );
 
   if( arguments.length === 2 )
-  dstPoint = this.tools.longMake( srcBox.length / 2 );
+  dstPoint = this.tools.long.make( srcBox.length / 2 );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Not a valid destination point' );
@@ -1493,7 +1494,7 @@ function boundingBoxGet( dstBox, srcLine )
 
   _.assert( dimLine === dimB );
 
-  let endPoint = this.tools.longMake( dimB );
+  let endPoint = this.tools.long.make( dimB );
 
   for( let i = 0; i < dimB; i++ )
   {
@@ -1573,7 +1574,7 @@ function capsuleClosestPoint( line, capsule, dstPoint )
   let dimLine = this.dimGet( lineView );
 
   if( arguments.length === 2 )
-  dstPoint = this.tools.longMake( dimLine );
+  dstPoint = this.tools.long.make( dimLine );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Null or undefined dstPoint is not allowed' );
@@ -1668,7 +1669,7 @@ function convexPolygonClosestPoint( line, polygon, dstPoint )
   let dimL = this.dimGet( lineView );
 
   if( arguments.length === 2 )
-  dstPoint = this.tools.longMake( dimL );
+  dstPoint = this.tools.long.make( dimL );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Null or undefined dstPoint is not allowed' );
@@ -1686,7 +1687,7 @@ function convexPolygonClosestPoint( line, polygon, dstPoint )
   {
     let polygonPoint = this.tools.convexPolygon.lineClosestPoint( polygon, lineView );
 
-    let linePoint = this.pointClosestPoint( lineView, polygonPoint, this.tools.vectorAdapter.from( this.tools.longMake( dimL ) ) ) ;
+    let linePoint = this.pointClosestPoint( lineView, polygonPoint, this.tools.vectorAdapter.from( this.tools.long.make( dimL ) ) ) ;
 
     for( let i = 0; i < dimL; i++ )
     {
@@ -1859,7 +1860,7 @@ function frustumClosestPoint( srcLine, srcFrustum, dstPoint )
   let cols = dimFrustum[ 1 ];
 
   if( arguments.length === 2 )
-  dstPoint = this.tools.longMake( srcFrustum.length / 2 );
+  dstPoint = this.tools.long.make( srcFrustum.length / 2 );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Not a valid destination point' );
@@ -2051,7 +2052,7 @@ function lineClosestPoint( srcLine, tstLine, dstPoint )
   _.assert( arguments.length === 2 || arguments.length === 3 , 'Expects two or three arguments' );
 
   if( arguments.length === 2 )
-  dstPoint = this.tools.longMake( tstLine.length / 2 );
+  dstPoint = this.tools.long.make( tstLine.length / 2 );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Not a valid destination point' );
@@ -2210,7 +2211,7 @@ function planeIntersectionPoint( srcLine, srcPlane, dstPoint )
 {
   _.assert( arguments.length === 2 || arguments.length === 3 , 'Expects two or three arguments' );
   if( arguments.length === 2 )
-  dstPoint = this.tools.longMake( srcPlane.length - 1 );
+  dstPoint = this.tools.long.make( srcPlane.length - 1 );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Not a valid destination point' );
@@ -2344,7 +2345,7 @@ function planeClosestPoint( srcLine, srcPlane, dstPoint )
   _.assert( arguments.length === 2 || arguments.length === 3 , 'Expects two or three arguments' );
 
   if( arguments.length === 2 )
-  dstPoint = this.tools.longMake( srcPlane.length - 1 );
+  dstPoint = this.tools.long.make( srcPlane.length - 1 );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Not a valid destination point' );
@@ -2468,7 +2469,7 @@ function rayIntersectionPoint( srcLine, srcRay, dstPoint )
   _.assert( arguments.length === 2 || arguments.length === 3 , 'Expects two or three arguments' );
 
   if( arguments.length === 2 )
-  dstPoint = this.tools.longMake( srcRay.length / 2 );
+  dstPoint = this.tools.long.make( srcRay.length / 2 );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Not a valid destination point' );
@@ -2683,7 +2684,7 @@ function rayClosestPoint( srcLine, srcRay, dstPoint )
   _.assert( arguments.length === 2 || arguments.length === 3 , 'Expects two or three arguments' );
 
   if( arguments.length === 2 )
-  dstPoint = this.tools.longMake( srcRay.length / 2 );
+  dstPoint = this.tools.long.make( srcRay.length / 2 );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Not a valid destination point' );
@@ -2779,7 +2780,7 @@ function segmentIntersectionPoint( srcLine, tstSegment, dstPoint )
   _.assert( arguments.length === 2 || arguments.length === 3 , 'Expects two or three arguments' );
 
   if( arguments.length === 2 )
-  dstPoint = this.tools.longMake( tstSegment.length / 2 );
+  dstPoint = this.tools.long.make( tstSegment.length / 2 );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Not a valid destination point' );
@@ -2956,7 +2957,7 @@ function segmentClosestPoint( srcLine, tstSegment, dstPoint )
   _.assert( arguments.length === 2 || arguments.length === 3 , 'Expects two or three arguments' );
 
   if( arguments.length === 2 )
-  dstPoint = this.tools.longMake( tstSegment.length / 2 );
+  dstPoint = this.tools.long.make( tstSegment.length / 2 );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Not a valid destination point' );
@@ -3173,7 +3174,7 @@ function sphereClosestPoint( srcLine, srcSphere, dstPoint )
   _.assert( _.sphere.is( srcSphere ) );
 
   if( arguments.length === 2 )
-  dstPoint = this.tools.longMake( srcSphere.length - 1 );
+  dstPoint = this.tools.long.make( srcSphere.length - 1 );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Not a valid destination point' );
@@ -3399,6 +3400,6 @@ let Extension = /* qqq : normalize order */
 
 }
 
-_.mapExtend( Self, Extension );
+_.props.extend( Self, Extension );
 
 })();

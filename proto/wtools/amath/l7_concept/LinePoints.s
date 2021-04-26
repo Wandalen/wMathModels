@@ -19,7 +19,7 @@ const Self = _.linePoints = _.linePoints || Object.create( _.avector );
  */
 
 // --
-// routines
+// implementation
 // --
 
 function make( dim )
@@ -415,7 +415,7 @@ let Extension = /* qqq xxx : normalize order */
   tools : _,
 }
 
-_.mapExtend( Self, Extension );
+_.props.extend( Self, Extension );
 injectChunks( Extension );
 
 })();

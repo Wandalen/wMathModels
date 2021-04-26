@@ -447,7 +447,7 @@ function pointCoplanarGet( plane , point, dstPoint )
   _.assert( arguments.length === 2 || arguments.length === 3 , 'Expects two or three arguments' );
 
   if( arguments.length === 2 )
-  dstPoint = this.tools.longMake( point.length );
+  dstPoint = this.tools.long.make( point.length );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Not a valid destination point' );
@@ -811,7 +811,7 @@ function capsuleClosestPoint( plane, capsule, dstPoint )
   let dimPlane = this.dimGet( planeView );
 
   if( arguments.length === 2 )
-  dstPoint = this.tools.longMake( dimPlane );
+  dstPoint = this.tools.long.make( dimPlane );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Null or undefined dstPoint is not allowed' );
@@ -956,7 +956,7 @@ function convexPolygonClosestPoint( plane, polygon, dstPoint )
   let dimPl = this.dimGet( planeView );
 
   if( arguments.length === 2 )
-  dstPoint = this.tools.longMake( dimPl );
+  dstPoint = this.tools.long.make( dimPl );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Null or undefined dstPoint is not allowed' );
@@ -974,7 +974,7 @@ function convexPolygonClosestPoint( plane, polygon, dstPoint )
   {
     let polygonPoint = this.tools.convexPolygon.planeClosestPoint( polygon, planeView );
 
-    let planePoint = this.pointCoplanarGet( planeView, polygonPoint, this.tools.vectorAdapter.from( this.tools.longMake( dimPl ) ) ) ;
+    let planePoint = this.pointCoplanarGet( planeView, polygonPoint, this.tools.vectorAdapter.from( this.tools.long.make( dimPl ) ) ) ;
 
     for( let i = 0; i < dimPl; i++ )
     {
@@ -1250,7 +1250,7 @@ function lineIntersectionPoint( plane, line, dstPoint )
   let dimP = this.dimGet( planeView );
 
   if( arguments.length === 2 )
-  dstPoint = this.tools.longMake( dimP );
+  dstPoint = this.tools.long.make( dimP );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Null or undefined dstPoint is not allowed' );
@@ -1343,7 +1343,7 @@ function lineClosestPoint( plane, line, dstPoint )
   let dimP = this.dimGet( planeView );
 
   if( arguments.length === 2 )
-  dstPoint = this.tools.longMake( dimP );
+  dstPoint = this.tools.long.make( dimP );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Null or undefined dstPoint is not allowed' );
@@ -1621,7 +1621,7 @@ function rayIntersectionPoint( plane, ray, dstPoint )
   let dimP = this.dimGet( planeView );
 
   if( arguments.length === 2 )
-  dstPoint = this.tools.longMake( dimP );
+  dstPoint = this.tools.long.make( dimP );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Null or undefined dstPoint is not allowed' );
@@ -1703,7 +1703,7 @@ function rayClosestPoint( plane, ray, dstPoint )
   let dimP = this.dimGet( planeView );
 
   if( arguments.length === 2 )
-  dstPoint = this.tools.longMake( dimP );
+  dstPoint = this.tools.long.make( dimP );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Null or undefined dstPoint is not allowed' );
@@ -1863,7 +1863,7 @@ function segmentIntersectionPoint( plane, segment, dstPoint )
   let dimP = this.dimGet( planeView );
 
   if( arguments.length === 2 )
-  dstPoint = this.tools.longMake( dimP );
+  dstPoint = this.tools.long.make( dimP );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Null or undefined dstPoint is not allowed' );
@@ -1948,7 +1948,7 @@ function segmentClosestPoint( plane, segment, dstPoint )
   let dimP = this.dimGet( planeView );
 
   if( arguments.length === 2 )
-  dstPoint = this.tools.longMake( dimP );
+  dstPoint = this.tools.long.make( dimP );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Null or undefined dstPoint is not allowed' );
@@ -2541,7 +2541,7 @@ let Extension = /* qqq : normalize order */
 
 }
 
-_.mapExtend( Self, Extension );
+_.props.extend( Self, Extension );
 injectChunks( Extension );
 
 })();

@@ -15,7 +15,7 @@ const Self = _.linePointCentered = _.linePointCentered || Object.create( _.avect
 */
 
 // --
-// routines
+// implementation
 // --
 
 function make( dim )
@@ -266,7 +266,7 @@ let Extension = /* qqq xxx : normalize order */
   tools : _,
 }
 
-_.mapExtend( Self, Extension );
+_.props.extend( Self, Extension );
 injectChunks( Extension );
 
 })();

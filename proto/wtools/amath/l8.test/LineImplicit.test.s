@@ -19,7 +19,7 @@ if( typeof module !== 'undefined' )
 
 //
 
-const _ = _global_.wTools.withDefaultLong.Fx;
+const _ = _global_.wTools.withLong.Fx;
 var Matrix = _.Matrix;
 var vector = _.vectorAdapter;
 var vec = _.vectorAdapter.fromLong;
@@ -41,7 +41,7 @@ function make( test )
 
   var srcDim = 2;
   var gotLine = _.plane.make( srcDim );
-  var expected = _.plane.tools.longMake( [ 0, 0, 0 ] );
+  var expected = _.plane.tools.long.make( [ 0, 0, 0 ] );
   test.identical( gotLine, expected );
   test.true( gotLine !== srcDim );
 
@@ -62,7 +62,7 @@ function from( test )
   test.case = 'Same instance returned - array';
 
   var srcLine = [ 0, 0, 2 ];
-  var expected = _.plane.tools.longMake( [ 0, 0, 2 ] );
+  var expected = _.plane.tools.long.make( [ 0, 0, 2 ] );
 
   var gotLine = _.plane.from( null, srcLine );
   test.identical( gotLine, expected );

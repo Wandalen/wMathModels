@@ -17,7 +17,7 @@ if( typeof module !== 'undefined' )
 
 //
 
-const _ = _global_.wTools.withDefaultLong.Fx;
+const _ = _global_.wTools.withLong.Fx;
 var Matrix = _.Matrix;
 var vector = _.vectorAdapter;
 var vec = _.vectorAdapter.fromArray;
@@ -40,7 +40,7 @@ function make( test )
   var dim = 2;
   var gotPair = _.linePoints.make( dim );
 
-  var expected = _.linePoints.tools.longMake( [ 0, 0, 0, 0 ] );
+  var expected = _.linePoints.tools.long.make( [ 0, 0, 0, 0 ] );
   test.identical( gotPair, expected );
 
   /* */
@@ -77,14 +77,14 @@ function from( test )
   test.case = 'Same instance returned - array';
 
   var srcPair = [ 0, 0, 1 , 1, 2, 0 ];
-  var expected = _.linePoints.tools.longMake( [ 0, 0, 1, 1, 2, 0 ] );
+  var expected = _.linePoints.tools.long.make( [ 0, 0, 1, 1, 2, 0 ] );
 
   var gotPair = _.linePoints.from( srcPair );
   test.identical( gotPair, expected );
   test.true( srcPair === gotPair );
 
   var srcPair = null;
-  var expected = _.linePoints.tools.longMake( [ 0, 0, 0, 0 ] );
+  var expected = _.linePoints.tools.long.make( [ 0, 0, 0, 0 ] );
 
   var gotPair = _.linePoints.from( srcPair );
   test.identical( gotPair, expected );

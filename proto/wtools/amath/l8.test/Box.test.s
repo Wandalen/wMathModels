@@ -29,7 +29,7 @@ if( typeof module !== 'undefined' )
 
 //
 
-const _ = _global_.wTools.withDefaultLong.Fx;
+const _ = _global_.wTools.withLong.Fx;
 var Matrix = _.Matrix;
 var vector = _.vectorAdapter;
 var vec = _.box.tools.vectorAdapter.fromLong;
@@ -54,7 +54,7 @@ function make( test )
 
   var src = undefined;
   var got = _.box.make( src );
-  var expected = _.box.tools.longMake( [ 0, 0, 0, 0, 0, 0 ] );
+  var expected = _.box.tools.long.make( [ 0, 0, 0, 0, 0, 0 ] );
   test.identical( got, expected );
   test.true( got !== src );
 
@@ -64,7 +64,7 @@ function make( test )
 
   var src = null;
   var got = _.box.make( src );
-  var expected = _.box.tools.longMake( [ 0, 0, 0, 0, 0, 0 ] );
+  var expected = _.box.tools.long.make( [ 0, 0, 0, 0, 0, 0 ] );
   test.identical( got, expected );
   test.true( got !== src );
 
@@ -74,7 +74,7 @@ function make( test )
 
   var src = 2;
   var got = _.box.make( src );
-  var expected = _.box.tools.longMake( [ 0, 0, 0, 0 ] );
+  var expected = _.box.tools.long.make( [ 0, 0, 0, 0 ] );
   test.identical( got, expected );
   test.true( got !== src );
 
@@ -84,7 +84,7 @@ function make( test )
 
   var src = [ 0, 1, 2, 3 ];
   var got = _.box.make( src );
-  var expected = _.box.tools.longMake( [ 0, 1, 2, 3 ] );
+  var expected = _.box.tools.long.make( [ 0, 1, 2, 3 ] );
   test.identical( got, expected );
   test.true( got !== src );
 
@@ -94,7 +94,7 @@ function make( test )
 
   var src = _.box.tools.vectorAdapter.fromLong([ 0, 1, 2, 3 ]);
   var got = _.box.make( src );
-  var expected = _.box.tools.longMake( [ 0, 1, 2, 3 ] );
+  var expected = _.box.tools.long.make( [ 0, 1, 2, 3 ] );
   test.identical( got, expected );
   test.true( got !== src );
 
@@ -111,7 +111,7 @@ function makeZero( test )
 
   var src = undefined;
   var got = _.box.makeZero( src );
-  var expected = _.box.tools.longMake( [ 0, 0, 0, 0, 0, 0 ] );
+  var expected = _.box.tools.long.make( [ 0, 0, 0, 0, 0, 0 ] );
   test.identical( got, expected );
   test.true( got !== src );
 
@@ -121,7 +121,7 @@ function makeZero( test )
 
   var src = null;
   var got = _.box.makeZero( src );
-  var expected = _.box.tools.longMake( [ 0, 0, 0, 0, 0, 0 ] );
+  var expected = _.box.tools.long.make( [ 0, 0, 0, 0, 0, 0 ] );
   test.identical( got, expected );
   test.true( got !== src );
 
@@ -131,7 +131,7 @@ function makeZero( test )
 
   var src = 2;
   var got = _.box.makeZero( src );
-  var expected = _.box.tools.longMake( [ 0, 0, 0, 0 ] );
+  var expected = _.box.tools.long.make( [ 0, 0, 0, 0 ] );
   test.identical( got, expected );
   test.true( got !== src );
 
@@ -141,7 +141,7 @@ function makeZero( test )
 
   var src = [ 0, 1, 2, 3 ];
   var got = _.box.makeZero( src );
-  var expected = _.box.tools.longMake( [ 0, 0, 0, 0 ] );
+  var expected = _.box.tools.long.make( [ 0, 0, 0, 0 ] );
   test.identical( got, expected );
   test.true( got !== src );
 
@@ -151,7 +151,7 @@ function makeZero( test )
 
   var src = _.box.tools.vectorAdapter.fromLong([ 0, 1, 2, 3 ]);
   var got = _.box.makeZero( src );
-  var expected = _.box.tools.longMake( [ 0, 0, 0, 0 ] );
+  var expected = _.box.tools.long.make( [ 0, 0, 0, 0 ] );
   test.identical( got, expected );
   test.true( got !== src );
 
@@ -168,7 +168,7 @@ function makeSingular( test )
 
   var src = undefined;
   var got = _.box.makeSingular( src );
-  var expected = _.box.tools.longMake( [ +Infinity, +Infinity, +Infinity, -Infinity, -Infinity, -Infinity ] );
+  var expected = _.box.tools.long.make( [ +Infinity, +Infinity, +Infinity, -Infinity, -Infinity, -Infinity ] );
   test.identical( got, expected );
   test.true( got !== src );
 
@@ -178,7 +178,7 @@ function makeSingular( test )
 
   var src = null;
   var got = _.box.makeSingular( src );
-  var expected = _.box.tools.longMake( [ +Infinity, +Infinity, +Infinity, -Infinity, -Infinity, -Infinity ] );
+  var expected = _.box.tools.long.make( [ +Infinity, +Infinity, +Infinity, -Infinity, -Infinity, -Infinity ] );
   test.identical( got, expected );
   test.true( got !== src );
 
@@ -188,7 +188,7 @@ function makeSingular( test )
 
   var src = 2;
   var got = _.box.makeSingular( src );
-  var expected = _.box.tools.longMake( [ +Infinity, +Infinity, -Infinity, -Infinity ] );
+  var expected = _.box.tools.long.make( [ +Infinity, +Infinity, -Infinity, -Infinity ] );
   test.identical( got, expected );
   test.true( got !== src );
 
@@ -198,7 +198,7 @@ function makeSingular( test )
 
   var src = [ 0, 1, 2, 3 ];
   var got = _.box.makeSingular( src );
-  var expected = _.box.tools.longMake( [ +Infinity, +Infinity, -Infinity, -Infinity ] );
+  var expected = _.box.tools.long.make( [ +Infinity, +Infinity, -Infinity, -Infinity ] );
   test.identical( got, expected );
   test.true( got !== src );
 
@@ -208,7 +208,7 @@ function makeSingular( test )
 
   var src = _.box.tools.vectorAdapter.fromLong([ 0, 1, 2, 3 ]);
   var got = _.box.makeSingular( src );
-  var expected = _.box.tools.longMake( [ +Infinity, +Infinity, -Infinity, -Infinity ] );
+  var expected = _.box.tools.long.make( [ +Infinity, +Infinity, -Infinity, -Infinity ] );
   test.identical( got, expected );
   test.true( got !== src );
 
@@ -225,7 +225,7 @@ function zero( test )
 
   var src = undefined;
   var got = _.box.zero( src );
-  var expected = _.box.tools.longMake( [ 0, 0, 0, 0, 0, 0 ] );
+  var expected = _.box.tools.long.make( [ 0, 0, 0, 0, 0, 0 ] );
   test.identical( got, expected );
   test.true( got !== src );
 
@@ -235,7 +235,7 @@ function zero( test )
 
   var src = null;
   var got = _.box.zero( src );
-  var expected = _.box.tools.longMake( [ 0, 0, 0, 0, 0, 0 ] );
+  var expected = _.box.tools.long.make( [ 0, 0, 0, 0, 0, 0 ] );
   test.identical( got, expected );
   test.true( got !== src );
 
@@ -245,7 +245,7 @@ function zero( test )
 
   var src = 2;
   var got = _.box.zero( src );
-  var expected = _.box.tools.longMake( [ 0, 0, 0, 0 ] );
+  var expected = _.box.tools.long.make( [ 0, 0, 0, 0 ] );
   test.identical( got, expected );
   test.true( got !== src );
 
@@ -255,7 +255,7 @@ function zero( test )
 
   var dst = [ 0, 1, 2, 3 ];
   var got = _.box.zero( dst );
-  var expected = _.box.tools.longMake( [ 0, 0, 0, 0 ] );
+  var expected = _.box.tools.long.make( [ 0, 0, 0, 0 ] );
   test.identical( got, expected );
   test.true( got === dst );
 
@@ -275,7 +275,7 @@ function zero( test )
 
   var dst = [ 0, 1 ];
   var got = _.box.zero( dst );
-  var expected = _.box.tools.longMake( [ 0, 0 ] );
+  var expected = _.box.tools.long.make( [ 0, 0 ] );
   test.identical( got, expected );
   test.true( got === dst );
 
@@ -292,7 +292,7 @@ function nil( test )
 
   var src = undefined;
   var got = _.box.nil( src );
-  var expected = _.box.tools.longMake( [ +Infinity, +Infinity, +Infinity, -Infinity, -Infinity, -Infinity ] );
+  var expected = _.box.tools.long.make( [ +Infinity, +Infinity, +Infinity, -Infinity, -Infinity, -Infinity ] );
   test.identical( got, expected );
   test.true( got !== src );
 
@@ -302,7 +302,7 @@ function nil( test )
 
   var src = null;
   var got = _.box.nil( src );
-  var expected = _.box.tools.longMake( [ +Infinity, +Infinity, +Infinity, -Infinity, -Infinity, -Infinity ] );
+  var expected = _.box.tools.long.make( [ +Infinity, +Infinity, +Infinity, -Infinity, -Infinity, -Infinity ] );
   test.identical( got, expected );
   test.true( got !== src );
 
@@ -312,7 +312,7 @@ function nil( test )
 
   var src = 2;
   var got = _.box.nil( src );
-  var expected = _.box.tools.longMake( [ +Infinity, +Infinity, -Infinity, -Infinity ] );
+  var expected = _.box.tools.long.make( [ +Infinity, +Infinity, -Infinity, -Infinity ] );
   test.identical( got, expected );
   test.true( got !== src );
 
@@ -322,7 +322,7 @@ function nil( test )
 
   var dst = [ 0, 1, 2, 3 ];
   var got = _.box.nil( dst );
-  var expected = _.box.tools.longMake( [ +Infinity, +Infinity, -Infinity, -Infinity ] );
+  var expected = _.box.tools.long.make( [ +Infinity, +Infinity, -Infinity, -Infinity ] );
   test.identical( got, expected );
   test.true( got === dst );
 
@@ -342,7 +342,7 @@ function nil( test )
 
   var dst = [ 1, 3 ];
   var got = _.box.nil( dst );
-  var expected = _.box.tools.longMake( [ +Infinity, -Infinity ] );
+  var expected = _.box.tools.long.make( [ +Infinity, -Infinity ] );
   test.identical( got, expected );
   test.true( got === dst );
 
@@ -359,7 +359,7 @@ function centeredOfSize( test )
 
   var src = undefined;
   var got = _.box.centeredOfSize( src, 2 );
-  var expected = _.box.tools.longMake( [ -1, -1, -1, +1, +1, +1 ] );
+  var expected = _.box.tools.long.make( [ -1, -1, -1, +1, +1, +1 ] );
   test.identical( got, expected );
   test.true( got !== src );
 
@@ -369,7 +369,7 @@ function centeredOfSize( test )
 
   var src = null;
   var got = _.box.centeredOfSize( src, 2 );
-  var expected = _.box.tools.longMake( [ -1, -1, -1, +1, +1, +1 ] );
+  var expected = _.box.tools.long.make( [ -1, -1, -1, +1, +1, +1 ] );
   test.identical( got, expected );
   test.true( got !== src );
 
@@ -379,7 +379,7 @@ function centeredOfSize( test )
 
   var src = 2;
   var got = _.box.centeredOfSize( src, 2 );
-  var expected = _.box.tools.longMake( [ -1, -1, +1, +1 ] );
+  var expected = _.box.tools.long.make( [ -1, -1, +1, +1 ] );
   test.identical( got, expected );
   test.true( got !== src );
 
@@ -389,7 +389,7 @@ function centeredOfSize( test )
 
   var dst = [ 0, 1, 2, 3 ];
   var got = _.box.centeredOfSize( dst, 2 );
-  var expected = _.box.tools.longMake( [ -1, -1, +1, +1 ] );
+  var expected = _.box.tools.long.make( [ -1, -1, +1, +1 ] );
   test.identical( got, expected );
   test.true( got === dst );
 
@@ -409,7 +409,7 @@ function centeredOfSize( test )
 
   var dst = [ 1, 3 ];
   var got = _.box.centeredOfSize( dst, 2 );
-  var expected = _.box.tools.longMake( [ -1, +1 ] );
+  var expected = _.box.tools.long.make( [ -1, +1 ] );
   test.identical( got, expected );
   test.true( got === dst );
 
@@ -421,7 +421,7 @@ function centeredOfSize( test )
 
   var src = null;
   var got = _.box.centeredOfSize( null, 1 );
-  var expected = _.box.tools.longMake( [ -0.5, -0.5, -0.5, +0.5, +0.5, +0.5 ] );
+  var expected = _.box.tools.long.make( [ -0.5, -0.5, -0.5, +0.5, +0.5, +0.5 ] );
   test.identical( got, expected );
   test.true( got !== src );
 
@@ -431,7 +431,7 @@ function centeredOfSize( test )
 
   var src = 2;
   var got = _.box.centeredOfSize( src, 1 );
-  var expected = _.box.tools.longMake( [ -0.5, -0.5, +0.5, +0.5 ] );
+  var expected = _.box.tools.long.make( [ -0.5, -0.5, +0.5, +0.5 ] );
   test.identical( got, expected );
   test.true( got !== src );
 
@@ -441,7 +441,7 @@ function centeredOfSize( test )
 
   var dst = [ 0, 1, 2, 3 ];
   var got = _.box.centeredOfSize( dst, 1 );
-  var expected = _.box.tools.longMake( [ -0.5, -0.5, +0.5, +0.5 ] );
+  var expected = _.box.tools.long.make( [ -0.5, -0.5, +0.5, +0.5 ] );
   test.identical( got, expected );
   test.true( got === dst );
 
@@ -461,7 +461,7 @@ function centeredOfSize( test )
 
   var dst = [ 1, 3 ];
   var got = _.box.centeredOfSize( dst, 1 );
-  var expected = _.box.tools.longMake( [ -0.5, +0.5 ] );
+  var expected = _.box.tools.long.make( [ -0.5, +0.5 ] );
   test.identical( got, expected );
   test.true( got === dst );
 
@@ -473,7 +473,7 @@ function centeredOfSize( test )
 
   var src = undefined;
   var got = _.box.centeredOfSize( src, [ 1, 2, 4 ] );
-  var expected = _.box.tools.longMake( [ -0.5, -1, -2, +0.5, +1, +2 ] );
+  var expected = _.box.tools.long.make( [ -0.5, -1, -2, +0.5, +1, +2 ] );
   test.identical( got, expected );
   test.true( got !== src );
 
@@ -483,7 +483,7 @@ function centeredOfSize( test )
 
   var src = null;
   var got = _.box.centeredOfSize( src, [ 1, 2, 4 ] );
-  var expected = _.box.tools.longMake( [ -0.5, -1, -2, +0.5, +1, +2 ] );
+  var expected = _.box.tools.long.make( [ -0.5, -1, -2, +0.5, +1, +2 ] );
   test.identical( got, expected );
   test.true( got !== src );
 
@@ -493,7 +493,7 @@ function centeredOfSize( test )
 
   var src = 2;
   var got = _.box.centeredOfSize( src, [ 2, 4 ] );
-  var expected = _.box.tools.longMake( [ -1, -2, +1, +2 ] );
+  var expected = _.box.tools.long.make( [ -1, -2, +1, +2 ] );
   test.identical( got, expected );
   test.true( got !== src );
 
@@ -503,7 +503,7 @@ function centeredOfSize( test )
 
   var dst = [ 0, 1, 2, 3 ];
   var got = _.box.centeredOfSize( dst, [ 2, 4 ] );
-  var expected = _.box.tools.longMake( [ -1, -2, +1, +2 ] );
+  var expected = _.box.tools.long.make( [ -1, -2, +1, +2 ] );
   test.identical( got, expected );
   test.true( got === dst );
 
@@ -523,7 +523,7 @@ function centeredOfSize( test )
 
   var dst = [ 1, 3 ];
   var got = _.box.centeredOfSize( dst, [ 4 ] );
-  var expected = _.box.tools.longMake( [ -2, +2 ] );
+  var expected = _.box.tools.long.make( [ -2, +2 ] );
   test.identical( got, expected );
   test.true( got === dst );
 
@@ -539,7 +539,7 @@ function from( test )
   test.case = 'Same instance returned - array';
 
   var srcBox = [ 0, 0, 2, 2 ];
-  var expected = _.box.tools.longMake( [ 0, 0, 2, 2 ] );
+  var expected = _.box.tools.long.make( [ 0, 0, 2, 2 ] );
 
   var gotBox = _.box.from( srcBox );
   test.identical( gotBox, expected );
@@ -561,7 +561,7 @@ function from( test )
   test.case = 'Same instance returned - empty array';
 
   var srcBox = [];
-  var expected = _.box.tools.longMake( [] );
+  var expected = _.box.tools.long.make( [] );
 
   var gotBox = _.box.from( srcBox );
   test.identical( gotBox, expected );
@@ -572,7 +572,7 @@ function from( test )
   test.case = 'Different instance returned - null -> array';
 
   var srcBox = null;
-  var expected = _.box.tools.longMake( [ 0, 0, 0, 0, 0, 0 ] );
+  var expected = _.box.tools.long.make( [ 0, 0, 0, 0, 0, 0 ] );
 
   var gotBox = _.box.from( srcBox );
   test.identical( gotBox, expected );
@@ -602,7 +602,7 @@ function fromPoints( test )
   test.case = 'Points remain unchanged and Destination box changes';
 
   var points = [ [ 1, 1 ], [ 0, 0 ], [ 0, 2 ] ];
-  var expected = _.box.tools.longMake( [ 0, 0, 1, 2 ] );
+  var expected = _.box.tools.long.make( [ 0, 0, 1, 2 ] );
   var dstBox = [ 0, 0, 1, 1 ];
 
   var gotBox = _.box.fromPoints( dstBox, points );
@@ -618,7 +618,7 @@ function fromPoints( test )
 
   var pointone = [ - 1, 2, - 3 ];
   var pointtwo = [ 1, - 2, 3 ];
-  var expected = _.box.tools.longMake( [ - 1, - 2, - 3, 1, 2, 3 ] );
+  var expected = _.box.tools.long.make( [ - 1, - 2, - 3, 1, 2, 3 ] );
 
   var points = [ pointone, pointtwo ];
   var bbox = null;
@@ -633,7 +633,7 @@ function fromPoints( test )
   var pointone = [ - 1, 2, - 3 ];
   var pointtwo = [ 1, - 2, 3 ];
   var pointthree = [ 0, 0, 6 ];
-  var expected = _.box.tools.longMake( [ - 1, - 2, - 3, 1, 2, 6 ] );
+  var expected = _.box.tools.long.make( [ - 1, - 2, - 3, 1, 2, 6 ] );
 
   var points = [ pointone, pointtwo, pointthree ];
   var bbox = null;
@@ -651,7 +651,7 @@ function fromPoints( test )
   var pointfour = [ - 3, 0, 0 ];
   var pointfive = [ 0, - 2, 0 ];
   var pointsix = [ 0, 0, - 1 ];
-  var expected = _.box.tools.longMake( [ -3, - 2, - 1, 1, 2, 3 ] );
+  var expected = _.box.tools.long.make( [ -3, - 2, - 1, 1, 2, 3 ] );
 
   var points = [ pointone, pointtwo, pointthree, pointfour, pointfive, pointsix ];
   var bbox = null;
@@ -665,7 +665,7 @@ function fromPoints( test )
 
   var pointone = [ 0.001, -0.203, 0.889 ];
   var pointtwo = [ -0.991, 0.203, 0.005 ];
-  var expected = _.box.tools.longMake( [ -0.991, - 0.203, 0.005, 0.001, 0.203, 0.889 ] );
+  var expected = _.box.tools.long.make( [ -0.991, - 0.203, 0.005, 0.001, 0.203, 0.889 ] );
 
   var points = [ pointone, pointtwo ];
   var bbox = null;
@@ -679,7 +679,7 @@ function fromPoints( test )
 
   var pointone = [ 3, 1, 3 ];
   var pointtwo = [ 3, 8, 3 ];
-  var expected = _.box.tools.longMake( [ 2, 1, 2, 4, 8, 4 ] );
+  var expected = _.box.tools.long.make( [ 2, 1, 2, 4, 8, 4 ] );
 
   var points = [ pointone, pointtwo ];
   var bbox = [ 2, 2, 2, 4, 4, 4 ];
@@ -691,7 +691,7 @@ function fromPoints( test )
 
   test.case = '0d Box from 0d points';
 
-  var expected = _.box.tools.longMake( [] );
+  var expected = _.box.tools.long.make( [] );
   var points = [ [], [], [] ];
   var bbox = [];
 
@@ -704,7 +704,7 @@ function fromPoints( test )
 
   var box = null;
   var points = [ [ 1, 0 ], [ 0, - 2 ], [ 0, 3 ], [ - 1, 2 ] ];
-  var expected = _.box.tools.longMake( [ - 1, - 2, 1, 3 ] );
+  var expected = _.box.tools.long.make( [ - 1, - 2, 1, 3 ] );
 
   var gotBox = _.box.fromPoints( box, points );
   test.identical( gotBox, expected );
@@ -715,7 +715,7 @@ function fromPoints( test )
 
   var box = null;
   var points = [ [ 1, 0, 0 ], [ 0, 2, 0 ], [ 0, 0, 3 ] ];
-  var expected = _.box.tools.longMake( [ 0, 0, 0, 1, 2, 3 ] );
+  var expected = _.box.tools.long.make( [ 0, 0, 0, 1, 2, 3 ] );
 
   var gotBox = _.box.fromPoints( box, points );
   test.identical( gotBox, expected );
@@ -726,7 +726,7 @@ function fromPoints( test )
 
   var box = null;
   var points = [ [ 0, 0, 0 ], [ 0, 0, 0 ] ];
-  var expected = _.box.tools.longMake( [ 0, 0, 0, 0, 0, 0 ] );
+  var expected = _.box.tools.long.make( [ 0, 0, 0, 0, 0, 0 ] );
 
   var gotBox = _.box.fromPoints( box, points);
   test.identical( gotBox, expected );
@@ -737,7 +737,7 @@ function fromPoints( test )
 
   var box = [ 0, 0, 0, 2, 2, 2 ];
   var points = [ [ - 1, 0, - 1 ], [ 0, 3, 0 ], [ 0, - 3, 0 ], [ 2, 2, 3 ] ] ;
-  var expected = _.box.tools.longMake( [ - 1, - 3, - 1, 2, 3, 3 ] );
+  var expected = _.box.tools.long.make( [ - 1, - 3, - 1, 2, 3, 3 ] );
 
   var gotBox = _.box.fromPoints( box, points);
   test.identical( gotBox, expected );
@@ -748,7 +748,7 @@ function fromPoints( test )
 
   var box = [ 0, 0, 0, 2, 2, 2 ];
   var points = [ [ - 1, 0, - 1 ] ] ;
-  var expected = _.box.tools.longMake( [ - 1, 0, - 1, 2, 2, 2 ] );
+  var expected = _.box.tools.long.make( [ - 1, 0, - 1, 2, 2, 2 ] );
 
   var gotBox = _.box.fromPoints( box, points);
   test.identical( gotBox, expected );
@@ -759,7 +759,7 @@ function fromPoints( test )
 
   var box = [ 0, 0, 0, 2, 2, 2 ];
   var points = [ [ 0, 1, 1 ], [ 1, 0, 1 ], [ 1, 1, 0 ] ];
-  var expected = _.box.tools.longMake( [ 0, 0, 0, 2, 2, 2 ] );
+  var expected = _.box.tools.long.make( [ 0, 0, 0, 2, 2, 2 ] );
 
   var gotBox = _.box.fromPoints( box, points);
   test.identical( gotBox, expected );
@@ -770,7 +770,7 @@ function fromPoints( test )
 
   var box = [ - 0.050, 0.002, -0.238, 0.194, 0.766, 0.766 ];
   var points = [ [ - 0.900, 0, 0.900 ], [ 0, - 0.001, 0 ], [ 0.900, 0, - 0.900 ] ];
-  var expected = _.box.tools.longMake( [ - 0.900, - 0.001, - 0.900, 0.900, 0.766, 0.900 ] );
+  var expected = _.box.tools.long.make( [ - 0.900, - 0.001, - 0.900, 0.900, 0.766, 0.900 ] );
 
   var gotBox = _.box.fromPoints( box, points);
   test.identical( gotBox, expected );
@@ -781,7 +781,7 @@ function fromPoints( test )
 
   var box = [ 0, 0, 0, 0, 0, 0, 0, 0 ];
   var points = [ [ - 1, - 2, - 3 , - 4 ], [ 1, 2, 3 , 4 ] ];
-  var expected = _.box.tools.longMake( [ - 1, - 2, - 3 , - 4, 1, 2, 3, 4 ] );
+  var expected = _.box.tools.long.make( [ - 1, - 2, - 3 , - 4, 1, 2, 3, 4 ] );
 
   var gotBox = _.box.fromPoints( box, points);
   test.identical( gotBox, expected );
@@ -792,7 +792,7 @@ function fromPoints( test )
 
   var box = [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ];
   var points = [ [ 1, 2, 3 , 0, 0, 0, 0 ], [ 0, 0, 0 , 4, 5, 6, 7 ] ] ;
-  var expected = _.box.tools.longMake( [ 0, 0, 0, 0, 0, 0, 0, 1, 2, 3, 4, 5, 6, 7 ] );
+  var expected = _.box.tools.long.make( [ 0, 0, 0, 0, 0, 0, 0, 1, 2, 3, 4, 5, 6, 7 ] );
 
   var gotBox = _.box.fromPoints( box, points);
   test.identical( gotBox, expected );
@@ -803,7 +803,7 @@ function fromPoints( test )
 
   var box = [ 0, 0 ];
   var points = [ [ - 1 ], [ 0 ], [ 1 ] ];
-  var expected = _.box.tools.longMake( [ - 1, 1 ] );
+  var expected = _.box.tools.long.make( [ - 1, 1 ] );
 
   var gotBox = _.box.fromPoints( box, points);
   test.identical( gotBox, expected );
@@ -814,7 +814,7 @@ function fromPoints( test )
 
   var box = [ ];
   var points= [ [], [] ];
-  var expected = _.box.tools.longMake( [ ] );
+  var expected = _.box.tools.long.make( [ ] );
 
   var gotBox = _.box.fromPoints( box, points);
   test.identical( gotBox, expected );
@@ -911,7 +911,7 @@ function fromCenterAndSize( test )
   var oldcenter = center.slice();
   var size = [ 4, 4 ];
   var oldsize = size.slice();
-  var expected = _.box.tools.longMake( [ - 1, - 1, 3, 3 ] );
+  var expected = _.box.tools.long.make( [ - 1, - 1, 3, 3 ] );
 
   var gotBox = _.box.fromCenterAndSize( dstBox, center, size );
   test.identical( gotBox, expected );
@@ -926,7 +926,7 @@ function fromCenterAndSize( test )
   var box = [ ];
   var center = [ ];
   var size = [ ];
-  var expected = _.box.tools.longMake( [ ] );
+  var expected = _.box.tools.long.make( [ ] );
 
   var gotBox = _.box.fromCenterAndSize( box, center, size );
   test.identical( gotBox, expected );
@@ -938,7 +938,7 @@ function fromCenterAndSize( test )
   var box = [ 0, 1, 1, 0 ];
   var center = [ 1, 1 ];
   var size = [ 4, 4 ];
-  var expected = _.box.tools.longMake( [ - 1, - 1, 3, 3 ] );
+  var expected = _.box.tools.long.make( [ - 1, - 1, 3, 3 ] );
 
   var gotBox = _.box.fromCenterAndSize( box, center, size );
   test.identical( gotBox, expected );
@@ -950,7 +950,7 @@ function fromCenterAndSize( test )
   var box = [ 2, 2, 3, 3 ];
   var center = [ 1, 1 ];
   var size = [ 4, 2 ];
-  var expected = _.box.tools.longMake( [ - 1, 0, 3, 2 ] );
+  var expected = _.box.tools.long.make( [ - 1, 0, 3, 2 ] );
 
   var gotBox = _.box.fromCenterAndSize( box, center, size );
   test.identical( gotBox, expected );
@@ -962,7 +962,7 @@ function fromCenterAndSize( test )
   var box = [ 1.2, 2.4, 3.3, 4.8 ];
   var center = [ 1.5, 0.79 ];
   var size = [ 0.5, 0.2 ];
-  var expected = _.box.tools.longMake( [ 1.25, 0.69, 1.75, 0.89 ] );
+  var expected = _.box.tools.long.make( [ 1.25, 0.69, 1.75, 0.89 ] );
 
   var gotBox = _.box.fromCenterAndSize( box, center, size );
   test.equivalent( gotBox, expected );
@@ -974,7 +974,7 @@ function fromCenterAndSize( test )
   var box = [ 0, 0, 0, 0 ];
   var center = [ 0, 0 ];
   var size = [ -2, -2 ];
-  var expected = _.box.tools.longMake( [ 1, 1, - 1, - 1 ] );
+  var expected = _.box.tools.long.make( [ 1, 1, - 1, - 1 ] );
 
   var gotBox = _.box.fromCenterAndSize( box, center, size );
   test.identical( gotBox, expected );
@@ -986,7 +986,7 @@ function fromCenterAndSize( test )
   var box = [ 1, 3, 2, 2, 4, 4 ];
   var center = [ 1, 1, 1 ];
   var size = [ 4, 4, 2 ];
-  var expected = _.box.tools.longMake( [ - 1, - 1, 0, 3, 3, 2 ] );
+  var expected = _.box.tools.long.make( [ - 1, - 1, 0, 3, 3, 2 ] );
 
   var gotBox = _.box.fromCenterAndSize( box, center, size );
   test.identical( gotBox, expected );
@@ -998,7 +998,7 @@ function fromCenterAndSize( test )
   var box = [ NaN, NaN, NaN, NaN ];
   var center = [ NaN, NaN ];
   var size = [ NaN, NaN ];
-  var expected = _.box.tools.longMake( [ NaN, NaN, NaN, NaN ] );
+  var expected = _.box.tools.long.make( [ NaN, NaN, NaN, NaN ] );
 
   var gotBox = _.box.fromCenterAndSize( box, center, size );
   test.identical( gotBox, expected );
@@ -1094,7 +1094,7 @@ function fromSphere( test )
   var dstBox = [ 0, 0, 1, 1 ];
   var sphere = [ 1, 1, 1 ];
   var oldsphere = sphere.slice();
-  var expected = _.box.tools.longMake( [ - 1, - 1, 2, 2 ] );
+  var expected = _.box.tools.long.make( [ - 1, - 1, 2, 2 ] );
 
   var gotBox = _.box.fromSphere( dstBox, sphere );
   test.identical( gotBox, expected );
@@ -1107,7 +1107,7 @@ function fromSphere( test )
 
   var box = [ 0, 0 ];
   var sphere = [ 0, 1 ];
-  var expected = _.box.tools.longMake( [ - 1, 1 ] );
+  var expected = _.box.tools.long.make( [ - 1, 1 ] );
 
   var gotBox = _.box.fromSphere( box, sphere );
   test.identical( gotBox, expected );
@@ -1118,7 +1118,7 @@ function fromSphere( test )
 
   var box = [ 0, 0 ];
   var sphere = [ 1, 1 ];
-  var expected = _.box.tools.longMake( [ - 1, 2 ] );
+  var expected = _.box.tools.long.make( [ - 1, 2 ] );
 
   var gotBox = _.box.fromSphere( box, sphere );
   test.identical( gotBox, expected );
@@ -1129,7 +1129,7 @@ function fromSphere( test )
 
   var box = [ 0, 2 ];
   var sphere = [ 1, 1 ];
-  var expected = _.box.tools.longMake( [ - 1, 3 ] );
+  var expected = _.box.tools.long.make( [ - 1, 3 ] );
 
   var gotBox = _.box.fromSphere( box, sphere );
   test.identical( gotBox, expected );
@@ -1140,7 +1140,7 @@ function fromSphere( test )
 
   var box = [ 0, 2 ];
   var sphere = [ 3, 1 ];
-  var expected = _.box.tools.longMake( [ - 1, 4 ] );
+  var expected = _.box.tools.long.make( [ - 1, 4 ] );
 
   var gotBox = _.box.fromSphere( box, sphere );
   test.identical( gotBox, expected );
@@ -1151,7 +1151,7 @@ function fromSphere( test )
 
   var box = [ 0, 0, 0, 0, 0, 0 ];
   var sphere = [ 0, 0, 0, 1 ];
-  var expected = _.box.tools.longMake( [ - 1, - 1, - 1, 1, 1, 1 ] );
+  var expected = _.box.tools.long.make( [ - 1, - 1, - 1, 1, 1, 1 ] );
 
   var gotBox = _.box.fromSphere( box, sphere );
   test.identical( gotBox, expected );
@@ -1162,7 +1162,7 @@ function fromSphere( test )
 
   var box = [ 0, 0, 0, 0, 0, 0 ];
   var sphere = [ 1, 1, 1, 1 ];
-  var expected = _.box.tools.longMake( [ - 1, - 1, - 1, 2, 2, 2 ] );
+  var expected = _.box.tools.long.make( [ - 1, - 1, - 1, 2, 2, 2 ] );
 
   var gotBox = _.box.fromSphere( box, sphere );
   test.identical( gotBox, expected );
@@ -1173,7 +1173,7 @@ function fromSphere( test )
 
   var box = [ 0, 0, 0, 2, 2, 3 ];
   var sphere = [ 1, 1, 1, 1 ];
-  var expected = _.box.tools.longMake( [ - 1, - 1, - 1, 3, 3, 4 ] );
+  var expected = _.box.tools.long.make( [ - 1, - 1, - 1, 3, 3, 4 ] );
 
   var gotBox = _.box.fromSphere( box, sphere );
   test.identical( gotBox, expected );
@@ -1184,7 +1184,7 @@ function fromSphere( test )
 
   var box = [ 0, 0, 0, 2, 2, 3 ];
   var sphere = [ 3, 3, 3, 1 ];
-  var expected = _.box.tools.longMake( [ - 1, - 1, - 1, 4, 4, 4 ] );
+  var expected = _.box.tools.long.make( [ - 1, - 1, - 1, 4, 4, 4 ] );
 
   var gotBox = _.box.fromSphere( box, sphere );
   test.identical( gotBox, expected );
@@ -1195,7 +1195,7 @@ function fromSphere( test )
 
   var box = [ 0, 0, 0, 2, 2, 3 ];
   var sphere = [ 1, 1, 1, - 1 ];
-  var expected = _.box.tools.longMake( [ 1, 1, 1, 1, 1, 2 ] );
+  var expected = _.box.tools.long.make( [ 1, 1, 1, 1, 1, 2 ] );
 
   var gotBox = _.box.fromSphere( box, sphere );
   test.identical( gotBox, expected );
@@ -1206,7 +1206,7 @@ function fromSphere( test )
 
   var box = [ 0, 0, 0, 2, 2, 3 ];
   var sphere = [ 3, 3, 3, - 1 ];
-  var expected = _.box.tools.longMake( [ 1, 1, 1, 2, 2, 2 ] );
+  var expected = _.box.tools.long.make( [ 1, 1, 1, 2, 2, 2 ] );
 
   var gotBox = _.box.fromSphere( box, sphere );
   test.identical( gotBox, expected );
@@ -1217,7 +1217,7 @@ function fromSphere( test )
 
   var box = null;
   var sphere = [ 1, 1 ];
-  var expected = _.box.tools.longMake( [ 0, 2 ] );
+  var expected = _.box.tools.long.make( [ 0, 2 ] );
 
   var gotBox = _.box.fromSphere( box, sphere );
   test.identical( gotBox, expected );
@@ -1228,7 +1228,7 @@ function fromSphere( test )
 
   var box = [ NaN, NaN ];
   var sphere = [ 1, 1 ];
-  var expected = _.box.tools.longMake( [ NaN, NaN ] );
+  var expected = _.box.tools.long.make( [ NaN, NaN ] );
 
   var gotBox = _.box.fromSphere( box, sphere );
   test.identical( gotBox, expected );
@@ -1239,7 +1239,7 @@ function fromSphere( test )
 
   var box = [ 0, 2 ];
   var sphere = [ NaN, NaN ];
-  var expected = _.box.tools.longMake( [ NaN, NaN ] );
+  var expected = _.box.tools.long.make( [ NaN, NaN ] );
 
   var gotBox = _.box.fromSphere( box, sphere );
   test.identical( gotBox, expected );
@@ -1356,7 +1356,7 @@ function fromCube( test )
 
   var dstBox = [ 0, 0, 1, 1 ];
   var cube = 1;
-  var expected = _.box.tools.longMake( [ - 0.5, - 0.5, 0.5, 0.5 ] );
+  var expected = _.box.tools.long.make( [ - 0.5, - 0.5, 0.5, 0.5 ] );
 
   var gotBox = _.box.fromCube( dstBox, cube );
   test.identical( gotBox, expected );
@@ -1371,7 +1371,7 @@ function fromCube( test )
 
   var box = null;
   var fromCube = 2;
-  var expected = _.box.tools.longMake( [ - 1, - 1, - 1, 1, 1, 1 ] );
+  var expected = _.box.tools.long.make( [ - 1, - 1, - 1, 1, 1, 1 ] );
 
   var gotBox = _.box.fromCube( box, fromCube );
   test.identical( gotBox, expected );
@@ -1382,7 +1382,7 @@ function fromCube( test )
 
   var box = [ 0, 0, 0, 2, 2, 2 ];
   var fromCube = 6;
-  var expected = _.box.tools.longMake( [ - 3, - 3, - 3, 3, 3, 3 ] );
+  var expected = _.box.tools.long.make( [ - 3, - 3, - 3, 3, 3, 3 ] );
 
   var gotBox = _.box.fromCube( box, fromCube );
   test.identical( gotBox, expected );
@@ -1393,7 +1393,7 @@ function fromCube( test )
 
   var box = [ 0, 0, 0, 2, 2, 2 ];
   var fromCube =  0;
-  var expected = _.box.tools.longMake( [ - 0, - 0, - 0, 0, 0, 0 ] );
+  var expected = _.box.tools.long.make( [ - 0, - 0, - 0, 0, 0, 0 ] );
 
   var gotBox = _.box.fromCube( box, fromCube );
   test.identical( gotBox, expected );
@@ -1404,7 +1404,7 @@ function fromCube( test )
 
   var box = [ 0, 0, 0, 3, 3, 3 ];
   var fromCube = - 1;
-  var expected = _.box.tools.longMake( [ 0.5, 0.5, 0.5, - 0.5, - 0.5, - 0.5 ] );
+  var expected = _.box.tools.long.make( [ 0.5, 0.5, 0.5, - 0.5, - 0.5, - 0.5 ] );
 
   var gotBox = _.box.fromCube( box, fromCube );
   test.identical( gotBox, expected );
@@ -1415,7 +1415,7 @@ function fromCube( test )
 
   var box = [ - 0.050, 0.002, -0.238, 0.194, 0.766, 0.766 ];
   var fromCube =  0.100;
-  var expected = _.box.tools.longMake( [  - 0.050, - 0.050, - 0.050, 0.050, 0.050, 0.050 ] );
+  var expected = _.box.tools.long.make( [  - 0.050, - 0.050, - 0.050, 0.050, 0.050, 0.050 ] );
 
   var gotBox = _.box.fromCube( box, fromCube );
   test.equivalent( gotBox, expected );
@@ -1426,7 +1426,7 @@ function fromCube( test )
 
   var box = [ 0, 0, 0, 0, 0, 0, 0, 0 ];
   var fromCube = 4;
-  var expected = _.box.tools.longMake( [ - 2, - 2, - 2, - 2, 2, 2, 2, 2 ] );
+  var expected = _.box.tools.long.make( [ - 2, - 2, - 2, - 2, 2, 2, 2, 2 ] );
 
   var gotBox = _.box.fromCube( box, fromCube );
   test.identical( gotBox, expected );
@@ -1437,7 +1437,7 @@ function fromCube( test )
 
   var box = [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ];
   var fromCube = 8;
-  var expected = _.box.tools.longMake( [ - 4, - 4, - 4, - 4, - 4, - 4, - 4, 4, 4, 4, 4, 4, 4, 4 ] );
+  var expected = _.box.tools.long.make( [ - 4, - 4, - 4, - 4, - 4, - 4, - 4, 4, 4, 4, 4, 4, 4, 4 ] );
 
   gotBox = _.box.fromCube( box, fromCube );
   test.identical( gotBox, expected );
@@ -1819,7 +1819,7 @@ function cornerLeftGet( test )
 
   var srcBox = [ 0, 0, 1, 1 ];
   var oldsrcBox = srcBox.slice();
-  var expected = _.box.tools.longMake( [ 0, 0 ] );
+  var expected = _.box.tools.long.make( [ 0, 0 ] );
   expected = _.box.tools.vectorAdapter.from(expected);
 
   var gotCorner = _.box.cornerLeftGet( srcBox );
@@ -1831,7 +1831,7 @@ function cornerLeftGet( test )
   test.case = 'Empty box';
 
   var box = [];
-  var expected = _.box.tools.longMake( [] );
+  var expected = _.box.tools.long.make( [] );
   expected = _.box.tools.vectorAdapter.from(expected);
 
   var gotCorner = _.box.cornerLeftGet( box );
@@ -1852,7 +1852,7 @@ function cornerLeftGet( test )
   test.case = 'Two dimension box';
 
   var box = [ 0, 0, 1, 1 ];
-  var expected = _.box.tools.longMake( [ 0, 0 ] );
+  var expected = _.box.tools.long.make( [ 0, 0 ] );
   expected = _.box.tools.vectorAdapter.from(expected);
 
   var gotCorner = _.box.cornerLeftGet( box );
@@ -1863,7 +1863,7 @@ function cornerLeftGet( test )
   test.case = 'Three dimension box';
 
   var box = [ - 1, - 2, - 3, 0, 1, 2 ];
-  var expected = _.box.tools.longMake( [ - 1, - 2, - 3 ] );
+  var expected = _.box.tools.long.make( [ - 1, - 2, - 3 ] );
   expected = _.box.tools.vectorAdapter.from(expected);
 
   var gotCorner = _.box.cornerLeftGet( box );
@@ -1874,7 +1874,7 @@ function cornerLeftGet( test )
   test.case = 'Four dimension box';
 
   var box = [ - 1, - 2.2, - 3, 5, 0.1, 1, 2, 5.4 ];
-  var expected = _.box.tools.longMake( [ - 1, - 2.2, - 3, 5 ] );
+  var expected = _.box.tools.long.make( [ - 1, - 2.2, - 3, 5 ] );
   expected = _.box.tools.vectorAdapter.from(expected);
 
   var gotCorner = _.box.cornerLeftGet( box );
@@ -1885,7 +1885,7 @@ function cornerLeftGet( test )
   test.case = 'Eight dimension box';
 
   var box = [ - 1, - 2.2, - 3, 5, 0.1, 1, 2, 5.4, - 1.1, - 3.2, - 3.5, 5.5, 2.3, 27, 2.2, 540 ];
-  var expected = _.box.tools.longMake( [ - 1, - 2.2, - 3, 5, 0.1, 1, 2, 5.4 ] );
+  var expected = _.box.tools.long.make( [ - 1, - 2.2, - 3, 5, 0.1, 1, 2, 5.4 ] );
   expected = _.box.tools.vectorAdapter.from(expected);
 
   var gotCorner = _.box.cornerLeftGet( box );
@@ -1896,7 +1896,7 @@ function cornerLeftGet( test )
   test.case = 'Inverted box';
 
   var box = [ 1, 1, 0, 0 ];
-  var expected = _.box.tools.longMake( [ 1, 1 ] );
+  var expected = _.box.tools.long.make( [ 1, 1 ] );
   expected = _.box.tools.vectorAdapter.from(expected);
 
   var gotCorner = _.box.cornerLeftGet( box );
@@ -1983,7 +1983,7 @@ function cornerRightGet( test )
 
   var srcBox = [ 0, 0, 1, 1 ];
   var oldSrcBox = srcBox.slice();
-  var expected = _.box.tools.longMake( [ 1, 1 ] );
+  var expected = _.box.tools.long.make( [ 1, 1 ] );
   expected = _.box.tools.vectorAdapter.from(expected);
 
   var gotCorner = _.box.cornerRightGet( srcBox );
@@ -1995,7 +1995,7 @@ function cornerRightGet( test )
   test.case = 'Empty box';
 
   var box = [];
-  var expected = _.box.tools.longMake( [] );
+  var expected = _.box.tools.long.make( [] );
   expected = _.box.tools.vectorAdapter.from(expected);
 
   var gotCorner = _.box.cornerRightGet( box );
@@ -2017,7 +2017,7 @@ function cornerRightGet( test )
   test.case = 'Two dimension box';
 
   var box = [ 0, 0, 1, 1 ];
-  var expected = _.box.tools.longMake( [ 1, 1 ] );
+  var expected = _.box.tools.long.make( [ 1, 1 ] );
   expected = _.box.tools.vectorAdapter.from(expected);
 
   var gotCorner = _.box.cornerRightGet( box );
@@ -2028,7 +2028,7 @@ function cornerRightGet( test )
   test.case = 'Three dimension box';
 
   var box = [ - 1, - 2, - 3, 0, 1, 2 ];
-  var expected = _.box.tools.longMake( [ 0, 1, 2 ] );
+  var expected = _.box.tools.long.make( [ 0, 1, 2 ] );
   expected = _.box.tools.vectorAdapter.from(expected);
 
   var gotCorner = _.box.cornerRightGet( box );
@@ -2039,7 +2039,7 @@ function cornerRightGet( test )
   test.case = 'Four dimension box';
 
   var box = [ - 1, - 2.2, - 3, 5, 0.1, 1, 2, 5.4 ];
-  var expected = _.box.tools.longMake( [ 0.1, 1, 2, 5.4 ] );
+  var expected = _.box.tools.long.make( [ 0.1, 1, 2, 5.4 ] );
   expected = _.box.tools.vectorAdapter.from(expected);
 
   var gotCorner = _.box.cornerRightGet( box );
@@ -2050,7 +2050,7 @@ function cornerRightGet( test )
   test.case = 'Eight dimension box';
 
   var box = [ - 1, - 2.2, - 3, 5, 0.1, 1, 2, 5.4, - 1.1, - 3.2, - 5, 5.5, 2.3, 27, 2.2, 540 ];
-  var expected = _.box.tools.longMake( [ -1.1, - 3.2, - 5, 5.5, 2.3, 27, 2.2, 540 ] );
+  var expected = _.box.tools.long.make( [ -1.1, - 3.2, - 5, 5.5, 2.3, 27, 2.2, 540 ] );
   expected = _.box.tools.vectorAdapter.from(expected);
 
   var gotCorner = _.box.cornerRightGet( box );
@@ -2061,7 +2061,7 @@ function cornerRightGet( test )
   test.case = 'Empty box at [ 1, 1 ]';
 
   var box = [ 1, 1, 0, 0 ];
-  var expected = _.box.tools.longMake( [ 0, 0 ] );
+  var expected = _.box.tools.long.make( [ 0, 0 ] );
   expected = _.box.tools.vectorAdapter.from(expected);
 
   var gotCorner = _.box.cornerRightGet( box );
@@ -2148,7 +2148,7 @@ function centerGet( test )
 
   var srcBox = [ 0, 0, 1, 1 ];
   var oldSrcBox = srcBox.slice();
-  var expected = _.box.tools.longMake( [ 0.5, 0.5 ] );
+  var expected = _.box.tools.long.make( [ 0.5, 0.5 ] );
   var point = [ 0, 5 ];
 
   var gotCenter = _.box.centerGet( srcBox, point );
@@ -2192,7 +2192,7 @@ function centerGet( test )
 
   var box = [ 0, 0, 2, 2 ];
   var point = [ 5, 0 ];
-  var expected = _.box.tools.longMake( [ 1, 1 ] );
+  var expected = _.box.tools.long.make( [ 1, 1 ] );
 
   var gotCenter = _.box.centerGet( box );
   test.equivalent( gotCenter,expected );
@@ -2207,7 +2207,7 @@ function centerGet( test )
 
   var box = [ 0, 0, 1, 2 ];
   var point = [ 1, 1 ];
-  var expected = _.box.tools.longMake( [ 0.5, 1 ] );
+  var expected = _.box.tools.long.make( [ 0.5, 1 ] );
 
   var gotCenter = _.box.centerGet( box );
   test.equivalent( gotCenter, expected );
@@ -2221,7 +2221,7 @@ function centerGet( test )
   test.case = 'Three dimension box';
 
   var box = [ 0, - 1, - 2, 0, 1, 2 ];
-  var expected = _.box.tools.longMake( [ 0, 0, 0 ] );
+  var expected = _.box.tools.long.make( [ 0, 0, 0 ] );
   var point = [ 2, 4, - 6 ];
 
   var gotCenter = _.box.centerGet( box );
@@ -2237,7 +2237,7 @@ function centerGet( test )
   test.case = 'Four dimension box';
 
   var box = [ 0, - 1, - 2, 2, 0, 1, 2, 6 ];
-  var expected = _.box.tools.longMake( [ 0, 0, 0, 4 ] );
+  var expected = _.box.tools.long.make( [ 0, 0, 0, 4 ] );
   var point = [ 2, 4, - 6, 2 ];
 
   var gotCenter = _.box.centerGet( box );
@@ -2254,7 +2254,7 @@ function centerGet( test )
 
   var box = [  0, - 1, - 2, 2, 0, 1, 2, 6, 0, - 1, - 2, 2, 0, 1, 2, 6 ];
   var point = [ 2, 4, - 6, 2, 2, 4, - 6, 2 ];
-  var expected = _.box.tools.longMake( [ 0, - 1, -2, 2, 0, 1, 2, 6 ] );
+  var expected = _.box.tools.long.make( [ 0, - 1, -2, 2, 0, 1, 2, 6 ] );
 
   var gotCenter = _.box.centerGet( box );
   test.identical( gotCenter, expected );
@@ -2269,7 +2269,7 @@ function centerGet( test )
 
   var box = [ 0, 0, 1, 2 ];
   var point = _.box.tools.vectorAdapter.from( [ 1, 1 ] );
-  var expected = _.box.tools.longMake( [ 0.5, 1 ] );
+  var expected = _.box.tools.long.make( [ 0.5, 1 ] );
   var expv = _.box.tools.vectorAdapter.from( expected );
 
   var gotCenter = _.box.centerGet( box );
@@ -2285,7 +2285,7 @@ function centerGet( test )
 
   var box = [ 0, 0, 1, 2 ];
   var point = null;
-  var expected = _.box.tools.longMake( [ 0.5, 1 ] );
+  var expected = _.box.tools.long.make( [ 0.5, 1 ] );
 
   var gotCenter = _.box.centerGet( box );
   test.equivalent( gotCenter, expected );
@@ -2300,7 +2300,7 @@ function centerGet( test )
 
   var box = [ 0, 0, 1, 2 ];
   var point = NaN;
-  var expected = _.box.tools.longMake( [ 0.5, 1 ] );
+  var expected = _.box.tools.long.make( [ 0.5, 1 ] );
 
   var gotCenter = _.box.centerGet( box );
   test.equivalent( gotCenter, expected );
@@ -2417,7 +2417,7 @@ function sizeGet( test )
 
   var srcBox = [ 0, 0, 1, 1 ];
   var point = [ 0, 5 ];
-  var expected = _.box.tools.longMake( [ 1, 1 ] );
+  var expected = _.box.tools.long.make( [ 1, 1 ] );
 
   var gotSize = _.box.sizeGet( srcBox, point );
   test.equivalent( gotSize, expected );
@@ -2462,7 +2462,7 @@ function sizeGet( test )
 
   var box = [ 0, 1, 1, 2 ];
   var point = [ 2, 4 ];
-  var expected = _.box.tools.longMake( [ 1, 1 ] );
+  var expected = _.box.tools.long.make( [ 1, 1 ] );
 
   var gotSize = _.box.sizeGet( box );
   test.identical( gotSize, expected );
@@ -2476,7 +2476,7 @@ function sizeGet( test )
   test.case = 'Three dimension box';
 
   var box = [ 0, - 1, - 2, 0, 1, 2 ];
-  var expected = _.box.tools.longMake( [ 0, 2, 4 ] );
+  var expected = _.box.tools.long.make( [ 0, 2, 4 ] );
   var point = [ 2, 4, - 6 ];
 
   var gotSize = _.box.sizeGet( box );
@@ -2492,7 +2492,7 @@ function sizeGet( test )
   test.case = 'Four dimension box';
 
   var box = [ 0, - 1, - 2, 2, 0, 1, 2, 6 ];
-  var expected = _.box.tools.longMake( [ 0, 2, 4, 4 ] );
+  var expected = _.box.tools.long.make( [ 0, 2, 4, 4 ] );
   var point = [ 2, 4, - 6, 2 ];
 
   var gotSize = _.box.sizeGet( box );
@@ -2509,7 +2509,7 @@ function sizeGet( test )
 
   var box = [  0, - 1, - 2, 2, 0, 1, 2, 6, 0, - 1, - 2, 2, 0, 1, 2, 6 ];
   var point = [ 2, 4, - 6, 2, 2, 4, - 6, 2 ];
-  var expected = _.box.tools.longMake( [ 0, 0, 0, 0, 0, 0, 0, 0 ] );
+  var expected = _.box.tools.long.make( [ 0, 0, 0, 0, 0, 0, 0, 0 ] );
 
   var gotSize = _.box.sizeGet( box );
   test.identical( gotSize, expected );
@@ -2525,7 +2525,7 @@ function sizeGet( test )
 
   var box = [ 0, 0, 1, 2 ];
   var point = _.box.tools.vectorAdapter.from( [ 1, 1 ] );
-  var expected = _.box.tools.longMake( [ 1, 2 ] );
+  var expected = _.box.tools.long.make( [ 1, 2 ] );
   var expv = _.box.tools.vectorAdapter.from( expected );
 
   var gotSize = _.box.sizeGet( box );
@@ -2541,7 +2541,7 @@ function sizeGet( test )
 
   var box = [ 0, 0, 1, 2 ];
   var point = null;
-  var expected = _.box.tools.longMake( [ 1, 2 ] );
+  var expected = _.box.tools.long.make( [ 1, 2 ] );
 
   var gotSize = _.box.sizeGet( box );
   test.identical( gotSize, expected );
@@ -2556,7 +2556,7 @@ function sizeGet( test )
 
   var box = [ 0, 0, 1, 2 ];
   var point = NaN;
-  var expected = _.box.tools.longMake( [ 1, 2 ] );
+  var expected = _.box.tools.long.make( [ 1, 2 ] );
 
   var gotSize = _.box.sizeGet( box );
   test.identical( gotSize, expected );
@@ -2571,7 +2571,7 @@ function sizeGet( test )
 
   var box = [ 1, 1, 0, 0 ];
   var point = NaN;
-  var expected = _.box.tools.longMake( [ - 1, - 1 ] );
+  var expected = _.box.tools.long.make( [ - 1, - 1 ] );
 
   var gotSize = _.box.sizeGet( box );
   test.identical( gotSize, expected );
@@ -2862,7 +2862,7 @@ function expand( test )
 
   var dstBox = [ 0, 0, 1, 1 ];
   var expand = [ 0, 2 ];
-  var expected = _.box.tools.longMake( [ 0, - 2, 1, 3 ] );
+  var expected = _.box.tools.long.make( [ 0, - 2, 1, 3 ] );
 
   var gotBox = _.box.expand( dstBox, expand );
   test.identical( gotBox, expected );
@@ -2880,7 +2880,7 @@ function expand( test )
 
   var box = null;
   var expand = [ 1, 2, 3 ];
-  var expected = _.box.tools.longMake( [ - 1, - 2, - 3, 1, 2, 3 ] );
+  var expected = _.box.tools.long.make( [ - 1, - 2, - 3, 1, 2, 3 ] );
 
   var gotBox = _.box.expand( box, expand );
   test.identical( gotBox, expected );
@@ -2891,7 +2891,7 @@ function expand( test )
 
   var box = null;
   var expand = [ 0, 0, 0 ];
-  var expected = _.box.tools.longMake( [ 0, 0, 0, 0, 0, 0 ] );
+  var expected = _.box.tools.long.make( [ 0, 0, 0, 0, 0, 0 ] );
 
   var gotBox = _.box.expand( box, expand );
   test.identical( gotBox, expected );
@@ -2902,7 +2902,7 @@ function expand( test )
 
   var box = [ 0, 0, 0, 0, 0, 0 ];
   var expand = [ 0, 0, 3 ];
-  var expected = _.box.tools.longMake( [ 0, 0, - 3, 0, 0, 3 ] );
+  var expected = _.box.tools.long.make( [ 0, 0, - 3, 0, 0, 3 ] );
 
   var gotBox = _.box.expand( box, expand );
   test.identical( gotBox, expected );
@@ -2913,7 +2913,7 @@ function expand( test )
 
   var box = [ 0, 0, 0, 2, 2, 2 ];
   var expand = [ 1, 3, 1 ];
-  var expected = _.box.tools.longMake( [ - 1, - 3, - 1, 3, 5, 3 ] );
+  var expected = _.box.tools.long.make( [ - 1, - 3, - 1, 3, 5, 3 ] );
 
   var gotBox = _.box.expand( box, expand );
   test.identical( gotBox, expected );
@@ -2924,7 +2924,7 @@ function expand( test )
 
   var box = [ 0, 0, 0, 2, 2, 2 ];
   var expand = 1;
-  var expected = _.box.tools.longMake( [ - 1, - 1, - 1, 3, 3, 3 ] );
+  var expected = _.box.tools.long.make( [ - 1, - 1, - 1, 3, 3, 3 ] );
 
   var gotBox = _.box.expand( box, expand );
   test.identical( gotBox, expected );
@@ -2935,7 +2935,7 @@ function expand( test )
 
   var box = [ 0, 0, 0, 2, 2, 2 ];
   var expand = [  0, 0, 0 ];
-  var expected = _.box.tools.longMake( [ 0, 0, 0, 2, 2, 2 ] );
+  var expected = _.box.tools.long.make( [ 0, 0, 0, 2, 2, 2 ] );
 
   var gotBox = _.box.expand( box, expand );
   test.identical( gotBox, expected );
@@ -2946,7 +2946,7 @@ function expand( test )
 
   var box = [ 0, 0, 0, 3, 3, 3 ];
   var expand = [ - 1, - 1, - 1 ];
-  var expected = _.box.tools.longMake( [ 1, 1, 1, 2, 2, 2 ] );
+  var expected = _.box.tools.long.make( [ 1, 1, 1, 2, 2, 2 ] );
 
   var gotBox = _.box.expand( box, expand );
   test.identical( gotBox, expected );
@@ -2957,7 +2957,7 @@ function expand( test )
 
   var box = [ - 0.050, 0.002, -0.238, 0.194, 0.766, 0.766 ];
   var expand = [ -0.100, 0, 0.100 ];
-  var expected = _.box.tools.longMake( [  0.050, 0.002, -0.338, 0.094, 0.766, 0.866 ] );
+  var expected = _.box.tools.long.make( [  0.050, 0.002, -0.338, 0.094, 0.766, 0.866 ] );
 
   var gotBox = _.box.expand( box, expand );
   test.equivalent( gotBox, expected );
@@ -2968,7 +2968,7 @@ function expand( test )
 
   var box = [ 0, 0, 0, 0, 0, 0, 0, 0 ];
   var expand = [ 1, 2, 3 , 4 ];
-  var expected = _.box.tools.longMake( [ - 1, - 2, - 3, - 4, 1, 2, 3, 4 ] );
+  var expected = _.box.tools.long.make( [ - 1, - 2, - 3, - 4, 1, 2, 3, 4 ] );
 
   var gotBox = _.box.expand( box, expand );
   test.identical( gotBox, expected );
@@ -2979,7 +2979,7 @@ function expand( test )
 
   var box = [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ];
   var expand = [ 1, 2, 3 , 4, 5, 6, 7 ];
-  var expected = _.box.tools.longMake( [ - 1, - 2, - 3, - 4, - 5, - 6, - 7, 1, 2, 3, 4, 5, 6, 7 ] );
+  var expected = _.box.tools.long.make( [ - 1, - 2, - 3, - 4, - 5, - 6, - 7, 1, 2, 3, 4, 5, 6, 7 ] );
 
   var gotBox = _.box.expand( box, expand );
   test.identical( gotBox, expected );
@@ -2990,7 +2990,7 @@ function expand( test )
 
   var box = [ 0, 0 ];
   var expand = [ 1 ];
-  var expected = _.box.tools.longMake( [ - 1, 1 ] );
+  var expected = _.box.tools.long.make( [ - 1, 1 ] );
 
   var gotBox = _.box.expand( box, expand );
   test.identical( gotBox, expected );
@@ -3001,7 +3001,7 @@ function expand( test )
 
   var box = [ ];
   var expand = [ ];
-  var expected = _.box.tools.longMake( [ ] );
+  var expected = _.box.tools.long.make( [ ] );
 
   var gotBox = _.box.expand( box, expand );
   test.identical( gotBox, expected );
@@ -3012,7 +3012,7 @@ function expand( test )
 
   var box = null;
   var expand =  4 ;
-  var expected = _.box.tools.longMake( [ - 4, -4, -4, 4, 4, 4 ] );
+  var expected = _.box.tools.long.make( [ - 4, -4, -4, 4, 4, 4 ] );
 
   var gotBox = _.box.expand( box, expand );
   test.identical( gotBox, expected );
@@ -3097,18 +3097,18 @@ function project( test )
 
   test.case = 'Projection array remains unchanged and Destination box changes';
 
-  var dstBox = _.box.tools.longMake( [ 0, 0, 1, 1 ] );
-  var project = _.box.tools.longMake( [ [ 1, 1 ], 1, 2 ] );
-  var expected = _.box.tools.longMake( [ 1, 0.5, 2, 2.5 ] );
+  var dstBox = _.box.tools.long.make( [ 0, 0, 1, 1 ] );
+  var project = _.box.tools.long.make( [ [ 1, 1 ], 1, 2 ] );
+  var expected = _.box.tools.long.make( [ 1, 0.5, 2, 2.5 ] );
 
   var gotBox = _.box.project( dstBox, project );
   test.identical( gotBox, expected );
   test.identical( dstBox, expected );
 
-  var oldProject = _.box.tools.longMake( [ [ 1, 1 ], 1, 2 ] );
+  var oldProject = _.box.tools.long.make( [ [ 1, 1 ], 1, 2 ] );
   test.identical( project, oldProject );
 
-  var oldBox = _.box.tools.longMake( [ 0, 0, 1, 1 ] );
+  var oldBox = _.box.tools.long.make( [ 0, 0, 1, 1 ] );
   test.true( oldBox !== gotBox );
 
   /* */
@@ -3116,8 +3116,8 @@ function project( test )
   test.case = 'Null box projected';
 
   var box = null;
-  var project = _.box.tools.longMake( [ [ 1, 0, 0 ], 1, 2, 3 ] );
-  var expected = _.box.tools.longMake( [ 1, 0, 0, 1, 0, 0 ] );
+  var project = _.box.tools.long.make( [ [ 1, 0, 0 ], 1, 2, 3 ] );
+  var expected = _.box.tools.long.make( [ 1, 0, 0, 1, 0, 0 ] );
 
   var gotBox = _.box.project( box, project );
   test.identical( gotBox, expected );
@@ -3127,8 +3127,8 @@ function project( test )
   test.case = 'Null box NOT projected';
 
   var box = null;
-  var project = _.box.tools.longMake( [ [ 0, 0, 0 ], 0, 0, 0 ] );
-  var expected = _.box.tools.longMake( [ 0, 0, 0, 0, 0, 0 ] );
+  var project = _.box.tools.long.make( [ [ 0, 0, 0 ], 0, 0, 0 ] );
+  var expected = _.box.tools.long.make( [ 0, 0, 0, 0, 0, 0 ] );
 
   var gotBox = _.box.project( box, project );
   test.identical( gotBox, expected );
@@ -3137,9 +3137,9 @@ function project( test )
 
   test.case = 'One side box projected';
 
-  var box = _.box.tools.longMake( [ 0, 0, 0, 1, 0, 0 ] );
-  var project = _.box.tools.longMake( [ [ 0, 1, 0 ], 2, 0, 3 ] );
-  var expected = _.box.tools.longMake( [ -0.5, 1, 0, 1.5, 1, 0 ] );
+  var box = _.box.tools.long.make( [ 0, 0, 0, 1, 0, 0 ] );
+  var project = _.box.tools.long.make( [ [ 0, 1, 0 ], 2, 0, 3 ] );
+  var expected = _.box.tools.long.make( [ -0.5, 1, 0, 1.5, 1, 0 ] );
 
   var gotBox = _.box.project( box, project );
   test.identical( gotBox, expected );
@@ -3148,9 +3148,9 @@ function project( test )
 
   test.case = 'Box expanded';
 
-  var box = _.box.tools.longMake( [ 0, 0, 0, 2, 2, 2 ] );
-  var project = _.box.tools.longMake( [ [ 0, 0, 0 ], 1, 3, 1 ] );
-  var expected = _.box.tools.longMake( [ 0, -2, 0, 2, 4, 2 ] );
+  var box = _.box.tools.long.make( [ 0, 0, 0, 2, 2, 2 ] );
+  var project = _.box.tools.long.make( [ [ 0, 0, 0 ], 1, 3, 1 ] );
+  var expected = _.box.tools.long.make( [ 0, -2, 0, 2, 4, 2 ] );
 
   var gotBox = _.box.project( box, project );
   test.identical( gotBox, expected );
@@ -3159,9 +3159,9 @@ function project( test )
 
   test.case = 'Box contracted';
 
-  var box = _.box.tools.longMake( [ 0, 0, 0, 2, 2, 2 ] );
-  var project = _.box.tools.longMake( [ [ 0, 0, 0 ], 0.5, 0.5, 0.5 ] );
-  var expected = _.box.tools.longMake( [ 0.5, 0.5, 0.5, 1.5, 1.5, 1.5 ] );
+  var box = _.box.tools.long.make( [ 0, 0, 0, 2, 2, 2 ] );
+  var project = _.box.tools.long.make( [ [ 0, 0, 0 ], 0.5, 0.5, 0.5 ] );
+  var expected = _.box.tools.long.make( [ 0.5, 0.5, 0.5, 1.5, 1.5, 1.5 ] );
 
   var gotBox = _.box.project( box, project );
   test.identical( gotBox, expected );
@@ -3170,9 +3170,9 @@ function project( test )
 
   test.case = 'Box translated';
 
-  var box = _.box.tools.longMake( [ 0, 0, 0, 2, 2, 2 ] );
-  var project = _.box.tools.longMake( [ [ 1, 2, 3 ], 1, 1, 1 ] );
-  var expected = _.box.tools.longMake( [ 1, 2, 3, 3, 4, 5 ] );
+  var box = _.box.tools.long.make( [ 0, 0, 0, 2, 2, 2 ] );
+  var project = _.box.tools.long.make( [ [ 1, 2, 3 ], 1, 1, 1 ] );
+  var expected = _.box.tools.long.make( [ 1, 2, 3, 3, 4, 5 ] );
 
   var gotBox = _.box.project( box, project );
   test.identical( gotBox, expected );
@@ -3181,9 +3181,9 @@ function project( test )
 
   test.case = 'Box reduced to point';
 
-  var box = _.box.tools.longMake( [ 0, 0, 0, 2, 2, 2 ] );
-  var project = _.box.tools.longMake( [ [ 1, 2, 3 ], 0, 0, 0 ] );
-  var expected = _.box.tools.longMake( [ 2, 3, 4, 2, 3, 4 ] );
+  var box = _.box.tools.long.make( [ 0, 0, 0, 2, 2, 2 ] );
+  var project = _.box.tools.long.make( [ [ 1, 2, 3 ], 0, 0, 0 ] );
+  var expected = _.box.tools.long.make( [ 2, 3, 4, 2, 3, 4 ] );
 
   var gotBox = _.box.project( box, project );
   test.identical( gotBox, expected );
@@ -3192,9 +3192,9 @@ function project( test )
 
   test.case = 'Box NOT projected ( empty project array )';
 
-  var box = _.box.tools.longMake( [ 0, 0, 0, 2, 2, 2 ] );
-  var project = _.box.tools.longMake( [ [ 0, 0, 0 ], 1, 1, 1 ] );
-  var expected = _.box.tools.longMake( [ 0, 0, 0, 2, 2, 2 ] );
+  var box = _.box.tools.long.make( [ 0, 0, 0, 2, 2, 2 ] );
+  var project = _.box.tools.long.make( [ [ 0, 0, 0 ], 1, 1, 1 ] );
+  var expected = _.box.tools.long.make( [ 0, 0, 0, 2, 2, 2 ] );
 
   var gotBox = _.box.project( box, project );
   test.identical( gotBox, expected );
@@ -3203,9 +3203,9 @@ function project( test )
 
   test.case = 'Box of four dimensions projected';
 
-  var box = _.box.tools.longMake( [ -0.5, -0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5 ] );
-  var project = _.box.tools.longMake( [ [ 0, 0, 0, 0 ], 2, 4, 6, 8 ] );
-  var expected = _.box.tools.longMake( [ - 1, - 2, - 3, - 4, 1, 2, 3, 4 ] );
+  var box = _.box.tools.long.make( [ -0.5, -0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5 ] );
+  var project = _.box.tools.long.make( [ [ 0, 0, 0, 0 ], 2, 4, 6, 8 ] );
+  var expected = _.box.tools.long.make( [ - 1, - 2, - 3, - 4, 1, 2, 3, 4 ] );
 
   var gotBox = _.box.project( box, project );
   test.identical( gotBox, expected );
@@ -3214,9 +3214,9 @@ function project( test )
 
   test.case = 'Box of 1 dimension projected';
 
-  var box = _.box.tools.longMake( [ 0, 0 ] );
-  var project = _.box.tools.longMake( [ [ 1 ], 2 ] );
-  var expected = _.box.tools.longMake( [ 1, 1 ] );
+  var box = _.box.tools.long.make( [ 0, 0 ] );
+  var project = _.box.tools.long.make( [ [ 1 ], 2 ] );
+  var expected = _.box.tools.long.make( [ 1, 1 ] );
 
   var gotBox = _.box.project( box, project );
   test.identical( gotBox, expected );
@@ -3225,9 +3225,9 @@ function project( test )
 
   test.case = 'Box of 0 dimension projected';
 
-  var box = _.box.tools.longMake( [ ] );
-  var project = _.box.tools.longMake( [ [], ] );
-  var expected = _.box.tools.longMake( [ ] );
+  var box = _.box.tools.long.make( [ ] );
+  var project = _.box.tools.long.make( [ [], ] );
+  var expected = _.box.tools.long.make( [ ] );
 
   var gotBox = _.box.project( box, project );
   test.identical( gotBox, expected );
@@ -3237,8 +3237,8 @@ function project( test )
   test.case = 'Null box projected by value';
 
   var box = null;
-  var project = _.box.tools.longMake( [ [ 0, 0, 0 ], 8, 8, 8 ] ) ;
-  var expected = _.box.tools.longMake( [ 0, 0, 0, 0, 0, 0 ] );
+  var project = _.box.tools.long.make( [ [ 0, 0, 0 ], 8, 8, 8 ] ) ;
+  var expected = _.box.tools.long.make( [ 0, 0, 0, 0, 0, 0 ] );
 
   var gotBox = _.box.project( box, project );
   test.identical( gotBox, expected );
@@ -3325,7 +3325,7 @@ function getProjectionFactors( test )
 
   var dstBox = [ 0, 0, 1, 1 ];
   var projBox = [ 1, 0.5, 2, 2.5 ];
-  var expected = _.box.tools.longMake( [ [ 1, 1 ], 1, 2 ] );
+  var expected = _.box.tools.long.make( [ [ 1, 1 ], 1, 2 ] );
 
   var gotFactors = _.box.getProjectionFactors( dstBox, projBox );
   test.identical( gotFactors, expected );
@@ -3342,7 +3342,7 @@ function getProjectionFactors( test )
 
   var dstBox = [ 0, 0, 0, 1, 0, 0 ];
   var projBox = [ -0.5, 1, 0, 1.5, 1, 0 ];
-  var expected = _.box.tools.longMake( [ [ 0, 1, 0 ], 2, 1, 1 ] );
+  var expected = _.box.tools.long.make( [ [ 0, 1, 0 ], 2, 1, 1 ] );
 
   var gotFactors = _.box.getProjectionFactors( dstBox, projBox );
   test.identical( gotFactors, expected );
@@ -3353,7 +3353,7 @@ function getProjectionFactors( test )
 
   var dstBox = [ 0, 0, 0, 2, 2, 2 ];
   var projBox = [ 0, -2, 0, 2, 4, 2 ];
-  var expected = _.box.tools.longMake( [ [ 0, 0, 0 ], 1, 3, 1 ] );
+  var expected = _.box.tools.long.make( [ [ 0, 0, 0 ], 1, 3, 1 ] );
 
   var gotFactors = _.box.getProjectionFactors( dstBox, projBox );
   test.identical( gotFactors, expected );
@@ -3364,7 +3364,7 @@ function getProjectionFactors( test )
 
   var dstBox = [ 0, 0, 0, 2, 2, 2 ];
   var projBox = [ 0.5, 0.5, 0.5, 1.5, 1.5, 1.5 ];
-  var expected = _.box.tools.longMake( [ [ 0, 0, 0 ], 0.5, 0.5, 0.5 ] );
+  var expected = _.box.tools.long.make( [ [ 0, 0, 0 ], 0.5, 0.5, 0.5 ] );
 
   var gotFactors = _.box.getProjectionFactors( dstBox, projBox );
   test.identical( gotFactors, expected );
@@ -3375,7 +3375,7 @@ function getProjectionFactors( test )
 
   var dstBox = [ 0, 0, 0, 2, 2, 2 ];
   var projBox = [ 1, 2, 3, 3, 4, 5 ];
-  var expected = _.box.tools.longMake( [ [ 1, 2, 3 ], 1, 1, 1 ] );
+  var expected = _.box.tools.long.make( [ [ 1, 2, 3 ], 1, 1, 1 ] );
 
   var gotFactors = _.box.getProjectionFactors( dstBox, projBox );
   test.identical( gotFactors, expected );
@@ -3386,7 +3386,7 @@ function getProjectionFactors( test )
 
   var dstBox = [ 0, 0, 0, 2, 2, 2 ];
   var projBox = [ 2, 3, 4, 2, 3, 4 ];
-  var expected = _.box.tools.longMake( [ [ 1, 2, 3 ], 0, 0, 0 ] );
+  var expected = _.box.tools.long.make( [ [ 1, 2, 3 ], 0, 0, 0 ] );
 
   var gotFactors = _.box.getProjectionFactors( dstBox, projBox );
   test.identical( gotFactors, expected );
@@ -3397,7 +3397,7 @@ function getProjectionFactors( test )
 
   var dstBox = [ 0, 0, 0, 2, 2, 2 ];
   var projBox = [ 0, 0, 0, 2, 2, 2 ];
-  var expected = _.box.tools.longMake( [ [ 0, 0, 0 ], 1, 1, 1 ] );
+  var expected = _.box.tools.long.make( [ [ 0, 0, 0 ], 1, 1, 1 ] );
 
   var gotFactors = _.box.getProjectionFactors( dstBox, projBox );
   test.identical( gotFactors, expected );
@@ -3408,7 +3408,7 @@ function getProjectionFactors( test )
 
   var dstBox = [ -0.5, -0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5 ];
   var projBox = [ - 1, - 2, - 3, - 4, 1, 2, 3, 4 ];
-  var expected = _.box.tools.longMake( [ [ 0, 0, 0, 0 ], 2, 4, 6, 8 ] );
+  var expected = _.box.tools.long.make( [ [ 0, 0, 0, 0 ], 2, 4, 6, 8 ] );
 
   var gotFactors = _.box.getProjectionFactors( dstBox, projBox );
   test.identical( gotFactors, expected );
@@ -3419,7 +3419,7 @@ function getProjectionFactors( test )
 
   var dstBox = [ 0, 0 ];
   var projBox = [ 1, 1 ];
-  var expected = _.box.tools.longMake( [ [ 1 ], 1 ] );
+  var expected = _.box.tools.long.make( [ [ 1 ], 1 ] );
 
   var gotFactors = _.box.getProjectionFactors( dstBox, projBox );
   test.identical( gotFactors, expected );
@@ -3430,7 +3430,7 @@ function getProjectionFactors( test )
 
   var dstBox = [ ];
   var projBox = [ ];
-  var expected = _.box.tools.longMake( [ [], ] );
+  var expected = _.box.tools.long.make( [ [], ] );
 
   var gotFactors = _.box.getProjectionFactors( dstBox, projBox );
   test.identical( gotFactors, expected );
@@ -3454,7 +3454,7 @@ function getProjectionFactors( test )
 
   var dstBox = [ 0, 0, 1, 1 ];
   var projBox = [ 0, 0, 1, 1 ];
-  var expected = _.box.tools.longMake( [ [ 0, 0 ], 1, 1 ] );
+  var expected = _.box.tools.long.make( [ [ 0, 0 ], 1, 1 ] );
 
   var gotFactors = _.box.getProjectionFactors( dstBox, projBox );
   test.identical( gotFactors, expected );
@@ -3468,7 +3468,7 @@ function getProjectionFactors( test )
 
   var dstBox = [ 3, 4, 3, 4 ];
   var projBox = [ 3, 4, 3, 4 ];
-  var expected = _.box.tools.longMake( [ [ 0, 0 ], 1, 1 ] );
+  var expected = _.box.tools.long.make( [ [ 0, 0 ], 1, 1 ] );
 
   var gotFactors = _.box.getProjectionFactors( dstBox, projBox );
   test.identical( gotFactors, expected );
@@ -3482,7 +3482,7 @@ function getProjectionFactors( test )
 
   var dstBox = [ 3, 4, 3, 4 ];
   var projBox = [ 5, 5, 5, 5 ];
-  var expected = _.box.tools.longMake( [ [ 2, 1 ], 1, 1 ] );
+  var expected = _.box.tools.long.make( [ [ 2, 1 ], 1, 1 ] );
 
   var gotFactors = _.box.getProjectionFactors( dstBox, projBox );
   test.identical( gotFactors, expected );
@@ -3496,7 +3496,7 @@ function getProjectionFactors( test )
 
   var dstBox = [ 3, 4, 6, 7 ];
   var projBox = [ 5, 5, 5, 5 ];
-  var expected = _.box.tools.longMake( [ [ 0.5, -0.5 ], 0, 0 ] );
+  var expected = _.box.tools.long.make( [ [ 0.5, -0.5 ], 0, 0 ] );
 
   var gotFactors = _.box.getProjectionFactors( dstBox, projBox );
   test.identical( gotFactors, expected );
@@ -3510,7 +3510,7 @@ function getProjectionFactors( test )
 
   var dstBox = [ 3, 4, 6, 7 ];
   var projBox = [ -1, 8, 2, 11 ];
-  var expected = _.box.tools.longMake( [ [ -4, 4 ], 1, 1 ] );
+  var expected = _.box.tools.long.make( [ [ -4, 4 ], 1, 1 ] );
 
   var gotFactors = _.box.getProjectionFactors( dstBox, projBox );
   test.identical( gotFactors, expected );
@@ -3524,7 +3524,7 @@ function getProjectionFactors( test )
 
   var dstBox = [ 0, 0, 4, 4 ];
   var projBox = [ 1, 1, 3, 3 ];
-  var expected = _.box.tools.longMake( [ [ 0, 0 ], 0.5, 0.5 ] );
+  var expected = _.box.tools.long.make( [ [ 0, 0 ], 0.5, 0.5 ] );
 
   var gotFactors = _.box.getProjectionFactors( dstBox, projBox );
   test.identical( gotFactors, expected );
@@ -3538,7 +3538,7 @@ function getProjectionFactors( test )
 
   var dstBox = [ 0, 0, 4, 4 ];
   var projBox = [ -1, -1, 5, 5 ];
-  var expected = _.box.tools.longMake( [ [ 0, 0 ], 3/2, 3/2 ] );
+  var expected = _.box.tools.long.make( [ [ 0, 0 ], 3/2, 3/2 ] );
 
   var gotFactors = _.box.getProjectionFactors( dstBox, projBox );
   test.identical( gotFactors, expected );
@@ -3552,7 +3552,7 @@ function getProjectionFactors( test )
 
   var dstBox = [ 0, 0, 4, 4 ];
   var projBox = [ -1, 1, 5, 3 ];
-  var expected = _.box.tools.longMake( [ [ 0, 0 ], 3/2, 0.5 ] );
+  var expected = _.box.tools.long.make( [ [ 0, 0 ], 3/2, 0.5 ] );
 
   var gotFactors = _.box.getProjectionFactors( dstBox, projBox );
   test.identical( gotFactors, expected );
@@ -3566,7 +3566,7 @@ function getProjectionFactors( test )
 
   var dstBox = [ 0, 0, 4, 4 ];
   var projBox = [ 3, -2, 6, 6 ];
-  var expected = _.box.tools.longMake( [ [ 2.5, 0 ], 3/4, 2 ] );
+  var expected = _.box.tools.long.make( [ [ 2.5, 0 ], 3/4, 2 ] );
 
   var gotFactors = _.box.getProjectionFactors( dstBox, projBox );
   test.identical( gotFactors, expected );
@@ -4217,7 +4217,7 @@ function pointClosestPoint( test )
 
   var box = [ 1, 1, 1, 3, 3, 3 ];
   var point = [ 0, 1, 2 ];
-  var expected = _.box.tools.longMake( [ 1, 1, 2 ] );
+  var expected = _.box.tools.long.make( [ 1, 1, 2 ] );
 
   var gotClamped = _.box.pointClosestPoint( box, point );
   test.identical( gotClamped, expected );
@@ -4234,7 +4234,7 @@ function pointClosestPoint( test )
 
   var box = null;
   var point = [ 0, 0, 0 ];
-  var expected = _.box.tools.longMake( [ 0, 0, 0 ] );
+  var expected = _.box.tools.long.make( [ 0, 0, 0 ] );
 
   var gotClamped = _.box.pointClosestPoint( box, point );
   test.identical( gotClamped, expected );
@@ -4245,7 +4245,7 @@ function pointClosestPoint( test )
 
   var box = [];
   var point = [];
-  var expected = _.box.tools.longMake( [] );
+  var expected = _.box.tools.long.make( [] );
 
   var gotClamped = _.box.pointClosestPoint( box, point );
   test.identical( gotClamped, expected );
@@ -4256,7 +4256,7 @@ function pointClosestPoint( test )
 
   var box = [ 0, 0, 0, 0, 0, 0 ];
   var point = [ 0, 0, 0 ];
-  var expected = _.box.tools.longMake( [ 0, 0, 0 ] );
+  var expected = _.box.tools.long.make( [ 0, 0, 0 ] );
 
   var gotClamped = _.box.pointClosestPoint( box, point );
   test.identical( gotClamped, expected );
@@ -4267,7 +4267,7 @@ function pointClosestPoint( test )
 
   var box = [ 0, 0, 0, 2, 2, 2 ];
   var point = [  1, 1, 1 ];
-  var expected = _.box.tools.longMake( [ 1, 1, 1 ] );
+  var expected = _.box.tools.long.make( [ 1, 1, 1 ] );
 
   var gotClamped = _.box.pointClosestPoint( box, point );
   test.identical( gotClamped, expected );
@@ -4278,7 +4278,7 @@ function pointClosestPoint( test )
 
   var box = [ 0, 0, 0, 2, 2, 2 ];
   var point = [ 1, 1, 3 ];
-  var expected = _.box.tools.longMake( [ 1, 1, 2 ] );
+  var expected = _.box.tools.long.make( [ 1, 1, 2 ] );
 
   var gotClamped = _.box.pointClosestPoint( box, point );
   test.identical( gotClamped, expected );
@@ -4289,7 +4289,7 @@ function pointClosestPoint( test )
 
   var box = [ 0, 0, 0, 2, 2, 2 ];
   var point = [ - 1, 1, 1 ];
-  var expected = _.box.tools.longMake( [ 0, 1, 1 ] );
+  var expected = _.box.tools.long.make( [ 0, 1, 1 ] );
 
   var gotClamped = _.box.pointClosestPoint( box, point );
   test.identical( gotClamped, expected );
@@ -4300,7 +4300,7 @@ function pointClosestPoint( test )
 
   var box = [ - 0.050, 0.002, -0.238, 0.194, 0.766, 0.766 ];
   var point = [ 0.050, 0.500, 0 ];
-  var expected = _.box.tools.longMake( [ 0.050, 0.500, 0 ] );
+  var expected = _.box.tools.long.make( [ 0.050, 0.500, 0 ] );
 
   var gotClamped = _.box.pointClosestPoint( box, point );
   test.identical( gotClamped, expected );
@@ -4311,7 +4311,7 @@ function pointClosestPoint( test )
 
   var box = [ - 0.050, 0.002, -0.238, 0.194, 0.766, 0.766 ];
   var point = [ 0.050, 0.500, - 0.303 ];
-  var expected = _.box.tools.longMake( [ 0.050, 0.500, -0.238 ] );
+  var expected = _.box.tools.long.make( [ 0.050, 0.500, -0.238 ] );
 
   var gotClamped = _.box.pointClosestPoint( box, point );
   test.identical( gotClamped, expected );
@@ -4322,7 +4322,7 @@ function pointClosestPoint( test )
 
   var box = [ - 1, - 1, - 1, - 1, 1, 1, 1, 1 ];
   var point = [ 0, 0, 0 , 0 ];
-  var expected = _.box.tools.longMake( [ 0, 0, 0 , 0 ] );
+  var expected = _.box.tools.long.make( [ 0, 0, 0 , 0 ] );
 
   var gotClamped = _.box.pointClosestPoint( box, point );
   test.identical( gotClamped, expected );
@@ -4333,7 +4333,7 @@ function pointClosestPoint( test )
 
   var box = [ - 1, - 1, - 1, - 1, 1, 1, 1, 1 ];
   var point = [ 0, - 2, 0 , 2 ];
-  var expected = _.box.tools.longMake( [ 0, - 1, 0 , 1 ] );
+  var expected = _.box.tools.long.make( [ 0, - 1, 0 , 1 ] );
 
   var gotClamped = _.box.pointClosestPoint( box, point );
   test.identical( gotClamped, expected );
@@ -4344,7 +4344,7 @@ function pointClosestPoint( test )
 
   var box = [ - 2, 3, 3, - 1, 2, 1, 1, 1, 5, 4, 2, 4, 3, 3 ];
   var point = [ 0, 4, 3.5, 0, 4, 2, 2 ];
-  var expected = _.box.tools.longMake( [ 0, 4, 3.5, 0, 4, 2, 2 ] );
+  var expected = _.box.tools.long.make( [ 0, 4, 3.5, 0, 4, 2, 2 ] );
 
   var gotClamped = _.box.pointClosestPoint( box, point );
   test.identical( gotClamped, expected );
@@ -4355,7 +4355,7 @@ function pointClosestPoint( test )
 
   var box = [ - 2, 3, 3, - 1, 2, 1, 1, 1, 5, 4, 2, 4, 3, 3 ];
   var point = [ 0, 4, 3.5, 0, 5, 2, 7 ];
-  var expected = _.box.tools.longMake( [ 0, 4, 3.5, 0, 4, 2, 3 ] );
+  var expected = _.box.tools.long.make( [ 0, 4, 3.5, 0, 4, 2, 3 ] );
 
   var gotClamped = _.box.pointClosestPoint( box, point );
   test.identical( gotClamped, expected );
@@ -4511,7 +4511,7 @@ function pointExpand( test )
   var oldPoint = point.slice();
   test.identical( point, oldPoint );
 
-  var expected = _.box.tools.longMake( [ 0, 0, 1, 2 ] );
+  var expected = _.box.tools.long.make( [ 0, 0, 1, 2 ] );
   test.identical( gotBox, expected );
   var oldPoint = [ 0, 2 ];
   test.identical( point, oldPoint );
@@ -4522,7 +4522,7 @@ function pointExpand( test )
 
   var box = null;
   var point = [ 1, 2, 3 ];
-  var expected = _.box.tools.longMake( [ 1, 2, 3, 1, 2, 3 ] );
+  var expected = _.box.tools.long.make( [ 1, 2, 3, 1, 2, 3 ] );
 
   var gotBox = _.box.pointExpand( box, point );
   test.identical( gotBox, expected );
@@ -4533,7 +4533,7 @@ function pointExpand( test )
 
   var box = null;
   var point = [ 0, 0, 0 ];
-  var expected = _.box.tools.longMake( [ 0, 0, 0, 0, 0, 0 ] );
+  var expected = _.box.tools.long.make( [ 0, 0, 0, 0, 0, 0 ] );
 
   var gotBox = _.box.pointExpand( box, point );
   test.identical( gotBox, expected );
@@ -4544,7 +4544,7 @@ function pointExpand( test )
 
   var box = [ 0, 0, 0, 0, 0, 0 ];
   var point = [ - 1, 2, - 3 ];
-  var expected = _.box.tools.longMake( [ - 1, 0, - 3, 0, 2, 0 ] );
+  var expected = _.box.tools.long.make( [ - 1, 0, - 3, 0, 2, 0 ] );
 
   var gotBox = _.box.pointExpand( box, point );
   test.identical( gotBox, expected );
@@ -4555,7 +4555,7 @@ function pointExpand( test )
 
   var box = [ 0, 0, 0, 2, 2, 2 ];
   var point = [ - 1, 3, - 1 ];
-  var expected = _.box.tools.longMake( [ - 1, 0, - 1, 2, 3, 2 ] );
+  var expected = _.box.tools.long.make( [ - 1, 0, - 1, 2, 3, 2 ] );
 
   var gotBox = _.box.pointExpand( box, point );
   test.identical( gotBox, expected );
@@ -4566,7 +4566,7 @@ function pointExpand( test )
 
   var box = [ 0, 0, 0, 2, 2, 2 ];
   var point = [  1, 1, 1 ];
-  var expected = _.box.tools.longMake( [ 0, 0, 0, 2, 2, 2 ] );
+  var expected = _.box.tools.long.make( [ 0, 0, 0, 2, 2, 2 ] );
 
   var gotBox = _.box.pointExpand( box, point );
   test.identical( gotBox, expected );
@@ -4577,7 +4577,7 @@ function pointExpand( test )
 
   var box = [ - 0.050, 0.002, -0.238, 0.194, 0.766, 0.766 ];
   var point = [ -0.900, 0, 0.900 ];
-  var expected = _.box.tools.longMake( [ - 0.900, 0, -0.238, 0.194, 0.766, 0.900 ] );
+  var expected = _.box.tools.long.make( [ - 0.900, 0, -0.238, 0.194, 0.766, 0.900 ] );
 
   var gotBox = _.box.pointExpand( box, point );
   test.identical( gotBox, expected );
@@ -4588,7 +4588,7 @@ function pointExpand( test )
 
   var box = [ 0, 0, 0, 0, 0, 0, 0, 0 ];
   var point = [ 1, 2, 3 , 4 ];
-  var expected = _.box.tools.longMake( [ 0, 0, 0, 0, 1, 2, 3, 4 ] );
+  var expected = _.box.tools.long.make( [ 0, 0, 0, 0, 1, 2, 3, 4 ] );
 
   var gotBox = _.box.pointExpand( box, point );
   test.identical( gotBox, expected );
@@ -4599,7 +4599,7 @@ function pointExpand( test )
 
   var box = [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ];
   var point = [ 1, 2, 3 , 4, 5, 6, 7 ];
-  var expected = _.box.tools.longMake( [ 0, 0, 0, 0, 0, 0, 0, 1, 2, 3, 4, 5, 6, 7 ] );
+  var expected = _.box.tools.long.make( [ 0, 0, 0, 0, 0, 0, 0, 1, 2, 3, 4, 5, 6, 7 ] );
 
   var gotBox = _.box.pointExpand( box, point );
   test.identical( gotBox, expected );
@@ -4610,7 +4610,7 @@ function pointExpand( test )
 
   var box = [ 0, 0 ];
   var point = [ 1 ];
-  var expected = _.box.tools.longMake( [ 0, 1 ] );
+  var expected = _.box.tools.long.make( [ 0, 1 ] );
 
   var gotBox = _.box.pointExpand( box, point );
   test.identical( gotBox, expected );
@@ -4621,7 +4621,7 @@ function pointExpand( test )
 
   var box = [ ];
   var point = [ ];
-  var expected = _.box.tools.longMake( [ ] );
+  var expected = _.box.tools.long.make( [ ] );
 
   var gotBox = _.box.pointExpand( box, point );
   test.identical( gotBox, expected );
@@ -4721,7 +4721,7 @@ function pointRelative( test )
 
   var gotPoint = _.box.pointRelative( box, point );
 
-  var expected = _.box.tools.longMake( [ 0, 0.5 ] );
+  var expected = _.box.tools.long.make( [ 0, 0.5 ] );
   test.equivalent( gotPoint, expected );
 
   var oldPoint = [ 0, 1 ];
@@ -4736,7 +4736,7 @@ function pointRelative( test )
 
   var box = null;
   var point = [ 0, 0, 0 ];
-  var expected = _.box.tools.longMake( [ NaN, NaN, NaN ] );
+  var expected = _.box.tools.long.make( [ NaN, NaN, NaN ] );
 
   var gotPoint = _.box.pointRelative( box, point );
   test.equivalent( gotPoint, expected );
@@ -4747,7 +4747,7 @@ function pointRelative( test )
 
   var box = [];
   var point = [];
-  var expected = _.box.tools.longMake( [] );
+  var expected = _.box.tools.long.make( [] );
 
   var gotPoint = _.box.pointRelative( box, point );
   test.equivalent( gotPoint, expected );
@@ -4758,7 +4758,7 @@ function pointRelative( test )
 
   var box = [ 0, 0, 0, 0, 0, 0 ];
   var point = [ 0, 0, 0 ];
-  var expected = _.box.tools.longMake( [ NaN, NaN, NaN ] );
+  var expected = _.box.tools.long.make( [ NaN, NaN, NaN ] );
 
   var gotPoint = _.box.pointRelative( box, point );
   test.equivalent( gotPoint, expected );
@@ -4769,7 +4769,7 @@ function pointRelative( test )
 
   var box = [ 0, 0, 0, 2, 2, 2 ];
   var point = [  1, 1, 1 ];
-  var expected = _.box.tools.longMake( [ 0.5, 0.5, 0.5 ] );
+  var expected = _.box.tools.long.make( [ 0.5, 0.5, 0.5 ] );
 
   var gotPoint = _.box.pointRelative( box, point );
   test.equivalent( gotPoint, expected );
@@ -4780,7 +4780,7 @@ function pointRelative( test )
 
   var box = [ 0, 0, 0, 2, 2, 2 ];
   var point = [ 1, 1, 3 ];
-  var expected = _.box.tools.longMake( [ 0.5, 0.5, 1.5 ] );
+  var expected = _.box.tools.long.make( [ 0.5, 0.5, 1.5 ] );
 
   var gotPoint = _.box.pointRelative( box, point );
   test.equivalent( gotPoint, expected );
@@ -4791,7 +4791,7 @@ function pointRelative( test )
 
   var box = [ 0, 0, 0, 2, 2, 2 ];
   var point = [ - 1, 1, 1 ];
-  var expected = _.box.tools.longMake( [ - 0.5, 0.5, 0.5 ] );
+  var expected = _.box.tools.long.make( [ - 0.5, 0.5, 0.5 ] );
 
   var gotPoint = _.box.pointRelative( box, point );
   test.equivalent( gotPoint, expected );
@@ -4802,7 +4802,7 @@ function pointRelative( test )
 
   var box = [ 0.000, 0.000, 0.000, 0.050, 0.050, 0.050 ];
   var point = [ 0.100, 0.025, 0.050 ];
-  var expected = _.box.tools.longMake( [ 2, 0.5, 1 ] );
+  var expected = _.box.tools.long.make( [ 2, 0.5, 1 ] );
 
   var gotPoint = _.box.pointRelative( box, point );
   test.equivalent( gotPoint, expected );
@@ -4813,7 +4813,7 @@ function pointRelative( test )
 
   var box = [ 0.000, 0.000, 0.000, 0.050, 0.050, 0.050 ];
   var point = [ 0.075, 0.075, 0.075 ];
-  var expected = _.box.tools.longMake( [ 1.5, 1.5, 1.5 ] );
+  var expected = _.box.tools.long.make( [ 1.5, 1.5, 1.5 ] );
 
   var gotPoint = _.box.pointRelative( box, point );
   test.equivalent( gotPoint, expected );
@@ -4824,7 +4824,7 @@ function pointRelative( test )
 
   var box = [ - 1, - 1, - 1, - 1, 1, 1, 1, 1 ];
   var point = [ 0, 0, 0 , 0 ];
-  var expected = _.box.tools.longMake( [ 0.5, 0.5, 0.5 , 0.5 ] );
+  var expected = _.box.tools.long.make( [ 0.5, 0.5, 0.5 , 0.5 ] );
 
   var gotPoint = _.box.pointRelative( box, point );
   test.equivalent( gotPoint, expected );
@@ -4835,7 +4835,7 @@ function pointRelative( test )
 
   var box = [ - 1, - 1, - 1, - 1, 1, 1, 1, 1 ];
   var point = [ 0, - 2, 0 , 2 ];
-  var expected = _.box.tools.longMake( [ 0.5, - 0.5, 0.5 , 1.5 ] );
+  var expected = _.box.tools.long.make( [ 0.5, - 0.5, 0.5 , 1.5 ] );
 
   var gotPoint = _.box.pointRelative( box, point );
   test.equivalent( gotPoint, expected );
@@ -4846,7 +4846,7 @@ function pointRelative( test )
 
   var box = [ - 2, - 2, - 2, - 2, - 2, - 2, - 2, 1, 1, 1, 1, 1, 1, 1 ];
   var point = [ - 0.5, - 2, 1, - 3.5, 4, - 5, 7 ];
-  var expected = _.box.tools.longMake( [ 0.5, 0, 1, - 0.5, 2, - 1, 3 ] );
+  var expected = _.box.tools.long.make( [ 0.5, 0, 1, - 0.5, 2, - 1, 3 ] );
 
   var gotPoint = _.box.pointRelative( box, point );
   test.equivalent( gotPoint, expected );
@@ -5589,7 +5589,7 @@ function boxClosestPoint( test )
 
   var srcBox = [ - 1, - 1, -1, 0, 0, 0 ];
   var tstBox = [ 1, 1, 1, 2, 2, 2 ];
-  var expected = _.box.tools.longMake( [ 1, 1, 1 ] );
+  var expected = _.box.tools.long.make( [ 1, 1, 1 ] );
 
   var gotBox = _.box.boxClosestPoint( srcBox, tstBox );
   test.identical( expected, gotBox );
@@ -5600,7 +5600,7 @@ function boxClosestPoint( test )
 
   var srcBox = [ - 1, - 1, -1, 0, 0, 0 ];
   var tstBox = [ -3, -3, -3, -2, -2, -2 ];
-  var expected = _.box.tools.longMake( [ -2, -2, -2 ] );
+  var expected = _.box.tools.long.make( [ -2, -2, -2 ] );
 
   var gotBox = _.box.boxClosestPoint( srcBox, tstBox );
   test.identical( expected, gotBox );
@@ -5611,7 +5611,7 @@ function boxClosestPoint( test )
 
   var srcBox = [ 0, 0, 0, 4, 4, 4 ];
   var tstBox = [ 1, 1, 5, 3, 3, 6 ];
-  var expected = _.box.tools.longMake( [ 3, 3, 5 ] );
+  var expected = _.box.tools.long.make( [ 3, 3, 5 ] );
 
   var gotBox = _.box.boxClosestPoint( srcBox, tstBox );
   test.identical( expected, gotBox );
@@ -5622,7 +5622,7 @@ function boxClosestPoint( test )
 
   var srcBox = [ 1, 1, 5, 3, 3, 6 ];
   var tstBox = [ 0, 0, 0, 4, 4, 4 ];
-  var expected = _.box.tools.longMake( [ 3, 3, 4 ] );
+  var expected = _.box.tools.long.make( [ 3, 3, 4 ] );
 
   var gotBox = _.box.boxClosestPoint( srcBox, tstBox );
   test.identical( expected, gotBox );
@@ -5634,7 +5634,7 @@ function boxClosestPoint( test )
   var srcBox = [ 0, 0, 0, 4, 4, 4 ];
   var tstBox = [ -1, -2, -3, 3, 2, -1 ];
   var dstPoint = [ 0, 0, 0 ];
-  var expected = _.box.tools.longMake( [ 3, 2, -1 ] );
+  var expected = _.box.tools.long.make( [ 3, 2, -1 ] );
 
   var gotBox = _.box.boxClosestPoint( srcBox, tstBox, dstPoint );
   test.identical( expected, gotBox );
@@ -5681,7 +5681,7 @@ function boxExpand( test )
 
   var dstBox = [ 0, 0, 1, 1 ];
   var srcBox = [ - 1, - 1, 0, 2 ];
-  var expected = _.box.tools.longMake( [ - 1, - 1, 1, 2 ] );
+  var expected = _.box.tools.long.make( [ - 1, - 1, 1, 2 ] );
 
   var gotBox = _.box.boxExpand( dstBox, srcBox );
   test.identical( dstBox, gotBox );
@@ -5695,7 +5695,7 @@ function boxExpand( test )
 
   var box = [];
   var boxTwo = [];
-  var expected = _.box.tools.longMake( [] );
+  var expected = _.box.tools.long.make( [] );
 
   var gotBox = _.box.boxExpand( box, boxTwo );
   test.identical( gotBox, expected );
@@ -5707,7 +5707,7 @@ function boxExpand( test )
 
   var box = [ 0, 0, 0, 0, 0, 0 ];
   var boxTwo = [ 0, 0, 0, 0, 0, 0 ];
-  var expected = _.box.tools.longMake( [ 0, 0, 0, 0, 0, 0 ] );
+  var expected = _.box.tools.long.make( [ 0, 0, 0, 0, 0, 0 ] );
 
   var gotBox = _.box.boxExpand( box, boxTwo );
   test.identical( gotBox, expected );
@@ -5718,7 +5718,7 @@ function boxExpand( test )
 
   var box = [ 0, 0, 0, 4, 4, 4 ];
   var boxTwo = [ 0, 0, 0, 4, 4, 4 ];
-  var expected = _.box.tools.longMake( [ 0, 0, 0, 4, 4, 4 ] );
+  var expected = _.box.tools.long.make( [ 0, 0, 0, 4, 4, 4 ] );
 
   var gotBox = _.box.boxExpand( box, boxTwo );
   test.identical( gotBox, expected );
@@ -5729,7 +5729,7 @@ function boxExpand( test )
 
   var box = [ 0, 0, 0, 3, 3, 3 ];
   var boxTwo = [ 1, 1, 1, 2, 2, 2 ];
-  var expected = _.box.tools.longMake( [ 0, 0, 0, 3, 3, 3 ] );
+  var expected = _.box.tools.long.make( [ 0, 0, 0, 3, 3, 3 ] );
 
   var gotBox = _.box.boxExpand( box, boxTwo );
   test.identical( gotBox, expected );
@@ -5740,7 +5740,7 @@ function boxExpand( test )
 
   var box = [ 0, 0, 0, 3, 3, 3 ];
   var boxTwo = [ 1, 1, 1, 2, 2, 4 ];
-  var expected = _.box.tools.longMake( [ 0, 0, 0, 3, 3, 4 ] );
+  var expected = _.box.tools.long.make( [ 0, 0, 0, 3, 3, 4 ] );
 
   var gotBox = _.box.boxExpand( box, boxTwo );
   test.identical( gotBox, expected );
@@ -5751,7 +5751,7 @@ function boxExpand( test )
 
   var box = [ 0, 0, 0, 4, 4, 4 ];
   var boxTwo = [ 2, - 2, - 2, 4, 6, 6 ];
-  var expected = _.box.tools.longMake( [ 0, - 2, - 2, 4, 6, 6 ] );
+  var expected = _.box.tools.long.make( [ 0, - 2, - 2, 4, 6, 6 ] );
 
   var gotBox = _.box.boxExpand( box, boxTwo );
   test.identical( gotBox, expected );
@@ -5762,7 +5762,7 @@ function boxExpand( test )
 
   var box = [ 0, 0, 0, 1, 1, 1 ];
   var boxTwo = [ - 2, - 2, - 2, 3, 3, 3 ];
-  var expected = _.box.tools.longMake( [ - 2, - 2, - 2, 3, 3, 3 ] );
+  var expected = _.box.tools.long.make( [ - 2, - 2, - 2, 3, 3, 3 ] );
 
   var gotBox = _.box.boxExpand( box, boxTwo );
   test.identical( gotBox, expected );
@@ -5773,7 +5773,7 @@ function boxExpand( test )
 
   var box = [ 0, - 5, 3, 2, 3, 3 ];
   var boxTwo = [ - 1, - 1, - 1, 2.5, 2.5, 2.5 ];
-  var expected = _.box.tools.longMake( [ - 1, - 5, - 1, 2.5, 3, 3 ] );
+  var expected = _.box.tools.long.make( [ - 1, - 5, - 1, 2.5, 3, 3 ] );
 
   var gotBox = _.box.boxExpand( box, boxTwo );
   test.identical( gotBox, expected );
@@ -5784,7 +5784,7 @@ function boxExpand( test )
 
   var box = [ - 0.02, - 0.10, - 0.04, 0.56, 0.07, 0.80 ];
   var boxTwo = [ - 0.01, 0, - 0.02, 0.30, 0, 0.90 ];
-  var expected = _.box.tools.longMake( [ - 0.02, - 0.10, - 0.04, 0.56, 0.07, 0.90 ] );
+  var expected = _.box.tools.long.make( [ - 0.02, - 0.10, - 0.04, 0.56, 0.07, 0.90 ] );
 
   var gotBox = _.box.boxExpand( box, boxTwo );
   test.identical( gotBox, expected );
@@ -5795,7 +5795,7 @@ function boxExpand( test )
 
   var box = [ - 0.02, - 0.10, - 0.04, 0.56, 0.07, 0.80 ];
   var boxTwo = [ - 0.02, - 0.10, - 0.04, 0.56, 0.07, 0.70 ];
-  var expected = _.box.tools.longMake( [ - 0.02, - 0.10, - 0.04, 0.56, 0.07, 0.80 ] );
+  var expected = _.box.tools.long.make( [ - 0.02, - 0.10, - 0.04, 0.56, 0.07, 0.80 ] );
 
   var gotBox = _.box.boxExpand( box, boxTwo );
   test.identical( gotBox, expected );
@@ -5806,7 +5806,7 @@ function boxExpand( test )
 
   var box = [ - 1, - 1, - 1, - 1, 2, 2, 2, 2 ];
   var boxTwo = [ 0, 0, 0, 0, 3, 3, 3, 3 ];
-  var expected = _.box.tools.longMake( [ - 1, - 1, - 1, - 1, 3, 3, 3, 3 ] );
+  var expected = _.box.tools.long.make( [ - 1, - 1, - 1, - 1, 3, 3, 3, 3 ] );
 
   var gotBox = _.box.boxExpand( box, boxTwo );
   test.identical( gotBox, expected );
@@ -5817,7 +5817,7 @@ function boxExpand( test )
 
   var box = [ - 1, - 1, - 1, - 1, 2, 2, 2, 2 ];
   var boxTwo = [ 0, 0, 0, 0, 1, 1, 1, 1 ];
-  var expected = _.box.tools.longMake( [ - 1, - 1, - 1, - 1, 2, 2, 2, 2 ] );
+  var expected = _.box.tools.long.make( [ - 1, - 1, - 1, - 1, 2, 2, 2, 2 ] );
 
   var gotBox = _.box.boxExpand( box, boxTwo );
   test.identical( gotBox, expected );
@@ -5828,7 +5828,7 @@ function boxExpand( test )
 
   var box = [ - 1, 2 ];
   var boxTwo = [ - 2, 10 ];
-  var expected = _.box.tools.longMake( [ - 2, 10 ] );
+  var expected = _.box.tools.long.make( [ - 2, 10 ] );
 
   var gotBox = _.box.boxExpand( box, boxTwo );
   test.identical( gotBox, expected );
@@ -5839,7 +5839,7 @@ function boxExpand( test )
 
   var box = [ - 1, 2 ];
   var boxTwo = [ 0, 4 ];
-  var expected = _.box.tools.longMake( [ - 1, 4 ] );
+  var expected = _.box.tools.long.make( [ - 1, 4 ] );
 
   var gotBox = _.box.boxExpand( box, boxTwo );
   test.identical( gotBox, expected );
@@ -5850,7 +5850,7 @@ function boxExpand( test )
 
   var box = [ - 1, 3 ];
   var boxTwo = [ 0, 1 ];
-  var expected = _.box.tools.longMake( [ - 1, 3 ] );
+  var expected = _.box.tools.long.make( [ - 1, 3 ] );
 
   var gotBox = _.box.boxExpand( box, boxTwo );
   test.identical( gotBox, expected );
@@ -6137,7 +6137,7 @@ function capsuleClosestPoint( test )
 
   var srcBox = [ - 1, - 1, -1, 0, 0, 0 ];
   var tstCapsule = [ -3, -3, -3, -2, -2, -2, 1 ];
-  var expected = _.box.tools.longMake( [ -1, -1, -1 ] );
+  var expected = _.box.tools.long.make( [ -1, -1, -1 ] );
 
   var gotCapsule = _.box.capsuleClosestPoint( srcBox, tstCapsule );
   test.identical( expected, gotCapsule );
@@ -6148,7 +6148,7 @@ function capsuleClosestPoint( test )
 
   var srcBox = [ 0, 0, 0, 4, 4, 4 ];
   var tstCapsule = [ 5, 5, 2, 5, 11, 2, 0.5 ];
-  var expected = _.box.tools.longMake( [ 4, 4, 2 ] );
+  var expected = _.box.tools.long.make( [ 4, 4, 2 ] );
 
   var gotCapsule = _.box.capsuleClosestPoint( srcBox, tstCapsule );
   test.identical( expected, gotCapsule );
@@ -6160,7 +6160,7 @@ function capsuleClosestPoint( test )
   var srcBox = [ 0, 0, 0, 4, 4, 4 ];
   var tstCapsule = [ 5, 5, 1, 11, 5, 1, 0.3 ];
   var dstPoint = [ 0, 0, 0 ];
-  var expected = _.box.tools.longMake( [ 4, 4, 1 ] );
+  var expected = _.box.tools.long.make( [ 4, 4, 1 ] );
 
   var gotCapsule = _.box.capsuleClosestPoint( srcBox, tstCapsule, dstPoint );
   test.identical( expected, gotCapsule );
@@ -6462,7 +6462,7 @@ function convexPolygonClosestPoint( test )
     1,   0, - 1,   0,
     0,   1,   0, - 1
   ]);
-  var expected = _.box.tools.longMake( [ 3, 1, 0 ] );
+  var expected = _.box.tools.long.make( [ 3, 1, 0 ] );
 
   var gotPoint = _.box.convexPolygonClosestPoint( srcBox, polygon );
   test.identical( expected, gotPoint );
@@ -6494,7 +6494,7 @@ function convexPolygonClosestPoint( test )
     1,   0, - 1,   0,
     0,   1,   0, - 1
   ]);
-  var expected = _.box.tools.longMake( [ 0, 1, 1 ] );
+  var expected = _.box.tools.long.make( [ 0, 1, 1 ] );
 
   var gotPoint = _.box.convexPolygonClosestPoint( srcBox, polygon );
   test.identical( expected, gotPoint );
@@ -6510,7 +6510,7 @@ function convexPolygonClosestPoint( test )
     1,   0, - 1,   0,
     0,   1,   0, - 1
   ]);
-  var expected = _.box.tools.longMake( [ -2, 2, 0 ] );
+  var expected = _.box.tools.long.make( [ -2, 2, 0 ] );
 
   var gotPoint = _.box.convexPolygonClosestPoint( srcBox, polygon );
   test.identical( expected, gotPoint );
@@ -6526,7 +6526,7 @@ function convexPolygonClosestPoint( test )
     0,   1,   0, - 1,
     0,   0,   0,   0
   ]);
-  var expected = _.box.tools.longMake( [ 1, 1, 0 ] );
+  var expected = _.box.tools.long.make( [ 1, 1, 0 ] );
 
   var gotPoint = _.box.convexPolygonClosestPoint( srcBox, polygon );
   test.identical( expected, gotPoint );
@@ -6542,7 +6542,7 @@ function convexPolygonClosestPoint( test )
     1,   0, - 1,   0,
     0,   1,   0, - 1
   ]);
-  var expected = _.box.tools.longMake( [ 0, 0, 2 ] );
+  var expected = _.box.tools.long.make( [ 0, 0, 2 ] );
 
   var gotPoint = _.box.convexPolygonClosestPoint( srcBox, polygon );
   test.identical( expected, gotPoint );
@@ -6558,7 +6558,7 @@ function convexPolygonClosestPoint( test )
     0,   0,   1,   1,
     0,   0,   0,   0
   ]);
-  var expected = _.box.tools.longMake( [ 1, 2, 0 ] );
+  var expected = _.box.tools.long.make( [ 1, 2, 0 ] );
 
   var gotPoint = _.box.convexPolygonClosestPoint( srcBox, polygon );
   test.identical( expected, gotPoint );
@@ -6573,7 +6573,7 @@ function convexPolygonClosestPoint( test )
     0,   1,   1,   0,
     0,   0,   1,   1
   ]);
-  var expected = _.box.tools.longMake( [ 1, 2 ] );
+  var expected = _.box.tools.long.make( [ 1, 2 ] );
 
   var gotPoint = _.box.convexPolygonClosestPoint( srcBox, polygon );
   test.identical( expected, gotPoint );
@@ -6590,7 +6590,7 @@ function convexPolygonClosestPoint( test )
     0,   1,   0, - 1
   ]);
   var dstPoint = [ 0, 0, 0 ];
-  var expected = _.box.tools.longMake( [ 3, 3, 3 ] );
+  var expected = _.box.tools.long.make( [ 3, 3, 3 ] );
 
   var gotPoint = _.box.convexPolygonClosestPoint( srcBox, polygon, dstPoint );
   test.identical( expected, gotPoint );
@@ -6992,7 +6992,7 @@ function frustumClosestPoint( test )
     0,  0,  1, - 1,  0,  0,
   ]);
   var box = [ 2, 2, 2, 2.5, 2.5, 2.5 ];
-  var expected = _.box.tools.longMake( [ 2, 2, 2 ] );
+  var expected = _.box.tools.long.make( [ 2, 2, 2 ] );
 
   var gotPoint = _.box.frustumClosestPoint( box, frustum );
   test.equivalent( gotPoint, expected );
@@ -7007,7 +7007,7 @@ function frustumClosestPoint( test )
     0,  0,  1, - 1,  0,  0,
   ]);
   var box = [ -1, -1, -1, -0.5, -0.5, -0.5 ];
-  var expected = _.box.tools.longMake( [ -0.5, -0.5, -0.5 ] );
+  var expected = _.box.tools.long.make( [ -0.5, -0.5, -0.5 ] );
 
   var gotPoint = _.box.frustumClosestPoint( box, frustum );
   test.equivalent( gotPoint, expected );
@@ -7037,7 +7037,7 @@ function frustumClosestPoint( test )
     0,  2,  1, - 1,  0,  0,
   ]);
   var box = [ -1, -1, 1, 0.5, 1.5, 2 ];
-  var expected = _.box.tools.longMake( [ 0.5, 1.5, 1 ] );
+  var expected = _.box.tools.long.make( [ 0.5, 1.5, 1 ] );
 
   var gotPoint = _.box.frustumClosestPoint( box, frustum );
   test.equivalent( gotPoint, expected );
@@ -7052,7 +7052,7 @@ function frustumClosestPoint( test )
     0,  2,  1, - 1,  0,  0,
   ]);
   var box = [ -2, -2, 2, 0, 0, 4 ];
-  var expected = _.box.tools.longMake( [ 0, 0, 2 ] );
+  var expected = _.box.tools.long.make( [ 0, 0, 2 ] );
 
   var gotPoint = _.box.frustumClosestPoint( box, frustum );
   test.equivalent( gotPoint, expected );
@@ -7067,7 +7067,7 @@ function frustumClosestPoint( test )
     0,  2,  1, - 1,  0,  0,
   ]);
   var box = [ -2, -2, -2, -2, -2, -2 ];
-  var expected = _.box.tools.longMake( [ -2, -2, -2 ] );
+  var expected = _.box.tools.long.make( [ -2, -2, -2 ] );
 
   var gotPoint = _.box.frustumClosestPoint( box, frustum );
   test.equivalent( gotPoint, expected );
@@ -7082,7 +7082,7 @@ function frustumClosestPoint( test )
     0,  0,  1, - 1,  0,  0,
   ]);
   var box = [ 1.1, 0.5, 0.5, 1.1, 0.5, 0.5 ];
-  var expected = _.box.tools.longMake( [ 1.1, 0.5, 0.5 ] );
+  var expected = _.box.tools.long.make( [ 1.1, 0.5, 0.5 ] );
 
   var gotPoint = _.box.frustumClosestPoint( box, frustum );
   test.equivalent( gotPoint, expected );
@@ -7122,7 +7122,7 @@ function frustumExpand( test )
      0,  0,  1, -1,  0,  0,
   ]);
   var box = [ 0.5, 0.5, 0.5, 1.5, 1.5, 1.5 ];
-  var expected = _.box.tools.longMake( [ 0, 0, 0, 1.5, 1.5, 1.5 ] );
+  var expected = _.box.tools.long.make( [ 0, 0, 0, 1.5, 1.5, 1.5 ] );
 
   var gotBox = _.box.frustumExpand( box, srcFrustum );
   test.equivalent( gotBox, expected );
@@ -7146,7 +7146,7 @@ function frustumExpand( test )
     0,  0,  1, - 1,  0,  0,
   ]);
   var box = [ 0.5, 0.5, 0.5, 1.5, 1.5, 1.5 ];
-  var expected = _.box.tools.longMake( [ 0, 0, 0, 2, 2, 2 ] );
+  var expected = _.box.tools.long.make( [ 0, 0, 0, 2, 2, 2 ] );
 
   var gotBox = _.box.frustumExpand( box, srcFrustum );
   test.identical( gotBox, expected );
@@ -7161,7 +7161,7 @@ function frustumExpand( test )
     0,  0,  1, - 1,  0,  0,
   ]);
   var box = [ 0, 0, 0.5, 1.5, 2, 2 ];
-  var expected = _.box.tools.longMake( [ 0, 0, 0, 2, 2, 2 ] );
+  var expected = _.box.tools.long.make( [ 0, 0, 0, 2, 2, 2 ] );
 
   var gotBox = _.box.frustumExpand( box, srcFrustum );
   test.identical( gotBox, expected );
@@ -7176,7 +7176,7 @@ function frustumExpand( test )
     0,  0,  1, - 1,  0,  0,
   ]);
   var box = [ 2, 2, 2, 2.5, 2.5, 2.5 ];
-  var expected = _.box.tools.longMake( [ 0, 0, 0, 2.5, 2.5, 2.5 ] );
+  var expected = _.box.tools.long.make( [ 0, 0, 0, 2.5, 2.5, 2.5 ] );
 
   var gotBox = _.box.frustumExpand( box, srcFrustum );
   test.identical( gotBox, expected );
@@ -7191,7 +7191,7 @@ function frustumExpand( test )
     0,  0,  1, - 1,  0,  0,
   ]);
   var box = [ -1, -1, -1, -0.5, -0.5, -0.5 ];
-  var expected = _.box.tools.longMake( [ -1, -1, -1, 1, 1, 1 ] );
+  var expected = _.box.tools.long.make( [ -1, -1, -1, 1, 1, 1 ] );
 
   var gotBox = _.box.frustumExpand( box, srcFrustum );
   test.identical( gotBox, expected );
@@ -7206,7 +7206,7 @@ function frustumExpand( test )
     0,  0,  1, - 1,  0,  0,
   ]);
   var box = [ -1, -1, -1, 0.5, 0.5, 0.5 ];
-  var expected = _.box.tools.longMake( [ -1, -1, -1, 1, 1, 1 ] );
+  var expected = _.box.tools.long.make( [ -1, -1, -1, 1, 1, 1 ] );
 
   var gotBox = _.box.frustumExpand( box, srcFrustum );
   test.identical( gotBox, expected );
@@ -7221,7 +7221,7 @@ function frustumExpand( test )
     0,  2,  1, - 1,  0,  0,
   ]);
   var box = [ -1, -1, 1, 0.5, 1.5, 2 ];
-  var expected = _.box.tools.longMake( [ -1, -1, 0, 1, 3, 2 ] );
+  var expected = _.box.tools.long.make( [ -1, -1, 0, 1, 3, 2 ] );
 
   var gotBox = _.box.frustumExpand( box, srcFrustum );
   test.identical( gotBox, expected );
@@ -7236,7 +7236,7 @@ function frustumExpand( test )
     0,  2,  1, - 1,  0,  0,
   ]);
   var box = [ -2, -2, 2, 0, 0, 4 ];
-  var expected = _.box.tools.longMake( [ -2, -2, 0, 1, 3, 4 ] );
+  var expected = _.box.tools.long.make( [ -2, -2, 0, 1, 3, 4 ] );
 
   var gotBox = _.box.frustumExpand( box, srcFrustum );
   test.identical( gotBox, expected );
@@ -7251,7 +7251,7 @@ function frustumExpand( test )
     0,  2,  1, - 1,  0,  0,
   ]);
   var box = [ -2, -2, -2, -2, -2, -2 ];
-  var expected = _.box.tools.longMake( [ -2, -2, -2, 1, 3, 1 ] );
+  var expected = _.box.tools.long.make( [ -2, -2, -2, 1, 3, 1 ] );
 
   var gotBox = _.box.frustumExpand( box, srcFrustum );
   test.identical( gotBox, expected );
@@ -7266,7 +7266,7 @@ function frustumExpand( test )
     0,  0,  1, - 1,  0,  0,
   ]);
   var box = [ 1.1, 0.5, 0.5, 1.1, 0.5, 0.5 ];
-  var expected = _.box.tools.longMake( [ 0, 0, 0, 1.1, 1, 1 ] );
+  var expected = _.box.tools.long.make( [ 0, 0, 0, 1.1, 1, 1 ] );
 
   var gotBox = _.box.frustumExpand( box, srcFrustum );
   test.identical( gotBox, expected );
@@ -7365,7 +7365,7 @@ function lineClosestPoint( test )
 
   var srcBox = [ 0, 0, 0, 4, 4, 4 ];
   var tstLine = [ 5, 5, 2, 0, 1, 0 ];
-  var expected = _.box.tools.longMake( [ 4, 4, 2 ] );
+  var expected = _.box.tools.long.make( [ 4, 4, 2 ] );
 
   var gotLine = _.box.lineClosestPoint( srcBox, tstLine );
   test.identical( expected, gotLine );
@@ -7377,7 +7377,7 @@ function lineClosestPoint( test )
   var srcBox = [ 0, 0, 0, 4, 4, 4 ];
   var tstLine = [ 5, 5, 1, 1, 0, 0 ];
   var dstPoint = [ 0, 0, 0 ];
-  var expected = _.box.tools.longMake( [ 4, 4, 1 ] );
+  var expected = _.box.tools.long.make( [ 4, 4, 1 ] );
 
   var gotLine = _.box.lineClosestPoint( srcBox, tstLine, dstPoint );
   test.identical( expected, gotLine );
@@ -7554,7 +7554,7 @@ function planeClosestPoint( test )
   var oldSrcBox = srcBox.slice();
   var srcPlane = [ 1, 1, 0, 0 ];
   var oldSrcPlane = srcPlane.slice();
-  var expected = _.box.tools.longMake( [ 0, 0, 0 ] );
+  var expected = _.box.tools.long.make( [ 0, 0, 0 ] );
 
   var gotPoint = _.box.planeClosestPoint( srcBox, srcPlane );
   test.identical( expected, gotPoint );
@@ -7589,7 +7589,7 @@ function planeClosestPoint( test )
 
   var srcBox = [ 0, 0, 0, 3, 3, 3 ];
   var srcPlane = [ 1, 1, 0, 0 ];
-  var expected = _.box.tools.longMake( [ 0, 0, 0 ] );
+  var expected = _.box.tools.long.make( [ 0, 0, 0 ] );
 
   var gotPoint = _.box.planeClosestPoint( srcBox, srcPlane );
   test.identical( expected, gotPoint );
@@ -7600,7 +7600,7 @@ function planeClosestPoint( test )
 
   var srcBox = [ 0, 0, 0, 3, 3, 3 ];
   var srcPlane = [ 1, 0, 1, 0 ];
-  var expected = _.box.tools.longMake( [ 0, 0, 0 ] );
+  var expected = _.box.tools.long.make( [ 0, 0, 0 ] );
 
   var gotPoint = _.box.planeClosestPoint( srcBox, srcPlane );
   test.identical( expected, gotPoint );
@@ -7611,7 +7611,7 @@ function planeClosestPoint( test )
 
   var srcBox = [ 0, 0, 0, 3, 3, 3 ];
   var srcPlane = [ - 4, 1, 0, 0 ];
-  var expected = _.box.tools.longMake( [ 3, 0, 0 ] );
+  var expected = _.box.tools.long.make( [ 3, 0, 0 ] );
 
   var gotPoint = _.box.planeClosestPoint( srcBox, srcPlane );
   test.identical( expected, gotPoint );
@@ -7622,7 +7622,7 @@ function planeClosestPoint( test )
 
   var srcBox = [ 0, 0, 0, 3, 3, 3 ];
   var srcPlane = [ - 4, 0, 1, 0 ];
-  var expected = _.box.tools.longMake( [ 0, 3, 0 ] );
+  var expected = _.box.tools.long.make( [ 0, 3, 0 ] );
 
   var gotPoint = _.box.planeClosestPoint( srcBox, srcPlane );
   test.identical( expected, gotPoint );
@@ -7633,7 +7633,7 @@ function planeClosestPoint( test )
 
   var srcBox = [ 0, 0, 0, 3, 3, 3 ];
   var srcPlane = [ 1, 1, 1, 0 ];
-  var expected = _.box.tools.longMake( [ 0, 0, 0 ] );
+  var expected = _.box.tools.long.make( [ 0, 0, 0 ] );
 
   var gotPoint = _.box.planeClosestPoint( srcBox, srcPlane );
   test.identical( expected, gotPoint );
@@ -7644,7 +7644,7 @@ function planeClosestPoint( test )
 
   var srcBox = [ 0, 0, 0, 3, 3, 3 ];
   var srcPlane = [ - 7, 1, 1, 0 ];
-  var expected = _.box.tools.longMake( [ 3, 3, 0 ] );
+  var expected = _.box.tools.long.make( [ 3, 3, 0 ] );
 
   var gotPoint = _.box.planeClosestPoint( srcBox, srcPlane );
   test.identical( expected, gotPoint );
@@ -7655,7 +7655,7 @@ function planeClosestPoint( test )
 
   var srcBox = [ 0, 0, 0, 3, 3, 3 ];
   var srcPlane = [ - 7, 1, - 1, 0 ];
-  var expected = _.box.tools.longMake( [ 3, 0, 0 ] );
+  var expected = _.box.tools.long.make( [ 3, 0, 0 ] );
 
   var gotPoint = _.box.planeClosestPoint( srcBox, srcPlane );
   test.identical( expected, gotPoint );
@@ -7667,7 +7667,7 @@ function planeClosestPoint( test )
   var srcBox = [ 0, 0, 0, 3, 3, 3 ];
   var srcPlane = [ - 7, 1, - 1, 0 ];
   var dstPoint = [ 0, 0, 0 ];
-  var expected = _.box.tools.longMake( [ 3, 0, 0 ] );
+  var expected = _.box.tools.long.make( [ 3, 0, 0 ] );
 
   var gotPoint = _.box.planeClosestPoint( srcBox, srcPlane, dstPoint );
   test.identical( expected, gotPoint );
@@ -7718,7 +7718,7 @@ function planeExpand( test )
   var dstBox = [ 0, 0, 0, 3, 3, 3 ];
   var srcPlane = [ 1, 1, 0, 0 ];
   var oldSrcPlane = srcPlane.slice();
-  var expected = _.box.tools.longMake( [ -1, 0, 0, 3, 3, 3 ] );
+  var expected = _.box.tools.long.make( [ -1, 0, 0, 3, 3, 3 ] );
 
   var gotBox = _.box.planeExpand( dstBox, srcPlane );
   test.identical( expected, gotBox );
@@ -7732,7 +7732,7 @@ function planeExpand( test )
   var dstBox = [ 0, 0, 0, 3, 3, 3 ];
   var srcPlane = [ - 1, 1, 0, 0 ];
   var oldSrcPlane = srcPlane.slice();
-  var expected = _.box.tools.longMake( [ 0, 0, 0, 3, 3, 3 ] );
+  var expected = _.box.tools.long.make( [ 0, 0, 0, 3, 3, 3 ] );
 
   var gotBox = _.box.planeExpand( dstBox, srcPlane );
   test.identical( expected, gotBox );
@@ -7744,7 +7744,7 @@ function planeExpand( test )
   var dstBox = [ 0, 0, 0, 3, 3, 3 ];
   var srcPlane = [ 3, 1, 1, 1 ];
   var oldSrcPlane = srcPlane.slice();
-  var expected = _.box.tools.longMake( [ -1, -1, -1, 3, 3, 3 ] );
+  var expected = _.box.tools.long.make( [ -1, -1, -1, 3, 3, 3 ] );
 
   var gotBox = _.box.planeExpand( dstBox, srcPlane );
   test.identical( expected, gotBox );
@@ -7756,7 +7756,7 @@ function planeExpand( test )
   var dstBox = [ 0, 0, 0, 3, 3, 3 ];
   var srcPlane = [ - 12, 1, 1, 1 ];
   var oldSrcPlane = srcPlane.slice();
-  var expected = _.box.tools.longMake( [ 0, 0, 0, 4, 4, 4 ] );
+  var expected = _.box.tools.long.make( [ 0, 0, 0, 4, 4, 4 ] );
 
   var gotBox = _.box.planeExpand( dstBox, srcPlane );
   test.identical( expected, gotBox );
@@ -7768,7 +7768,7 @@ function planeExpand( test )
   var dstBox = [ 0, 0, 0, 3, 3, 3 ];
   var srcPlane = [ 8, 1, 1, 0 ];
   var oldSrcPlane = srcPlane.slice();
-  var expected = _.box.tools.longMake( [ -4, -4, 0, 3, 3, 3 ] );
+  var expected = _.box.tools.long.make( [ -4, -4, 0, 3, 3, 3 ] );
 
   var gotBox = _.box.planeExpand( dstBox, srcPlane );
   test.identical( expected, gotBox );
@@ -7780,7 +7780,7 @@ function planeExpand( test )
   var dstBox = [ 0, 0, 0, 3, 3, 3 ];
   var srcPlane = [ - 8, 1, 1, 0 ];
   var oldSrcPlane = srcPlane.slice();
-  var expected = _.box.tools.longMake( [ 0, 0, 0, 4, 4, 3 ] );
+  var expected = _.box.tools.long.make( [ 0, 0, 0, 4, 4, 3 ] );
 
   var gotBox = _.box.planeExpand( dstBox, srcPlane );
   test.identical( expected, gotBox );
@@ -7792,7 +7792,7 @@ function planeExpand( test )
   var dstBox = [ 0, 0, 0, 3, 3, 3 ];
   var srcPlane = [ 3, 1, 0, 0 ];
   var oldSrcPlane = srcPlane.slice();
-  var expected = _.box.tools.longMake( [ -3, 0, 0, 3, 3, 3 ] );
+  var expected = _.box.tools.long.make( [ -3, 0, 0, 3, 3, 3 ] );
 
   var gotBox = _.box.planeExpand( dstBox, srcPlane );
   test.identical( expected, gotBox );
@@ -7804,7 +7804,7 @@ function planeExpand( test )
   var dstBox = [ 0, 0, 0, 3, 3, 3 ];
   var srcPlane = [ - 4, 1, 0, 0 ];
   var oldSrcPlane = srcPlane.slice();
-  var expected = _.box.tools.longMake( [ 0, 0, 0, 4, 3, 3 ] );
+  var expected = _.box.tools.long.make( [ 0, 0, 0, 4, 3, 3 ] );
 
   var gotBox = _.box.planeExpand( dstBox, srcPlane );
   test.identical( expected, gotBox );
@@ -7903,7 +7903,7 @@ function rayClosestPoint( test )
 
   var srcBox = [ - 1, - 1, -1, 0, 0, 0 ];
   var tstRay = [ -3, -3, -3, -2, -2, -2 ];
-  var expected = _.box.tools.longMake( [ -1, -1, -1 ] );
+  var expected = _.box.tools.long.make( [ -1, -1, -1 ] );
 
   var gotRay = _.box.rayClosestPoint( srcBox, tstRay );
   test.identical( expected, gotRay );
@@ -7914,7 +7914,7 @@ function rayClosestPoint( test )
 
   var srcBox = [ 0, 0, 0, 4, 4, 4 ];
   var tstRay = [ 5, 5, 2, 0, 1, 0 ];
-  var expected = _.box.tools.longMake( [ 4, 4, 2 ] );
+  var expected = _.box.tools.long.make( [ 4, 4, 2 ] );
 
   var gotRay = _.box.rayClosestPoint( srcBox, tstRay );
   test.identical( expected, gotRay );
@@ -7926,7 +7926,7 @@ function rayClosestPoint( test )
   var srcBox = [ 0, 0, 0, 4, 4, 4 ];
   var tstRay = [ 5, 5, 1, 1, 0, 0 ];
   var dstPoint = [ 0, 0, 0 ];
-  var expected = _.box.tools.longMake( [ 4, 4, 1 ] );
+  var expected = _.box.tools.long.make( [ 4, 4, 1 ] );
 
   var gotRay = _.box.rayClosestPoint( srcBox, tstRay, dstPoint );
   test.identical( expected, gotRay );
@@ -7975,7 +7975,7 @@ function matrixHomogenousApply( test )
     +0, +0, +1, +0,
     +0, +0, +0, +1
   ]);
-  var expectedBox = _.box.tools.longMake([ 0, 0, 0, 1, 1, 1 ]);
+  var expectedBox = _.box.tools.long.make([ 0, 0, 0, 1, 1, 1 ]);
   var gotBox = _.box.matrixHomogenousApply( dstBox, matrix );
   test.identical( gotBox, expectedBox );
 
@@ -7990,7 +7990,7 @@ function matrixHomogenousApply( test )
     +0, +0, +2, +0,
     +0, +0, +0, +1
   ]);
-  var expectedBox = _.box.tools.longMake([ 0, 0, 0, 2, 2, 2 ]);
+  var expectedBox = _.box.tools.long.make([ 0, 0, 0, 2, 2, 2 ]);
   var gotBox = _.box.matrixHomogenousApply( dstBox, matrix );
   test.identical( gotBox, expectedBox );
 
@@ -8005,7 +8005,7 @@ function matrixHomogenousApply( test )
     +0, +0, +1, +1,
     +0, +0, +0, +1
   ]);
-  var expectedBox = _.box.tools.longMake([ 1, 1, 1, 2, 2, 2 ]);
+  var expectedBox = _.box.tools.long.make([ 1, 1, 1, 2, 2, 2 ]);
   var gotBox = _.box.matrixHomogenousApply( dstBox, matrix );
   test.identical( gotBox, expectedBox );
 
@@ -8020,7 +8020,7 @@ function matrixHomogenousApply( test )
     +0, +0, +1, +0,
     +0, +0, +0, +1
   ]);
-  var expectedBox = _.box.tools.longMake([ 1, 1, 1, 0, 0, 0 ]);
+  var expectedBox = _.box.tools.long.make([ 1, 1, 1, 0, 0, 0 ]);
   var gotBox = _.box.matrixHomogenousApply( dstBox, matrix );
   test.identical( gotBox, expectedBox );
 
@@ -8035,7 +8035,7 @@ function matrixHomogenousApply( test )
     +0, +0, +0.5, +0,
     +0, +0, +0, +1
   ]);
-  var expectedBox = _.box.tools.longMake([ 1, 1, 1, 0.5, 0.5, 0.5 ]);
+  var expectedBox = _.box.tools.long.make([ 1, 1, 1, 0.5, 0.5, 0.5 ]);
   var gotBox = _.box.matrixHomogenousApply( dstBox, matrix );
   test.identical( gotBox, expectedBox );
 
@@ -8050,7 +8050,7 @@ function matrixHomogenousApply( test )
     +0, +0, +1, +1,
     +0, +0, +0, +1
   ]);
-  var expectedBox = _.box.tools.longMake([ 2, 2, 2, 1, 1, 1 ]);
+  var expectedBox = _.box.tools.long.make([ 2, 2, 2, 1, 1, 1 ]);
   var gotBox = _.box.matrixHomogenousApply( dstBox, matrix );
   test.identical( gotBox, expectedBox );
 
@@ -8065,7 +8065,7 @@ function matrixHomogenousApply( test )
     +0, +0, +1, +0,
     +0, +0, +0, +1
   ]);
-  var expectedBox = _.box.tools.longMake([ 4, 2, 2, 3, 1, 1 ]);
+  var expectedBox = _.box.tools.long.make([ 4, 2, 2, 3, 1, 1 ]);
   var gotBox = _.box.matrixHomogenousApply( dstBox, matrix );
   test.identical( gotBox, expectedBox );
 
@@ -8080,7 +8080,7 @@ function matrixHomogenousApply( test )
     +0, +0, +1, +0,
     +0, +0, +0, +1
   ]);
-  var expectedBox = _.box.tools.longMake([ 0, 2, 2, -1, 1, 1 ]);
+  var expectedBox = _.box.tools.long.make([ 0, 2, 2, -1, 1, 1 ]);
   var gotBox = _.box.matrixHomogenousApply( dstBox, matrix );
   test.identical( gotBox, expectedBox );
 }
@@ -8240,7 +8240,7 @@ function segmentClosestPoint( test )
 
   var srcBox = [ - 1, - 1, -1, 0, 0, 0 ];
   var tstSegment = [ -3, -3, -3, -2, -2, -2 ];
-  var expected = _.box.tools.longMake( [ -1, -1, -1 ] );
+  var expected = _.box.tools.long.make( [ -1, -1, -1 ] );
 
   var gotSegment = _.box.segmentClosestPoint( srcBox, tstSegment );
   test.identical( expected, gotSegment );
@@ -8251,7 +8251,7 @@ function segmentClosestPoint( test )
 
   var srcBox = [ 0, 0, 0, 4, 4, 4 ];
   var tstSegment = [ 5, 5, 2, 5, 11, 2 ];
-  var expected = _.box.tools.longMake( [ 4, 4, 2 ] );
+  var expected = _.box.tools.long.make( [ 4, 4, 2 ] );
 
   var gotSegment = _.box.segmentClosestPoint( srcBox, tstSegment );
   test.identical( expected, gotSegment );
@@ -8263,7 +8263,7 @@ function segmentClosestPoint( test )
   var srcBox = [ 0, 0, 0, 4, 4, 4 ];
   var tstSegment = [ 5, 5, 1, 11, 5, 1 ];
   var dstPoint = [ 0, 0, 0 ];
-  var expected = _.box.tools.longMake( [ 4, 4, 1 ] );
+  var expected = _.box.tools.long.make( [ 4, 4, 1 ] );
 
   var gotSegment = _.box.segmentClosestPoint( srcBox, tstSegment, dstPoint );
   test.identical( expected, gotSegment );
@@ -8601,7 +8601,7 @@ function sphereClosestPoint( test )
 
   var srcBox = [ 0, 0, 0, 0, 0, 0 ];
   var tstSphere = [ 1, 2, 3, 0 ];
-  var expected = _.box.tools.longMake( [ 0, 0, 0 ] );
+  var expected = _.box.tools.long.make( [ 0, 0, 0 ] );
 
   var gotBool = _.box.sphereClosestPoint( srcBox, tstSphere );
   test.identical( gotBool, expected );
@@ -8668,7 +8668,7 @@ function sphereClosestPoint( test )
 
   var srcBox = [ 0, 0, 0, 4, 4, 4 ];
   var tstSphere = [ 7, 7, 7, 2 ];
-  var expected = _.box.tools.longMake( [ 4, 4, 4 ] );
+  var expected = _.box.tools.long.make( [ 4, 4, 4 ] );
 
   var gotBool = _.box.sphereClosestPoint( srcBox, tstSphere );
   test.identical( gotBool, expected );
@@ -8679,7 +8679,7 @@ function sphereClosestPoint( test )
 
   var srcBox = [ 0, 0, 0, 4, 4, 4 ];
   var tstSphere = [ -7, -7, -7, 2 ];
-  var expected = _.box.tools.longMake( [ 0, 0, 0 ] );
+  var expected = _.box.tools.long.make( [ 0, 0, 0 ] );
 
   var gotBool = _.box.sphereClosestPoint( srcBox, tstSphere );
   test.identical( gotBool, expected );
@@ -8690,7 +8690,7 @@ function sphereClosestPoint( test )
 
   var srcBox = [ 0, 0, 0, 4, 4, 4 ];
   var tstSphere = [ 2, 2, 6, 1 ];
-  var expected = _.box.tools.longMake( [ 2, 2, 4 ] );
+  var expected = _.box.tools.long.make( [ 2, 2, 4 ] );
 
   var gotBool = _.box.sphereClosestPoint( srcBox, tstSphere );
   test.identical( gotBool, expected );
@@ -8701,7 +8701,7 @@ function sphereClosestPoint( test )
 
   var srcBox = [ 0, 0, 0, 4, 4, 4 ];
   var tstSphere = [ 0, 6, 6, 1 ];
-  var expected = _.box.tools.longMake( [ 0, 4, 4 ] );
+  var expected = _.box.tools.long.make( [ 0, 4, 4 ] );
 
   var gotBool = _.box.sphereClosestPoint( srcBox, tstSphere );
   test.identical( gotBool, expected );
@@ -8733,7 +8733,7 @@ function sphereExpand( test )
 
   var dstBox = [ 0, 0, 0, 3, 3, 3 ];
   var srcSphere = [ 1, 1, 2, 1 ];
-  var expected = _.box.tools.longMake( [ 0, 0, 0, 3, 3, 3 ] );
+  var expected = _.box.tools.long.make( [ 0, 0, 0, 3, 3, 3 ] );
 
   var gotBox = _.box.sphereExpand( dstBox, srcSphere );
   test.identical( expected, gotBox );
@@ -8748,7 +8748,7 @@ function sphereExpand( test )
 
   var dstBox = [ 0, 0, 0, 0, 0, 0 ];
   var srcSphere = [ 0, 0, 0, 0 ];
-  var expected = _.box.tools.longMake( [ 0, 0, 0, 0, 0, 0 ] );
+  var expected = _.box.tools.long.make( [ 0, 0, 0, 0, 0, 0 ] );
 
   var gotBox = _.box.sphereExpand( dstBox, srcSphere );
   test.identical( gotBox, expected );
@@ -8759,7 +8759,7 @@ function sphereExpand( test )
 
   var dstBox = [ 0, 0, 0, 4, 4, 4 ];
   var srcSphere = [ 2, 2, 2, 1 ];
-  var expected = _.box.tools.longMake( [ 0, 0, 0, 4, 4, 4 ] );
+  var expected = _.box.tools.long.make( [ 0, 0, 0, 4, 4, 4 ] );
 
   var gotBox = _.box.sphereExpand( dstBox, srcSphere );
   test.identical( gotBox, expected );
@@ -8770,7 +8770,7 @@ function sphereExpand( test )
 
   var dstBox = [ 0, 0, 0, 0, 0, 0 ];
   var srcSphere = [ 3, 3, 3, 0 ];
-  var expected = _.box.tools.longMake( [ 0, 0, 0, 3, 3, 3 ] );
+  var expected = _.box.tools.long.make( [ 0, 0, 0, 3, 3, 3 ] );
 
   var gotBox = _.box.sphereExpand( dstBox, srcSphere );
   test.identical( gotBox, expected );
@@ -8781,7 +8781,7 @@ function sphereExpand( test )
 
   var dstBox = [ 0, 0, 0, 1, 1, 1 ];
   var srcSphere = [ 0, 0, 0, 3 ];
-  var expected = _.box.tools.longMake( [ -3, -3, -3, 3, 3, 3 ] );
+  var expected = _.box.tools.long.make( [ -3, -3, -3, 3, 3, 3 ] );
 
   var gotBox = _.box.sphereExpand( dstBox, srcSphere );
   test.identical( gotBox, expected );
@@ -8792,7 +8792,7 @@ function sphereExpand( test )
 
   var dstBox = [ 0, 0, 0, 1, 1, 1 ];
   var srcSphere = [ 5, 5, 5, 3 ];
-  var expected = _.box.tools.longMake( [ 0, 0, 0, 8, 8, 8 ] );
+  var expected = _.box.tools.long.make( [ 0, 0, 0, 8, 8, 8 ] );
 
   var gotBox = _.box.sphereExpand( dstBox, srcSphere );
   test.identical( gotBox, expected );
@@ -8814,7 +8814,7 @@ function sphereExpand( test )
 
   var dstBox = [ 0, 0, 0, 2, 2, 2 ];
   var srcSphere = [ 3, 3, 3, 2 ];
-  var expected = _.box.tools.longMake( [ 0, 0, 0, 5, 5, 5 ] );
+  var expected = _.box.tools.long.make( [ 0, 0, 0, 5, 5, 5 ] );
 
   var gotBox = _.box.sphereExpand( dstBox, srcSphere );
   test.identical( gotBox, expected );
@@ -8825,7 +8825,7 @@ function sphereExpand( test )
 
   var dstBox = [ 0, 0, 0, 2, 2, 2 ];
   var srcSphere = [ 3, 3, 3, Infinity ];
-  var expected = _.box.tools.longMake( [ - Infinity, - Infinity, - Infinity, Infinity, Infinity, Infinity ] );
+  var expected = _.box.tools.long.make( [ - Infinity, - Infinity, - Infinity, Infinity, Infinity, Infinity ] );
 
   var gotBox = _.box.sphereExpand( dstBox, srcSphere );
   test.identical( gotBox, expected );
@@ -8840,7 +8840,7 @@ function sphereExpand( test )
   var gotBool = _.box.sphereContains( dstBox, srcSphere );
   test.identical( gotBool, expectedBool );
 
-  var expected = _.box.tools.longMake( [ 0, 0, 0, 7, 7, 7 ] );
+  var expected = _.box.tools.long.make( [ 0, 0, 0, 7, 7, 7 ] );
   var gotBox = _.box.sphereExpand( dstBox, srcSphere );
   test.identical( gotBox, expected );
 
@@ -8880,7 +8880,7 @@ function boundingSphereGet( test )
 
   var srcBox = [ 0, 0, 0, 3, 3, 3 ];
   var dstSphere = [ 1, 1, 2, 1 ];
-  var expected = _.box.tools.longMake( [ 1.5, 1.5, 1.5, Math.sqrt( 6.75 ) ] );
+  var expected = _.box.tools.long.make( [ 1.5, 1.5, 1.5, Math.sqrt( 6.75 ) ] );
 
   var gotSphere = _.box.boundingSphereGet( dstSphere, srcBox );
   test.identical( expected, gotSphere );
@@ -8895,7 +8895,7 @@ function boundingSphereGet( test )
 
   var srcBox = [ 0, 0, 0, 0, 0, 0 ];
   var dstSphere = [ 0, 0, 0, 0 ];
-  var expected = _.box.tools.longMake( [ 0, 0, 0, 0 ] );
+  var expected = _.box.tools.long.make( [ 0, 0, 0, 0 ] );
 
   var gotSphere = _.box.boundingSphereGet( dstSphere, srcBox );
   test.identical( gotSphere, expected );
@@ -8906,7 +8906,7 @@ function boundingSphereGet( test )
 
   var srcBox = [ 0, 0, 0, 4, 4, 4 ];
   var dstSphere = [ 2, 2, 2, 1 ];
-  var expected = _.box.tools.longMake( [ 2, 2, 2, Math.sqrt( 12 ) ] );
+  var expected = _.box.tools.long.make( [ 2, 2, 2, Math.sqrt( 12 ) ] );
 
   var gotSphere = _.box.boundingSphereGet( dstSphere, srcBox );
   test.identical( gotSphere, expected );
@@ -8917,7 +8917,7 @@ function boundingSphereGet( test )
 
   var srcBox = [ 0, 0, 0, 0, 0, 0 ];
   var dstSphere = [ 3, 3, 3, 0 ];
-  var expected = _.box.tools.longMake( [ 0, 0, 0, 0 ] );
+  var expected = _.box.tools.long.make( [ 0, 0, 0, 0 ] );
 
   var gotSphere = _.box.boundingSphereGet( dstSphere, srcBox );
   test.identical( gotSphere, expected );
@@ -8928,7 +8928,7 @@ function boundingSphereGet( test )
 
   var srcBox = [ 0, 0, 0, 1, 1, 1 ];
   var dstSphere = [ 0, 0, 0, 3 ];
-  var expected = _.box.tools.longMake( [ 0.5, 0.5, 0.5, Math.sqrt( 0.75 ) ] );
+  var expected = _.box.tools.long.make( [ 0.5, 0.5, 0.5, Math.sqrt( 0.75 ) ] );
 
   var gotSphere = _.box.boundingSphereGet( dstSphere, srcBox );
   test.identical( gotSphere, expected );
@@ -8939,7 +8939,7 @@ function boundingSphereGet( test )
 
   var srcBox = [ 1, 2, 3, 5, 8, 9 ];
   var dstSphere = [ 5, 5, 5, 3 ];
-  var expected = _.box.tools.longMake( [ 3, 5, 6, Math.sqrt( 22 ) ] );
+  var expected = _.box.tools.long.make( [ 3, 5, 6, Math.sqrt( 22 ) ] );
 
   var gotSphere = _.box.boundingSphereGet( dstSphere, srcBox );
   test.identical( gotSphere, expected );
@@ -8950,7 +8950,7 @@ function boundingSphereGet( test )
 
   var srcBox = _.box.tools.vectorAdapter.from( [- 1, - 1, - 1, 1, 1, 1 ] );
   var dstSphere = [ 5, 5, 5, 3 ];
-  var expected = _.box.tools.longMake( [ 0, 0, 0, Math.sqrt( 3 )] );
+  var expected = _.box.tools.long.make( [ 0, 0, 0, Math.sqrt( 3 )] );
 
   var gotSphere = _.box.boundingSphereGet( dstSphere, srcBox );
   test.identical( gotSphere, expected );
@@ -8972,7 +8972,7 @@ function boundingSphereGet( test )
 
   var srcBox = [- 1, 5, - 1, 3, 7, 1 ];
   var dstSphere = null;
-  var expected = _.box.tools.longMake( [ 1, 6, 0, Math.sqrt( 6 ) ] );
+  var expected = _.box.tools.long.make( [ 1, 6, 0, Math.sqrt( 6 ) ] );
 
   var gotSphere = _.box.boundingSphereGet( dstSphere, srcBox );
   test.identical( gotSphere, expected );
@@ -8983,7 +8983,7 @@ function boundingSphereGet( test )
 
   var srcBox = [- 1, - 3, - 5, 1, 0, 0 ];
   var dstSphere = undefined;
-  var expected = _.box.tools.longMake( [ 0, - 1.5, - 2.5, Math.sqrt( 9.5 ) ] );
+  var expected = _.box.tools.long.make( [ 0, - 1.5, - 2.5, Math.sqrt( 9.5 ) ] );
 
   var gotSphere = _.box.boundingSphereGet( dstSphere, srcBox );
   test.identical( gotSphere, expected );
@@ -8994,7 +8994,7 @@ function boundingSphereGet( test )
 
   var srcBox = _.box.tools.vectorAdapter.from( [ 4, 4, 4, 2, 2, 2 ] );
   var dstSphere = [ 5, 5, 5, 3 ];
-  var expected = _.box.tools.longMake( [ 3, 3, 3, Math.sqrt( 3 )] );
+  var expected = _.box.tools.long.make( [ 3, 3, 3, Math.sqrt( 3 )] );
 
   var gotSphere = _.box.boundingSphereGet( dstSphere, srcBox );
   test.identical( gotSphere, expected );

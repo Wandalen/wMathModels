@@ -17,7 +17,7 @@ if( typeof module !== 'undefined' )
 
 //
 
-const _ = _global_.wTools.withDefaultLong.Fx;
+const _ = _global_.wTools.withLong.Fx;
 var Matrix = _.Matrix;
 var vector = _.vectorAdapter;
 var vec = _.vectorAdapter.fromArray;
@@ -1970,7 +1970,7 @@ function pointClosestPoint( test )
 
   var gotClosestPoint = _.convexPolygon.pointClosestPoint( polygon, point );
 
-  var expected = _.convexPolygon.tools.longMake( [ 0, 1 ] );
+  var expected = _.convexPolygon.tools.long.make( [ 0, 1 ] );
   test.identical( gotClosestPoint, expected );
 
   var oldPolygon = _.convexPolygon.make( 3, 2 ).copy
@@ -1994,7 +1994,7 @@ function pointClosestPoint( test )
   var point = [ 0.5, 0.5 ];
 
   var gotClosestPoint = _.convexPolygon.pointClosestPoint( polygon, point );
-  var expected = _.convexPolygon.tools.longMake( [ 0.5, 0.5 ] );
+  var expected = _.convexPolygon.tools.long.make( [ 0.5, 0.5 ] );
   test.equivalent( gotClosestPoint, expected );
 
   var polygon = _.convexPolygon.make( 3, 2 ).copy
@@ -2005,7 +2005,7 @@ function pointClosestPoint( test )
   var point = [ 0.5, 2.5 ];
 
   var gotClosestPoint = _.convexPolygon.pointClosestPoint( polygon, point );
-  var expected = _.convexPolygon.tools.longMake( [ 0, 1 ] );
+  var expected = _.convexPolygon.tools.long.make( [ 0, 1 ] );
   test.equivalent( gotClosestPoint, expected );
 
   test.description = '3D';
@@ -2018,7 +2018,7 @@ function pointClosestPoint( test )
   var point = [ 1.5, 3, 2 ];
 
   var gotClosestPoint = _.convexPolygon.pointClosestPoint( polygon, point );
-  var expected = _.convexPolygon.tools.longMake( [ 1.5, 3, 2 ] );
+  var expected = _.convexPolygon.tools.long.make( [ 1.5, 3, 2 ] );
   test.equivalent( gotClosestPoint, expected );
 
   var polygon = _.convexPolygon.make( 3, 3 ).copy
@@ -2030,7 +2030,7 @@ function pointClosestPoint( test )
   var point = [ -0.5, -0.5, 2 ];
 
   var gotClosestPoint = _.convexPolygon.pointClosestPoint( polygon, point );
-  var expected = _.convexPolygon.tools.longMake( [ -0.5, -0.5, 0 ] );
+  var expected = _.convexPolygon.tools.long.make( [ -0.5, -0.5, 0 ] );
   test.equivalent( gotClosestPoint, expected );
 
   test.case = 'Square'; //
@@ -2044,7 +2044,7 @@ function pointClosestPoint( test )
   var point = [ 3.1, 3.9 ];
 
   var gotClosestPoint = _.convexPolygon.pointClosestPoint( polygon, point );
-  var expected = _.convexPolygon.tools.longMake( [ 3.1, 3.9 ] );
+  var expected = _.convexPolygon.tools.long.make( [ 3.1, 3.9 ] );
   test.equivalent( gotClosestPoint, expected );
 
   var polygon = _.convexPolygon.make( 4, 2 ).copy
@@ -2055,7 +2055,7 @@ function pointClosestPoint( test )
   var point = [ 3.1, 4.1 ];
 
   var gotClosestPoint = _.convexPolygon.pointClosestPoint( polygon, point );
-  var expected = _.convexPolygon.tools.longMake( [ 3.1, 4 ] );
+  var expected = _.convexPolygon.tools.long.make( [ 3.1, 4 ] );
   test.equivalent( gotClosestPoint, expected );
 
   test.description = '3D';
@@ -2068,7 +2068,7 @@ function pointClosestPoint( test )
   var point = [ 0, 0.5, 2 ];
 
   var gotClosestPoint = _.convexPolygon.pointClosestPoint( polygon, point );
-  var expected = _.convexPolygon.tools.longMake( [ 0, 0.5, 2 ] );
+  var expected = _.convexPolygon.tools.long.make( [ 0, 0.5, 2 ] );
   test.equivalent( gotClosestPoint, expected );
 
   var polygon = _.convexPolygon.make( 4, 3 ).copy
@@ -2080,7 +2080,7 @@ function pointClosestPoint( test )
   var point = [ 0.5, 2, 2 ];
 
   var gotClosestPoint = _.convexPolygon.pointClosestPoint( polygon, point );
-  var expected = _.convexPolygon.tools.longMake( [ 0.5, 1, 0 ] );
+  var expected = _.convexPolygon.tools.long.make( [ 0.5, 1, 0 ] );
   test.equivalent( gotClosestPoint, expected );
 
   test.case = 'Pentagone 2D'; //
@@ -2094,7 +2094,7 @@ function pointClosestPoint( test )
   var point = [ 0, 0 ];
 
   var gotClosestPoint = _.convexPolygon.pointClosestPoint( polygon, point );
-  var expected = _.convexPolygon.tools.longMake( [ 0, 0 ] );
+  var expected = _.convexPolygon.tools.long.make( [ 0, 0 ] );
   test.equivalent( gotClosestPoint, expected );
 
   var polygon = _.convexPolygon.make( 5, 2 ).copy
@@ -2105,7 +2105,7 @@ function pointClosestPoint( test )
   var point = [ - 0.1, 0.1 ];
 
   var gotClosestPoint = _.convexPolygon.pointClosestPoint( polygon, point );
-  var expected = _.convexPolygon.tools.longMake( [ 0, 0.1 ] );
+  var expected = _.convexPolygon.tools.long.make( [ 0, 0.1 ] );
   test.equivalent( gotClosestPoint, expected );
 
   test.description = '3D';
@@ -2118,7 +2118,7 @@ function pointClosestPoint( test )
   var point = [ 0, 0.5, 2 ];
 
   var gotClosestPoint = _.convexPolygon.pointClosestPoint( polygon, point );
-  var expected = _.convexPolygon.tools.longMake( [ 0, 0.5, 2 ] );
+  var expected = _.convexPolygon.tools.long.make( [ 0, 0.5, 2 ] );
   test.equivalent( gotClosestPoint, expected );
 
   var polygon = _.convexPolygon.make( 5, 3 ).copy
@@ -2130,7 +2130,7 @@ function pointClosestPoint( test )
   var point = [ 0.5, 0.5, 2 ];
 
   var gotClosestPoint = _.convexPolygon.pointClosestPoint( polygon, point );
-  var expected = _.convexPolygon.tools.longMake( [ 0.5, 0.5, 0 ] );
+  var expected = _.convexPolygon.tools.long.make( [ 0.5, 0.5, 0 ] );
   test.equivalent( gotClosestPoint, expected );
 
   test.case = 'Many vertices'; //
@@ -2144,12 +2144,12 @@ function pointClosestPoint( test )
   var pointT = [ 0, 0.1 ];
 
   var gotClosestPoint = _.convexPolygon.pointClosestPoint( polygon, pointT );
-  var expected = _.convexPolygon.tools.longMake( [ 0, 0.1 ] );
+  var expected = _.convexPolygon.tools.long.make( [ 0, 0.1 ] );
   test.equivalent( gotClosestPoint, expected );
 
   var pointF = [ 0, - 0.1 ];
   var gotClosestPoint = _.convexPolygon.pointClosestPoint( polygon, pointF );
-  var expected = _.convexPolygon.tools.longMake( [ 0, 0 ] );
+  var expected = _.convexPolygon.tools.long.make( [ 0, 0 ] );
   test.equivalent( gotClosestPoint, expected );
 
   test.description = '3D';
@@ -2162,12 +2162,12 @@ function pointClosestPoint( test )
   var pointT = [ 0, 0.1, 4 ];
 
   var gotClosestPoint = _.convexPolygon.pointClosestPoint( polygon, pointT );
-  var expected = _.convexPolygon.tools.longMake( [ 0, 0.1, 4 ] );
+  var expected = _.convexPolygon.tools.long.make( [ 0, 0.1, 4 ] );
   test.equivalent( gotClosestPoint, expected );
 
   var pointF = [ -3, 3, 2 ];
   var gotClosestPoint = _.convexPolygon.pointClosestPoint( polygon, pointF );
-  var expected = _.convexPolygon.tools.longMake( [ -2, 2, 4 ] );
+  var expected = _.convexPolygon.tools.long.make( [ -2, 2, 4 ] );
   test.equivalent( gotClosestPoint, expected );
 
   test.case = 'Point in vertex'; //
@@ -2181,7 +2181,7 @@ function pointClosestPoint( test )
   var point = [ -1, 0.1 ];
 
   var gotClosestPoint = _.convexPolygon.pointClosestPoint( polygon, point );
-  var expected = _.convexPolygon.tools.longMake( [ -1, 0.1 ] );
+  var expected = _.convexPolygon.tools.long.make( [ -1, 0.1 ] );
   test.equivalent( gotClosestPoint, expected );
 
   test.case = 'Point close to vertex'; //
@@ -2195,7 +2195,7 @@ function pointClosestPoint( test )
   var point = [ -1, 0 ];
 
   var gotClosestPoint = _.convexPolygon.pointClosestPoint( polygon, point );
-  var expected = _.convexPolygon.tools.longMake( [ -0.9411764705882353, 0.23529411764705882 ] );
+  var expected = _.convexPolygon.tools.long.make( [ -0.9411764705882353, 0.23529411764705882 ] );
   test.equivalent( gotClosestPoint, expected );
 
   test.case = 'Point in edge'; //
@@ -2208,7 +2208,7 @@ function pointClosestPoint( test )
   var point = [ 0.5, 0 ];
 
   var gotClosestPoint = _.convexPolygon.pointClosestPoint( polygon, point );
-  var expected = _.convexPolygon.tools.longMake( [ 0.5, 0 ] );
+  var expected = _.convexPolygon.tools.long.make( [ 0.5, 0 ] );
   test.equivalent( gotClosestPoint, expected );
 
   test.case = 'Point in edge line but outside polygon'; //
@@ -2221,12 +2221,12 @@ function pointClosestPoint( test )
 
   var pointOne = [ -2, 0 ];
   var gotClosestPoint = _.convexPolygon.pointClosestPoint( polygon, pointOne );
-  var expected = _.convexPolygon.tools.longMake( [ -1.5065312052018862, 0.5805515273629065 ] );
+  var expected = _.convexPolygon.tools.long.make( [ -1.5065312052018862, 0.5805515273629065 ] );
   test.equivalent( gotClosestPoint, expected );
 
   var pointTwo = [  2, 0 ];
   var gotClosestPoint = _.convexPolygon.pointClosestPoint( polygon, pointTwo );
-  var expected = _.convexPolygon.tools.longMake( [ 1, 0.15 ] );
+  var expected = _.convexPolygon.tools.long.make( [ 1, 0.15 ] );
   test.equivalent( gotClosestPoint, expected );
 
   test.case = 'Dst point is array'; //
@@ -2240,7 +2240,7 @@ function pointClosestPoint( test )
   var dstPoint = [ 5, 5 ];
 
   var gotClosestPoint = _.convexPolygon.pointClosestPoint( polygon, srcPoint, dstPoint );
-  var expected = _.convexPolygon.tools.longMake( [ -1.5065312052018862, 0.5805515273629065 ] );
+  var expected = _.convexPolygon.tools.long.make( [ -1.5065312052018862, 0.5805515273629065 ] );
   test.equivalent( gotClosestPoint, expected );
 
   test.case = 'Dst point is vector'; //
@@ -2855,7 +2855,7 @@ function boxClosestPoint( test )
     0,   1,   0, - 1
   ]);
   var box = [ 1, 1, 1, 3, 3, 3 ];
-  var expected = _.convexPolygon.tools.longMake( [ 0, 0.5, 0.5 ] );
+  var expected = _.convexPolygon.tools.long.make( [ 0, 0.5, 0.5 ] );
 
   var gotPoint = _.convexPolygon.boxClosestPoint( polygon, box );
   test.equivalent( gotPoint, expected );
@@ -2894,7 +2894,7 @@ function boxClosestPoint( test )
     0,   1,   0, - 1
   ]);
   var box = [ 1, 1, 5, 5 ];
-  var expected = _.convexPolygon.tools.longMake( [ 0.5, 0.5 ] );
+  var expected = _.convexPolygon.tools.long.make( [ 0.5, 0.5 ] );
 
   var gotPoint = _.convexPolygon.boxClosestPoint( polygon, box );
   test.equivalent( gotPoint, expected );
@@ -2907,7 +2907,7 @@ function boxClosestPoint( test )
     0,   1,   0, - 1
   ]);
   var box = [ 1.1, 0, 2, 2 ];
-  var expected = _.convexPolygon.tools.longMake( [ 1, 0 ] );
+  var expected = _.convexPolygon.tools.long.make( [ 1, 0 ] );
 
   var gotPoint = _.convexPolygon.boxClosestPoint( polygon, box );
   test.equivalent( gotPoint, expected );
@@ -2920,7 +2920,7 @@ function boxClosestPoint( test )
     0,   1,   1,   0
   ]);
   var box = [ 3, -3, 4, 4 ];
-  var expected = _.convexPolygon.tools.longMake( [ 2, 1 ] );
+  var expected = _.convexPolygon.tools.long.make( [ 2, 1 ] );
 
   var gotPoint = _.convexPolygon.boxClosestPoint( polygon, box );
   test.equivalent( gotPoint, expected );
@@ -2933,7 +2933,7 @@ function boxClosestPoint( test )
     0,   1,   1,   0
   ]);
   var box = [ 2, -2, 4, 2 ];
-  var expected = _.convexPolygon.tools.longMake( [ 1, 1 ] );
+  var expected = _.convexPolygon.tools.long.make( [ 1, 1 ] );
 
   var gotPoint = _.convexPolygon.boxClosestPoint( polygon, box );
   test.equivalent( gotPoint, expected );
@@ -2946,7 +2946,7 @@ function boxClosestPoint( test )
     0,   1,   1,   0
   ]);
   var box = [ 2, 3, 3, 4 ];
-  var expected = _.convexPolygon.tools.longMake( [ 2, 1 ] );
+  var expected = _.convexPolygon.tools.long.make( [ 2, 1 ] );
 
   var gotPoint = _.convexPolygon.boxClosestPoint( polygon, box );
   test.equivalent( gotPoint, expected );
@@ -2959,7 +2959,7 @@ function boxClosestPoint( test )
     0,   1,   0, - 1
   ]);
   var box = [ 1, 1, 2, 2 ];
-  var expected = _.convexPolygon.tools.longMake( [ 0.5, 0.5 ] );
+  var expected = _.convexPolygon.tools.long.make( [ 0.5, 0.5 ] );
 
   var gotPoint = _.convexPolygon.boxClosestPoint( polygon, box );
   test.equivalent( gotPoint, expected );
@@ -2989,7 +2989,7 @@ function boxClosestPoint( test )
     0,   1,   0, - 1
   ]);
   var box = [ 1, 1, 1, 5, 5, 5 ];
-  var expected = _.convexPolygon.tools.longMake( [ 0, 0.5, 0.5 ] );
+  var expected = _.convexPolygon.tools.long.make( [ 0, 0.5, 0.5 ] );
 
   var gotPoint = _.convexPolygon.boxClosestPoint( polygon, box );
   test.equivalent( gotPoint, expected );
@@ -3003,7 +3003,7 @@ function boxClosestPoint( test )
     0,   1,   0, - 1
   ]);
   var box = [ 0.1, 0, 0, 1, 1, 1 ];
-  var expected = _.convexPolygon.tools.longMake( [ 0, 1, 0 ] );
+  var expected = _.convexPolygon.tools.long.make( [ 0, 1, 0 ] );
 
   var gotPoint = _.convexPolygon.boxClosestPoint( polygon, box );
   test.equivalent( gotPoint, expected );
@@ -3017,7 +3017,7 @@ function boxClosestPoint( test )
     0,   0,   0,   0
   ]);
   var box = [ 2, -2, -2, 4, 2, 2 ];
-  var expected = _.convexPolygon.tools.longMake( [ 1, 0, 0 ] );
+  var expected = _.convexPolygon.tools.long.make( [ 1, 0, 0 ] );
 
   var gotPoint = _.convexPolygon.boxClosestPoint( polygon, box );
   test.equivalent( gotPoint, expected );
@@ -3031,7 +3031,7 @@ function boxClosestPoint( test )
     0,   0,   0
   ]);
   var box = [ 2, -2, -2, 4, 2, 2 ];
-  var expected = _.convexPolygon.tools.longMake( [ 1, -1, 0 ] );
+  var expected = _.convexPolygon.tools.long.make( [ 1, -1, 0 ] );
 
   var gotPoint = _.convexPolygon.boxClosestPoint( polygon, box );
   test.equivalent( gotPoint, expected );
@@ -3045,7 +3045,7 @@ function boxClosestPoint( test )
     2,   3,   3,   2
   ]);
   var box = [ 0, 0, 0, 1, 1, 1 ];
-  var expected = _.convexPolygon.tools.longMake( [ 2, 2, 2 ] );
+  var expected = _.convexPolygon.tools.long.make( [ 2, 2, 2 ] );
 
   var gotPoint = _.convexPolygon.boxClosestPoint( polygon, box );
   test.equivalent( gotPoint, expected );
@@ -3059,7 +3059,7 @@ function boxClosestPoint( test )
     2,   2,   4
   ]);
   var box = [ 0, 0, 0, 1, 1, 1 ];
-  var expected = _.convexPolygon.tools.longMake( [ 0, 0, 2 ] );
+  var expected = _.convexPolygon.tools.long.make( [ 0, 0, 2 ] );
 
   var gotPoint = _.convexPolygon.boxClosestPoint( polygon, box );
   test.equivalent( gotPoint, expected );
@@ -3073,7 +3073,7 @@ function boxClosestPoint( test )
     2,   3,   4,   5,   4
   ]);
   var box = [ 0, 0, 0, 1, 1, 1 ];
-  var expected = _.convexPolygon.tools.longMake( [ 2, 2, 2 ] );
+  var expected = _.convexPolygon.tools.long.make( [ 2, 2, 2 ] );
 
   var gotPoint = _.convexPolygon.boxClosestPoint( polygon, box );
   test.equivalent( gotPoint, expected );
@@ -3087,7 +3087,7 @@ function boxClosestPoint( test )
     3,   0,   4
   ]);
   var box = [ 0, 0, 0, 1, 1, 1 ];
-  var expected = _.convexPolygon.tools.longMake( [ 0, 1.5, 1.5 ] );
+  var expected = _.convexPolygon.tools.long.make( [ 0, 1.5, 1.5 ] );
 
   var gotPoint = _.convexPolygon.boxClosestPoint( polygon, box );
   test.equivalent( gotPoint, expected );
@@ -3139,7 +3139,7 @@ function boundingBoxGet( test )
       0,   1,   1,   0
     ]);
   var dstBox = [ 1, 1, 1, 2, 2, 2 ];
-  var expected = _.convexPolygon.tools.longMake( [ 0, 0, 0, 1, 1, 1 ] );
+  var expected = _.convexPolygon.tools.long.make( [ 0, 0, 0, 1, 1, 1 ] );
 
   var gotBox = _.convexPolygon.boundingBoxGet( srcPolygon, dstBox );
   test.identical( expected, gotBox );
@@ -3164,7 +3164,7 @@ function boundingBoxGet( test )
       0,   1,   1,   0
     ]);
   var dstBox = [ -1, -1, -1, 5, 5, 5 ];
-  var expected = _.convexPolygon.tools.longMake( [ 0, 0, 0, 3, 2, 1 ] );
+  var expected = _.convexPolygon.tools.long.make( [ 0, 0, 0, 3, 2, 1 ] );
 
   var gotBox = _.convexPolygon.boundingBoxGet( srcPolygon, dstBox );
   test.identical( gotBox, expected );
@@ -3180,7 +3180,7 @@ function boundingBoxGet( test )
       3,   4,   2,   2
     ]);
   var dstBox = [ 0, 0, 0, 1, 1, 1 ];
-  var expected = _.convexPolygon.tools.longMake( [ 3, 3, 2, 3, 5, 4 ] );
+  var expected = _.convexPolygon.tools.long.make( [ 3, 3, 2, 3, 5, 4 ] );
 
   var gotBox = _.convexPolygon.boundingBoxGet( srcPolygon, dstBox );
   test.identical( gotBox, expected );
@@ -3196,7 +3196,7 @@ function boundingBoxGet( test )
       0, - 1, - 1,   0
     ]);
   var dstBox = [ 3, 3, 3, 4, 4, 4 ];
-  var expected = _.convexPolygon.tools.longMake( [ - 1, - 1, - 1, 0, 0, 0 ] );
+  var expected = _.convexPolygon.tools.long.make( [ - 1, - 1, - 1, 0, 0, 0 ] );
 
   var gotBox = _.convexPolygon.boundingBoxGet( srcPolygon, dstBox );
   test.identical( gotBox, expected );
@@ -3209,7 +3209,7 @@ function boundingBoxGet( test )
       -2,   0,   7,   1
     ]);
   var dstBox = [ 3, 3, 4, 4 ];
-  var expected = _.convexPolygon.tools.longMake( [ -1, -2, 6, 7 ] );
+  var expected = _.convexPolygon.tools.long.make( [ -1, -2, 6, 7 ] );
 
   var gotBox = _.convexPolygon.boundingBoxGet( srcPolygon, dstBox );
   test.identical( gotBox, expected );
@@ -3241,7 +3241,7 @@ function boundingBoxGet( test )
       0,  -1,  -2,   0
     ]);
   var dstBox = null;
-  var expected = _.convexPolygon.tools.longMake( [ -2, -2, -2, 0, 0, 0 ] );
+  var expected = _.convexPolygon.tools.long.make( [ -2, -2, -2, 0, 0, 0 ] );
 
   var gotBox = _.convexPolygon.boundingBoxGet( srcPolygon, dstBox );
   test.equivalent( gotBox, expected );
@@ -3257,7 +3257,7 @@ function boundingBoxGet( test )
       0,   1,   1
     ]);
   var dstBox = undefined;
-  var expected = _.convexPolygon.tools.longMake( [ 0, 1, 0, 1, 3, 1 ] );
+  var expected = _.convexPolygon.tools.long.make( [ 0, 1, 0, 1, 3, 1 ] );
 
   var gotBox = _.convexPolygon.boundingBoxGet( srcPolygon, dstBox );
   test.identical( gotBox, expected );
@@ -3826,7 +3826,7 @@ function capsuleClosestPoint( test )
     0,   1,   0, - 1
   ]);
   var capsule = [ 1, 1, 1, 3, 3, 3, 1 ];
-  var expected = _.convexPolygon.tools.longMake( [ 0, 0.5, 0.5 ] );
+  var expected = _.convexPolygon.tools.long.make( [ 0, 0.5, 0.5 ] );
 
   var gotPoint = _.convexPolygon.capsuleClosestPoint( polygon, capsule );
   test.equivalent( gotPoint, expected );
@@ -3865,7 +3865,7 @@ function capsuleClosestPoint( test )
     0,   1,   0, - 1
   ]);
   var capsule = [ 1, 1, 5, 5, 0.3 ];
-  var expected = _.convexPolygon.tools.longMake( [ 0.5, 0.5 ] );
+  var expected = _.convexPolygon.tools.long.make( [ 0.5, 0.5 ] );
 
   var gotPoint = _.convexPolygon.capsuleClosestPoint( polygon, capsule );
   test.equivalent( gotPoint, expected );
@@ -3878,7 +3878,7 @@ function capsuleClosestPoint( test )
     0,   1,   0, - 1
   ]);
   var capsule = [ 1.1, 0, 2, 2, 0.05 ];
-  var expected = _.convexPolygon.tools.longMake( [ 1, 0 ] );
+  var expected = _.convexPolygon.tools.long.make( [ 1, 0 ] );
 
   var gotPoint = _.convexPolygon.capsuleClosestPoint( polygon, capsule );
   test.equivalent( gotPoint, expected );
@@ -3891,7 +3891,7 @@ function capsuleClosestPoint( test )
     0,   1,   1,   0
   ]);
   var capsule = [ 0, 0, -1, -1, 0.5 ];
-  var expected = _.convexPolygon.tools.longMake( [ 1, 0 ] );
+  var expected = _.convexPolygon.tools.long.make( [ 1, 0 ] );
 
   var gotPoint = _.convexPolygon.capsuleClosestPoint( polygon, capsule );
   test.equivalent( gotPoint, expected );
@@ -3904,7 +3904,7 @@ function capsuleClosestPoint( test )
     0,   0,   1,   1,
   ]);
   var capsule = [ 0.5, -2, 0.5, -1, 0.5 ];
-  var expected = _.convexPolygon.tools.longMake( [ 0.5, 0 ] );
+  var expected = _.convexPolygon.tools.long.make( [ 0.5, 0 ] );
 
   var gotPoint = _.convexPolygon.capsuleClosestPoint( polygon, capsule );
   test.equivalent( gotPoint, expected );
@@ -3917,7 +3917,7 @@ function capsuleClosestPoint( test )
     0,   1,   1,   0
   ]);
   var capsule = [ 0, 3, 3, 0, 0.2 ];
-  var expected = _.convexPolygon.tools.longMake( [ 1, 1 ] );
+  var expected = _.convexPolygon.tools.long.make( [ 1, 1 ] );
 
   var gotPoint = _.convexPolygon.capsuleClosestPoint( polygon, capsule );
   test.equivalent( gotPoint, expected );
@@ -3930,7 +3930,7 @@ function capsuleClosestPoint( test )
     0,   1,   0, - 1
   ]);
   var capsule = [ 0, 3, 3, 0, 0.2 ];
-  var expected = _.convexPolygon.tools.longMake( [ 1, 0 ] );
+  var expected = _.convexPolygon.tools.long.make( [ 1, 0 ] );
 
   var gotPoint = _.convexPolygon.capsuleClosestPoint( polygon, capsule );
   test.equivalent( gotPoint, expected );
@@ -3960,7 +3960,7 @@ function capsuleClosestPoint( test )
     0,   1,   0, - 1
   ]);
   var capsule = [ 1, 1, 1, 5, 5, 5, 1 ];
-  var expected = _.convexPolygon.tools.longMake( [ 0, 0.5, 0.5 ] );
+  var expected = _.convexPolygon.tools.long.make( [ 0, 0.5, 0.5 ] );
 
   var gotPoint = _.convexPolygon.capsuleClosestPoint( polygon, capsule );
   test.equivalent( gotPoint, expected );
@@ -3974,7 +3974,7 @@ function capsuleClosestPoint( test )
     0,   1,   0, - 1
   ]);
   var capsule = [ 0.1, 0, 0, 1, 1, 1, 0.05 ];
-  var expected = _.convexPolygon.tools.longMake( [ 0, 0, 0 ] );
+  var expected = _.convexPolygon.tools.long.make( [ 0, 0, 0 ] );
 
   var gotPoint = _.convexPolygon.capsuleClosestPoint( polygon, capsule );
   test.equivalent( gotPoint, expected );
@@ -3988,7 +3988,7 @@ function capsuleClosestPoint( test )
     0,   0,   0,   0
   ]);
   var capsule = [ 1, 0, 2, 4, 3, 4, 1 ];
-  var expected = _.convexPolygon.tools.longMake( [ 1, 0, 0 ] );
+  var expected = _.convexPolygon.tools.long.make( [ 1, 0, 0 ] );
 
   var gotPoint = _.convexPolygon.capsuleClosestPoint( polygon, capsule );
   test.equivalent( gotPoint, expected );
@@ -4002,7 +4002,7 @@ function capsuleClosestPoint( test )
     0,   0,   0
   ]);
   var capsule = [ 2, 0, 3, 2, 0, 0, 0.5 ];
-  var expected = _.convexPolygon.tools.longMake( [ 1, 0, 0 ] );
+  var expected = _.convexPolygon.tools.long.make( [ 1, 0, 0 ] );
 
   var gotPoint = _.convexPolygon.capsuleClosestPoint( polygon, capsule );
   test.equivalent( gotPoint, expected );
@@ -4016,7 +4016,7 @@ function capsuleClosestPoint( test )
     2,   3,   3,   2
   ]);
   var capsule = [ 0, 1, 0, 0, 1, 5, 1 ];
-  var expected = _.convexPolygon.tools.longMake( [ 2, 2, 2 ] );
+  var expected = _.convexPolygon.tools.long.make( [ 2, 2, 2 ] );
 
   var gotPoint = _.convexPolygon.capsuleClosestPoint( polygon, capsule );
   test.equivalent( gotPoint, expected );
@@ -4030,7 +4030,7 @@ function capsuleClosestPoint( test )
     2,   2,   4
   ]);
   var capsule = [ 2, -1, 3, 2, 1, 3, 0.2 ];
-  var expected = _.convexPolygon.tools.longMake( [ 1, 0.6, 3.2 ] );
+  var expected = _.convexPolygon.tools.long.make( [ 1, 0.6, 3.2 ] );
 
   var gotPoint = _.convexPolygon.capsuleClosestPoint( polygon, capsule );
   test.equivalent( gotPoint, expected );
@@ -4541,7 +4541,7 @@ function frustumClosestPoint( test )
     1, - 1,   0,   0,   0,   0,
     0,   0,   1, - 1,   0,   0,
   ]);
-  var expected = _.convexPolygon.tools.longMake( [ 0, 2, 3 ] );
+  var expected = _.convexPolygon.tools.long.make( [ 0, 2, 3 ] );
 
   var gotBool = _.convexPolygon.frustumClosestPoint( polygon, frustum );
   test.identical( gotBool, expected );
@@ -4561,7 +4561,7 @@ function frustumClosestPoint( test )
     1, - 1,   0,   0,   0,   0,
     0,   0,   1, - 1,   0,   0,
   ]);
-  var expected = _.convexPolygon.tools.longMake( [ 1, 1, 1 ] );
+  var expected = _.convexPolygon.tools.long.make( [ 1, 1, 1 ] );
 
   var gotBool = _.convexPolygon.frustumClosestPoint( polygon, frustum );
   test.identical( gotBool, expected );
@@ -4621,7 +4621,7 @@ function frustumClosestPoint( test )
     1, - 1,   0,   0,   0,   0,
     0,   0,   1, - 1,   0,   0,
   ]);
-  var expected = _.convexPolygon.tools.longMake( [ 0.9, 0.8, 0.7 ] );
+  var expected = _.convexPolygon.tools.long.make( [ 0.9, 0.8, 0.7 ] );
 
   var gotBool = _.convexPolygon.frustumClosestPoint( polygon, frustum );
   test.equivalent( gotBool, expected );
@@ -4641,7 +4641,7 @@ function frustumClosestPoint( test )
     1, - 1,   0,   0,   0,   0,
     0,   0,   1, - 1,   0,   0,
   ]);
-  var expected = _.convexPolygon.tools.longMake( [ 0, 0, 2 ] );
+  var expected = _.convexPolygon.tools.long.make( [ 0, 0, 2 ] );
 
   var gotBool = _.convexPolygon.frustumClosestPoint( polygon, frustum );
   test.identical( gotBool, expected );
@@ -5214,7 +5214,7 @@ function lineClosestPoint( test )
     0,   1,   0, - 1
   ]);
   var line = [ 1, 1, 1, 0, 1, 0 ];
-  var expected = _.convexPolygon.tools.longMake( [ 0, 0, 1 ] );
+  var expected = _.convexPolygon.tools.long.make( [ 0, 0, 1 ] );
 
   var gotPoint = _.convexPolygon.lineClosestPoint( polygon, line );
   test.equivalent( gotPoint, expected );
@@ -5253,7 +5253,7 @@ function lineClosestPoint( test )
     0,   1,   0, - 1
   ]);
   var line = [ 1, 1, 1, -1 ];
-  var expected = _.convexPolygon.tools.longMake( [ 0.5, 0.5 ] );
+  var expected = _.convexPolygon.tools.long.make( [ 0.5, 0.5 ] );
 
   var gotPoint = _.convexPolygon.lineClosestPoint( polygon, line );
   test.equivalent( gotPoint, expected );
@@ -5266,7 +5266,7 @@ function lineClosestPoint( test )
     0,   1,   0, - 1
   ]);
   var line = [ 1.1, 0, 0, 2 ];
-  var expected = _.convexPolygon.tools.longMake( [ 1, 0 ] );
+  var expected = _.convexPolygon.tools.long.make( [ 1, 0 ] );
 
   var gotPoint = _.convexPolygon.lineClosestPoint( polygon, line );
   test.equivalent( gotPoint, expected );
@@ -5279,7 +5279,7 @@ function lineClosestPoint( test )
     0,   1,   1,   0
   ]);
   var line = [ 0, 0, 0, -1 ];
-  var expected = _.convexPolygon.tools.longMake( [ 1, 0 ] );
+  var expected = _.convexPolygon.tools.long.make( [ 1, 0 ] );
 
   var gotPoint = _.convexPolygon.lineClosestPoint( polygon, line );
   test.equivalent( gotPoint, expected );
@@ -5292,7 +5292,7 @@ function lineClosestPoint( test )
     0,   1,   1,   0
   ]);
   var line = [ 0, - 3, 3, 0 ];
-  var expected = _.convexPolygon.tools.longMake( [ 0, 0 ] );
+  var expected = _.convexPolygon.tools.long.make( [ 0, 0 ] );
 
   var gotPoint = _.convexPolygon.lineClosestPoint( polygon, line );
   test.equivalent( gotPoint, expected );
@@ -5305,7 +5305,7 @@ function lineClosestPoint( test )
     0,   1,   0, - 1
   ]);
   var line = [ 3, - 1, -1, 1 ];
-  var expected = _.convexPolygon.tools.longMake( [ 1, 0 ] );
+  var expected = _.convexPolygon.tools.long.make( [ 1, 0 ] );
 
   var gotPoint = _.convexPolygon.lineClosestPoint( polygon, line );
   test.equivalent( gotPoint, expected );
@@ -5335,7 +5335,7 @@ function lineClosestPoint( test )
     0,   1,   0, - 1
   ]);
   var line = [ 1, 1, 1, 0, 5, 5 ];
-  var expected = _.convexPolygon.tools.longMake( [ 0, 0.5, 0.5 ] );
+  var expected = _.convexPolygon.tools.long.make( [ 0, 0.5, 0.5 ] );
 
   var gotPoint = _.convexPolygon.lineClosestPoint( polygon, line );
   test.equivalent( gotPoint, expected );
@@ -5349,7 +5349,7 @@ function lineClosestPoint( test )
     0,   1,   0, - 1
   ]);
   var line = [ 0.1, 0, 0, 0, 1, 1 ];
-  var expected = _.convexPolygon.tools.longMake( [ 0, 0, 0 ] );
+  var expected = _.convexPolygon.tools.long.make( [ 0, 0, 0 ] );
 
   var gotPoint = _.convexPolygon.lineClosestPoint( polygon, line );
   test.equivalent( gotPoint, expected );
@@ -5363,7 +5363,7 @@ function lineClosestPoint( test )
     0,   0,   0,   0
   ]);
   var line = [ 1, 0, 2, 0, 1, 0 ];
-  var expected = _.convexPolygon.tools.longMake( [ 1, 0, 0 ] );
+  var expected = _.convexPolygon.tools.long.make( [ 1, 0, 0 ] );
 
   var gotPoint = _.convexPolygon.lineClosestPoint( polygon, line );
   test.equivalent( gotPoint, expected );
@@ -5377,7 +5377,7 @@ function lineClosestPoint( test )
     2,   3,   3,   2
   ]);
   var line = [ 0, 0, 0, 0, 1, 0 ];
-  var expected = _.convexPolygon.tools.longMake( [ 2, 2, 2 ] );
+  var expected = _.convexPolygon.tools.long.make( [ 2, 2, 2 ] );
 
   var gotPoint = _.convexPolygon.lineClosestPoint( polygon, line );
   test.equivalent( gotPoint, expected );
@@ -5391,7 +5391,7 @@ function lineClosestPoint( test )
     2,   2,   4
   ]);
   var line = [ -2, 0, 0, 2, 0, 0 ];
-  var expected = _.convexPolygon.tools.longMake( [ 0, 0, 2 ] );
+  var expected = _.convexPolygon.tools.long.make( [ 0, 0, 2 ] );
 
   var gotPoint = _.convexPolygon.lineClosestPoint( polygon, line );
   test.equivalent( gotPoint, expected );
@@ -5783,7 +5783,7 @@ function planeClosestPoint( test )
     0,   1,   0, - 1
   ]);
   var plane = [ 3, 1, 0, 0 ];
-  var expected = _.convexPolygon.tools.longMake( [ 0, 1, 0 ] );
+  var expected = _.convexPolygon.tools.long.make( [ 0, 1, 0 ] );
 
   var gotPoint = _.convexPolygon.planeClosestPoint( polygon, plane );
   test.identical( gotPoint, expected );
@@ -5836,7 +5836,7 @@ function planeClosestPoint( test )
     0,   1,   0, - 1
   ]);
   var plane = [ 1, 1, 0, 0 ];
-  var expected = _.convexPolygon.tools.longMake( [ 0, 1, 0 ] );
+  var expected = _.convexPolygon.tools.long.make( [ 0, 1, 0 ] );
 
   var gotPoint = _.convexPolygon.planeClosestPoint( polygon, plane );
   test.identical( gotPoint, expected );
@@ -5850,7 +5850,7 @@ function planeClosestPoint( test )
     0,   1,   0, - 1
   ]);
   var plane = [ 2, 0, 1, 0 ];
-  var expected = _.convexPolygon.tools.longMake( [ 0, -1, 0 ] );
+  var expected = _.convexPolygon.tools.long.make( [ 0, -1, 0 ] );
 
   var gotPoint = _.convexPolygon.planeClosestPoint( polygon, plane );
   test.identical( gotPoint, expected );
@@ -5864,7 +5864,7 @@ function planeClosestPoint( test )
     0,   1,   0, - 1
   ]);
   var plane = [ 0.1, 1, 0, 0 ];
-  var expected = _.convexPolygon.tools.longMake( [ 0, 1, 0 ] );
+  var expected = _.convexPolygon.tools.long.make( [ 0, 1, 0 ] );
 
   var gotPoint = _.convexPolygon.planeClosestPoint( polygon, plane );
   test.identical( gotPoint, expected );
@@ -5892,7 +5892,7 @@ function planeClosestPoint( test )
     0,   1,   0, - 1
   ]);
   var plane = [ -1.2, 0, 0, 1 ];
-  var expected = _.convexPolygon.tools.longMake( [ 0, 0, 1 ] );
+  var expected = _.convexPolygon.tools.long.make( [ 0, 0, 1 ] );
 
   var gotPoint = _.convexPolygon.planeClosestPoint( polygon, plane );
   test.identical( gotPoint, expected );
@@ -5920,7 +5920,7 @@ function planeClosestPoint( test )
     0,   1,   0, - 1
   ]);
   var plane = [ -1.1, 0, 1, 1 ];
-  var expected = _.convexPolygon.tools.longMake( [ 0, 1, 0] );
+  var expected = _.convexPolygon.tools.long.make( [ 0, 1, 0] );
 
   var gotPoint = _.convexPolygon.planeClosestPoint( polygon, plane );
   test.identical( gotPoint, expected );
@@ -6466,7 +6466,7 @@ function rayClosestPoint( test )
     0,   1,   0, - 1
   ]);
   var ray = [ 1, 1, 1, 0, 1, 0 ];
-  var expected = _.convexPolygon.tools.longMake( [ 0, 0.5, 0.5 ] );
+  var expected = _.convexPolygon.tools.long.make( [ 0, 0.5, 0.5 ] );
 
   var gotPoint = _.convexPolygon.rayClosestPoint( polygon, ray );
   test.equivalent( gotPoint, expected );
@@ -6505,7 +6505,7 @@ function rayClosestPoint( test )
     0,   1,   0, - 1
   ]);
   var ray = [ 1, 1, 1, -1 ];
-  var expected = _.convexPolygon.tools.longMake( [ 0.5, 0.5 ] );
+  var expected = _.convexPolygon.tools.long.make( [ 0.5, 0.5 ] );
 
   var gotPoint = _.convexPolygon.rayClosestPoint( polygon, ray );
   test.equivalent( gotPoint, expected );
@@ -6518,7 +6518,7 @@ function rayClosestPoint( test )
     0,   1,   0, - 1
   ]);
   var ray = [ 1.1, 0, 0, 2 ];
-  var expected = _.convexPolygon.tools.longMake( [ 1, 0 ] );
+  var expected = _.convexPolygon.tools.long.make( [ 1, 0 ] );
 
   var gotPoint = _.convexPolygon.rayClosestPoint( polygon, ray );
   test.equivalent( gotPoint, expected );
@@ -6531,7 +6531,7 @@ function rayClosestPoint( test )
     0,   1,   1,   0
   ]);
   var ray = [ 0, 0, 0, -1 ];
-  var expected = _.convexPolygon.tools.longMake( [ 1, 0 ] );
+  var expected = _.convexPolygon.tools.long.make( [ 1, 0 ] );
 
   var gotPoint = _.convexPolygon.rayClosestPoint( polygon, ray );
   test.equivalent( gotPoint, expected );
@@ -6544,7 +6544,7 @@ function rayClosestPoint( test )
     0,   1,   1,   0
   ]);
   var ray = [ 0, - 3, 3, 0 ];
-  var expected = _.convexPolygon.tools.longMake( [ 0, 0 ] );
+  var expected = _.convexPolygon.tools.long.make( [ 0, 0 ] );
 
   var gotPoint = _.convexPolygon.rayClosestPoint( polygon, ray );
   test.equivalent( gotPoint, expected );
@@ -6557,7 +6557,7 @@ function rayClosestPoint( test )
     0,   1,   0, - 1
   ]);
   var ray = [ 3, - 1, -1, 1 ];
-  var expected = _.convexPolygon.tools.longMake( [ 1, 0 ] );
+  var expected = _.convexPolygon.tools.long.make( [ 1, 0 ] );
 
   var gotPoint = _.convexPolygon.rayClosestPoint( polygon, ray );
   test.equivalent( gotPoint, expected );
@@ -6587,7 +6587,7 @@ function rayClosestPoint( test )
     0,   1,   0, - 1
   ]);
   var ray = [ 1, 1, 1, 0, 5, 5 ];
-  var expected = _.convexPolygon.tools.longMake( [ 0, 0.5, 0.5 ] );
+  var expected = _.convexPolygon.tools.long.make( [ 0, 0.5, 0.5 ] );
 
   var gotPoint = _.convexPolygon.rayClosestPoint( polygon, ray );
   test.equivalent( gotPoint, expected );
@@ -6601,7 +6601,7 @@ function rayClosestPoint( test )
     0,   1,   0, - 1
   ]);
   var ray = [ 0.1, 0, 0, 0, 1, 1 ];
-  var expected = _.convexPolygon.tools.longMake( [ 0, 0, 0 ] );
+  var expected = _.convexPolygon.tools.long.make( [ 0, 0, 0 ] );
 
   var gotPoint = _.convexPolygon.rayClosestPoint( polygon, ray );
   test.equivalent( gotPoint, expected );
@@ -6615,7 +6615,7 @@ function rayClosestPoint( test )
     0,   0,   0,   0
   ]);
   var ray = [ 1, 0, 2, 0, 0, 1 ];
-  var expected = _.convexPolygon.tools.longMake( [ 1, 0, 0 ] );
+  var expected = _.convexPolygon.tools.long.make( [ 1, 0, 0 ] );
 
   var gotPoint = _.convexPolygon.rayClosestPoint( polygon, ray );
   test.equivalent( gotPoint, expected );
@@ -6629,7 +6629,7 @@ function rayClosestPoint( test )
     2,   3,   3,   2
   ]);
   var ray = [ 0, 0, 0, 0, 1, 0 ];
-  var expected = _.convexPolygon.tools.longMake( [ 2, 2, 2 ] );
+  var expected = _.convexPolygon.tools.long.make( [ 2, 2, 2 ] );
 
   var gotPoint = _.convexPolygon.rayClosestPoint( polygon, ray );
   test.equivalent( gotPoint, expected );
@@ -6643,7 +6643,7 @@ function rayClosestPoint( test )
     2,   2,   4
   ]);
   var ray = [ -2, 0, 0, 2, 0, 0 ];
-  var expected = _.convexPolygon.tools.longMake( [ 0, 0, 2 ] );
+  var expected = _.convexPolygon.tools.long.make( [ 0, 0, 2 ] );
 
   var gotPoint = _.convexPolygon.rayClosestPoint( polygon, ray );
   test.equivalent( gotPoint, expected );
@@ -7400,7 +7400,7 @@ function segmentClosestPoint( test )
     0,   1,   0, - 1
   ]);
   var segment = [ 1, 1, 1, 3, 3, 3 ];
-  var expected = _.convexPolygon.tools.longMake( [ 0, 0.5, 0.5 ] );
+  var expected = _.convexPolygon.tools.long.make( [ 0, 0.5, 0.5 ] );
 
   var gotPoint = _.convexPolygon.segmentClosestPoint( polygon, segment );
   test.equivalent( gotPoint, expected );
@@ -7439,7 +7439,7 @@ function segmentClosestPoint( test )
     0,   1,   0, - 1
   ]);
   var segment = [ 1, 1, 5, 5 ];
-  var expected = _.convexPolygon.tools.longMake( [ 0.5, 0.5 ] );
+  var expected = _.convexPolygon.tools.long.make( [ 0.5, 0.5 ] );
 
   var gotPoint = _.convexPolygon.segmentClosestPoint( polygon, segment );
   test.equivalent( gotPoint, expected );
@@ -7452,7 +7452,7 @@ function segmentClosestPoint( test )
     0,   1,   0, - 1
   ]);
   var segment = [ 1.1, 0, 2, 2 ];
-  var expected = _.convexPolygon.tools.longMake( [ 1, 0 ] );
+  var expected = _.convexPolygon.tools.long.make( [ 1, 0 ] );
 
   var gotPoint = _.convexPolygon.segmentClosestPoint( polygon, segment );
   test.equivalent( gotPoint, expected );
@@ -7465,7 +7465,7 @@ function segmentClosestPoint( test )
     0,   1,   1,   0
   ]);
   var segment = [ 0, 0, -1, -1 ];
-  var expected = _.convexPolygon.tools.longMake( [ 1, 0 ] );
+  var expected = _.convexPolygon.tools.long.make( [ 1, 0 ] );
 
   var gotPoint = _.convexPolygon.segmentClosestPoint( polygon, segment );
   test.equivalent( gotPoint, expected );
@@ -7478,7 +7478,7 @@ function segmentClosestPoint( test )
     0,  0,  1,  1,
   ]);
   var segment = [ 0.5, -2, 0.5, -1 ];
-  var expected = _.convexPolygon.tools.longMake( [ 0.5, 0 ] );
+  var expected = _.convexPolygon.tools.long.make( [ 0.5, 0 ] );
 
   var gotPoint = _.convexPolygon.segmentClosestPoint( polygon, segment );
   test.equivalent( gotPoint, expected );
@@ -7491,7 +7491,7 @@ function segmentClosestPoint( test )
     0,   1,   1,   0
   ]);
   var segment = [ 0, 3, 3, 0 ];
-  var expected = _.convexPolygon.tools.longMake( [ 1, 1 ] );
+  var expected = _.convexPolygon.tools.long.make( [ 1, 1 ] );
 
   var gotPoint = _.convexPolygon.segmentClosestPoint( polygon, segment );
   test.equivalent( gotPoint, expected );
@@ -7504,7 +7504,7 @@ function segmentClosestPoint( test )
     0,   1,   0, - 1
   ]);
   var segment = [ 2, - 1, 2, 2 ];
-  var expected = _.convexPolygon.tools.longMake( [ 1, 0 ] );
+  var expected = _.convexPolygon.tools.long.make( [ 1, 0 ] );
 
   var gotPoint = _.convexPolygon.segmentClosestPoint( polygon, segment );
   test.equivalent( gotPoint, expected );
@@ -7534,7 +7534,7 @@ function segmentClosestPoint( test )
     0,   1,   0, - 1
   ]);
   var segment = [ 1, 1, 1, 5, 5, 5 ];
-  var expected = _.convexPolygon.tools.longMake( [ 0, 0.5, 0.5 ] );
+  var expected = _.convexPolygon.tools.long.make( [ 0, 0.5, 0.5 ] );
 
   var gotPoint = _.convexPolygon.segmentClosestPoint( polygon, segment );
   test.equivalent( gotPoint, expected );
@@ -7548,7 +7548,7 @@ function segmentClosestPoint( test )
     0,   1,   0, - 1
   ]);
   var segment = [ 0.1, 0, 0, 1, 1, 1 ];
-  var expected = _.convexPolygon.tools.longMake( [ 0, 0, 0 ] );
+  var expected = _.convexPolygon.tools.long.make( [ 0, 0, 0 ] );
 
   var gotPoint = _.convexPolygon.segmentClosestPoint( polygon, segment );
   test.equivalent( gotPoint, expected );
@@ -7562,7 +7562,7 @@ function segmentClosestPoint( test )
     0,   0,   0,   0
   ]);
   var segment = [ 1, 0, 2, 4, 3, 4 ];
-  var expected = _.convexPolygon.tools.longMake( [ 1, 0, 0 ] );
+  var expected = _.convexPolygon.tools.long.make( [ 1, 0, 0 ] );
 
   var gotPoint = _.convexPolygon.segmentClosestPoint( polygon, segment );
   test.equivalent( gotPoint, expected );
@@ -7576,7 +7576,7 @@ function segmentClosestPoint( test )
     0,   0,   0
   ]);
   var segment = [ 2, 0, 3, 2, 0, 0 ];
-  var expected = _.convexPolygon.tools.longMake( [ 1, 0, 0 ] );
+  var expected = _.convexPolygon.tools.long.make( [ 1, 0, 0 ] );
 
   var gotPoint = _.convexPolygon.segmentClosestPoint( polygon, segment );
   test.equivalent( gotPoint, expected );
@@ -7590,7 +7590,7 @@ function segmentClosestPoint( test )
     2,   3,   3,   2
   ]);
   var segment = [ 0, 1, 0, 0, 1, 5 ];
-  var expected = _.convexPolygon.tools.longMake( [ 2, 2, 2 ] );
+  var expected = _.convexPolygon.tools.long.make( [ 2, 2, 2 ] );
 
   var gotPoint = _.convexPolygon.segmentClosestPoint( polygon, segment );
   test.equivalent( gotPoint, expected );
@@ -7604,7 +7604,7 @@ function segmentClosestPoint( test )
     2,   2,   4
   ]);
   var segment = [ 2, -1, 3, 2, 1, 3 ];
-  var expected = _.convexPolygon.tools.longMake( [ 1, 0.6, 3.2 ] );
+  var expected = _.convexPolygon.tools.long.make( [ 1, 0.6, 3.2 ] );
 
   var gotPoint = _.convexPolygon.segmentClosestPoint( polygon, segment );
   test.equivalent( gotPoint, expected );
@@ -8227,7 +8227,7 @@ function sphereClosestPoint( test )
     0,   1,   0, - 1
   ]);
   var sphere = [ 0, 5, 1 ];
-  var expected = _.convexPolygon.tools.longMake( [ 0, 1 ] );
+  var expected = _.convexPolygon.tools.long.make( [ 0, 1 ] );
 
   var gotPoint = _.convexPolygon.sphereClosestPoint( polygon, sphere );
   test.identical( gotPoint, expected );
@@ -8240,7 +8240,7 @@ function sphereClosestPoint( test )
     0,   1,   0, - 1
   ]);
   var sphere = [ 2, 0, 0.9 ];
-  var expected = _.convexPolygon.tools.longMake( [ 1, 0 ] );
+  var expected = _.convexPolygon.tools.long.make( [ 1, 0 ] );
 
   var gotPoint = _.convexPolygon.sphereClosestPoint( polygon, sphere );
   test.identical( gotPoint, expected );
@@ -8253,7 +8253,7 @@ function sphereClosestPoint( test )
     0,   0,   1,   1,
   ]);
   var sphere = [ 0, 0.5, 0.9 ];
-  var expected = _.convexPolygon.tools.longMake( [ 1, 0.5 ] );
+  var expected = _.convexPolygon.tools.long.make( [ 1, 0.5 ] );
 
   var gotPoint = _.convexPolygon.sphereClosestPoint( polygon, sphere );
   test.identical( gotPoint, expected );
@@ -8266,7 +8266,7 @@ function sphereClosestPoint( test )
     0,   0,   1,   1,
   ]);
   var sphere = [ 0, -1, Math.sqrt( 2 ) - 0.2];
-  var expected = _.convexPolygon.tools.longMake( [ 1, 0 ] );
+  var expected = _.convexPolygon.tools.long.make( [ 1, 0 ] );
 
   var gotPoint = _.convexPolygon.sphereClosestPoint( polygon, sphere );
   test.identical( gotPoint, expected );
@@ -8324,7 +8324,7 @@ function sphereClosestPoint( test )
     0,   1,   0, - 1
   ]);
   var sphere = [ 1, 1, 5, 1 ];
-  var expected = _.convexPolygon.tools.longMake( [ 0, 0, 1 ] );
+  var expected = _.convexPolygon.tools.long.make( [ 0, 0, 1 ] );
 
   var gotPoint = _.convexPolygon.sphereClosestPoint( polygon, sphere );
   test.identical( gotPoint, expected );
@@ -8338,7 +8338,7 @@ function sphereClosestPoint( test )
     0,   1,   0, - 1
   ]);
   var sphere = [ 1, 0, 0, 0.9 ];
-  var expected = _.convexPolygon.tools.longMake( [ 0, 0, 0 ] );
+  var expected = _.convexPolygon.tools.long.make( [ 0, 0, 0 ] );
 
   var gotPoint = _.convexPolygon.sphereClosestPoint( polygon, sphere );
   test.identical( gotPoint, expected );
@@ -8352,7 +8352,7 @@ function sphereClosestPoint( test )
     0,   1,   1,   0
   ]);
   var sphere = [ 0, 0, 0.5, Math.sqrt( 2 ) - 0.1 ];
-  var expected = _.convexPolygon.tools.longMake( [ 1, 1, 0.5 ] );
+  var expected = _.convexPolygon.tools.long.make( [ 1, 1, 0.5 ] );
 
   var gotPoint = _.convexPolygon.sphereClosestPoint( polygon, sphere );
   test.identical( gotPoint, expected );
@@ -8366,7 +8366,7 @@ function sphereClosestPoint( test )
     0,   1,   1,   0
   ]);
   var sphere = [ 0, 0, -1, Math.sqrt( 3 ) - 1 ];
-  var expected = _.convexPolygon.tools.longMake( [ 1, 1, 0 ] );
+  var expected = _.convexPolygon.tools.long.make( [ 1, 1, 0 ] );
 
   var gotPoint = _.convexPolygon.sphereClosestPoint( polygon, sphere );
   test.identical( gotPoint, expected );
@@ -8418,7 +8418,7 @@ function boundingSphereGet( test )
       0,   1,   1,   0
     ]);
   var dstSphere = [ 1, 1, 1, 2 ];
-  var expected = _.convexPolygon.tools.longMake( [ 0.5, 0.5, 0.5, Math.sqrt( 0.75 ) ] );
+  var expected = _.convexPolygon.tools.long.make( [ 0.5, 0.5, 0.5, Math.sqrt( 0.75 ) ] );
 
   var gotSphere = _.convexPolygon.boundingSphereGet( srcPolygon, dstSphere );
   test.identical( expected, gotSphere );
@@ -8443,7 +8443,7 @@ function boundingSphereGet( test )
       0,   1,   1,   0
     ]);
   var dstSphere = [ 1, 1, 1, 10 ];
-  var expected = _.convexPolygon.tools.longMake( [ 1.5, 1, 0.5, Math.sqrt( 3.5 ) ] );
+  var expected = _.convexPolygon.tools.long.make( [ 1.5, 1, 0.5, Math.sqrt( 3.5 ) ] );
 
   var gotSphere = _.convexPolygon.boundingSphereGet( srcPolygon, dstSphere );
   test.identical( gotSphere, expected );
@@ -8459,7 +8459,7 @@ function boundingSphereGet( test )
       3,   4,   2,   2
     ]);
   var dstSphere = [ 0, 0, 0, 1 ];
-  var expected = _.convexPolygon.tools.longMake( [ 3, 4, 3, Math.sqrt( 2 ) ] );
+  var expected = _.convexPolygon.tools.long.make( [ 3, 4, 3, Math.sqrt( 2 ) ] );
 
   var gotSphere = _.convexPolygon.boundingSphereGet( srcPolygon, dstSphere );
   test.identical( gotSphere, expected );
@@ -8475,7 +8475,7 @@ function boundingSphereGet( test )
       0, - 1, - 1,   0
     ]);
   var dstSphere = [ 3, 3, 3, 4 ];
-  var expected = _.convexPolygon.tools.longMake( [ - 0.5, - 0.5, - 0.5, Math.sqrt( 0.75 ) ] );
+  var expected = _.convexPolygon.tools.long.make( [ - 0.5, - 0.5, - 0.5, Math.sqrt( 0.75 ) ] );
 
   var gotSphere = _.convexPolygon.boundingSphereGet( srcPolygon, dstSphere );
   test.identical( gotSphere, expected );
@@ -8488,7 +8488,7 @@ function boundingSphereGet( test )
       -2,   0,   7,   1
     ]);
   var dstSphere = [ 3, 3, 4 ];
-  var expected = _.convexPolygon.tools.longMake( [ 2.5, 2.5, Math.sqrt( 32.5 ) ] );
+  var expected = _.convexPolygon.tools.long.make( [ 2.5, 2.5, Math.sqrt( 32.5 ) ] );
 
   var gotSphere = _.convexPolygon.boundingSphereGet( srcPolygon, dstSphere );
   test.identical( gotSphere, expected );
@@ -8520,7 +8520,7 @@ function boundingSphereGet( test )
       0,  -1,  -2,   0
     ]);
   var dstSphere = null;
-  var expected = _.convexPolygon.tools.longMake( [ -1, -1, -1, Math.sqrt( 3 ) ] );
+  var expected = _.convexPolygon.tools.long.make( [ -1, -1, -1, Math.sqrt( 3 ) ] );
 
   var gotSphere = _.convexPolygon.boundingSphereGet( srcPolygon, dstSphere );
   test.equivalent( gotSphere, expected );
@@ -8536,7 +8536,7 @@ function boundingSphereGet( test )
       0,   1,   1
     ]);
   var dstSphere = undefined;
-  var expected = _.convexPolygon.tools.longMake( [ 0.5, 2, 0.5, Math.sqrt( 1.5 ) ] );
+  var expected = _.convexPolygon.tools.long.make( [ 0.5, 2, 0.5, Math.sqrt( 1.5 ) ] );
 
   var gotSphere = _.convexPolygon.boundingSphereGet( srcPolygon, dstSphere );
   test.identical( gotSphere, expected );

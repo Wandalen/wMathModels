@@ -17,7 +17,7 @@ if( typeof module !== 'undefined' )
 
 //
 
-const _ = _global_.wTools.withDefaultLong.Fx;
+const _ = _global_.wTools.withLong.Fx;
 var Matrix = _.Matrix;
 var vector = _.vectorAdapter;
 var vec = _.vectorAdapter.fromArray;
@@ -40,7 +40,7 @@ function make( test )
   var dim = 2;
   var gotTriangle = _.triangle.make( dim );
 
-  var expected = _.triangle.tools.longMake( [ 0, 0, 0, 0, 0, 0 ] );
+  var expected = _.triangle.tools.long.make( [ 0, 0, 0, 0, 0, 0 ] );
   test.identical( gotTriangle, expected );
 
   /* */
@@ -77,7 +77,7 @@ function from( test )
   test.case = 'Same instance returned - array';
 
   var srcTriangle = [ 0, 0, 1, 1, 2, 0 ];
-  var expected = _.triangle.tools.longMake( [ 0, 0, 1, 1, 2, 0 ] );
+  var expected = _.triangle.tools.long.make( [ 0, 0, 1, 1, 2, 0 ] );
 
   var gotTriangle = _.triangle.from( srcTriangle );
   test.identical( gotTriangle, expected );
@@ -99,7 +99,7 @@ function from( test )
   test.case = 'Different instance returned - null -> array';
 
   var srcTriangle = null;
-  var expected = _.triangle.tools.longMake( [ 0, 0, 0, 0, 0, 0 ] );
+  var expected = _.triangle.tools.long.make( [ 0, 0, 0, 0, 0, 0 ] );
 
   var gotTriangle = _.triangle.from( srcTriangle );
   test.identical( gotTriangle, expected );

@@ -26,7 +26,7 @@ const Self = _.convexPolygon = _.convexPolygon || Object.create( _.avector );
 */
 
 // --
-// routines
+// implementation
 // --
 
 function is( polygon )
@@ -122,7 +122,7 @@ function isPolygon( polygon )
   *   0, 0, 1, 2, 2,
   *   0, 0, 0, 0, 0
   * ]);
-  * _.is( polygon );
+  * _.convexPolygon.is( polygon );
   *
   * @example
   * // returns false;
@@ -132,7 +132,7 @@ function isPolygon( polygon )
   *   0, 0, 1, 2, 2,
   *   0, 0, 0, 0, 0
   * ]);
-  * _.is( polygon );
+  * _.convexPolygon.is( polygon );
   *
   * @returns { Boolean } Returns true if polygon is a convex polygon and false if not.
   * @function isValid
@@ -290,11 +290,11 @@ function isClockwise( polygon )
  *   0, 0, 0, 0, 0, 0, 0, 0,
  *   0, 0, 0, 0, 0, 0, 0, 0,
  * ];
- * _.make( 8, 3 );
+ * _.convexPolygon.make( 8, 3 );
  *
  * @example
  * // returns [ 0, 0, 1, 1 ];
- * _.make( [ 0, 0, 1, 1 ] );
+ * _.convexPolygon.make( [ 0, 0, 1, 1 ] );
  *
  * @returns { Array } Returns the array of the created box.
  * @function make
@@ -955,7 +955,7 @@ function boxClosestPoint( polygon, box, dstPoint )
   _.assert( arguments.length === 2 || arguments.length === 3 , 'Expects two or three arguments' );
 
   if( arguments.length === 2 )
-  dstPoint = this.tools.longMake( rows );
+  dstPoint = this.tools.long.make( rows );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Not a valid destination point' );
@@ -1233,7 +1233,7 @@ function capsuleClosestPoint( polygon, capsule, dstPoint )
   _.assert( dimC === dims[ 0 ], 'Polygon and capsule must have the same dimension' );
 
   if( arguments.length === 2 )
-  dstPoint = this.tools.longMake( dimC );
+  dstPoint = this.tools.long.make( dimC );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Not a valid destination point' );
@@ -1244,7 +1244,7 @@ function capsuleClosestPoint( polygon, capsule, dstPoint )
   if( this.capsuleIntersects( polygon, capsuleView ) )
   return 0;
 
-  let point = this.tools.vectorAdapter.from( this.tools.longMake( dimC ) );
+  let point = this.tools.vectorAdapter.from( this.tools.long.make( dimC ) );
   let segment = this.tools.segment.fromPair( [ originC, endC ] );
 
   point = this.segmentClosestPoint( polygon, segment, point );
@@ -1459,7 +1459,7 @@ function frustumClosestPoint( polygon, frustum, dstPoint )
   _.assert( dimsP[ 0 ] === dimsF[ 0 ] - 1, 'Polygon and frustum must have the same dimension' );
 
   if( arguments.length === 2 )
-  dstPoint = this.tools.longMake( dimsP[ 0 ] );
+  dstPoint = this.tools.long.make( dimsP[ 0 ] );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Not a valid destination point' );
@@ -1473,7 +1473,7 @@ function frustumClosestPoint( polygon, frustum, dstPoint )
   return 0;
 
   let distance = Infinity;
-  let finalPoint = this.tools.longMake( dimsP[ 0 ] );
+  let finalPoint = this.tools.long.make( dimsP[ 0 ] );
 
   //Frustum corners
   let fPoints = this.tools.frustum.cornersGet( frustum );
@@ -1712,7 +1712,7 @@ function lineClosestPoint( polygon, line, dstPoint )
   _.assert( lDim === dims[ 0 ], 'Polygon and line must have the same dimension' );
 
   if( arguments.length === 2 )
-  dstPoint = this.tools.longMake( lDim );
+  dstPoint = this.tools.long.make( lDim );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Not a valid destination point' );
@@ -1723,7 +1723,7 @@ function lineClosestPoint( polygon, line, dstPoint )
   if( this.lineIntersects( polygon, lineView ) )
   return 0;
 
-  let point = this.tools.vectorAdapter.from( this.tools.longMake( lDim ) );
+  let point = this.tools.vectorAdapter.from( this.tools.long.make( lDim ) );
 
   let dist = Infinity;
 
@@ -1815,7 +1815,7 @@ function planeIntersects( polygon, plane )
       else
       {
         let newSide = distance/ Math.abs( distance );
-        if( side === - newSide )//aaa vova: this.tools.numbersAreEquivalent?
+        if( side === - newSide )//aaa vova: this.tools.number.equivalent?
         {
           bool = true;
         }
@@ -1913,7 +1913,7 @@ function planeClosestPoint( polygon, plane, dstPoint )
   _.assert( dimP === dims[ 0 ], 'Polygon and plane must have the same dimension' );
 
   if( arguments.length === 2 )
-  dstPoint = this.tools.longMake( dimP );
+  dstPoint = this.tools.long.make( dimP );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Not a valid destination point' );
@@ -1924,7 +1924,7 @@ function planeClosestPoint( polygon, plane, dstPoint )
   if( this.planeIntersects( polygon, planeView ) )
   return 0;
 
-  let point = this.tools.vectorAdapter.from( this.tools.longMake( dimP ) );
+  let point = this.tools.vectorAdapter.from( this.tools.long.make( dimP ) );
 
   let dist = Infinity;
 
@@ -2128,7 +2128,7 @@ function rayClosestPoint( polygon, ray, dstPoint )
   _.assert( sDim === dims[ 0 ], 'Polygon and ray must have the same dimension' );
 
   if( arguments.length === 2 )
-  dstPoint = this.tools.longMake( sDim );
+  dstPoint = this.tools.long.make( sDim );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Not a valid destination point' );
@@ -2139,7 +2139,7 @@ function rayClosestPoint( polygon, ray, dstPoint )
   if( this.rayIntersects( polygon, rayView ) )
   return 0;
 
-  let point = this.tools.vectorAdapter.from( this.tools.longMake( sDim ) );
+  let point = this.tools.vectorAdapter.from( this.tools.long.make( sDim ) );
 
   let dist = Infinity;
 
@@ -2409,7 +2409,7 @@ function segmentClosestPoint( polygon, segment, dstPoint )
   _.assert( sDim === dims[ 0 ], 'Polygon and segment must have the same dimension' );
 
   if( arguments.length === 2 )
-  dstPoint = this.tools.longMake( sDim );
+  dstPoint = this.tools.long.make( sDim );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Not a valid destination point' );
@@ -2420,7 +2420,7 @@ function segmentClosestPoint( polygon, segment, dstPoint )
   if( this.segmentIntersects( polygon, segmentView ) )
   return 0;
 
-  let point = this.tools.vectorAdapter.from( this.tools.longMake( sDim ) );
+  let point = this.tools.vectorAdapter.from( this.tools.long.make( sDim ) );
 
   let dist = Infinity;
 
@@ -2600,7 +2600,7 @@ function sphereClosestPoint( polygon, sphere, dstPoint )
   _.assert( dimS === dims[ 0 ], 'Polygon and sphere must have the same dimension' );
 
   if( arguments.length === 2 )
-  dstPoint = this.tools.longMake( dimS );
+  dstPoint = this.tools.long.make( dimS );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Not a valid destination point' );
@@ -2611,7 +2611,7 @@ function sphereClosestPoint( polygon, sphere, dstPoint )
   if( this.sphereIntersects( polygon, sphereView ) )
   return 0;
 
-  let point = this.pointClosestPoint( polygon, center, this.tools.vectorAdapter.from( this.tools.longMake( dimS ) ) );
+  let point = this.pointClosestPoint( polygon, center, this.tools.vectorAdapter.from( this.tools.long.make( dimS ) ) );
 
 
   for( var i = 0; i < dstPointView.length; i++ )
@@ -2768,6 +2768,6 @@ let Extension = /* qqq xxx : normalize order */
   tools : _,
 }
 
-_.mapExtend( Self, Extension );
+_.props.extend( Self, Extension );
 
 })();
