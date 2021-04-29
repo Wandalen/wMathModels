@@ -16,7 +16,7 @@ const sqr = _.math.sqr;
 let sqrt = _.math.sqrt;
 
 _.assert( !this );
-_.assert( _.objectIs( _.avector ) );
+_.assert( _.object.isBasic( _.avector ) );
 
 /**
  * An AxisAndAngle element represents a rotation around a direction vector of a certain magnitude.

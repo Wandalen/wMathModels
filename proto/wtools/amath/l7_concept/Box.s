@@ -315,7 +315,7 @@ function centeredOfSize( box, size )
 function from( box )
 {
 
-  // if( _.objectIs( box ) )
+  // if( _.object.isBasic( box ) )
   // {
   //   _.map.assertHasExactly( box, { min : 'min' , max : 'max' } );
   //   debugger;

@@ -123,7 +123,7 @@ function nil( segment )
 
 function from( segment )
 {
-//  if( _.objectIs( segment ) )
+//  if( _.object.isBasic( segment ) )
 //  {
 //    _.map.assertHasExactly( segment, { min : 'min' , max : 'max' } );
 //    segment = _.arrayAppendArray( [], [ segment.min, segment.max ] );

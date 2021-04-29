@@ -310,7 +310,7 @@ function toStr( sphere, options )
 function from( sphere )
 {
 
-  if( _.objectIs( sphere ) )
+  if( _.object.isBasic( sphere ) )
   {
     _.assert( arguments.length === 1, 'Expects single argument' );
     _.map.assertHasOnly( sphere, { center : 'center' , radius : 'radius' } );

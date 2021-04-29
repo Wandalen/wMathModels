@@ -124,7 +124,7 @@ function nil( ray )
 
 function from( ray )
 {
-//  if( _.objectIs( ray ) )
+//  if( _.object.isBasic( ray ) )
 //  {
 //    _.map.assertHasExactly( ray, { min : 'min' , max : 'max' } );
 //    ray = _.arrayAppendArrays( [], [ ray.min, ray.max ] );
