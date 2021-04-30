@@ -3302,7 +3302,7 @@ function matrixHomogenousApply( box , matrix )
 
   let point = [];
   let samples = _.dup( [ 0, 1 ] , dim );
-  _.eachSample_( samples, function( sample, i )
+  _.permutation.eachSample( samples, function( sample, i )
   {
 
     for( let i = 0 ; i < dim ; i++ )
