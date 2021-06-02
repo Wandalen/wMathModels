@@ -3,9 +3,7 @@
 'use strict';
 
 const _ = _global_.wTools;
-// let this.tools.avector = this.tools.avector;
-// let vector = this.tools.vectorAdapter;
-const Self = _.ray = _.ray || Object.create( _.avector );
+_.ray = _.ray || Object.create( _.avector );
 
 /**
  * @description
@@ -564,9 +562,9 @@ function rayParallel3D( src1Ray, src2Ray, accuracySqr )
   // _.assert( arguments.length === 2 || arguments.length === 3 );
 
   // if( accuracySqr === undefined )
-  // accuracySqr = Self.accuracySqr;
+  // accuracySqr = this.accuracySqr;
 
-  // return _magSqr( this.tools.avector.cross( src1Ray[ 1 ], src2Ray[ 1 ] ) ) <= Self.accuracySqr;
+  // return _magSqr( this.tools.avector.cross( src1Ray[ 1 ], src2Ray[ 1 ] ) ) <= this.accuracySqr;
 
   _.assert( this.is( src1Ray ) );
   _.assert( this.is( src2Ray ) );
@@ -594,9 +592,9 @@ function rayParallel( src1Ray, src2Ray, accuracySqr )
   // _.assert( arguments.length === 2 || arguments.length === 3 );
 
   // if( accuracySqr === undefined )
-  // accuracySqr = Self.accuracySqr;
+  // accuracySqr = this.accuracySqr;
 
-  // return _magSqr( this.tools.avector.cross( src1Ray[ 1 ], src2Ray[ 1 ] ) ) <= Self.accuracySqr;
+  // return _magSqr( this.tools.avector.cross( src1Ray[ 1 ], src2Ray[ 1 ] ) ) <= this.accuracySqr;
 
   _.assert( this.is( src1Ray ) );
   _.assert( this.is( src2Ray ) );
@@ -927,7 +925,8 @@ function rayIntersectionPoints( r1, r2 )
   return 0;
 
   let factorsView = this.tools.vectorAdapter.from( factors );
-  let result = [ Self.rayAt( r1, factorsView.eGet( 0 ) ), Self.rayAt( r2, factorsView.eGet( 1 ) ) ];
+  let result = [ this.rayAt( r1, factorsView.eGet( 0 ) ), this.rayAt( r2, factorsView.eGet( 1 ) ) ];
+
   return result;
 }
 
@@ -972,12 +971,12 @@ rayIntersectionPoints.shaderChunkName = 'ray_rayIntersectionPoints'
 function rayIntersectionPoint( r1, r2 )
 {
 
-  let factors = Self.rayIntersectionFactors( r1, r2 );
+  let factors = this.rayIntersectionFactors( r1, r2 );
 
   if( factors === 0 )
   return 0;
 
-  return Self.rayAt( r1, factors.eGet( 0 ) );
+  return this.rayAt( r1, factors.eGet( 0 ) );
 
 }
 
@@ -1023,7 +1022,7 @@ rayIntersectionPoint.shaderChunkName = `ray_rayIntersectionPoint`
 function rayIntersectionPointAccurate( r1, r2 )
 {
 
-  let closestPoints = Self.rayIntersectionPoints( r1, r2 );
+  let closestPoints = this.rayIntersectionPoints( r1, r2 );
   // return closestPoints[ 0 ].add( closestPoints[ 1 ] ).mul( 0.5 );
   debugger;
 
@@ -3301,7 +3300,7 @@ let Extension = /* qqq : normalize order */
 
 }
 
-_.props.extend( Self, Extension );
+/* _.props.extend */Object.assign( _.ray, Extension );
 injectChunks( Extension )
 
 })();

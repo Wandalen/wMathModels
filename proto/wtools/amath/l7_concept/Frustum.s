@@ -3,8 +3,7 @@
 'use strict';
 
 const _ = _global_.wTools;
-// let this.tools.avector = this.tools.avector;
-const Self = _.frustum = _.frustum || Object.create( _.avector );
+_.frustum = _.frustum || Object.create( _.avector );
 
 /**
  * @description
@@ -2464,6 +2463,6 @@ let Extension = /* qqq : normalize order */
 
 }
 
-_.props.extend( Self, Extension );
+/* _.props.extend */Object.assign( _.frustum, Extension );
 
 })();

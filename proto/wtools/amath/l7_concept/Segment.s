@@ -4,9 +4,7 @@
 'use strict';
 
 const _ = _global_.wTools;
-// let this.tools.avector = this.tools.avector;
-// let vector = this.tools.vectorAdapter;
-const Self = _.segment = _.segment || Object.create( _.avector );
+_.segment = _.segment || Object.create( _.avector );
 
 /**
  * @description
@@ -1056,7 +1054,7 @@ function segmentIntersectionPoints( srcSegment1, srcSegment2 )
   return 0;
 
   let factorsView = this.tools.vectorAdapter.from( factors );
-  let result = [ Self.segmentAt( srcSegment1, factorsView.eGet( 0 ) ), Self.segmentAt( srcSegment2, factorsView.eGet( 1 ) ) ];
+  let result = [ this.segmentAt( srcSegment1, factorsView.eGet( 0 ) ), this.segmentAt( srcSegment2, factorsView.eGet( 1 ) ) ];
   return result;
 }
 
@@ -1100,12 +1098,12 @@ segmentIntersectionPoints.shaderChunk =
 function segmentIntersectionPoint( srcSegment1, srcSegment2 )
 {
 
-  let factors = Self.segmentIntersectionFactors( srcSegment1, srcSegment2 );
+  let factors = this.segmentIntersectionFactors( srcSegment1, srcSegment2 );
 
   if( factors === 0 )
   return 0;
 
-  return Self.segmentAt( srcSegment1, factors.eGet( 0 ) );
+  return this.segmentAt( srcSegment1, factors.eGet( 0 ) );
 
 }
 
@@ -1148,7 +1146,7 @@ segmentIntersectionPoint.shaderChunk =
 function segmentIntersectionPointAccurate( srcSegment1, srcSegment2 )
 {
 
-  let closestPoints = Self.segmentIntersectionPoints( srcSegment1, srcSegment2 );
+  let closestPoints = this.segmentIntersectionPoints( srcSegment1, srcSegment2 );
   debugger;
 
   if( closestPoints === 0 )
@@ -3944,6 +3942,6 @@ let Extension = /* qqq : normalize order */
 
 }
 
-_.props.extend( Self, Extension );
+/* _.props.extend */Object.assign( _.segment, Extension );
 
 })();

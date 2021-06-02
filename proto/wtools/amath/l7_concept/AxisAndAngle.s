@@ -8,12 +8,12 @@ const _ = _global_.wTools;
 const pi = Math.PI;
 const sin = Math.sin;
 const cos = Math.cos;
-let atan2 = Math.atan2;
+const atan2 = Math.atan2;
 const asin = Math.asin;
 const acos = Math.acos;
 const abs = Math.abs;
 const sqr = _.math.sqr;
-let sqrt = _.math.sqrt;
+const sqrt = _.math.sqrt;
 
 _.assert( !this );
 _.assert( _.object.isBasic( _.avector ) );
@@ -29,7 +29,7 @@ _.assert( _.object.isBasic( _.avector ) );
  * @module Tools/math/Concepts
  */
 
-const Self = _.axisAndAngle = _.axisAndAngle || Object.create( _.avector );
+_.axisAndAngle = _.axisAndAngle || Object.create( _.avector );
 
 // --
 //
@@ -450,6 +450,6 @@ let Extension = /* qqq : normalize order */
 
 }
 
-_.props.extend( Self, Extension );
+/* _.props.extend */Object.assign( _.axisAndAngle, Extension );
 
 })();

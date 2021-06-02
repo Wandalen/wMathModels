@@ -3,8 +3,6 @@
 'use strict';
 
 const _ = _global_.wTools;
-// let this.tools.avector = this.tools.avector;
-// let vector = this.tools.vectorAdapter;
 const pi = Math.PI;
 const sin = Math.sin;
 const cos = Math.cos;
@@ -12,10 +10,10 @@ const asin = Math.asin;
 const acos = Math.acos;
 const abs = Math.abs;
 const sqr = _.math.sqr;
-let sqrt = _.math.sqrt;
+const sqrt = _.math.sqrt;
 
 _.assert( !this );
-const Self = _.quat = _.quat || Object.create( _.avector );
+_.quat = _.quat || Object.create( _.avector );
 
 /**
  * @description
@@ -879,6 +877,7 @@ function fromMatrixWithScale2( dst, mat )
 
 function fromPlane( plane, origin )
 {
+  let self = this;
   let originVector;
 
   return function quatWithPlane( plane, origin )
@@ -897,7 +896,7 @@ function fromPlane( plane, origin )
     pos2.copy( plane[ 3 ] ).sub( pos0 );
     pos0.crossVectors( pos1, pos2 ).normalize();
 
-    return Self.quatWithVectors( origin, pos0 );
+    return self.quatWithVectors( origin, pos0 );
   }
 
 }
@@ -1250,6 +1249,6 @@ let Extension = /* qqq : normalize order */
 
 }
 
-_.props.extend( Self, Extension );
+/* _.props.extend */Object.assign( _.quat, Extension );
 
 })();

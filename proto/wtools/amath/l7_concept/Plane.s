@@ -3,9 +3,7 @@
 'use strict';
 
 const _ = _global_.wTools;
-// let this.tools.avector = this.tools.avector;
-// let vector = this.tools.vectorAdapter;
-const Self = _.plane = _.plane || Object.create( _.avector );
+_.plane = _.plane || Object.create( _.avector );
 
 /**
  * A plane is a flat surface represented by an equation Ax + By + Cz = D,
@@ -2541,7 +2539,7 @@ let Extension = /* qqq : normalize order */
 
 }
 
-_.props.extend( Self, Extension );
+/* _.props.extend */Object.assign( _.plane, Extension );
 injectChunks( Extension );
 
 })();

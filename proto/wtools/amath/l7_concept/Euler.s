@@ -6,13 +6,13 @@ const _ = _global_.wTools;
 const pi = Math.PI;
 const sin = Math.sin;
 const cos = Math.cos;
-let atan2 = Math.atan2;
+const atan2 = Math.atan2;
 const asin = Math.asin;
 const acos = Math.acos;
 const abs = Math.abs;
 const sqr = _.math.sqr;
-let sqrt = _.math.sqrt;
-let clamp = _.math.clamp;
+const sqrt = _.math.sqrt;
+const clamp = _.math.clamp;
 
 _.assert( _.routineIs( clamp ) )
 _.assert( !this );
@@ -28,7 +28,7 @@ _.assert( !this );
   * @module Tools/math/Concepts
  */
 
-const Self = _.euler = _.euler || Object.create( _.avector );
+_.euler = _.euler || Object.create( _.avector );
 
 /*
 
@@ -2946,6 +2946,6 @@ let Extension = /* qqq : normalize order */
 
 }
 
-_.props.extend( Self, Extension );
+/* _.props.extend */Object.assign( _.euler, Extension );
 
 })();

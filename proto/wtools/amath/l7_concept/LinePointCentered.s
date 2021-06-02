@@ -3,9 +3,7 @@
 'use strict';
 
 const _ = _global_.wTools;
-// let this.tools.avector = this.tools.avector;
-// let vector = this.tools.vectorAdapter;
-const Self = _.linePointCentered = _.linePointCentered || Object.create( _.avector );
+_.linePointCentered = _.linePointCentered || Object.create( _.avector );
 
 /**
  * Is a line alligned relative to the origin of coordinate system.
@@ -266,7 +264,7 @@ let Extension = /* qqq xxx : normalize order */
   tools : _,
 }
 
-_.props.extend( Self, Extension );
+/* _.props.extend */Object.assign( _.linePointCentered, Extension );
 injectChunks( Extension );
 
 })();

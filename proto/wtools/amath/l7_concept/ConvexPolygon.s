@@ -5,7 +5,7 @@
 const _ = _global_.wTools;
 // let this.tools.avector = this.tools.avector;
 // let vector = this.tools.vectorAdapter;
-const Self = _.convexPolygon = _.convexPolygon || Object.create( _.avector );
+_.convexPolygon = _.convexPolygon || Object.create( _.avector );
 
 /**
  * @description
@@ -2768,6 +2768,6 @@ let Extension = /* qqq xxx : normalize order */
   tools : _,
 }
 
-_.props.extend( Self, Extension );
+/* _.props.extend */Object.assign( _.convexPolygon, Extension );
 
 })();

@@ -3,9 +3,7 @@
 'use strict';
 
 const _ = _global_.wTools;
-// let this.tools.avector = this.tools.avector;
-// let vector = this.tools.vectorAdapter;
-const Self = _.linePointDir = _.linePointDir || Object.create( _.avector );
+_.linePointDir = _.linePointDir || Object.create( _.avector );
 
 /**
  * @description
@@ -504,9 +502,9 @@ function lineParallel3d( src1Line, src2Line, accuracySqr )
   // _.assert( arguments.length === 2 || arguments.length === 3 );
 
   // if( accuracySqr === undefined )
-  // accuracySqr = Self.accuracySqr;
+  // accuracySqr = this.accuracySqr;
 
-  // return _magSqr( this.tools.avector.cross( src1Line[ 1 ], src2Line[ 1 ] ) ) <= Self.accuracySqr;
+  // return _magSqr( this.tools.avector.cross( src1Line[ 1 ], src2Line[ 1 ] ) ) <= this.accuracySqr;
 
   _.assert( this.is( src1Line ) );
   _.assert( this.is( src2Line ) );
@@ -532,9 +530,9 @@ function lineParallel( src1Line, src2Line, accuracySqr )
   // _.assert( arguments.length === 2 || arguments.length === 3 );
 
   // if( accuracySqr === undefined )
-  // accuracySqr = Self.accuracySqr;
+  // accuracySqr = this.accuracySqr;
 
-  // return _magSqr( this.tools.avector.cross( src1Line[ 1 ], src2Line[ 1 ] ) ) <= Self.accuracySqr;
+  // return _magSqr( this.tools.avector.cross( src1Line[ 1 ], src2Line[ 1 ] ) ) <= this.accuracySqr;
 
   _.assert( this.is( src1Line ) );
   _.assert( this.is( src2Line ) );
@@ -845,7 +843,7 @@ function lineIntersectionPoints( srcLine1, srcLine2 )
   return 0;
 
   let factorsView = this.tools.vectorAdapter.from( factors );
-  let result = [ Self.lineAt( srcLine1, factorsView.eGet( 0 ) ), Self.lineAt( srcLine2, factorsView.eGet( 1 ) ) ];
+  let result = [ this.lineAt( srcLine1, factorsView.eGet( 0 ) ), this.lineAt( srcLine2, factorsView.eGet( 1 ) ) ];
   return result;
 }
 
@@ -889,12 +887,12 @@ lineIntersectionPoints.shaderChunk =
 function lineIntersectionPoint( srcLine1, srcLine2 )
 {
 
-  let factors = Self.lineIntersectionFactors( srcLine1, srcLine2 );
+  let factors = this.lineIntersectionFactors( srcLine1, srcLine2 );
 
   if( factors === 0 )
   return 0;
 
-  return Self.lineAt( srcLine1, factors.eGet( 0 ) );
+  return this.lineAt( srcLine1, factors.eGet( 0 ) );
 
 }
 
@@ -937,7 +935,7 @@ lineIntersectionPoint.shaderChunk =
 function lineIntersectionPointAccurate( srcLine1, srcLine2 )
 {
 
-  let closestPoints = Self.lineIntersectionPoints( srcLine1, srcLine2 );
+  let closestPoints = this.lineIntersectionPoints( srcLine1, srcLine2 );
   debugger;
 
   if( closestPoints === 0)
@@ -2561,7 +2559,7 @@ function rayIntersectionFactors( srcLine, srcRay )
 {
 
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
-  _.assert( srcLine.length === srcRay.length,'The line and the ray must have the same dimension' );
+  _.assert( srcLine.length === srcRay.length, 'The line and the ray must have the same dimension' );
 
   let srcLineView = this.adapterFrom( srcLine.slice() );
   let srcRayView = this.adapterFrom( srcRay.slice() );
@@ -2889,28 +2887,11 @@ function segmentIntersectionPoint( srcLine, tstSegment, dstPoint )
   */
 function segmentIntersectionFactors( srcLine, srcSegment )
 {
-
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
-
   let tstSegmentView = this.tools.segment.adapterFrom( tstSegment );
   let lineView = this.adapterFrom( srcLine );
   let gotBool = this.tools.segment.lineIntersects( tstSegmentView, lineView );
   return gotBool;
-
-  // _.assert( srcLine.length === srcSegment.length,'The line and the segment must have the same dimension' );
-  //
-  // let srcLineView = this.adapterFrom( srcLine.slice() );
-  // let srcSegmentView = this.adapterFrom( srcSegment.slice() );
-  // let segmentOrigin = _.segment.originGet( srcSegmentView );
-  // let segmentEnd = _.segment.endPointGet( srcSegmentView );
-  //
-  // let intersection = this.segmentIntersects( srcLineView, srcSegmentView );
-  // if( !intersection )
-  // return 0;
-  //
-  // let segmentLine = this.fromPoints( [ segmentOrigin, segmentEnd ] );
-  //
-  // return this.lineIntersectionFactors( srcLineView, segmentLine );
 }
 
 //
@@ -3400,6 +3381,6 @@ let Extension = /* qqq : normalize order */
 
 }
 
-_.props.extend( Self, Extension );
+/* _.props.extend */Object.assign( _.linePointDir, Extension );
 
 })();

@@ -3,9 +3,7 @@
 'use strict';
 
 const _ = _global_.wTools;
-// let this.tools.avector = this.tools.avector;
-// let vector = this.tools.vectorAdapter;
-const Self = _.sphere = _.sphere || Object.create( _.avector );
+_.sphere = _.sphere || Object.create( _.avector );
 
 /**
  * @description
@@ -3013,6 +3011,6 @@ let Extension = /* qqq : normalize order */
 
 }
 
-_.props.extend( Self, Extension );
+/* _.props.extend */Object.assign( _.sphere, Extension );
 
 })();
