@@ -17,7 +17,7 @@ about:
   enabled: 1
   license: MIT
   npm.name: wmathmodels
-  author: Kostiantyn Wandalen <wanalen@01.school>
+  author: Kostiantyn Wandalen <wandalen@obox.systems>
   keywords:
     - wTools
     - math
@@ -25,7 +25,7 @@ about:
     - dot product
     - convolution
   contributors:
-    - Kostiantyn Wandalen <wanalen@01.school>
+    - Kostiantyn Wandalen <wandalen@obox.systems>
     - Pablo Garcimartin <pablogarcimartinruiz@gmail.com>
   interpreters:
     - njs >= 10.0.0
